@@ -4327,6 +4327,7 @@ printer
 start gdm
 	sudo systemctl enable gdm.services
 
+getlantern	network autoproxy http://127.0.0.1:16823/proxy_on.pac
 
 
 
