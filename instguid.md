@@ -1,6 +1,7 @@
+```
 Unix, AIX and Linux
 
-  / /  (_)__  __ ____  __ 
+  / /  (_)__  __ ____  __
  / /__/ / _ \/ // /\ \/ /
 /____/_/_//_/\_,_/ /_/\_\
 
@@ -78,156 +79,156 @@ samba on aix, mount to remote windows
 
 Debug / trouble shooting
 	#Dump analysis and error report
-	errpt -a 
+	errpt -a
 	strings _ core | grep _=	# core analysis
-	dbx /usr/HTTPServer/bin/httpd core 
+	dbx /usr/HTTPServer/bin/httpd core
 		# Available param
-		where 
-		t 
-		at 
-		map 
+		where
+		t
+		at
+		map
 
 # mount an ISO on AIX
 	mklv -y cdlv rootvg ${num_of_pps}
 	dd if=/path/file.iso of=/dev/cdlv
 	mount -v cdrfs /dev/cdlv /mnt/point
- 
-................................................................................ 
+
+................................................................................
 ###############################################################################
- 
-AIX Monitor (data collected/ selected in System Assessment service in 2000) 
-	- lslpp -l output 
-	- errpt output 
-	- ps auxww 
- 
-	- vmstat ( capture output every 10 sec for 15 mins for 1 day ) 
-	Make sure the day this is captured represents an average load day. 
-	- iostat ( capture output every 10 sec for 15 mins for 1 day ) 
-	Make sure that the day this is captured represents an average load day. 
- 
-	These 2 lines can be placed in the crontab and then removed after the data has been collected. 
-	/usr/bin/vmstat 10 90 >> /tmp/vmstat.out 	#interval 10 sec for 90 secs 
-	/usr/bin/iostat 10 90 >> /tmp/iostat.out	#interval 10 sec for 90 secs 
- 
+
+AIX Monitor (data collected/ selected in System Assessment service in 2000)
+	- lslpp -l output
+	- errpt output
+	- ps auxww
+
+	- vmstat ( capture output every 10 sec for 15 mins for 1 day )
+	Make sure the day this is captured represents an average load day.
+	- iostat ( capture output every 10 sec for 15 mins for 1 day )
+	Make sure that the day this is captured represents an average load day.
+
+	These 2 lines can be placed in the crontab and then removed after the data has been collected.
+	/usr/bin/vmstat 10 90 >> /tmp/vmstat.out 	#interval 10 sec for 90 secs
+	/usr/bin/iostat 10 90 >> /tmp/iostat.out	#interval 10 sec for 90 secs
+
 $vmstat <time interval> <iteration> > <filename>	 
-$iostat <time interval> <iterations> > <filename> 
-................................................................................ 
- 
-Unix System Performance Tuning and Monitoring 
- 
-CPU-> Mem-> Disk/ IO-> Network 
-................................................................................ 
-	System Performance Tuning and Monitoring Flowchart 
- 
-                       /^\ 
-     Yes             /     \ 
-+--------------+   /         \ 
-| Optimize     <-< Is the sys  > 
-| reschedule   |   \CPU bound/ 
-| repriortize  |     \     / 
-| sar & vmstat |       \ / 
-| time         |        | No 
-| tprof & ps   |        | 
-| nice & renice|        v 
-| schedtune    |       /^\               /^\ 
-+--------------+     /     \           /     \      Yes 
-                   /         \  No   /         \ +------------+ 
-               +-<Is the system>-> <Is the system| Read-ahead | 
-           Yes |   \MEM bound/       Disk bound? |write-behind| 
-               v     \     /           \    /    | I/O pacing | 
-+--------------+       \ /               \/      | iostat     | 
-| vmstat       |                     +--------+  | filemon    | 
-| ps           |                     | netstat|  | fileplace  | 
-| lsps         |                     | nfsstat|  | lslv       | 
-| svmon        |                     +--------+  +------------+ 
-| rmss         |                        /^\ 
-| vmtune       |        Yes           /     \ 
-+--------------+   +------------+   /         \ 
+$iostat <time interval> <iterations> > <filename>
+................................................................................
+
+Unix System Performance Tuning and Monitoring
+
+CPU-> Mem-> Disk/ IO-> Network
+................................................................................
+	System Performance Tuning and Monitoring Flowchart
+
+                       /^\
+     Yes             /     \
++--------------+   /         \
+| Optimize     <-< Is the sys  >
+| reschedule   |   \CPU bound/
+| repriortize  |     \     /
+| sar & vmstat |       \ /
+| time         |        | No
+| tprof & ps   |        |
+| nice & renice|        v
+| schedtune    |       /^\               /^\
++--------------+     /     \           /     \      Yes
+                   /         \  No   /         \ +------------+
+               +-<Is the system>-> <Is the system| Read-ahead |
+           Yes |   \MEM bound/       Disk bound? |write-behind|
+               v     \     /           \    /    | I/O pacing |
++--------------+       \ /               \/      | iostat     |
+| vmstat       |                     +--------+  | filemon    |
+| ps           |                     | netstat|  | fileplace  |
+| lsps         |                     | nfsstat|  | lslv       |
+| svmon        |                     +--------+  +------------+
+| rmss         |                        /^\
+| vmtune       |        Yes           /     \
++--------------+   +------------+   /         \
                    | parameter  <-<Is the system>        
                    | nfs tuning |  Network bound   
                    | add mem    |     \     /      
-                   | reschedule |       \ / 
-                   +------------+ 
-................................................................................ 
+                   | reschedule |       \ /
+                   +------------+
+................................................................................
 ###############################################################################
- 
-Memory Performance Tuning and Monitoring (Mem Perf) 
-sar	(ref: AIX Certification Guide: Perf Tuning and Monitor. Page 52) 
+
+Memory Performance Tuning and Monitoring (Mem Perf)
+sar	(ref: AIX Certification Guide: Perf Tuning and Monitor. Page 52)
 	syntax: sar <interval> <times>	 
-	$sar -P ALL 2 1		#CPU utilization/ performance 
-	$sar 1 10 = $sar -u 1 10 #capture cpu util 10 times per 1 second. 
-	$sar -a 1 10	#how many times per second several of the sys file access routunes had been called. 
-	$sar -c 1 10	#system calls. 
-	$sar -d = $iostat 
-	$sar -q	1 10	#queue statistics 
-	$sar -r	1 10	#paging statistics 
-	$sar -v 1 10	#status of the process, kernel- thread, i- node, and file table. 
-	$sar -y 1 10	#status of tty dev. 
- 
-svmon	to list of the top mem users. Individual perspective. 
-	-P	display mem usage statistics for processes pid1 ... pidN. 
- 
-emstat	performance issue when migrate to a Power PC srv from an old POWER src. 
- 
-ps au	a snapshot available in time to look at a processes' average use of mem. 
- 
-vmstat	(ref: AIX Certification Guide: Perf Tuning and Monitor. Page 61). Average perspective. 
-	$vmstat -f	#how many forks since system startup 
-	$vmstat hdisk1 
-	Occasional small numbers of page pi and page po are normal. 
- 
-	kthr	kernel thread state changed per second over the sampling interval. 
-	-r 	# of kernel threads placed in run queue. value shoule be < 5 
-	-b	# of kernel threads place in wait queue. near to 0 (zero) 
-	Memory Info about the usage of virtual and real mem. A Page is 4096 bytes. 
+	$sar -P ALL 2 1		#CPU utilization/ performance
+	$sar 1 10 = $sar -u 1 10 #capture cpu util 10 times per 1 second.
+	$sar -a 1 10	#how many times per second several of the sys file access routunes had been called.
+	$sar -c 1 10	#system calls.
+	$sar -d = $iostat
+	$sar -q	1 10	#queue statistics
+	$sar -r	1 10	#paging statistics
+	$sar -v 1 10	#status of the process, kernel- thread, i- node, and file table.
+	$sar -y 1 10	#status of tty dev.
+
+svmon	to list of the top mem users. Individual perspective.
+	-P	display mem usage statistics for processes pid1 ... pidN.
+
+emstat	performance issue when migrate to a Power PC srv from an old POWER src.
+
+ps au	a snapshot available in time to look at a processes' average use of mem.
+
+vmstat	(ref: AIX Certification Guide: Perf Tuning and Monitor. Page 61). Average perspective.
+	$vmstat -f	#how many forks since system startup
+	$vmstat hdisk1
+	Occasional small numbers of page pi and page po are normal.
+
+	kthr	kernel thread state changed per second over the sampling interval.
+	-r 	# of kernel threads placed in run queue. value shoule be < 5
+	-b	# of kernel threads place in wait queue. near to 0 (zero)
+	Memory Info about the usage of virtual and real mem. A Page is 4096 bytes.
 	-avm	active virtual pages => $lsps -a (how to know page file/ pagefile size on AIX)
-	-fre	size of free list 
-	Page	Info about page faults and paging activity. 
-		These are averaged over the interval and given in units per sec. 
-	Ports Listening	-an 
-	-re	page input/ output list 
-	-pi	pages paged in from paging space 
-	-po 	pages paged out to paging space 
-	-fr	pages freed (page replacement) 
-	-sr	pages scanned by page- replacement algorithm 
-	-cy	clock cycles by page-replacement algorithm 
-	Faults	Trap and interrupt rate averages per second over the sampling interval. 
-	-in	dev interrupts 
-	-sy	system calls 
-	-cs	kernel thread contect swtiches 
-	CPU	breakdown of percentage usage of CPU time. 
-	-us	user time 
-	-sy	system time 
-	-id	cpu idle time 
-	-wa	cpu cycles to determine that the curent process is waiting and there is pending disk input/ output. 
-	Disk xfer 
- 
-$vmstat -s	write to the standard output the contents of the sum structure. 
- 
+	-fre	size of free list
+	Page	Info about page faults and paging activity.
+		These are averaged over the interval and given in units per sec.
+	Ports Listening	-an
+	-re	page input/ output list
+	-pi	pages paged in from paging space
+	-po 	pages paged out to paging space
+	-fr	pages freed (page replacement)
+	-sr	pages scanned by page- replacement algorithm
+	-cy	clock cycles by page-replacement algorithm
+	Faults	Trap and interrupt rate averages per second over the sampling interval.
+	-in	dev interrupts
+	-sy	system calls
+	-cs	kernel thread contect swtiches
+	CPU	breakdown of percentage usage of CPU time.
+	-us	user time
+	-sy	system time
+	-id	cpu idle time
+	-wa	cpu cycles to determine that the curent process is waiting and there is pending disk input/ output.
+	Disk xfer
+
+$vmstat -s	write to the standard output the contents of the sum structure.
+
 ps / perf/ performance
-	column	value 
-	C	Recent used CPU time for process 
-	TIME	Total CPU time used by process since it started 
-	%CPU 
- 
-	C column 
-	#ps -ef | sort +3 -r | head -n 5 
-	+3: 3rd column/ C column. -r: reversed. head -n 5: display first 5 lines 
- 
-	TIME column 
-	#ps -e | head -n 1; ps -e| grep -v "TIME|0:"|sort +2b -3 -n -r|head -n 10 
- 
-	CPU column 
-	#ps auxwww | head -n 5 
-	#ps gu | head -n1; ps gu|egrep -v "CPU|kproc" |sort +2b -3 -n -r |head -n 5 
+	column	value
+	C	Recent used CPU time for process
+	TIME	Total CPU time used by process since it started
+	%CPU
+
+	C column
+	#ps -ef | sort +3 -r | head -n 5
+	+3: 3rd column/ C column. -r: reversed. head -n 5: display first 5 lines
+
+	TIME column
+	#ps -e | head -n 1; ps -e| grep -v "TIME|0:"|sort +2b -3 -n -r|head -n 10
+
+	CPU column
+	#ps auxwww | head -n 5
+	#ps gu | head -n1; ps gu|egrep -v "CPU|kproc" |sort +2b -3 -n -r |head -n 5
 	ps -axf -> list detailed cmd.
- 
-	RSS column 
-	#ps av |sort +6 -r |head -n 5 
- 
-	%MEM column 
-	#ps au | head -n 1; ps au |egrep -v "RSS"|sort +3 -r |head -n 5 
-	#ps gv|head -n 1;ps gv|egrep -v "RSS" | sort +6b -7 -n -r |head -n 5 
+
+	RSS column
+	#ps av |sort +6 -r |head -n 5
+
+	%MEM column
+	#ps au | head -n 1; ps au |egrep -v "RSS"|sort +3 -r |head -n 5
+	#ps gv|head -n 1;ps gv|egrep -v "RSS" | sort +6b -7 -n -r |head -n 5
 
 	ps haxo 'size' | (tr '\n' +; echo 0) | bc
 
@@ -241,91 +242,91 @@ ps to check memory usage
 	# awk '{ t... }' = sum of all number
 	ps -e -o rsz | awk '{ t += $1 } END { print t }'
 
- 
-SMP	symmetrical multiprocessor 
 
-................................................................................ 
- 
-Disk Performance Tuning and Monitoring (Disk Perf) 
-	if large background job interfering with interactive response time, activate I/O pacing. 
-	a small # of files are being read over and over again-> consider whether additional real mem would allow those 
-	files to be buffered more effectively. 
-	if iostat cmd indicates I/O activity is not distributed among the sys disk drives, and the util of one or more disk 
-	drives is often 40- 50% or more, -> consider reorg fs. 
-	if workload access patterm is random, -> adding disks and distributing the randomlu accessed files across more drives. 
- 
-Disk- Physical volume level report 
-	#filemon -o /tmp/filemonLF.out -O pv 
-Disk- Virtual mem level report 
-	#filemon -o /tmp/filemonLF.out -O vm 
-................................................................................ 
- 
-General Recommendations on Disk, I/O performance. (IO) 
-Logical volume org for highest perf. 
-	allocate hot LVs to different PVs to reduce disk contention. 
-	spread hot LVs across multiple PVs so that parallel access is possible. 
-	place the hottest LVs in the center of PVs, the moderate LVs in the 
-	middle of PVs, and the coldest LVs on edges of PVs. 
-	mirroring can improve perf for read- intensive applications but, as 
-	writes need to be performed several times, can impact the perf of other 
-	applications. 
-	make the LV contiguous to reduce access time. 
-	set inter- policy to max. this will spread each logical volume across 
-	as many physical volumes as possible, allowing reads and writes to be 
-	shared among several physical vols. 
-	place frequently used logical vol close together to reduce the seek time. 
-	set write verify to NO. 
-Logical vol striping 
-File system relate perf issues. 
-	create an additional log logical vol to separate the log og the most 
-	active file system from the default log. this will increase parallel 
+SMP	symmetrical multiprocessor
+
+................................................................................
+
+Disk Performance Tuning and Monitoring (Disk Perf)
+	if large background job interfering with interactive response time, activate I/O pacing.
+	a small # of files are being read over and over again-> consider whether additional real mem would allow those
+	files to be buffered more effectively.
+	if iostat cmd indicates I/O activity is not distributed among the sys disk drives, and the util of one or more disk
+	drives is often 40- 50% or more, -> consider reorg fs.
+	if workload access patterm is random, -> adding disks and distributing the randomlu accessed files across more drives.
+
+Disk- Physical volume level report
+	#filemon -o /tmp/filemonLF.out -O pv
+Disk- Virtual mem level report
+	#filemon -o /tmp/filemonLF.out -O vm
+................................................................................
+
+General Recommendations on Disk, I/O performance. (IO)
+Logical volume org for highest perf.
+	allocate hot LVs to different PVs to reduce disk contention.
+	spread hot LVs across multiple PVs so that parallel access is possible.
+	place the hottest LVs in the center of PVs, the moderate LVs in the
+	middle of PVs, and the coldest LVs on edges of PVs.
+	mirroring can improve perf for read- intensive applications but, as
+	writes need to be performed several times, can impact the perf of other
+	applications.
+	make the LV contiguous to reduce access time.
+	set inter- policy to max. this will spread each logical volume across
+	as many physical volumes as possible, allowing reads and writes to be
+	shared among several physical vols.
+	place frequently used logical vol close together to reduce the seek time.
+	set write verify to NO.
+Logical vol striping
+File system relate perf issues.
+	create an additional log logical vol to separate the log og the most
+	active file system from the default log. this will increase parallel
 	resource usage.  
- 
-An lslv usage scenario: determine if hot file systems are better located on a 
+
+An lslv usage scenario: determine if hot file systems are better located on a
 	physical drive or spread across multiple physocal drives.  
- 
-lslv	LVM perf analysis using lslv. this cmd uses mainly cpu time. 
- 
-lspv	determine which disk or set of disk is experiencing contention on a SCSI bus. 
- 
-filemon usage scenario: 
-	determine if hot files are local or remote. 
-	determine if paging space dominates disk util. 
-	look for heavy physical vol util. determine if the type of drive or SCSI adapter causing a bottleneck. 
- 
-trcstop	if the filemon cmd is invoked, run trcstop to stop the cmd os that the filemon reports can be generated. 
- 
-iostat	-d	disk utilization report 
-	-t	TTY and CPU usage. 
-	%iowait + %tm_act metrics provided by the iostat report is used to initially determine if a sys is I/O (IO) bound. 
-fileplace usage scenario: 
-	determine if the application perf a lot of synchronous file IO. 
-	look for file fragmentation. determine if the hot files are heavily frgmented. 
-Paging space related disk perf issue 
-	never add more than one paging space on the same physical vol. 
-	reorg or add paging space on the same physical vol. 
-................................................................................ 
- 
-Network Performance Tuning and Monitoring (NW Perf) 
- 
-Adapter transmit and receive queue tuning 
-	#lsattr -El ent0 
-	#ifconfig en0 detach 
-	#chdev -l ent0 -a tx_que_size=128 
-	#ifconfig en0 up 
-	#netstat -v 
-	* 2 parameters should be checked (page 155, CertGuide AIX Perf Sys Tune) 
-	- Max Packets on S/W Transmit Queue. This is the max 
-	# of outgoing packets ever queued to the sw xanmit queue. An indication 
-	  of an inadequate queue size is if max 
-	# xansnuts queued equals the current queue size tx_que_size. This 
-	  indicates that the queue was full at some point. 
-	- S/W Transmit Queue Overflow. The 
-	# of outgoing packets that have overflowed the sw xansmit que. A value 
-	  other than zero indicates that the same actions 
-	# needed if the Max Packets on S/W Xansmit Que reaches the tx_que_size 
-  	  should be taken. The xansmit queue size has to be increased. 
- 
+
+lslv	LVM perf analysis using lslv. this cmd uses mainly cpu time.
+
+lspv	determine which disk or set of disk is experiencing contention on a SCSI bus.
+
+filemon usage scenario:
+	determine if hot files are local or remote.
+	determine if paging space dominates disk util.
+	look for heavy physical vol util. determine if the type of drive or SCSI adapter causing a bottleneck.
+
+trcstop	if the filemon cmd is invoked, run trcstop to stop the cmd os that the filemon reports can be generated.
+
+iostat	-d	disk utilization report
+	-t	TTY and CPU usage.
+	%iowait + %tm_act metrics provided by the iostat report is used to initially determine if a sys is I/O (IO) bound.
+fileplace usage scenario:
+	determine if the application perf a lot of synchronous file IO.
+	look for file fragmentation. determine if the hot files are heavily frgmented.
+Paging space related disk perf issue
+	never add more than one paging space on the same physical vol.
+	reorg or add paging space on the same physical vol.
+................................................................................
+
+Network Performance Tuning and Monitoring (NW Perf)
+
+Adapter transmit and receive queue tuning
+	#lsattr -El ent0
+	#ifconfig en0 detach
+	#chdev -l ent0 -a tx_que_size=128
+	#ifconfig en0 up
+	#netstat -v
+	* 2 parameters should be checked (page 155, CertGuide AIX Perf Sys Tune)
+	- Max Packets on S/W Transmit Queue. This is the max
+	# of outgoing packets ever queued to the sw xanmit queue. An indication
+	  of an inadequate queue size is if max
+	# xansnuts queued equals the current queue size tx_que_size. This
+	  indicates that the queue was full at some point.
+	- S/W Transmit Queue Overflow. The
+	# of outgoing packets that have overflowed the sw xansmit que. A value
+	  other than zero indicates that the same actions
+	# needed if the Max Packets on S/W Xansmit Que reaches the tx_que_size
+  	  should be taken. The xansmit queue size has to be increased.
+
 ###############################################################################
 
 AIX/ aix/ tcpip tuning
@@ -343,7 +344,7 @@ no -o tcp_pmtu_discover=1
 
 Be aware that the changes are lost after a reboot. Add the command to an init
 script like tcp.local or use the -p option of the no command on AIX 5.2
-systems (if you did not migrate from AIX 5.1). 
+systems (if you did not migrate from AIX 5.1).
 
 ###############################################################################
 ###############################################################################
@@ -351,10 +352,10 @@ systems (if you did not migrate from AIX 5.1).
 ENV env environment
 
 Unix id command/ cmd
-	0		root. ALL permission, 
+	0		root. ALL permission,
 	1- 100		some permission
 	101+-> 65535	no special permission. Normal user
-	
+
 Unix SUID/ suid, SGID/ sgid
 	-r-Sr--r-x 1	root	system 	234423 	Oct 20 15:29 back_shell	#Have group permission w/o exe
 	drwxr-sr-x 2 	root	system	123	Oct 30 10:20 mydir	#have group perm w/ execute
@@ -362,53 +363,53 @@ Unix SUID/ suid, SGID/ sgid
 Unix sticky	-r-xr-xr-t
 	chmod a+t <dir>	#generic unix. will not work in AIX
 	chmod +t <dir>	#AIX cmd
-	
+
 Unix device
 	tty- hard wired terminal
 	pts- pseudo terminal
 
-Linux Profile/profile / Environment Setting (env) 
+Linux Profile/profile / Environment Setting (env)
 	/etc/bashrc 	=> system wide aliases and functions; 	
 	/etc/profile	=> system wide environment stuff and startup programs 	
 	In AIX, they're /etc/environment and /etc/profile
-	
+
 	/etc/bashrc  and ~/.bashrc			# bashrc will be read first and always read. Both login shell and nonlogin shell will read.
 	/etc/profile and ~/.bash_profile		# Only login shell read
-	
+
 	/etc/skel/ stores sys files for being copied to new created user home
 	ie. /etc/skel/.profile to set EDITOR
 
 	$HOME/.bashrc contains user aliases and functions; 	
-	$HOME/.bash_profile contains user environment stuff and startup programs 
+	$HOME/.bash_profile contains user environment stuff and startup programs
 
 Linux .profile / PROFILE/ Profile sample
 	# .profile
-	
+
 	USERNAME="root"
 	PATH=$PATH:/usr/local/bin
 	BASH_ENV=$HOME/.bashrc
 	HOSTNAME=Greatwall
-	
+
 	export USERNAME BASH_ENV PATH
-	
+
 	# In AIX, $HOSTNAME is the fully qualified hostname
 	HOSTNAME=`hostname -s`
 	PS1='$LOGNAME@$HOSTNAME $PWD \$ '
 
 	# SuSE konsole
 	export PS1=$PS1"\[\e]0;\H:\w\a\]"
-	
+
 	stty erase ^?	# backspace redefine
-	 
+
 Disable / disable pc speaker / audio
 	echo "set bell-style none" >> /etc/inputrc
 
-$HOME/.inputrc contains key bindings and other bits. 
+$HOME/.inputrc contains key bindings and other bits.
 
-Linux Shell Change/ Selection 
-	$chsh		#change shell 
-	$echo $SHELL	#check current used shell. 
- 
+Linux Shell Change/ Selection
+	$chsh		#change shell
+	$echo $SHELL	#check current used shell.
+
 ###############################################################################
 ###############################################################################
 
@@ -435,7 +436,7 @@ Command line ftp through ftp | http
 	wget --no-directories --passive -m ftp://sunsite.ch/redhat-updates/7.2/en/os/i386/*.rpm
 
 Linux common cmd/ Linux command:  
-	wall-> send msg to all clients 
+	wall-> send msg to all clients
 	last		/var/log/wtmp
 	lastlog		/var/log/lastlog
 	who		/var/log/utmp
@@ -444,22 +445,22 @@ Linux common cmd/ Linux command:
 	dump-utmp	Converts the raw data from utmp or wtmp into ascii.
 	ftpwho		display all active ftp users
 	ftpcount	current # of users logged in to the sys. and the max # allowed.
-	ftpshut		shutdown ftp server. /etc/shutmsg created. 
+	ftpshut		shutdown ftp server. /etc/shutmsg created.
 			remove /etc/shutmsg to restart ftp server
 
-	top-> s1: 1 second interval. M: sort by mem. P: sort by CPU. T: time and fo: get help. 
+	top-> s1: 1 second interval. M: sort by mem. P: sort by CPU. T: time and fo: get help.
 
-	md5sum /bin/ps-> checksum rpm's md5sum 
+	md5sum /bin/ps-> checksum rpm's md5sum
 
 	file /bin/ps	# unix file cmd/ file command. ie. file /etc/security/lastlog to tell file type.
-	kill -HUP <pid> = daemon restart 
+	kill -HUP <pid> = daemon restart
 
 Linux text file converted between win/dos to unix
 	From Unix to DOS:
 	recode lat1..ibmpc file.txt
 	From DOS to Unix:
 	recode ibmpc..lat1 file.txt
- 
+
 Unix fuser cmd/command	fuser (objective: find out which appl owns port
 	AIX
 	fuser /fs/file			-> list pid
@@ -474,18 +475,18 @@ Unix fuser cmd/command	fuser (objective: find out which appl owns port
 
 	fuser -n tcp|udp -v <port>[,<remote address>[,<remote port>]
 	fuser -n tcp -v 22
-	
+
 	ps -xa | grep '907' -> outout is
 	 907 ?        S      0:01 /usr/local/sbin/sshd2
 	7710 pts/0    S      0:00 grep 907
 
-	ps -el		-> this gives correct start time only if the process was started before 24hrs. 
+	ps -el		-> this gives correct start time only if the process was started before 24hrs.
 			For all the process which has elapsed 24 hrs, it just displays the number of days.
 
 Linux lsof 	Track network connection
 	lsof <file_system_name>	# find processes blocking umount
 	lsof /path/file		# find users of a specific open file
-	lsof -i:<port#>		# find particular nw connect 
+	lsof -i:<port#>		# find particular nw connect
 	lsof -iTCP		# show only TCP (works the same for UDP)
 		lsof -iTCP@aaa.bbb.ccc:ftp-data
 	lsof -i@192.168.1.1	# show connections to a specific host
@@ -510,24 +511,24 @@ lsof advanced usage
 		# to kill all processes owned by userid
 	lsof +L1
 		# to show all open files that have a link count less than 1.
-		# indicative of a cracker trying to hide something 
+		# indicative of a cracker trying to hide something
 
 
 Linux log rotate
-	$less /etc/logrotate.conf 
-	$man logrotate 
-	ie. Weekly rotate 51 #how many weeks are there in one year. 
-	ie. Monthly rotate 12 # 
+	$less /etc/logrotate.conf
+	$man logrotate
+	ie. Weekly rotate 51 #how many weeks are there in one year.
+	ie. Monthly rotate 12 #
 
 Linux date/ cal (display how many days of today in this year.)
 	cal -j
 	date +%j
-	
-Linux Calendar/ calendar	cal mm yyyy	
+
+Linux Calendar/ calendar	cal mm yyyy
 
 Linux print configurator
-	/usr/sbin/printtool	
-	
+	/usr/sbin/printtool
+
 	# printer on ubuntu 11.10
 	system-config-printer > Add > Internet Printing Protocol > ipp://9.123.142.17:631/ipp > Forward > Generic (recommended) > PCL 6/PCL XL (recommended) > Generic PCL 6/PCL XL Printer Foomatmatic/pxlcolor [en](recommended)
 
@@ -540,8 +541,8 @@ Unix ls command
 	ls -dl /usr	# list directories
 
 
-Command line internet 
-	text internet	$lynx	#(shift+o -> options) 
+Command line internet
+	text internet	$lynx	#(shift+o -> options)
 			$links
 
 Zip/zip/unzip	jar -x -> to unzip
@@ -589,18 +590,18 @@ Linux IPC/ipc/ipcs/ipcrm 	# related to db2
 	kill -9 -1 (minus one) -> kill shm (shared mem)
 
 Linux cpu/ mem check & partition setting
-	cat /proc/cpuinfo 
-	cat /proc/meminfo 
+	cat /proc/cpuinfo
+	cat /proc/meminfo
 	cat /proc/partitions
 
 Linux mem memory by pid
 	ps -o pmem <pid>
 
-Linux Memory (mem) 
-	$memprof	#in gui 
- 
-	add below in /etc/lilo.conf to recognize the added mem 
-	append="mem=???MB" 
+Linux Memory (mem)
+	$memprof	#in gui
+
+	add below in /etc/lilo.conf to recognize the added mem
+	append="mem=???MB"
 
 hard drive / hard disk / hdd performance
 	# Get the current status of hard drive
@@ -616,7 +617,7 @@ hard drive / hard disk / hdd performance
 	-T		# test timing buffer- cache reads
 
 	-A1		# Enables the auto-readahead feature of the drive
-	-a64		# tells the drive how far to read ahead. 
+	-a64		# tells the drive how far to read ahead.
 	-X69		# UDMA 5 ATA 100
 	-M254		# Full speed
 
@@ -624,7 +625,7 @@ file fragment
 	filefrag <file>	# list frangmented extension's quantity
 
 Linux mouseconfig/ mouse config
-	/usr/sbin/mouseconfig	
+	/usr/sbin/mouseconfig
 	/etc/sysconfig/mouse
 
 SuSE/ suse mouse configuration in cmnline/ command line
@@ -640,9 +641,9 @@ Linux swap file
 	sync
 	swapon /swapfile
 
-	swap should be equal to twice your computer's RAM, or 32MB, whichever 
+	swap should be equal to twice your computer's RAM, or 32MB, whichever
 	amount is larger, but no larger than 2GB.
-	
+
 	# To create a swap partition
 	mkswap /dev/hdb2
 	swapon /dev/hdb2
@@ -672,7 +673,7 @@ linux disk quota
 	edquota user_A
 
 disk raid
-	fdisk /dev/hda -> add 4 news partitions -> 
+	fdisk /dev/hda -> add 4 news partitions ->
 	use "t" to convert filesystem id to "fd", which is raid auto/ RAID AUTO
 
 	touch /etc/raidtab
@@ -696,7 +697,7 @@ disk raid
 	mkraid /dev/md0		# start array
 	raidstart /dev/md0	# manually activate
 	watch cat /proc/mdstat	# watch the array building progress
-	mke2fs -j -b 4096 -R stride=8 /dev/md0	
+	mke2fs -j -b 4096 -R stride=8 /dev/md0
 		# format the raid fs. 4096x8=32 in chunk-size in /etc/raidtab
 	mount /dev/md0 /<mount_point>
 	lsraid -A -a /dev/md0	# display info on state of raid
@@ -706,10 +707,10 @@ disk raid
 	/var/log/messages and output of /proc/mdstat
 	raidstart /dev/md0, then raidhotadd /dev/md0 /dev/hda11
 
- 
+
 Linux Disk Usage/ disk usage
 	df -h -T -l
-	df -T /dev/hdaX 
+	df -T /dev/hdaX
 
 disk mgmt disk management > convert ext2 to ext3
 	/sbin/tune2fs -j /dev/vg0/pool
@@ -749,7 +750,7 @@ lvm remove /LVM remove
 	vgchange -an <VG>	# deactivate the VG
 
 vg remove
-	vgremove <VG>	
+	vgremove <VG>
 
 change vg status
 	vgchange -a y
@@ -760,14 +761,14 @@ AIX filesystem / file system
 
 Linux Core Dump analysis / core dump / coredump
 	core | grep _= 	# core analysis	# aix
-	strings core-> find which cmd causes the crash 
+	strings core-> find which cmd causes the crash
 
-	gdb /filesystem/cmd core-> find which lib causes the crash 
+	gdb /filesystem/cmd core-> find which lib causes the crash
 
-Linux Kernel Source (kernel src rpm) 
-	$cd /mnt/cdrom/RPMS	(linux installation CD) 
-	$rpm -ivh kernelsrc.rpm -> install rpm 
-	$cd /usr/src/linux	(you will find this file system) 
+Linux Kernel Source (kernel src rpm)
+	$cd /mnt/cdrom/RPMS	(linux installation CD)
+	$rpm -ivh kernelsrc.rpm -> install rpm
+	$cd /usr/src/linux	(you will find this file system)
 
 	# Creatae an emergency bootdisk
 	mkbootdisk -device /dev/fd0 2.4.7-10
@@ -777,24 +778,24 @@ Linux Kernel Source (kernel src rpm)
 	SPident		# on SuSE to find out the FixPack level
 
 Linux Kernel Recompiling/ compile -> /usr/src/linux-version/  
-	make menuconfig (make xconfig, make config) 
-	make dep - checks dependencies 
+	make menuconfig (make xconfig, make config)
+	make dep - checks dependencies
 	make clean - cleans up old .o, .a files, and so forth		 
 	make bzImage - compile.  
-		     - create kernel /usr/src/linux-version/arch/i386/boot 
-	make modules; make modules_install 
- 
-	or 
-	make menuconfig	 
-	make dep clean bzImage modules modules_install 
- 
-	then 
-	cp arch/i386/boot/bzImage /boot/vmlinuz-2.2.15-x.0-xxxx 
-	cp System.map /boot/System.map-2.2.15-x.0-xxxx 
-	vi /etc/lilo.conf -> add the image 
-	lilo -v -v 
+		     - create kernel /usr/src/linux-version/arch/i386/boot
+	make modules; make modules_install
 
-Linux updatedb/ slocate		/etc/cron.daily/slocate.cron 
+	or
+	make menuconfig	 
+	make dep clean bzImage modules modules_install
+
+	then
+	cp arch/i386/boot/bzImage /boot/vmlinuz-2.2.15-x.0-xxxx
+	cp System.map /boot/System.map-2.2.15-x.0-xxxx
+	vi /etc/lilo.conf -> add the image
+	lilo -v -v
+
+Linux updatedb/ slocate		/etc/cron.daily/slocate.cron
 	# initialize the db -> slocate -c -u (create + update)
 	# to find the file  -> slocate myfile
 
@@ -812,27 +813,27 @@ Linux module probe
 	# after modifying /etc/modules.conf, run to refresh
 	depmod -a
 
-Linux RPM/ rpm mgmt/ management signature 
+Linux RPM/ rpm mgmt/ management signature
 	# rpm package signature check
-	gpg --import /mnt/cdrom/RPM-GPG-KEY 
-	rpm -K <pachage> -> MD5 checksum 
-	rpm --checksig passwd-0.64.1-1.i386.rpm 
-	passwd-0.64.1-1.i386 md5 gpg OK 
- 
+	gpg --import /mnt/cdrom/RPM-GPG-KEY
+	rpm -K <pachage> -> MD5 checksum
+	rpm --checksig passwd-0.64.1-1.i386.rpm
+	passwd-0.64.1-1.i386 md5 gpg OK
+
 	# verify rpm's integrity
-	rpm -V `rpm -qa` or rpm -V `rpm -qa | grep cmd` 
-		net-tools-> telnet rpm 
-		procps-> /bin/ps rpm 
-	rpm --verify `rpm -qa` 
-	for j in `rpm -qa`; do-> echo $j-> rpm --verify $j-> done 
+	rpm -V `rpm -qa` or rpm -V `rpm -qa | grep cmd`
+		net-tools-> telnet rpm
+		procps-> /bin/ps rpm
+	rpm --verify `rpm -qa`
+	for j in `rpm -qa`; do-> echo $j-> rpm --verify $j-> done
 
 	# verify rpm with ignoring file attibute. List unsat
 	rpm -Va --nofiles
-	
+
 	# rpm remove
 	rpm -e --allmatches packages
 	rpm remove using --allmatches parameter
-	rpm -e --allmatches libstdc++-4.0.0-1 --nodeps	
+	rpm -e --allmatches libstdc++-4.0.0-1 --nodeps
 
 	# receive the error
 	error: %preun(VMwareWorkstation-4.5.2-8848) scriptlet failed, exit status 1
@@ -843,14 +844,14 @@ Linux RPM/ rpm mgmt/ management signature
 	rm -fr /var/lib/rpm/__db*
 	db_verify /var/lib/rpm/Packages
 	/usr/bin/rpmdb --rebuilddb
-	/usr/lib/rpmdb/i386-redhat-linux/redhat -> 
+	/usr/lib/rpmdb/i386-redhat-linux/redhat ->
 		all rpm db location. backup them up before changing
 
 	rpm -ivh ftp://path/file.rpm	# Install from ftp site
 	rpm --aid			# install all dependent rpm automatically when detecting required
 					# must rpmdb-*.rpm
 
-	rpm -qf /filesys/cmd 		# check 'cmd' owned by which RPM 
+	rpm -qf /filesys/cmd 		# check 'cmd' owned by which RPM
 	rpm -qa | grep cmd 		# if cmd rpm is installed
 	rpm -qa gpg-pubkey		# list the imported gpg pubkey
 	rpm -q --requires mozilla-M18 	# query the requirement of one rpm
@@ -902,14 +903,14 @@ yum suse repo build on rhel
 
 yum clean all
 yum -d10 check-update
- 
+
 Inittab change		/etc/inittab-> id:x:initdefault:  
-			(x=kde w/ network multi users w/o graphic) 
+			(x=kde w/ network multi users w/o graphic)
 	/sbin/init q
- 
-Linux chkconfig-> change runlevel. 
-	#chkconfig --list -> list all on- services. ie. chkconfig --level 2345 ssh on -> start ssh in runlevel 2,3,4,5 
-	#chkconfig telnet on -> to enable telnet service 
+
+Linux chkconfig-> change runlevel.
+	#chkconfig --list -> list all on- services. ie. chkconfig --level 2345 ssh on -> start ssh in runlevel 2,3,4,5
+	#chkconfig telnet on -> to enable telnet service
 
 	chkconfig --add <service_name> 	# add to check service
 	cp <service_name> /etc/rc.d/init.d/ -> cd /etc/rc.d/init.d/
@@ -919,18 +920,18 @@ Linux chkconfig-> change runlevel.
 		# chkconfig: 3 56 50
 		# description: nothing
 	chkconfig --del <service_name> 	# delete checked service
- 
-Linux at / AT 
+
+Linux at / AT
 	$ at 14:00	-> man at. schedule a cmd by at.
 
-History, key in		$cat /root/.bash_history 
-	HISTFILESIZE environmental variable. To increase it, 
+History, key in		$cat /root/.bash_history
+	HISTFILESIZE environmental variable. To increase it,
 	put "export HISTFILESIZE=xxxx" in your .bashrc file.
 
 	in ubuntu, place "export HISTSIZE=5000" into ~/.bashrc
- 
-Restore/ recovery boot manager/ bootmgr	$lilo -u /dev/hda 
- 
+
+Restore/ recovery boot manager/ bootmgr	$lilo -u /dev/hda
+
 Linux undelete and delete (Recover)	# egrep -200 'string1.+string2' /dev/hda3 > /mnt/dos/barrie
 					strings /mnt/dos/barrie | string2
 
@@ -952,36 +953,36 @@ Linux crontab sample file
 	0-59	0-23	1-31	1-12	0-6
 
 manual page/ manpage/ man page
-	man logrotate | col -b > /tmp/logrotate.man	
-	# remove !@#$%^.  comparing w/ man logrotate > /tmp/logrotate.man 
+	man logrotate | col -b > /tmp/logrotate.man
+	# remove !@#$%^.  comparing w/ man logrotate > /tmp/logrotate.man
 
 uuid UUID > 	blkid
 
 Linux system management/ system mgmt
- 
+
 ###############################################################################
 ###############################################################################
 
 Linux network management / network mgmt / nw mgmt
- 
+
 TCP/IP layer / tcpip reference model
- 
+
  	Application layer		-> web
 	client and server programs
-	
+
 	Transport layer			-> program-program msg delivery
 	tcp and udp protocols and service ports
-	
+
 	Internet/Network layer		-> source-destination computer msg delivery
 	ip packets, ip addr and icmp msg
 
-	subnet layer 
+	subnet layer
 	cable, wire, microwave, radio
 
-    IP vs UDP vs TCP (ip vs udp vs tcp) 
-	IP -> datagram, data forward 
-	UDP -> parallel w/ TCP, on top of IP, packed in IP. No connection. 
-	TCP -> same as UDP. Connection required. Verify connection always. Busy traffic. ie. Telnet. Photo call. 
+    IP vs UDP vs TCP (ip vs udp vs tcp)
+	IP -> datagram, data forward
+	UDP -> parallel w/ TCP, on top of IP, packed in IP. No connection.
+	TCP -> same as UDP. Connection required. Verify connection always. Busy traffic. ie. Telnet. Photo call.
 
 ip
 	show
@@ -1007,8 +1008,8 @@ ip
 
 	switch arp resolution off on one device
 	ip link set dev eth0 arp off -> ifconfig -arp eth0
- 
-	
+
+
 add/ delete routing table
 	route add default gw <ip>
 	route delete default gw <ip>
@@ -1023,10 +1024,10 @@ add/ delete routing table
 	ip route add 172.16.0.0/16 via 172.16.27.1 dev br0
 
 netstat interface	$netstat -in -t
-			#netstat -a | grep pts 
+			#netstat -a | grep pts
 			#netstat -tap -> tell you who owns the processes.
 
-    * LISTEN?The socket is listening for incoming connection. 
+    * LISTEN?The socket is listening for incoming connection.
     * ESTABLISHED?The socket has an established connection.
     * SYN_SENT?The socket is actively attempting to establish a connection.
     * SYN_RECV?A connection request has been received from the network.
@@ -1035,7 +1036,7 @@ netstat interface	$netstat -in -t
     * FIN_WAIT2?The connection is closed and the socket is waiting for a shutdown from the remote end.
     * CLOSE_WAIT?The remote end has shut down, and it is waiting for the socket to close.
     * CLOSED?The socket is not being used.
- 
+
 	netstat -an -> the output is
 	Active Internet connections (servers and established)
 	Proto Recv-Q Send-Q Local Address           Foreign Address         State
@@ -1044,7 +1045,7 @@ netstat interface	$netstat -in -t
 	udp        0      0 0.0.0.0:67              0.0.0.0:*
 
 	netstat -a -p -A inet
-	
+
 	# Search for open TCP network ports
 	netstat -apNlt
 
@@ -1052,20 +1053,20 @@ netstat interface	$netstat -in -t
 	netstat -apNlu
 
 Linux wu-ftp/ FTP anonymous turnoff
-	Turn off anonymous ftp access (if you have to have ftp at all) by editing /etc/ftpaccess 
+	Turn off anonymous ftp access (if you have to have ftp at all) by editing /etc/ftpaccess
 	You will see a line :
-	
+
 	class   all   real,guest,anonymous  *
-	Just remove the words guest and anonymous from the line.	
+	Just remove the words guest and anonymous from the line.
 
 	another way to permanently remove anonymous ftp
 	userdel ftp
 	rpm -qa | grep anonftp
- 
+
 tcp wrapper
 	Restricting access to local users with TCP wrappers
 
-	The tcpd program is configured using two files: /etc/hosts.allow and 
+	The tcpd program is configured using two files: /etc/hosts.allow and
 	/etc/hosts.deny. These files have lines of the form:
 
 	daemon_list : client_list [ : shell_command ]
@@ -1076,58 +1077,58 @@ tcp wrapper
     * Access is denied when a match is found in /etc/hosts.deny
     * Access is granted if nothing matches
 
-	For example, to allow telnet access only to our internal network, we 
-	start by setting policy (reject all connections with a source other 
+	For example, to allow telnet access only to our internal network, we
+	start by setting policy (reject all connections with a source other
 	than localhost) in /etc/hosts.deny:
 
 	in.telnetd: ALL EXCEPT LOCAL
 
-Linux Telnet Connection Refused. 
-	Uncomment or Add in.telnetd:ALL:ALLOW in /etc/hosts.allow 
-	eg. enable some service like telnet, ssh, etc-> add below lines in hosts.allow 
-	sshd:ALL 
-	telnetd:ALL 
-	ftp:ALL 
-	in.telnetd:ALL:ALLOW 
-	ALL:192.168.0/255.0 
- 
-	Then make sure below is added in hosts.deny 
-	ALL:ALL 
+Linux Telnet Connection Refused.
+	Uncomment or Add in.telnetd:ALL:ALLOW in /etc/hosts.allow
+	eg. enable some service like telnet, ssh, etc-> add below lines in hosts.allow
+	sshd:ALL
+	telnetd:ALL
+	ftp:ALL
+	in.telnetd:ALL:ALLOW
+	ALL:192.168.0/255.0
 
-Linux Telnet Login/login text. message of the day 
-	$vi /etc/issue -> text added in this file will be displayed when system starts on screen 
-	$vi /etc/issue.net -> usually copied from above file. The text added will display on telnet. 
+	Then make sure below is added in hosts.deny
+	ALL:ALL
+
+Linux Telnet Login/login text. message of the day
+	$vi /etc/issue -> text added in this file will be displayed when system starts on screen
+	$vi /etc/issue.net -> usually copied from above file. The text added will display on telnet.
 	/etc/motd -> msg of the day.	 
 
 Linux NFS mount config		
 	exportfs -ra	# apply the /etc/exports change
 	vi /etc/exports, add ->		/mnt/cdrom	192.168.1.1(ro,no_root_squash)
 	# for AIX, 	 add -> 	/mount/path	*(insecure)
- 
+
 	# on server, need to restart nfs service
 	# On SuSE, /etc/init.d/nfsserver restart
 	# on client, need to start portmap
 
-Linux Mount/mount mgmt 
-	force to umount	$fuser -c /cdrom		(in AIX) 
-			$kill -9 xxx <- /cdrom pid 
- 
-			$fuser -kimuv /mnt/cdrom	(in RedHat) 
- 
-			$fuser -k /cdrom/oracle8i	(in Sun) 
-			$fuser -c /cdrom/oracle8i -> this might cause cdrom unavailable until reboot machine. 
+Linux Mount/mount mgmt
+	force to umount	$fuser -c /cdrom		(in AIX)
+			$kill -9 xxx <- /cdrom pid
+
+			$fuser -kimuv /mnt/cdrom	(in RedHat)
+
+			$fuser -k /cdrom/oracle8i	(in Sun)
+			$fuser -c /cdrom/oracle8i -> this might cause cdrom unavailable until reboot machine.
 	#mount -o remount,rw /usr -> remount.  
 
 	showmount <hostname> or <ip_address>
 	showmount -e <hostname>		# list /etc/exports
 
 Linux connect to Windows as Samba client/ samba client/ smbclient
- 
+
 	smbclient -L windows_IP -U windows_username
 	mount -t smbfs //windows_IP/shared_drv /mnt/samba -o username=win_usr
 
-Linux Share (Samba/ samba/ smb) -> for windows user 
-	vi /etc/samba/smb.conf 
+Linux Share (Samba/ samba/ smb) -> for windows user
+	vi /etc/samba/smb.conf
 
 [global]
     workgroup = MYGROUP
@@ -1141,12 +1142,12 @@ Linux Share (Samba/ samba/ smb) -> for windows user
     browseable =no
     writable = yes
 
-	../smbpasswd user_id 
-	$/usr/bin/smb restart 
+	../smbpasswd user_id
+	$/usr/bin/smb restart
 
-	c:\net use \\jyang\tech /user:db2inst1	(in windows) 
- 
-	Encrypt doc	/usr/doc/samba-2.0.6/docs/textdocs/ENCRYPTION.txt 
+	c:\net use \\jyang\tech /user:db2inst1	(in windows)
+
+	Encrypt doc	/usr/doc/samba-2.0.6/docs/textdocs/ENCRYPTION.txt
 
 /etc/resolv.conf -> this file is auto generated after dhcpcd eth1. copied on apr 11. 2002
 	domain mtmk.phub.net.cable.rogers.com
@@ -1154,7 +1155,7 @@ Linux Share (Samba/ samba/ smb) -> for windows user
 	nameserver 24.153.23.66
 	search mtmk.phub.net.cable.rogers.com
 
-network resolvconf resolv.conf on Ubuntu ubuntu 
+network resolvconf resolv.conf on Ubuntu ubuntu
 	nmcli dev list iface eth0 | grep IP4.DNS
 	sudo dpkg-reconfigure resolvconf or sudo ln -sf ../run/resolvconf/resolv.conf /etc/resolv.conf
 
@@ -1172,26 +1173,26 @@ vlan
 vxlan
 	1. Create vxlan device
 	  # ip li add vxlan0 type vxlan id 42 group 239.1.1.1 dev eth1
-	
+
 	This creates a new device (vxlan0). The device uses the
 	the multicast group 239.1.1.1 over eth1 to handle packets where
 	no entry is in the forwarding table.
-	
+
 	2. Delete vxlan device
 	  # ip link delete vxlan0
-	
+
 	3. Show vxlan info
 	  # ip -d link show vxlan0
-	
+
 	It is possible to create, destroy and display the vxlan
 	forwarding table using the new bridge command.
-	
+
 	1. Create forwarding table entry
 	  # bridge fdb add to 00:17:42:8a:b4:05 dst 192.19.0.2 dev vxlan0
-	
+
 	2. Delete forwarding table entry
 	  # bridge fdb delete 00:17:42:8a:b4:05 dev vxlan0
-	
+
 	3. Show forwarding table
 	  # bridge fdb show dev vxlan0
 
@@ -1232,8 +1233,8 @@ add bridge
 ###############################################################################
 
 network debug
-	symptom: 
-	1. storage-1/ 2 host boxes are both working. 
+	symptom:
+	1. storage-1/ 2 host boxes are both working.
 	2. storage-2 can ping storage-1 and all kernel service VMs on storage-1.
 	3. storage-2 can NOT ping any VMs on storage-2
 
@@ -1301,13 +1302,13 @@ PING zookeeper-2 (172.30.11.21) from 172.30.11.100 br0: 56(84) bytes of data.
 [root@storage-2 ~]# ethtool eth3
 Settings for eth3:
 	Supported ports: [ TP ]
-	Supported link modes:   10baseT/Half 10baseT/Full 
-	                        100baseT/Half 100baseT/Full 
-	                        1000baseT/Full 
+	Supported link modes:   10baseT/Half 10baseT/Full
+	                        100baseT/Half 100baseT/Full
+	                        1000baseT/Full
 	Supports auto-negotiation: Yes
-	Advertised link modes:  10baseT/Half 10baseT/Full 
-	                        100baseT/Half 100baseT/Full 
-	                        1000baseT/Full 
+	Advertised link modes:  10baseT/Half 10baseT/Full
+	                        100baseT/Half 100baseT/Full
+	                        1000baseT/Full
 	Advertised pause frame use: No
 	Advertised auto-negotiation: Yes
 	Speed: 1000Mb/s
@@ -1379,7 +1380,7 @@ zone "gimlet.co.uk" in {
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 	touch /var/named/192.168.10.zone
-	ln -s /var/named/192.168.10.zone /var/named/gimlet.co.uk.zone 
+	ln -s /var/named/192.168.10.zone /var/named/gimlet.co.uk.zone
 
 	vi /var/named/192.168.10.zone ->
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -1398,14 +1399,14 @@ db2linux        IN      A       192.168.10.18
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 
-Linux securing e-mail 
-	#mailq	-> check mail queue 
-	#sendmail -q -> send mail pending in queue. 
+Linux securing e-mail
+	#mailq	-> check mail queue
+	#sendmail -q -> send mail pending in queue.
 	mail -f ~/mbox	# read the saved mail in mailbox
- 
-	/etc/sendmail.cf -> comment out the line containing: O Daemon Port Options=Port=smtp... 
 
-linux qmail	how to hide domain name 
+	/etc/sendmail.cf -> comment out the line containing: O Daemon Port Options=Port=smtp...
+
+linux qmail	how to hide domain name
 	echo linuxaid.com.cn > /var/qmail/control/defaulthost
 	chmod 644 /var/qmail/control/defaulthost
 
@@ -1432,13 +1433,13 @@ Linux sendmail server setup procedure.
 				Djheaventemple.torolab.ibm.com
 				DS -> maybe null. If this server sits in DMZ, this must be set for forward
 	*****-> Comment out line starting: O DaemonPortOptions=Port=smtp,Addr=127.0.0.1, Name=MTA
-			
+
 	vi /etc/mail/access-> add torolab.ibm.com RELAY
 	cd /etc/mail vi mailertable > add torolab.ibm.com smtp:mail.torolab.ibm.com > make
-	-> service sendmail restart 
+	-> service sendmail restart
 	cd /etc/xinetd.d-> vi ipop3-> edit disable= no-> service xinetd restart
-	
-	vi /var/named/named.heaventemple.torolab.ibm.com-> 
+
+	vi /var/named/named.heaventemple.torolab.ibm.com->
 		$TTL    86400
 		@       IN      SOA     heaventemple.torolab.ibm.com. root.heaventemple.torolab.ibm.com.  (
 		                                      1997022700 ; Serial
@@ -1449,7 +1450,7 @@ Linux sendmail server setup procedure.
 		        IN      NS      heaventemple.torolab.ibm.com.
 		        IN      MX 10   heaventemple.torolab.ibm.com.
 		fw      IN      A       heaventemple.torolab.ibm.com
-		
+
 		1       IN      PTR     localhost.
 	-> service named restart
 
@@ -1577,7 +1578,7 @@ courier-imap	-> virtual account
 
 	courier-authdaemon restart
 	courier-imap restart
-	
+
 
 spamassassin / spam assassin
 	export LANG=en_US
@@ -1587,7 +1588,7 @@ spamassassin / spam assassin
 
 pop3 / pop / dovecot
 	yum install dovecot
-	edit /etc/dovecot.conf > 
+	edit /etc/dovecot.conf >
 
 	# Protocols we want to be serving:
 	# imap imaps pop3 pop3s
@@ -1653,7 +1654,7 @@ php	pre-requisite	-> flex, bison, libjpeg-devel, gd-devel, zlib-devel, libxml2
 	--with-tiff-dir=/usr/lib
 	--with-png-dir=/usr/lib		(require libpng-devel, libtiff-devel)
 	make; make install
-	
+
 	$source/php.ini-recommended -> /usr/local/php/lib/php.ini
 
 	configure with apache -> edit httpd.conf
@@ -1686,11 +1687,11 @@ mysql
 	-> make sure client/ server's socket's path is correct & same -> socket=/usr/local/mysql/data
 
 	cd mysql -> scripts/mysql_install_db
-	chown -R root . 
+	chown -R root .
 	chown -R mysql data
 	chgrp -R mysql .
 	bin/mysqld_safe --user=mysql &
-	
+
 	mysqladmin -uroot -p shutdown
 
 	# refresh the security control
@@ -1752,7 +1753,7 @@ gallery upgrade
 
 
 Linux linuxconf	http://www.solucorp.qc.ca/
-	linuxconf --text	force to launch linuxconf in text mode	
+	linuxconf --text	force to launch linuxconf in text mode
 
 
 dhcp client 	$dhcpcd -h hostname -D -H eth0 	#bind with hostname when getting dhcp ip.
@@ -1776,8 +1777,8 @@ domain-name-servers,
 host-name;
 require subnet-mask, domain-name-servers;
 ----------------------------------------------------------------
-			
-dhcp srv/ dhcpd config		/etc/dhcpd.config as below (RedHat) 
+
+dhcp srv/ dhcpd config		/etc/dhcpd.config as below (RedHat)
 
 	Sample /etc/dhcpd.conf on TP755CD
 	# Put this file in /etc
@@ -1801,93 +1802,93 @@ dhcp srv/ dhcpd config		/etc/dhcpd.config as below (RedHat)
         	range 192.168.1.11 192.168.1.30;
         }
 
-Linux/Unix socks service/sockd. 
+Linux/Unix socks service/sockd.
 	Adv: transparent after initial setup, good logging, very secure
-	Disadv: doesn't work well / udp. doesn't work at all w/ icmp. client needs dns/DNS. slower than NAT* 
-	www.socks.nec.com 
-	www.inet.no/dante 
- 
-	sample /etc/sockd.conf 
-		logoutput: syslog 
-		internal: 192.168.5.1 port = 1080 
-		external: 8.4.113.5 
-		method: username none 
-		user.privileged: root 
-		user.notprivileged: nobody 
-		user.libwrap: nobody 
-		connecttimeout: 30 
-		iotimeout: 86400 
-		client pass { 
-		        from: 192.168.5.0/24 to: 0.0.0.0/0 
-		        log: connect 
-		} 
-		block { 
-		        from: 0.0.0.0/0 to: 127.0.0.0/8 
-		        log: connect error 
-		} 
-		pass { 
-		        from: 192.168.5.0/24 to: 0.0.0.0/0 
-		        protocol: tcp udp 
- 
-	sockify application 
-		in /etc/socks.conf 
-		route { 
-			from: 0.0.0.0/0 to: 192.168.1.1/24 via: direct 
-		} 
-		route { 
-			from: 0.0.0.0/0 to: 0.0.0.0/0 via: 192.168.1.1 port=1080 
-			protocol: udp tcp 
-			proxyprotocol: socks_v4 socks_v5 
-			method: none 
-		} 
-	eg. 
-		#socksify telnet www.ibm.com 80 
-		#socksify lynx 
-	to socksify all application that use shared lib: 
-		#export LD_PRELOAD="libdsocks.so" 
-		#telnet www.ibm.com 80 
- 
-Linux apache http/proxy. 
-	Adv: proxy does DNS lookup. based on user, server and client ip, can do transparent caching. 
+	Disadv: doesn't work well / udp. doesn't work at all w/ icmp. client needs dns/DNS. slower than NAT*
+	www.socks.nec.com
+	www.inet.no/dante
+
+	sample /etc/sockd.conf
+		logoutput: syslog
+		internal: 192.168.5.1 port = 1080
+		external: 8.4.113.5
+		method: username none
+		user.privileged: root
+		user.notprivileged: nobody
+		user.libwrap: nobody
+		connecttimeout: 30
+		iotimeout: 86400
+		client pass {
+		        from: 192.168.5.0/24 to: 0.0.0.0/0
+		        log: connect
+		}
+		block {
+		        from: 0.0.0.0/0 to: 127.0.0.0/8
+		        log: connect error
+		}
+		pass {
+		        from: 192.168.5.0/24 to: 0.0.0.0/0
+		        protocol: tcp udp
+
+	sockify application
+		in /etc/socks.conf
+		route {
+			from: 0.0.0.0/0 to: 192.168.1.1/24 via: direct
+		}
+		route {
+			from: 0.0.0.0/0 to: 0.0.0.0/0 via: 192.168.1.1 port=1080
+			protocol: udp tcp
+			proxyprotocol: socks_v4 socks_v5
+			method: none
+		}
+	eg.
+		#socksify telnet www.ibm.com 80
+		#socksify lynx
+	to socksify all application that use shared lib:
+		#export LD_PRELOAD="libdsocks.so"
+		#telnet www.ibm.com 80
+
+Linux apache http/proxy.
+	Adv: proxy does DNS lookup. based on user, server and client ip, can do transparent caching.
 	Disadv: only works for specific protocols. slower than NAT.  
-		/etc/http/logs 
-	www.apache.org- apache 
-	www.tis.com- TIS firewall 
-	squid.nlanr.net- Squid 
- 
-	sample /etc/httpd/conf/httpd.conf 
-		Listen 192.168.1.1:8080 
-		LoadModule proxy_module		modules/libproxy.so 
-		AddModule mod_proxy.c 
-		<IfModule mod_proxy.c> 
-		ProxyRequests On 
-		<Directory proxy:*> 
-			Order deny, allow 
-			Deby from all 
-			Allow from 192.168.0.0/24 
-		</Directory> 
-		CacheRoot "/var/cache/httpd" 
-		CacheSize 5 
-		CacheGcInterval 4 
-		CacheMaxExpire 24 
-		CacheLastModifiedFactor 0.1 
-		CacheDefaultExpire 1 
-		NoCache a_domain.com another_domain.edu xxx.com 
-		</IfModule> 
- 
-squid3 squid proxy sample /etc/squid3/squid.conf 
+		/etc/http/logs
+	www.apache.org- apache
+	www.tis.com- TIS firewall
+	squid.nlanr.net- Squid
+
+	sample /etc/httpd/conf/httpd.conf
+		Listen 192.168.1.1:8080
+		LoadModule proxy_module		modules/libproxy.so
+		AddModule mod_proxy.c
+		<IfModule mod_proxy.c>
+		ProxyRequests On
+		<Directory proxy:*>
+			Order deny, allow
+			Deby from all
+			Allow from 192.168.0.0/24
+		</Directory>
+		CacheRoot "/var/cache/httpd"
+		CacheSize 5
+		CacheGcInterval 4
+		CacheMaxExpire 24
+		CacheLastModifiedFactor 0.1
+		CacheDefaultExpire 1
+		NoCache a_domain.com another_domain.edu xxx.com
+		</IfModule>
+
+squid3 squid proxy sample /etc/squid3/squid.conf
 	acl localnet src 10.0.0.0/24
 	http_access allow localnet
 	http_port 0.0.0.0:3128
 
-		
+
 Linux apache/ httpd/ http server test, configtest
 	# limit upload file size at 10M
 	LimitRequestBody 10240000
 
 	In Unix, $IBMHTTPServer/bin/apachectl configtest
-	
-	In Micro$oft Windows 
+
+	In Micro$oft Windows
 		$IBMHTTPServer\apache -t
 		$IBMHTTPServer\apache -help to get help list
 
@@ -1904,7 +1905,7 @@ Linux apache/ httpd/ http server test, configtest
 		AuthType Basic
 		AuthUserFile /usr/local/apache2/passwords
 		require valid-user
-	edit httpd.conf -> add 
+	edit httpd.conf -> add
 		<Directory "/path_to_secure">
 		AllowOverride AuthConfig
 
@@ -2010,32 +2011,32 @@ LDAP / OpenLDAP / ldap
 
 
 Linux snmpd / snmp
-	snmpwalk -v 1 localhost somerandomstring system 
+	snmpwalk -v 1 localhost somerandomstring system
 
-Linux Time Syncronize in a group server 
-	add timed daemon into /etc/rc.d/rc.local on each system and the machine starts  the daemon 
+Linux Time Syncronize in a group server
+	add timed daemon into /etc/rc.d/rc.local on each system and the machine starts  the daemon
 	with -M option will be treated as master time sources by others.  
 
 time / ntp client tcp/udp:123
 	place following cmd into crontab -e
 	0 2 * * * /usr/sbin/ntpdate -s -b -p 8 -u 129.132.2.21
 
-      -b Force the time to be stepped using the settimeofday() system call, 
-	 rather than slewed (default) using the adjtime() system call. This 
-	 option should be used when called from a startup file at boot time. 
+      -b Force the time to be stepped using the settimeofday() system call,
+	 rather than slewed (default) using the adjtime() system call. This
+	 option should be used when called from a startup file at boot time.
 
-      -p samples Specify the number of samples to be acquired from each 
-	 server as the integer samples, with values from 1 to 8 inclusive. 
+      -p samples Specify the number of samples to be acquired from each
+	 server as the integer samples, with values from 1 to 8 inclusive.
 	 The default is 4.
 
-      -s Divert logging output from the standard output (default) to the 
-	 system syslog facility. This is designed primarily for convenience 
+      -s Divert logging output from the standard output (default) to the
+	 system syslog facility. This is designed primarily for convenience
 	 of cron scripts.
 
       -u Direct ntpdate to use an unprivileged port or outgoing packets. 	         
-	 This is most useful when behind a firewall that blocks incoming 
-	 traffic to privileged ports, and you want to synchronise with hosts 
-	 beyond the firewall. Note that the -d option always uses unprivileged 
+	 This is most useful when behind a firewall that blocks incoming
+	 traffic to privileged ports, and you want to synchronise with hosts
+	 beyond the firewall. Note that the -d option always uses unprivileged
 	 ports.
 
 	# http://portal.suse.com/sdb/en/2002/02/xntp.html
@@ -2047,7 +2048,7 @@ svscan is started from init. add following entry in /etc/inittab
 	# this daemons in /service/ is symbolink created.
 
 ntp server
-      # Look at the Startup Script in /etc/rc.d/init.d/ntpd 
+      # Look at the Startup Script in /etc/rc.d/init.d/ntpd
 
     start() {
             # Adjust time to make life easy for ntpd
@@ -2067,11 +2068,11 @@ ntp server
             return $RETVAL
     }
 
-      # Insert swisstime.ethz.ch or more NTP Servers to /etc/ntp/step-tickers 
+      # Insert swisstime.ethz.ch or more NTP Servers to /etc/ntp/step-tickers
 
     129.132.2.21
 
-      # Edit the configuration file /etc/ntp.conf 
+      # Edit the configuration file /etc/ntp.conf
 
     server 127.127.1.0  # local clock
     server 129.132.2.21 # swisstime.ethz.ch (stratum 1)
@@ -2090,7 +2091,7 @@ ddclient	http://www.aei.ca/~pmatulis/pub/dyndns.html
 
 	   1. edit the ddclient configuration file
 	   2. test the client
-	   3. decide on launching strategy 
+	   3. decide on launching strategy
 
 	1. edit the ddclient configuration file
 
@@ -2157,7 +2158,7 @@ Unix hack/ hacking scenario. Do as root
 	chmod u+s /tmp/ls
 	su - non_root_user
 	/tmp/ls		-> grant access as root
-	
+
 openssl
 	# generate an ssl cert signing request (csr) -> send csr file to CA
 	openssl req -new -out filename.csr -keyout privkey.pem
@@ -2177,7 +2178,7 @@ openssl
 	ssl/misc/CA.pl -sign	# sign by CA
 
 	# convert ssl cert from der to pem format
-	openssl x509 -inform der -in filename -out filename.pem 
+	openssl x509 -inform der -in filename -out filename.pem
 
         # create digests of a file, which can be used to verify that a file
         # hasnot been tampered with:
@@ -2289,7 +2290,7 @@ send the starttls command (smtp or pop3 style): -starttls smtp or -starttls pop3
 
 keytool
 
-keytool does not support management of private keys inside a keystore. You need to use another tool for that. If you are using the JKS format, that means you need another java-based tool. extkeytool from the Shibboleth distribution can do this. 
+keytool does not support management of private keys inside a keystore. You need to use another tool for that. If you are using the JKS format, that means you need another java-based tool. extkeytool from the Shibboleth distribution can do this.
 
 Create an empty keystore
 	keytool -genkey -alias foo -keystore truststore.jks
@@ -2470,28 +2471,28 @@ PAM control / pam control
 	auth       required     pam_tally.so onerr=fail no_magic_root
 	account    required     /lib/security/pam_tally.so deny=2 reset no_magic_root
 	# add above 2 lines into sshd
-	# to reset 
+	# to reset
 	/sbin/pam_tally --user somebody --reset
 
 sudo	-> visudo -> # Uncomment to allow people in group wheel to runa all command
 	%wheel ALL=(ALL)	ALL
 	# then edit /etc/group -> wheel:x:10:root,someuser
 
-Linux interface specific options are in 
-	/proc/sys/net/ipv4/conf/<interface-name> 
+Linux interface specific options are in
+	/proc/sys/net/ipv4/conf/<interface-name>
 
-Linux Firewall/ firewall machine setup. Filesystem/ partition size 
+Linux Firewall/ firewall machine setup. Filesystem/ partition size
 	/ 190, /boot 3, /var 30  /home 1  /usr 250  /tmp 20  swap 36 -> actual usage in tp755cd
 	/ 1500 /boot 50 /var 400 /home 100 /usr 4500 /tmp 300 /opt 1500 -> penguinsecurity
 Linux firewall log. put below line into /etc/syslog.conf-> service syslogd restart
 	kern.info /var/log/firewall
 	# all error and warning msg logged
 	*.warn; *.err	/var/log/errmsg
- 
+
 Linux ipmasq/ ipmasqerading (6.2 and 7.2 default enabled)
-	echo 1 > /proc/sys/net/ipv4/ip_forward 
-	vi /etc/sysctl.conf -> net.ipv4.ip_forward = 1 
- 
+	echo 1 > /proc/sys/net/ipv4/ip_forward
+	vi /etc/sysctl.conf -> net.ipv4.ip_forward = 1
+
 root ftp / ftp by root
 	edit /etc/ftpusers -> comment out root
 	edit /etc/ftpaccess -> add
@@ -2545,7 +2546,7 @@ Linux user login time control
 Linux change shell to /usr/bin/passwd
 	either add /usr/bin/passwd into /etc/shells
 	or /etc/pam.d/ftp -> # pam_shells.so  -> comment out
-	 
+
 Linux tripwire
 	# Initialize
 	cd /etc/tripwire
@@ -2557,14 +2558,14 @@ Linux tripwire
 	tripwire --init --cfgfile tw.cfg --polfile tw.pol --site-keyfile site.key --local-keyfile $HOSTNAME-local.key
 
 	# Print the database
-	twprint -m d 
+	twprint -m d
 
 	# Verify
 	tripwire --check
 
 	# Update
 	tripwire --update --twrfile /var/lib/tripwire/report/hostname-time.twr
-	
+
 	# test tripwire sent through email
 	tripwire --test --email your@email.address
 
@@ -2577,11 +2578,11 @@ Linux tripwire
 
 	# auto report. put it into crontab -e
 	/usr/sbin/tripwire -m c | mail -s "Tripwire from HOST" root@localhost
-	cat above into /usr/local/bin/runtw.sh -> chmod u+x runtw.sh -> 
+	cat above into /usr/local/bin/runtw.sh -> chmod u+x runtw.sh ->
 	crontab -e -> add
 	1 6 * * * /usr/local/bin/runtw.sh
 
-	# modify twpol.txt 
+	# modify twpol.txt
 	...
 	# Something I want to monitor
 	(
@@ -2599,7 +2600,7 @@ Linux tripwire
 
 rpm integrity check
 	rpm -V net-tools	/bin/telnet
-	rpm -V procps		/bin/ps 
+	rpm -V procps		/bin/ps
 	rpm -V shadow-utils 	lastlog, chage, gpasswd
 	rpm -V file-utils	/bin/ls
 	rpm -V SysVinit		last, wall, etc
@@ -2628,14 +2629,14 @@ Linux Ethereal/ ethereal
 	# capture UDP but NOT DNS
 	edit you filter, add expr, select UDP, select Souce or Dest Port, select != at right panel, type 53.
 
-Linux tcpdump (AIX uses iptrace) 
-	tcpdump -i eth0 -lnx -> n=no DNS 
-	tcpdump output: 
-    Hexadecimal  Binary				        Meaning 
-    ---- ----    -------- -------- -------- --------    --------------------------------------------------- 
-    4500 0054    01000101 00000000 00000000 01010100    VERS=4, HLEN=5, Service=00, Total length=0054 (Hex) 
-    0172 0000    00000001 01110010 00000000 00000000    ID=0172, FLG=0, FO=0 
-    .... .... 
+Linux tcpdump (AIX uses iptrace)
+	tcpdump -i eth0 -lnx -> n=no DNS
+	tcpdump output:
+    Hexadecimal  Binary				        Meaning
+    ---- ----    -------- -------- -------- --------    ---------------------------------------------------
+    4500 0054    01000101 00000000 00000000 01010100    VERS=4, HLEN=5, Service=00, Total length=0054 (Hex)
+    0172 0000    00000001 01110010 00000000 00000000    ID=0172, FLG=0, FO=0
+    .... ....
 
 	# capture all UDP, but NOT DNS.
 	tcpdump -i eth1 'proto UDP and (port not 53)'
@@ -2650,7 +2651,7 @@ windump sample
         windump host bamse and host cartman and udp     # capture udp between 2 hosts
         windump -v -n "icmp[0]=8 or icmp[0]=0"  # capture icmp echo req and echo reply msg. n= don't resolve ip to names
 
-xauth | xauthority | to avoid Xlib: connection to ":0.0" refused by server > Xlib: No protocol specified > Error: Can't open display: :0.0 
+xauth | xauthority | to avoid Xlib: connection to ":0.0" refused by server > Xlib: No protocol specified > Error: Can't open display: :0.0
 	xauth -f ~source_user/.Xauthority extract - :0 | xauth merge -
 
 tap tun	http://en.wikipedia.org/wiki/TUN/TAP
@@ -2660,19 +2661,19 @@ ssh / SSH / sshd performance
 	@ /etc/ssh/sshd_config
 	GSSAPIAuthentication no
 	UseDNS no
-	 
-Linux SSH/ssh. to prevent xauth fails between machine w/ xwin and machine w/o xwin, do below 2 steps 
-	$unset DISPLAY 
-	$ssh -x destinationhost 
+
+Linux SSH/ssh. to prevent xauth fails between machine w/ xwin and machine w/o xwin, do below 2 steps
+	$unset DISPLAY
+	$ssh -x destinationhost
 
 Linux ssh keys setup http://www.arches.uga.edu/~pkeck/ssh/
 	on local machine:
 	ssh-keygen -t dsa
 	scp ~/.ssh/id_dsa.pub 192.168.1.1:.ssh/authorized_keys2
-	
+
 	on remote sshd machine:
 	ssh-agent sh -c 'ssh-add < /dev/null && bash'
-	# start ssh-agent, add the default identity keys	
+	# start ssh-agent, add the default identity keys
 
 ssh + rsync
 	rsync -avz -e ssh --delete /file/ user@remote:/path/
@@ -2697,7 +2698,7 @@ ssh encrypted channel port forwarding
 	# -C: tells ssh to employ compression. optional
 	# -N: tells ssh not to execute a shell or cmd. since the purpose is to connect via VNC w/o cmd.
 
-	ssh -L 8888:ssh_host:80 -L 110:ssh_host:110 25:ssh_host:25 user@computer -N 
+	ssh -L 8888:ssh_host:80 -L 110:ssh_host:110 25:ssh_host:25 user@computer -N
 
 ssh proxy
 	sudo ssh -N -v -D 8081 user@domain.net
@@ -2705,7 +2706,7 @@ ssh proxy
 
 	ssh -D *:9999 158.85.164.5
 
-	for i in 50070 8080 8088 2222 2223; do ssh -N -f -L 192.168.200.2:$i:127.0.0.1:$i localhost; 
+	for i in 50070 8080 8088 2222 2223; do ssh -N -f -L 192.168.200.2:$i:127.0.0.1:$i localhost;
 
 openssh / ssh install
 	./configure --prefix=PATH --with-ssl-dir=PATH
@@ -2779,7 +2780,7 @@ fi
 
 if [ ! -s /tmp/pid.SSHTunnel ]
 	then
-  		echo "SSH Tunnel not running - restarting" 
+  		echo "SSH Tunnel not running - restarting"
 		ssh -N -f -R 192.168.200.2:20081:192.168.1.101:22 bryan@121.201.13.44
 fi
 
@@ -2792,12 +2793,12 @@ ssh tunnel crontab
 
 
 Linux Password Lost/ Control / passwd / password lost
-	boot machine as linux single in lilo. then do passwd change. 
+	boot machine as linux single in lilo. then do passwd change.
 	For Grub hit 'e' at the Grub screen and then add 'single' to the kernel line and boot.
 
 iptables/ IPTables load modules for passive ftp / iptables faq
 	/sbin/modprobe ip_conntrack_ftp
-	/sbin/modprobe ip_nat_ftp 
+	/sbin/modprobe ip_nat_ftp
 
 	# Flushing
 	iptables -F
@@ -2944,13 +2945,13 @@ iptables/ firewall optimization
 	# use the multiport module to specify port lists
 
 Linux security. suid/ suig. To diable the suid bits on selected programs.
-	chmod a-s /usr/bin/chage 
+	chmod a-s /usr/bin/chage
 	chmod a-s /usr/bin/gpasswd
 	chmod a-s /usr/bin/wall
 	chmod a-s /usr/bin/chfn
 	chmod a-s /usr/bin/chsh
 	chmod a-s /usr/bin/newgrp
-	chmod a-s /usr/bin/write 
+	chmod a-s /usr/bin/write
 	chmod a-s /usr/sbin/usernetctl
 	chmod a-s /usr/sbin/traceroute
 	chmod a-s /bin/mount          
@@ -2963,7 +2964,7 @@ Linux security. suid/ suig. To diable the suid bits on selected programs.
 	chattr +i /etc/shadow
 	chattr +i /etc/gshadow
 	chattr +i /etc/group
-	
+
 immune immunization/ immunize
 	chmod 700 /bin/rpm
 	chmod -R 700 /etc/rc.d/init.d
@@ -2987,8 +2988,8 @@ Home machine securing
 	chattr +i passwd group shadow gshadow services
 	chmod 700 /bin/rpm, chmod -R 700 /etc/rc.d/init.d
 
-	TP701C Video config: Chips&Tech, CT65545, 50-90 Hz, 640x 480 
- 
+	TP701C Video config: Chips&Tech, CT65545, 50-90 Hz, 640x 480
+
 file permission		1755	-> sticky
 			2000	-> sgid		chmod g+S
 			4000	-> suid		chmod u+s
@@ -3002,41 +3003,41 @@ chcon - change security context
 
 Linux Performance / linux performance / linux perf
 
-Linux Kernel Configuration Options (kernel configuration/ config options) 
-	vi /etc/sysctl.conf 
+Linux Kernel Configuration Options (kernel configuration/ config options)
+	vi /etc/sysctl.conf
 	net.ipv4.ip_forward = 1  
 	or sample
-	sysctl -a -> list all options, such net.ipv4.ip_forward... 
+	sysctl -a -> list all options, such net.ipv4.ip_forward...
 	sysctl -w net.ipv4.ip_forward ='1'
- 
-	#Ignore ICMP echo requests to broadcast address 
-	net.ipv4.icmp_destunreach_rate = 10 
-	net.ipv4.icmp_echoreply_rate = 10 
-	net.ipv4.icmp_paramprob_rate = 10 
-	net.ipv4.icmp_timeexceed_rate = 10 
- 
-	kernel config opetions for IP/ip 
-	#default ttl 
-	net.ipv4.ip_default_ttl = 255 
-	#local port range for tcp and udp connections 
-	net.ipv4.ip_local_port_range = 1024 32000 
-	#no path MTU discovery 
-	net.ipv4.ip_no_pmtu_disc = 1 
-	#ip frag mem (fragmentation memory) threshholds and timeouts 
-	net.ipv4.ipfrag_high_thresh = 262144 
-	net.ipv4.ipfrag_low_thresh = 196608 
-	net.ipv4.ipfrag_time = 30 
- 
-	kernel config options for tcp/TCP 
-	#detect broken connection early 
-	net.ipv4.tcp_keepalive_probes = 5 
-	net.ipv4.tcp_keepalive_time = 600 
-	#protection against SYN attacks 
-	net.ipv4.tcp_syncookies = 1 
-	#protect against unfinished connections 
-	net.ipv4.tcp_retries1 = 3 
-	#protection against FIN attacks 
-	net.ipv4.tcp_fin_timeout = 30 
+
+	#Ignore ICMP echo requests to broadcast address
+	net.ipv4.icmp_destunreach_rate = 10
+	net.ipv4.icmp_echoreply_rate = 10
+	net.ipv4.icmp_paramprob_rate = 10
+	net.ipv4.icmp_timeexceed_rate = 10
+
+	kernel config opetions for IP/ip
+	#default ttl
+	net.ipv4.ip_default_ttl = 255
+	#local port range for tcp and udp connections
+	net.ipv4.ip_local_port_range = 1024 32000
+	#no path MTU discovery
+	net.ipv4.ip_no_pmtu_disc = 1
+	#ip frag mem (fragmentation memory) threshholds and timeouts
+	net.ipv4.ipfrag_high_thresh = 262144
+	net.ipv4.ipfrag_low_thresh = 196608
+	net.ipv4.ipfrag_time = 30
+
+	kernel config options for tcp/TCP
+	#detect broken connection early
+	net.ipv4.tcp_keepalive_probes = 5
+	net.ipv4.tcp_keepalive_time = 600
+	#protection against SYN attacks
+	net.ipv4.tcp_syncookies = 1
+	#protect against unfinished connections
+	net.ipv4.tcp_retries1 = 3
+	#protection against FIN attacks
+	net.ipv4.tcp_fin_timeout = 30
 
 liux max perf / maximum performance
 	add these settings to /etc/sysctl.conf
@@ -3072,7 +3073,7 @@ from the sysctl command:
 Linux multimedia
 
 Linux picture / photoshop
-	$gimp 
+	$gimp
 
 picture resize
 	convert -resize 750x500 -quality 80% *.jpg
@@ -3085,15 +3086,15 @@ picture blur
 
 picture dither (reduce color)
 	convert Black_Swan_bg2.jpg -blur 0x4 +dither -colors 16 Black_Swan_bg6.jpg
- 
+
 Linux multimedia
 	CD rip		grip	# naming \t - Track number
-	audio		xmms	# rm ~/.xmms if having any issue.	
+	audio		xmms	# rm ~/.xmms if having any issue.
 
 	# resolve the msg: modprobe: Can't locate module sound-... in
 	# /var/log/messages
 
-	kcontrol -> sound -> mixer -> Max count of tested devices per mixer -> 
+	kcontrol -> sound -> mixer -> Max count of tested devices per mixer ->
 	change from 2 to 1
 
 	# volume control
@@ -3106,7 +3107,7 @@ Linux multimedia
 	alias sound-slot-1 off
 	alias sound-service-1-0 off
 
-linux grip / rip cd / multimedia pre- req: 
+linux grip / rip cd / multimedia pre- req:
 	gcc-c++, libstdc++-devel, curl-devel, vte-devel, libgnomeui, ncurses-devel
 
 linux alsa | advanced linux sound architect configuration | capture | audio
@@ -3128,7 +3129,7 @@ Windows / windows dvd copier.
 	Use DVD Decrypter to copy all DVD files on hard drive.
 	Use DVDFab to Copy main movie from DVD (Strip/ Split)
 		or Use DVD2one to shrink the movie into one DVD
-	Use Nero to burn the disk.	
+	Use Nero to burn the disk.
 
 language setting @ windows
 	regional & language > languages > details > add @ settings > add
@@ -3158,7 +3159,7 @@ Linux Xwindow/ xwindow/ xwin
 	xdaliclock -root -builtin3 -cycle
 
 Linux Graphic VI / vi
-	$gvim 
+	$gvim
 	~/.vimrc -> add following line at the bottom
 	set guifont=-B&H-LucidaTypewriter-Medium-R-Normal-Sans-12-120-75-75-M-70-ISO8859-1
 	highlight Normal guibg=grey90
@@ -3178,10 +3179,10 @@ vimrc	~/.vimrc
 ImageMagick
 	/usr/local/bin/magick/display -window root filename
 	display -window root /usr/share/wallpapers/No-Ones-Laughing-3.jpg
-	
+
 	xwindow screensaver config
 	xset
-	
+
 	************
 	add below into XF86Config to activate DPMS #DPMS=display power mgmt sys
 	    Section "Monitor"
@@ -3191,7 +3192,7 @@ ImageMagick
 	        Option      "DPMS"
 	    EndSection
 	************
-    
+
 	then run #xset +dpms ; xset 1200 1500 1800
 
 Linux icewm/ IceWM	display power mgmt
@@ -3205,12 +3206,12 @@ Linux screenshot capture
 
 	import -window root /tmp/screenshot.jpeg
 
-Linux xlock/ screensaver/ screen saver causing system hangs (icewm/ IceWM)	
+Linux xlock/ screensaver/ screen saver causing system hangs (icewm/ IceWM)
 # Command to lock display/screensaver
 LockCommand="xlock -mode blank"
 
 Linux screen screenshare screen sharing
-	
+
 
 Linux screen screenshare screen sharing
 	1. set /usr/bin/screen setuid root
@@ -3234,7 +3235,7 @@ Linux text mode screen configuration
 
 text mode terminal screensaver
 	setterm -blank [0-60]
- 
+
 Linux xterm/XTerm	http://www.uwsg.iu.edu/edcert/session3/x11/xterm.html
 	Change xterm font size permanently-> 	vi ~/.Xresource
 					eg.-> 	xterm*background: DarkBlue
@@ -3260,7 +3261,7 @@ font
 	cp fonts.scale fonts.dir
 	chkfontpath --add /usr/share/fonts/windows
 
-IBM terminal 315x	export TERM=ibm3151 
+IBM terminal 315x	export TERM=ibm3151
 
 aterm / transparent terminal / transparent aterm / x11 / X11
 
@@ -3297,7 +3298,7 @@ gnome-xgl | gnome | xgl
 
 Java / JAVA / java
 	unzip -l *.jar	# list all contents in jar
-	zip -r wcsruntime.jar com/*	
+	zip -r wcsruntime.jar com/*
 	# zip all classes in com/ into wcsruntime.jar
 
 java thread dump
@@ -3310,12 +3311,12 @@ download java plugin
 
 java plugin in mozilla http://plugindoc.mozdev.org/faqs/java.html
 	download jre 1.4.2 from http://java.sun.com/j2se/1.4.2/download.html
-	install from rpm -> cd $MOZILLA_HOME/plugin/ -> 
+	install from rpm -> cd $MOZILLA_HOME/plugin/ ->
 	ln -s /usr/java/j2re1.4.2_02/plugin/i386/ns610-gcc32/libjavaplugin_oji.so
 
 	# if receiving libgcc_s.so.1 cannot open shared object file error
 	# need to download libgcc_s.so.1 gcc322 rpm then install
-	
+
 ###############################################################################
 ###############################################################################
 
@@ -3326,7 +3327,7 @@ adobe disable adobe plugin in firefox
 
 firefox using specific profile, like java
 	firefox -profile <java_profile>
-	
+
 firefox start with a newly created profile
 	firefox -ProfileManager
 
@@ -3337,11 +3338,11 @@ firefox The page you are trying to view cannot be shown because the authenticity
 
 	about:config > security.tls.insecure_fallback_hosts > left mouse click > add the complete website
 
-Linux Wine Configuration 
-	Download from www.linuxwine.com-> tar -xvzf source 
-	cp xxx /tmp/wine 
-	Read README and follow the indtruction 
-	Change the path in /usr/local/etc/wine.conf-> add /windows/C/winnt/system;/windows/C/winnt/system32 
+Linux Wine Configuration
+	Download from www.linuxwine.com-> tar -xvzf source
+	cp xxx /tmp/wine
+	Read README and follow the indtruction
+	Change the path in /usr/local/etc/wine.conf-> add /windows/C/winnt/system;/windows/C/winnt/system32
 
 Microsoft windows diet / windows performance/ microsoft
 	cmd -> sfc.exe /purgecache
@@ -3349,11 +3350,11 @@ Microsoft windows diet / windows performance/ microsoft
 	%windows%$NtUninstallQ*$
 	edit %windows%infsysoc.inf -> replace all 'hide' with blank -> go to add/ remove programs
 
-	disacle Windows Messager -> regedit -> HKEY_CURRENT_USERSoftwareMicrosoftWindowsCurrentVersionRunMSMSGS¿ /BACKGROUND
+	disacle Windows Messager -> regedit -> HKEY_CURRENT_USERSoftwareMicrosoftWindowsCurrentVersionRunMSMSGSï¿½ /BACKGROUND
 
 	fasten speed -> regedit -> HKEY_LOCAL_MACHINESYSTEMCurrentControlSetControlSession ManagerMemory ManagementPrefetchParameters -> EnablePrefetcher -> 1
 
-Lotus Notes / lotus notes connection 
+Lotus Notes / lotus notes connection
 	File -> Mobile -> Server Phone Number -> Advanced -> Connections
 	# increase/ decrease font size. add the following into ~/lotus*/notes.init
 	Dislay_font_adjustment=-1
@@ -3371,7 +3372,7 @@ Wiki / wiki > edit LocalSettings.php, AFTER the line:
 	require_once( "includes/DefaultSettings.php" );
 
     - disallow edits by unregistered users
-	$wgGroupPermissions['*']['edit'] = false; 
+	$wgGroupPermissions['*']['edit'] = false;
 	$wgShowIPinHeader = false;
 
     - disallow account creation
@@ -3455,7 +3456,7 @@ dependency:	libgcrypt	libgcrypt-devel
 	ftp://ftp.gnupg.org/gcrypt/libgcrypt/
 
 Dependency: libgcrypt
-Install Guide: 
+Install Guide:
 	make > cp vpnc /usr/local/sbin > cp vpnc-disconnect /usr/local/sbin
 	mkdir /etc/vpnc -> cp vpnc-script /etc/vpnc/
 	mkdir /var/run/vpnc
@@ -3511,7 +3512,7 @@ In file conf/core-site.xml:
   <value>/your/path/to/hadoop/tmp/dir/hadoop-${user.name}</value>
   <description>A base for other temporary directories.</description>
 </property>
- 
+
 <property>
   <name>fs.default.name</name>
   <value>hdfs://localhost:54310</value>
@@ -3572,7 +3573,7 @@ hadoop cluster apache distributed file system hdfs
 	scp $MASTER_USER_SSH_PUB hadoop@hadoop:~/.ssh/authorized_keys2
 	sudo cp hadoop*.tar.gz /opt; sudo ln -s hadoop-<VERSION> hadoop
 	sudo chown -R hadoop.hadoop /opt/hadoop
-	
+
 	define JAVA_HOME in /opt/hadoop/conf
 
 	define $HADOOP_INST/conf/hadoop-site.xml > update localhost
@@ -3581,17 +3582,17 @@ hadoop cluster apache distributed file system hdfs
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
- 
+
 <!-- Put site-specific property overrides in this file. -->
- 
+
 <configuration>
- 
+
 <property>
   <name>hadoop.tmp.dir</name>
   <value>/your/path/to/hadoop/tmp/dir/hadoop-${user.name}</value>
   <description>A base for other temporary directories.</description>
 </property>
- 
+
 <property>
   <name>fs.default.name</name>
   <value>hdfs://localhost:54310</value>
@@ -3601,7 +3602,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
   the FileSystem implementation class.  The uri's authority is used to
   determine the host, port, etc. for a filesystem.</description>
 </property>
- 
+
 <property>
   <name>mapred.job.tracker</name>
   <value>localhost:54311</value>
@@ -3610,7 +3611,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
   and reduce task.
   </description>
 </property>
- 
+
 <property>
   <name>dfs.replication</name>
   <value>1</value>
@@ -3619,7 +3620,7 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
   The default is used if replication is not specified in create time.
   </description>
 </property>
- 
+
 </configuration>
 
 
@@ -3627,7 +3628,7 @@ VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 
 
-Linux Virtualization | linux virtualization virt 
+Linux Virtualization | linux virtualization virt
 
 kvm + amd64
 	egrep '(vmx|svm)' --color=always /proc/cpuinfo
@@ -3642,8 +3643,8 @@ create guest OS w/ kvm
 	# create a qcow2 vm based on img
 	qemu-img create -f qcow2 f18.img 10g
 
-	# install 
-	qemu-kvm -m 1024 -cdrom f18.iso -drive file=f18.img,cache=none,if=virtio,index=0 -boot d -net nic -net user -nographic -vnc :0 
+	# install
+	qemu-kvm -m 1024 -cdrom f18.iso -drive file=f18.img,cache=none,if=virtio,index=0 -boot d -net nic -net user -nographic -vnc :0
 
 	# launch
 	qemu-kvm -m 1024 -drive file=f18.img,if=virtio,index=0 -boot c -net nic -net user -nographic -vnc :0
@@ -3670,7 +3671,7 @@ virtio spec xml
       	<address type='drive' controller='0' bus='0' target='0' unit='0'/>
     	</disk>
 
-	install spice & virtio driver into windows guest on kvm 
+	install spice & virtio driver into windows guest on kvm
 	http://spice-space.org/download/binaries/spice-guest-tools/
 
 virt-clone
@@ -3703,7 +3704,7 @@ UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
 script in /etc/rc.local
 	echo 30 | sudo tee /sys/class/backlight/acpi_video0/brightness
 	echo 3 | sudo tee /sys/devices/platform/applesmc.768/leds/smc::kbd_backlight/brightness
-	
+
 	/usr/bin/synclient TapButton3=2
 	/usr/bin/xrandr --output eDP1 --mode 1680x1050
 
@@ -3717,21 +3718,21 @@ ubuntu 	# release	cat /etc/issue
 	wget -q -O /tmp/ocdc-keyring.deb http://ocdc.hursley.ibm.com/ocdc/ocdc-archive-keyring.deb; sudo dpkg -i /tmp/ocdc-keyring.deb;
 
 package to install
-	ibm-global-print openclient-config-vpnc	
+	ibm-global-print openclient-config-vpnc
 
 	gnome-shell ubuntu-gnome-desktop	# install gnome-shell
 
 	skype icedtea-7-plugin openjdk-7-jre
 
 	ubuntu-desktop p7zip gimp imagemagick chromium-browser pidgin qemu-system-x86 libvirt-bin ubuntu-vm-builder bridge-utils ubuntu-restricted-extras ssh virt-manager virt-viewer openconnect dconf-tools network-manager-vpnc vim cups-pdf lvm2 icedtea-plugin terminator cryptsetup
-	
+
 	gstreamer0.10-plugins-ugly gstreamer0.10-ffmpeg libxine1-ffmpeg gxine mencoder libdvdread4 totem-mozilla icedax tagtool easytag id3tool lame nautilus-script-audio-convert libmad0 mpg321 gstreamer1.0-libav vlc
 
 chinese input method / im-config / im-choose
 
 	fcitx fcitx-table-wbpy fcitx-googlepinyin
 
-apt-get proxy 
+apt-get proxy
 	apt-get install [PACKAGE] -o acquire::http::proxy="http://[IP]:[8085]"
 
 
@@ -3966,7 +3967,7 @@ android sametime ewg1.artour.ibm.com:15001
 
 macmacmacmac
 ubuntu 13.10 saucy for mac
-	symptom: boot hanging at smp 
+	symptom: boot hanging at smp
 	solution: disable smp in /etc/default/grub
 
 	symptom: slow boot
@@ -4017,7 +4018,7 @@ adobe flash >
 	yum install flash-plugin nspluginwrapper alsa-plugins-pulseaudio libcurl
 
 repo fast repo
-	yum install yum-plugin-fastestmirror 
+	yum install yum-plugin-fastestmirror
 
 skype	yum install skype*.rpm , including glibc.i686 libXv.i686 alsa-lib.i686 libXScrnSaver.i686 qt-4.8.2-2.fc17.i686 qt-x11-4.8.2-2.fc17.i686
 
@@ -4045,7 +4046,7 @@ ms truetype font
 
 show date @ menu panel dconf-editor
 	Goto org-> gnome-> shell and click on clock.
-	Enable/Tick/Check the "show-date". 
+	Enable/Tick/Check the "show-date".
 
 multimedia driver gstreamer
 	ffmpeg convert > ffmpeg -vcodec copy -i orig.ogv outfile.avi
@@ -4112,7 +4113,7 @@ boxgrinder
 sudo boxgrinder-build firstbox.appl -d libvirt --delivery-config connection_uri:qemu:///system,image_delivery_uri:/home/user/boxgrinder
 
 appliance definition
-[jeff@jytpt410 boxgrinder]$ cat firstbox.appl 
+[jeff@jytpt410 boxgrinder]$ cat firstbox.appl
 name: rhel
 summary: rhel6.1
 os:
@@ -4254,13 +4255,13 @@ groupadd and useradd
 	useradd -m -g users -G wheel -s /bin/bash tuxinator
 
 install	https://wiki.archlinux.org/index.php/Beginners'_guide
-	parted /dev/sda -> 
+	parted /dev/sda ->
 	mklabel msdos
 	mkpart primary ext4 1MiB 512MiB
 	set 1 boot on
 	mkpart primary linux-swap 538MiB 8624MiB
 	mkpart primary ext4 9053MiB 29533MiB
-	
+
 	lsblk /dev/sda
 	mkfs.ext4 /dev/sda1; mkfs.ext4 /dev/sda3
 
@@ -4315,7 +4316,7 @@ after- install configuration
 
         fcitx-googlepinyin fcitx-configtool fcitx-gtk2 fcitx-gtk3 fcitx-qt4 fcitx-qt5 fcitx-im adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts opendesktop-fonts
 
-virtualization virtualisation virt-manager 
+virtualization virtualisation virt-manager
 	pacman -Syu ebtables dnsmasq
 	systemctl start virtlogd.service; systemctl start libvirtd.service
 	virt-manager
@@ -4332,3 +4333,4 @@ start gdm
 
 
 
+```
