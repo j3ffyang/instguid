@@ -4310,7 +4310,7 @@ installed package
         sudo pacman-key --refresh-keys
 
 after- install configuration
-	gnupg gnome gnome-shell gnome-extra gdm gnome-disk-utility gnome-tweak-tool gnome-control-center
+	gnupg gnome gnome-shell gnome-extra gdm gnome-disk-utility gnome-tweak-tool gnome-control-center gnome-backgrounds
 
         gimp geeqie vim libreoffice-fresh nautilus vlc chromium git firefox terminator openvpn openssh wget flashplugin java-runtime-common jre7-openjdk ebtables dnsmasq
 
