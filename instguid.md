@@ -4243,6 +4243,9 @@ pacman - list installed from official repo
        - list installed from unofficial repo
 	sudo pacman -Qem
 
+	figure out a file being owned by which package
+	pacman -Qo /usr/lib/libappindicator3.so.1.0.0
+
 install package from pkgbuild
 	git clone [package].git
 	makepkg
