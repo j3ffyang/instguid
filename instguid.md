@@ -4082,28 +4082,28 @@ set touchpad 3rd button on mac
 
 
 HSLTHSLTHSLTHSLT
-scp -r -p o StrictHostKeyChecking=no jeffyang@bejgsa.ibm.com:/gsa/bejgsa/projects/h/hslt/build/image/HSLT_dev/$BUILDNAME /home/jeff/Downloads/scratch/hslt/build/latest/
-
-ssh -L 9.123.127.201:33090:10.10.3.38:33090 10.10.3.38
-
-# recycle Hbase/ hbase
-# In all Hbase nodes
-kill -i `ps -ef | grep java | awk '{print $2}'`
-
-#Stop Hadoop on hbase-1
-/opt/IHC-*/bin/stop-dfs.sh
-
-#Start Hadoop on hbase-1
-/opt/IHC-*/bin/start-dfs.sh
-
-#Start Hbase on hbase-1
-/opt/hbase-*/bin/start-hbase.sh
-
-#Start RestServer on hbase-4
-/iaas/iaas-rest-srv/bin/rest_server.sh start
-
-#Restart ruby on Storage-1/2
-/iaas/storage_bots/rubybots/re-run.sh
+	scp -r -p o StrictHostKeyChecking=no jeffyang@bejgsa.ibm.com:/gsa/bejgsa/projects/h/hslt/build/image/HSLT_dev/$BUILDNAME /home/jeff/Downloads/scratch/hslt/build/latest/
+	
+	ssh -L 9.123.127.201:33090:10.10.3.38:33090 10.10.3.38
+	
+	# recycle Hbase/ hbase
+	# In all Hbase nodes
+	kill -i `ps -ef | grep java | awk '{print $2}'`
+	
+	#Stop Hadoop on hbase-1
+	/opt/IHC-*/bin/stop-dfs.sh
+	
+	#Start Hadoop on hbase-1
+	/opt/IHC-*/bin/start-dfs.sh
+	
+	#Start Hbase on hbase-1
+	/opt/hbase-*/bin/start-hbase.sh
+	
+	#Start RestServer on hbase-4
+	/iaas/iaas-rest-srv/bin/rest_server.sh start
+	
+	#Restart ruby on Storage-1/2
+	/iaas/storage_bots/rubybots/re-run.sh
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
