@@ -1358,7 +1358,6 @@ ethtool
 	ethtool -P eth0
 
 
-
 ###############################################################################
 ###############################################################################
 
@@ -1596,18 +1595,6 @@ pop3 / pop / dovecot
 
 	/etc/init.d/dovecot restart
 
-	telnet localhost 110
-Trying 127.0.0.1...
-Connected to localhost.localdomain (127.0.0.1).
-Escape character is '^]'.
-+OK dovecot ready.
-
-# telnet localhost 143
-Trying 127.0.0.1...
-Connected to localhost.localdomain (127.0.0.1).
-Escape character is '^]'.
-* OK dovecot ready.
-
 
 zlib	http://www.gzip.org/zlib
 	http://www.devside.net/web/server/linux/zlib
@@ -1762,20 +1749,20 @@ dhcp client 	$dhcpcd -h hostname -D -H eth0 	#bind with hostname when getting dh
 		dhclient ethX
 
 ----------------------------------------------------------------
-# dhclient.conf
-#
-# Configuration file for ISC dhclient (see 'man dhclient.conf')
-#
-interface "eth0" {
-send host-name "summerpalace.domain.com";
-}
-
-send dhcp-lease-time 3600;
-prepend domain-name-servers 127.0.0.1;
-request subnet-mask, broadcast-address, time-offset, routers, domain-name,
-domain-name-servers,
-host-name;
-require subnet-mask, domain-name-servers;
+	# dhclient.conf
+	#
+	# Configuration file for ISC dhclient (see 'man dhclient.conf')
+	#
+	interface "eth0" {
+	send host-name "summerpalace.domain.com";
+	}
+	
+	send dhcp-lease-time 3600;
+	prepend domain-name-servers 127.0.0.1;
+	request subnet-mask, broadcast-address, time-offset, routers, domain-name,
+	domain-name-servers,
+	host-name;
+	require subnet-mask, domain-name-servers;
 ----------------------------------------------------------------
 
 dhcp srv/ dhcpd config		/etc/dhcpd.config as below (RedHat)
@@ -2213,7 +2200,7 @@ openssl
 
 
 -----------------------------------------------------------------------------------------
-openssl openssl openssl openssl openssl openssl
+openssl openssl openssl openssl openssl openssl sslsslsslsslsslssl
 http://shib.kuleuven.be/docs/ssl_commands.shtml
 
 generate a new private key and matching Certificate Signing Request (eg to send to a commercial CA)
@@ -2484,6 +2471,7 @@ Linux interface specific options are in
 Linux Firewall/ firewall machine setup. Filesystem/ partition size
 	/ 190, /boot 3, /var 30  /home 1  /usr 250  /tmp 20  swap 36 -> actual usage in tp755cd
 	/ 1500 /boot 50 /var 400 /home 100 /usr 4500 /tmp 300 /opt 1500 -> penguinsecurity
+
 Linux firewall log. put below line into /etc/syslog.conf-> service syslogd restart
 	kern.info /var/log/firewall
 	# all error and warning msg logged
@@ -2646,6 +2634,7 @@ capture vlan / VLAN / vLAN tagged traffic
 
 windump (install winPcap as prerequisite)
         windump -D      # list all available captured NIC. Wireless doesn't seemto be supported.
+
 windump sample
         windump -i 3 -lnx host 60.191.123.155   # n= no DNS & on specific IPwith NIC 3
         windump host bamse and host cartman and udp     # capture udp between 2 hosts
@@ -2765,26 +2754,28 @@ ssh tunnel @ ly	# 192.168.200.2 (hub@idevops) is an internal IP of a VM within q
 
 ssh tunnel script
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-#!/bin/bash
-# Get the  PID of the ssh process run by the SSHTunnel user
-rm -f /tmp/pid.SSHTunnel > /dev/null
 
-#ps -U mytunneluser | grep -v grep | grep ssh >/tmp/pid.SSHTunnel
-ps -ef | grep 20081 | grep ssh | awk '{print $2}' > /tmp/pid.SSHTunnel
+	#!/bin/bash
+	# Get the  PID of the ssh process run by the SSHTunnel user
+	rm -f /tmp/pid.SSHTunnel > /dev/null
+	
+	#ps -U mytunneluser | grep -v grep | grep ssh >/tmp/pid.SSHTunnel
+	ps -ef | grep 20081 | grep ssh | awk '{print $2}' > /tmp/pid.SSHTunnel
+	
+	# If the file is zero sized, then SSH is not running
+	if [ -s /tmp/pid.SSHTunnel ]
+		then
+			echo "I'm alive. Hahaha"
+	fi
+	
+	if [ ! -s /tmp/pid.SSHTunnel ]
+		then
+	  		echo "SSH Tunnel not running - restarting"
+			ssh -N -f -R 192.168.200.2:20081:192.168.1.101:22 bryan@121.201.13.44
+	fi
+	
+	rm -f /tmp/pid.SSHTunnel >/dev/null
 
-# If the file is zero sized, then SSH is not running
-if [ -s /tmp/pid.SSHTunnel ]
-	then
-		echo "I'm alive. Hahaha"
-fi
-
-if [ ! -s /tmp/pid.SSHTunnel ]
-	then
-  		echo "SSH Tunnel not running - restarting"
-		ssh -N -f -R 192.168.200.2:20081:192.168.1.101:22 bryan@121.201.13.44
-fi
-
-rm -f /tmp/pid.SSHTunnel >/dev/null
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 ssh tunnel crontab
@@ -2872,31 +2863,31 @@ iptables/ IPTables load modules for passive ftp / iptables faq
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 	# transparent proxy
-# Outgoing LAN webclient traffic is redirected to Squid.
-iptables -t nat -A PREROUTING -i $LAN_IFACE -p tcp \
-         -s $LAN_NETWORK --sport 1024:65535 --dport 80 \
-         -j REDIRECT --to-port 3128
+	# Outgoing LAN webclient traffic is redirected to Squid.
+	iptables -t nat -A PREROUTING -i $LAN_IFACE -p tcp \
+	         -s $LAN_NETWORK --sport 1024:65535 --dport 80 \
+	         -j REDIRECT --to-port 3128
+	
+	# INPUT rule to accept the packet. To ACCEPT the REDIRECT
+	iptables -A INPUT -i $LAN_IFACE -p tcp \
+	         -s $LAN_NETWORK --sport 1024:65535 -d $LAN_IP --dport 3128 \
+	         -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+	
+	# Squid establishes connections with the remote web server as client.
+	iptables -A OUTPUT -o $INET_IFACE -p tcp \
+	         -s $INET_IP --sport 1024:65535 --dport 80 \
+	         -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
+	
+	iptables -A INPUT -i $INET_IFACE -p tcp \
+	         --sport 80 -d $INET_IP --dport 1024:65535 \
+	         -m state --state ESTABLISHED,RELATED -j ACCEPT
+	
+	# Responds as a server to LAN clients.
+	iptables -A OUTPUT -o $LAN_IFACE -p tcp \
+	         -s $LAN_IP --sport 80 --dport 1024:65535 \
+	         -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-# INPUT rule to accept the packet. To ACCEPT the REDIRECT
-iptables -A INPUT -i $LAN_IFACE -p tcp \
-         -s $LAN_NETWORK --sport 1024:65535 -d $LAN_IP --dport 3128 \
-         -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
-
-# Squid establishes connections with the remote web server as client.
-iptables -A OUTPUT -o $INET_IFACE -p tcp \
-         -s $INET_IP --sport 1024:65535 --dport 80 \
-         -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
-
-iptables -A INPUT -i $INET_IFACE -p tcp \
-         --sport 80 -d $INET_IP --dport 1024:65535 \
-         -m state --state ESTABLISHED,RELATED -j ACCEPT
-
-# Responds as a server to LAN clients.
-iptables -A OUTPUT -o $LAN_IFACE -p tcp \
-         -s $LAN_IP --sport 80 --dport 1024:65535 \
-         -m state --state ESTABLISHED,RELATED -j ACCEPT
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-
 
 # iptables for ftp/ ftp
 	In general, in ftp scenario, this is the diagram of packet flow.
@@ -2932,17 +2923,6 @@ iptables/ denial-of-service attacks
 	fragmentation bombs
 	buffer overflows
 	icmp redirect bombs
-
-iptables/ firewall optimization
-	# begin with rules that block traffic on high ports -> nfs or x
-	# use the state module for established and related matches
-	# consider the transport protocol
-	 	tcp service: bypass the spoofing rules
-	 	udp: place incoming packet rules after spoofing rules
-	 	tcp vs. udp: place udp rules after tcp rules
-	 	icmp: place their rules late in the rule chain
-	# place firewall rules for heavily used service as early as possible
-	# use the multiport module to specify port lists
 
 Linux security. suid/ suig. To diable the suid bits on selected programs.
 	chmod a-s /usr/bin/chage
@@ -3461,11 +3441,11 @@ Install Guide:
 	mkdir /var/run/vpnc
 
 Example /etc/vpnc.conf:
-IPSec gateway 199.246.40.10
-IPSec ID labuser
-IPSec secret labuser
-Xauth username someone
-Domain torolab
+	IPSec gateway 199.246.40.10
+	IPSec ID labuser
+	IPSec secret labuser
+	Xauth username someone
+	Domain torolab
 
 =-=-
 
@@ -3502,54 +3482,6 @@ hadoop HADOOP distributed file system
 	
 	config/*-site.xml
 
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-In file conf/core-site.xml:
-
-<!-- In: conf/core-site.xml -->
-<property>
-  <name>hadoop.tmp.dir</name>
-  <value>/your/path/to/hadoop/tmp/dir/hadoop-${user.name}</value>
-  <description>A base for other temporary directories.</description>
-</property>
-
-<property>
-  <name>fs.default.name</name>
-  <value>hdfs://localhost:54310</value>
-  <description>The name of the default file system.  A URI whose
-  scheme and authority determine the FileSystem implementation.  The
-  uri's scheme determines the config property (fs.SCHEME.impl) naming
-  the FileSystem implementation class.  The uri's authority is used to
-  determine the host, port, etc. for a filesystem.</description>
-</property>
-
-In file conf/mapred-site.xml:
-
-<!-- In: conf/mapred-site.xml -->
-<property>
-  <name>mapred.job.tracker</name>
-  <value>localhost:54311</value>
-  <description>The host and port that the MapReduce job tracker runs
-  at.  If "local", then jobs are run in-process as a single map
-  and reduce task.
-  </description>
-</property>
-
-In file conf/hdfs-site.xml:
-
-<!-- In: conf/hdfs-site.xml -->
-<property>
-  <name>dfs.replication</name>
-  <value>1</value>
-  <description>Default block replication.
-  The actual number of replications can be specified when the file is created.
-  The default is used if replication is not specified in create time.
-  </description>
-</property>
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
-	hadoop@ubuntu:~$ <HADOOP_INSTALL>/hadoop/bin/hadoop namenode -format
-	hadoop@ubuntu:~$ <HADOOP_INSTALL>/bin/start-all.sh
-	
 	port to verify: 50030, 50040, 50070
 
 HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
