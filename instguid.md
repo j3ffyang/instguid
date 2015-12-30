@@ -3889,31 +3889,31 @@ rsyslog > /etc/rsyslog.conf > to avoid rate-limiting error @ /var/log/messages
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<G
 virtualbox sun VirtualBox bluescreen
 
-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Intelppm
-And changing the Start value to 4
+	HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Intelppm
+	And changing the Start value to 4
 
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 Philips bluray region free setting
-no disc in tray > Press Home > Scroll to settings > 13893108520
+	no disc in tray > Press Home > Scroll to settings > 13893108520
 
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 3g wcdma on Ubuntu 10.04 w/ China Unicom
-sudo apt-get install usb-modeswitch ; reboot
-nm-connection-editor > Mobile Broadband > ... > APN: uninet PIN: 1234
+	sudo apt-get install usb-modeswitch ; reboot
+	nm-connection-editor > Mobile Broadband > ... > APN: uninet PIN: 1234
 
 sony vaio
 Configure video driver + trackball @ /etc/default/grub
 
-GRUB_CMDLINE_LINUX_DEFAULT="quiet splash mem=1900mb nohz=off i8042.reset i8042.nomux i8042.nopnp i8042.noloop"
-
-sudo add-apt-repository ppa:gma500/ppa && sudo apt-get update
-
-sudo apt-get remove mplayer sudo apt-get install gnome-mplayer gecko-mediaplayer
-sudo apt-get install poulsbo-driver-2d poulsbo-driver-3d poulsbo-config
-
-sudo update-grub
+	GRUB_CMDLINE_LINUX_DEFAULT="quiet splash mem=1900mb nohz=off i8042.reset i8042.nomux i8042.nopnp i8042.noloop"
+	
+	sudo add-apt-repository ppa:gma500/ppa && sudo apt-get update
+	
+	sudo apt-get remove mplayer sudo apt-get install gnome-mplayer gecko-mediaplayer
+	sudo apt-get install poulsbo-driver-2d poulsbo-driver-3d poulsbo-config
+	
+	sudo update-grub
 sony vaio
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -4100,22 +4100,22 @@ boxgrinder
 sudo boxgrinder-build firstbox.appl -d libvirt --delivery-config connection_uri:qemu:///system,image_delivery_uri:/home/user/boxgrinder
 
 appliance definition
-[jeff@jytpt410 boxgrinder]$ cat firstbox.appl
-name: rhel
-summary: rhel6.1
-os:
-  name: rhel
-  version: 6
-  password: passw0rd
-hardware:
-  cpus: 1
-  memory: 512
-  partitions:
-    "/":
-      size: 5
-repos:
-  - name: "base"
-    baseurl: "file:///mnt/rhel61_iso"
+	[jeff@jytpt410 boxgrinder]$ cat firstbox.appl
+	name: rhel
+	summary: rhel6.1
+	os:
+	  name: rhel
+	  version: 6
+	  password: passw0rd
+	hardware:
+	  cpus: 1
+	  memory: 512
+	  partitions:
+	    "/":
+	      size: 5
+	repos:
+	  - name: "base"
+	    baseurl: "file:///mnt/rhel61_iso"
 
 vim /boot/grub/grub.conf
 console=ttyS0
@@ -4139,49 +4139,48 @@ tp-link wr703n hack
 
 /etc/config/network
 
-config interface 'loopback'
-    option ifname 'lo'
-    option proto 'static'
-    option ipaddr '127.0.0.1'
-    option netmask '255.0.0.0'
+	config interface 'loopback'
+	    option ifname 'lo'
+	    option proto 'static'
+	    option ipaddr '127.0.0.1'
+	    option netmask '255.0.0.0'
+	
+	config interface 'lan'
+	    option ifname 'eth0'
+	    option type 'bridge'
+	    option proto 'static'
+	    option ipaddr '192.168.1.1'
+	    option netmask '255.255.255.0'
 
-config interface 'lan'
-    option ifname 'eth0'
-    option type 'bridge'
-    option proto 'static'
-    option ipaddr '192.168.1.1'
-    option netmask '255.255.255.0'
-
-config interface 'wan'
-    option ifname 'wlan0'
-    option proto 'dhcp'
-
+	config interface 'wan'
+	    option ifname 'wlan0'
+	    option proto 'dhcp'
 
 /etc/config/wireless
 
-config wifi-device  radio0
-    option type     mac80211
-    option channel  11
-    option hwmode   11ng
-    option path 'platform/ar933x_wmac'
-    option htmode   HT20
-    list ht_capab   SHORT-GI-20
-    list ht_capab   SHORT-GI-40
-    list ht_capab   RX-STBC1
-    list ht_capab   DSSS_CCK-40
-    # REMOVE THIS LINE TO ENABLE WIFI:
-    #option disabled 1
-
-config wifi-iface
-    option device   radio0
-    #option network  lan
-    option network  wan
-    #option mode     ap
-    option mode     sta
-    option ssid     'THE NAME OF OUR EXISTING WIFI NETWORK'
-    #option encryption none
-    option encryption wep+shared
-    option key 'WEP PASSWORD FOR OUR EXISTING WIFI NETWORK'
+	config wifi-device  radio0
+	    option type     mac80211
+	    option channel  11
+	    option hwmode   11ng
+	    option path 'platform/ar933x_wmac'
+	    option htmode   HT20
+	    list ht_capab   SHORT-GI-20
+	    list ht_capab   SHORT-GI-40
+	    list ht_capab   RX-STBC1
+	    list ht_capab   DSSS_CCK-40
+	    # REMOVE THIS LINE TO ENABLE WIFI:
+	    #option disabled 1
+	
+	config wifi-iface
+	    option device   radio0
+	    #option network  lan
+	    option network  wan
+	    #option mode     ap
+	    option mode     sta
+	    option ssid     'THE NAME OF OUR EXISTING WIFI NETWORK'
+	    #option encryption none
+	    option encryption wep+shared
+	    option key 'WEP PASSWORD FOR OUR EXISTING WIFI NETWORK'
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
