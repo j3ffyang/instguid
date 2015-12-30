@@ -3403,50 +3403,49 @@ wireless configuration on thinkpad t43
 	modprobe ipw2200 debug=0x40000
 	modprobe ipw2200 hwcrypto=0
 
-iwlist wlan0 scan | grep Frequency | sort | uniq -c | sort -n
-iwlist wlan0 scan | grep -C3 NETWORK_ID
-iwlist wlan0 scan | grep \(Channel
-
-iwconfig eth1 essid linksys channel 6 rate auto key hex_26_chars
-
+	iwlist wlan0 scan | grep Frequency | sort | uniq -c | sort -n
+	iwlist wlan0 scan | grep -C3 NETWORK_ID
+	iwlist wlan0 scan | grep \(Channel
+	
+	iwconfig eth1 essid linksys channel 6 rate auto key hex_26_chars
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-# Set ethX to 100/ full duplex
-ethtool -s ethX autoneg off speed 100 duplex full
+	# Set ethX to 100/ full duplex
+	ethtool -s ethX autoneg off speed 100 duplex full
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 leap / LEAP dependent and required packages
 	c4eb-config-NetworkManager hostapd wpa_supplicant
 
-#example of /etc/xsupplicant/xsupplicant.conf
-#for LEAP protocol
+	#example of /etc/xsupplicant/xsupplicant.conf
+	#for LEAP protocol
+	
+	network_list = all
+	#the list of networks to access
+	
+	default_netname = default
+	#the default access network
+	
+	first_auth_command = <BEGIN_COMMAND>dhclient %i<END_COMMAND>
+	#The command before authentication, which is usually used to get some info from
+	#the network
+	
+	logfile = /var/log/xsupplicant.log
+	#log file
 
-network_list = all
-#the list of networks to access
-
-default_netname = default
-#the default access network
-
-first_auth_command = <BEGIN_COMMAND>dhclient %i<END_COMMAND>
-#The command before authentication, which is usually used to get some info from
-#the network
-
-logfile = /var/log/xsupplicant.log
-#log file
-
-myssid #here is your network id, may be listed in the network list
-{
-  type = wireless
-  ssid = <BEGIN_SSID>myssid<END_SSID>
-  allow_types = all
-  identity = <BEGIN_ID>myid@domain.org<END_ID>
-  eap-leap {
-      username = <BEGIN_UNAME>myid@domain.org<END_UNAME>
-      password = <BEGIN_PASS>mypasswd<END_PASS>
-  }#setup for leap
-}
+	myssid #here is your network id, may be listed in the network list
+	{
+	  type = wireless
+	  ssid = <BEGIN_SSID>myssid<END_SSID>
+	  allow_types = all
+	  identity = <BEGIN_ID>myid@domain.org<END_ID>
+	  eap-leap {
+	      username = <BEGIN_UNAME>myid@domain.org<END_UNAME>
+	      password = <BEGIN_PASS>mypasswd<END_PASS>
+	  }#setup for leap
+	}
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -3476,32 +3475,32 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
 
 hadoop HADOOP distributed file system
 
-apt-get install sun-java6-jdk
-
-sudo addgroup hadoop
-sudo adduser --ingroup hadoop hadoop
-
-ssh-keygen -t rsa -P ""
-cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorzied_keys2
-
-# disable IPv6
-HADOOP_OPTS=-Djava.net.preferIPv4Stack=true
-
-sudo mkdir /opt/hadoop-datastore
-chown -R hadoop.hadoop /opt/hadoop-datastore
-chown -R hadoop.hadoop /opt/hadoop*
-
-tar -xzvf hadoop-0.17.0.tar.gz
-sudo mv hadoop-0.17.0 /opt
-
-cd /opt
-sudo ln -s hadoop-0.17.0/ hadoop
-
-configuration | Configuration
-config/hadoop-env.sh
-export JAVA_HOME=/usr/lib/jvm/java-6-sun
-
-config/*-site.xml
+	apt-get install sun-java6-jdk
+	
+	sudo addgroup hadoop
+	sudo adduser --ingroup hadoop hadoop
+	
+	ssh-keygen -t rsa -P ""
+	cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorzied_keys2
+	
+	# disable IPv6
+	HADOOP_OPTS=-Djava.net.preferIPv4Stack=true
+	
+	sudo mkdir /opt/hadoop-datastore
+	chown -R hadoop.hadoop /opt/hadoop-datastore
+	chown -R hadoop.hadoop /opt/hadoop*
+	
+	tar -xzvf hadoop-0.17.0.tar.gz
+	sudo mv hadoop-0.17.0 /opt
+	
+	cd /opt
+	sudo ln -s hadoop-0.17.0/ hadoop
+	
+	configuration | Configuration
+	config/hadoop-env.sh
+	export JAVA_HOME=/usr/lib/jvm/java-6-sun
+	
+	config/*-site.xml
 
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 In file conf/core-site.xml:
@@ -3548,24 +3547,13 @@ In file conf/hdfs-site.xml:
 </property>
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-hadoop@ubuntu:~$ <HADOOP_INSTALL>/hadoop/bin/hadoop namenode -format
-hadoop@ubuntu:~$ <HADOOP_INSTALL>/bin/start-all.sh
-
-port to verify: 50030, 50040, 50070
-
-=-=-=-=-=-=-=-=-
-
-virt-manager virsh
-
-virsh list --all = xm list
-virsh start [shutdown | console ] <domain>
-
-xm [ create | shutdown ] <domain> -c
-
+	hadoop@ubuntu:~$ <HADOOP_INSTALL>/hadoop/bin/hadoop namenode -format
+	hadoop@ubuntu:~$ <HADOOP_INSTALL>/bin/start-all.sh
+	
+	port to verify: 50030, 50040, 50070
 
 HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
 HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
-
 
 hadoop cluster apache distributed file system hdfs
 	install java / jvm
@@ -3577,7 +3565,6 @@ hadoop cluster apache distributed file system hdfs
 	define JAVA_HOME in /opt/hadoop/conf
 
 	define $HADOOP_INST/conf/hadoop-site.xml > update localhost
-
 
 $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 <?xml version="1.0"?>
@@ -3665,11 +3652,11 @@ enable virtio windows	http://www-01.ibm.com/support/docview.wss?uid=swg21587905
 
 virtio spec xml
 	<disk type='file' device='disk'>
-      	<driver name='qemu' type='qcow2' cache='none'/>
-      	<source file='/pool/pool/kvm.dsk/xp_small.img.qcow2'/>
-      	<target dev='vda' bus='virtio'/>
-      	<address type='drive' controller='0' bus='0' target='0' unit='0'/>
-    	</disk>
+	<driver name='qemu' type='qcow2' cache='none'/>
+	<source file='/pool/pool/kvm.dsk/xp_small.img.qcow2'/>
+	<target dev='vda' bus='virtio'/>
+	<address type='drive' controller='0' bus='0' target='0' unit='0'/>
+	</disk>
 
 	install spice & virtio driver into windows guest on kvm
 	http://spice-space.org/download/binaries/spice-guest-tools/
@@ -3739,10 +3726,10 @@ apt-get proxy
 	compizconfig-settings-manager compiz-fusion-plugins-extra
 	ccsm > General > General Options > Desktop Size
 
-        # install dvd codec / player repository on ubuntu
-        https://help.ubuntu.com/community/RestrictedFormats
+	# install dvd codec / player repository on ubuntu
+	https://help.ubuntu.com/community/RestrictedFormats
 	sudo apt-get install ubuntu-restricted-extras
-        sudo /usr/share/doc/libdvdread4/install-css.sh
+	sudo /usr/share/doc/libdvdread4/install-css.sh
 
 	# nmon
 	deb http://cz.archive.ubuntu.com/ubuntu lucid main universe
