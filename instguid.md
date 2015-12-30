@@ -4315,12 +4315,12 @@ installed package
 after- install configuration
 	gnupg gnome gnome-shell gnome-extra gdm gnome-disk-utility gnome-tweak-tool gnome-control-center gnome-backgrounds
 
-        gimp geeqie vim libreoffice-fresh nautilus vlc chromium git firefox terminator openvpn openssh wget flashplugin java-runtime-common jre7-openjdk ebtables dnsmasq
+  gimp geeqie vim libreoffice-fresh nautilus vlc chromium git firefox terminator openvpn openssh wget flashplugin java-runtime-common jre7-openjdk ebtables dnsmasq
 
-        fcitx-googlepinyin fcitx-configtool fcitx-gtk2 fcitx-gtk3 fcitx-qt4 fcitx-qt5 fcitx-im adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts opendesktop-fonts ttf-fantasque-sans-git ttf-liberation ttf-hack ttf-gentium ttf-fira-mono ttf-fira-sans
+  fcitx-googlepinyin fcitx-configtool fcitx-gtk2 fcitx-gtk3 fcitx-qt4 fcitx-qt5 fcitx-im adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts opendesktop-fonts ttf-fantasque-sans-git ttf-liberation ttf-hack ttf-gentium ttf-fira-mono ttf-fira-sans
 
 configure fcitx
-	cat ~/.xprofile 
+	cat ~/.xprofile
 	export GTK_IM_MODULE=fcitx
 	export QT_IM_MODULE=fcitx
 	export XMODIFIERS="@im=fcitx"
