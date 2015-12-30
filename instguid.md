@@ -4309,8 +4309,8 @@ install	https://wiki.archlinux.org/index.php/Beginners'_guide
 installed package
 	gnupg then sudo mkdir /root/.gnupg; touch .gnupg/dirmngr.conf
 
-        sudo pacman-key --init
-        sudo pacman-key --refresh-keys
+	sudo pacman-key --init
+	sudo pacman-key --refresh-keys
 
 after- install configuration
 	gnupg gnome gnome-shell gnome-extra gdm gnome-disk-utility gnome-tweak-tool gnome-control-center gnome-backgrounds
