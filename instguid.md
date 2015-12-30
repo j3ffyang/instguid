@@ -4319,6 +4319,12 @@ after- install configuration
 
         fcitx-googlepinyin fcitx-configtool fcitx-gtk2 fcitx-gtk3 fcitx-qt4 fcitx-qt5 fcitx-im adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts opendesktop-fonts
 
+configure fcitx
+	cat ~/.xprofile 
+	export GTK_IM_MODULE=fcitx
+	export QT_IM_MODULE=fcitx
+	export XMODIFIERS="@im=fcitx"
+
 virtualization virtualisation virt-manager
 	pacman -Syu ebtables dnsmasq
 	systemctl start virtlogd.service; systemctl start libvirtd.service
