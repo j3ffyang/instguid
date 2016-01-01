@@ -4139,6 +4139,14 @@ refresh key
 	sudo pacman-key --populate
 	sudo pacman -S archlinux-keyring
 	sudo pacman -Syu	# fresh package
+
+add archlinuxcn aur/ key
+	edit /etc/pacman.conf
+	
+	[archlinuxcn]
+	SigLevel = Optional TrustedOnly
+	Server = http://repo.archlinuxcn.org/$arch
+
 	sudo pacman -Syy && sudo pacman -S archlinuxcn-keyring
 
 package manager optimize performance
