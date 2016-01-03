@@ -4133,6 +4133,59 @@ archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 
+<<<<<<< HEAD
+=======
+refresh key
+	sudo pacman-key --init
+	sudo pacman-key --refresh-keys
+	sudo pacman-key --populate
+	sudo pacman -S archlinux-keyring
+	sudo pacman -Syu	# fresh package
+
+add archlinuxcn aur/ key
+	edit /etc/pacman.conf
+	
+	[archlinuxcn]
+	SigLevel = Optional TrustedOnly
+	Server = http://repo.archlinuxcn.org/$arch
+
+	sudo pacman -Syy && sudo pacman -S archlinuxcn-keyring
+
+package manager optimize performance
+	sudo packman -Sc && sudo pacman-optimize && sudo pacman -Syu
+
+pacman optimize > https://wiki.archlinux.org/index.php/Pacman/Tips_and_tricks#Removing_unused_packages
+
+pacman - list unused
+	pacman -Qdttq
+
+	list installed but not from base and base-devel
+	pacman -Qei | awk '/^Name/ { name=$3 } /^Groups/ { if ( $3 != "base" && $3 != "base-devel" ) { print name } }'
+
+pacman - remove unused
+	sudo pacman -Rsn $(sudo pacman -Qdtq)
+	sudo pacman -Rscnd <PACKAGE_NAME>
+
+pacman - list installed from official repo
+	sudo pacman -Qen
+       - list installed from unofficial repo
+	sudo pacman -Qem
+
+	figure out a file being owned by which package
+	pacman -Qo /usr/lib/libappindicator3.so.1.0.0
+
+install package from pkgbuild
+	git clone [package].git
+	makepkg
+
+ubuntu fonts
+	pacman -U ttf-ubuntu-font-family-0.83-1-any.pkg.tar.xz
+
+groupadd and useradd
+	groupadd users
+	useradd -m -g users -G wheel -s /bin/bash tuxinator
+
+>>>>>>> 9e4d191a1e4a7de0bf65371006ab8f335f8ed4bf
 install	https://wiki.archlinux.org/index.php/Beginners'_guide
 	parted /dev/sda ->
 	mklabel msdos
