@@ -4202,6 +4202,12 @@ key refresh
 	sudo pacman-key --refresh-keys
 	sudo pacman-key --populate
 	sudo pacman -Syu	# fresh package
+
+	edit /etc/pacman.conf
+	[archlinuxcn]
+	SigLevel = Optional TrustedOnly
+	Server = http://repo.archlinuxcn.org/$arch
+
 	sudo pacman -Syy && sudo pacman -S archlinuxcn-keyring archlinux-keyring
 
 pacman performance optimizer perf
