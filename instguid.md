@@ -4133,18 +4133,77 @@ archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 
+install	https://wiki.archlinux.org/index.php/Beginners'_guide
+	parted /dev/sda ->
+	mklabel msdos
+	mkpart primary ext4 1MiB 512MiB
+	set 1 boot on
+	mkpart primary linux-swap 538MiB 8624MiB
+	mkpart primary ext4 9053MiB 29533MiB
+
+	lsblk /dev/sda
+	mkfs.ext4 /dev/sda1; mkfs.ext4 /dev/sda3
+
+	mkswap /dev/sda2
+	swapon /dev/sda2
+
+	mount /dev/sda3 /mnt
+	mkdir -p /mnt/boot
+	mount /dev/sda1 /mnt/boot
+
+	pacstrap -i /mnt base base-devel
+
+	genfstab -U /mnt > /mnt/etc/fstab
+	arch-chroot /mnt /bin/bash
+
+	locale-gen
+	# Create /etc/locale.conf, add/ uncomment
+	LANG=en_US.UTF-8
+
+	echo arch > /etc/hostname
+
+	tzselect
+	ln -s /usr/share/zoneinfo/Zone/SubZone /etc/localtime
+	hwclock --systohc --utc
+
+	mkinitcpio -p linux
+
+bootloader on pc
+	pacman -S grub os-prober
+	grub-install --recheck /dev/sda
+	grub-mkconfig -o /boot/grub/grub.cfg
+bootloader on pc
+
+
+bootloader on mac with efi enabled
+	pacman -S grub-efi-x86_64
+	grub-mkconfig -o boot/grub/grub.cfg
+	grub-mkstandalone -o boot.efi -d usr/lib/grub/x86_64-efi -O x86_64-efi --compress=xz boot/grub/grub.cfg
+bootloader on mac
+
+
+	systemctl enable dhcpcd@enp0s25.service; systemctl start dhcpcd@enp0s25.service
+
+	pacman -S iw wpa_supplicant dialog
+
+	passwd
+	exit
+
+	umount -R /mnt; reboot
+
+	groupadd <USER>
+	useradd -m -g <USER> -G wheel <USER>
+
+
 refresh key
 	sudo pacman-key --init
 	sudo pacman-key --refresh-keys
 	sudo pacman-key --populate
-	sudo pacman -S archlinux-keyring
 	sudo pacman -Syu	# fresh package
-	sudo pacman -Syy && sudo pacman -S archlinuxcn-keyring
+	sudo pacman -Syy && sudo pacman -S archlinuxcn-keyring archlinux-keyring
 
 package manager optimize performance
 	sudo packman -Sc && sudo pacman-optimize && sudo pacman -Syu
-
-pacman optimize > https://wiki.archlinux.org/index.php/Pacman/Tips_and_tricks#Removing_unused_packages
 
 pacman - list unused
 	pacman -Qdttq
@@ -4173,56 +4232,8 @@ ubuntu fonts
 
 groupadd and useradd
 	groupadd users
-	useradd -m -g users -G wheel -s /bin/bash tuxinator
+	useradd -m -g MY_GROUP -G wheel -s /bin/bash ME
 
-install	https://wiki.archlinux.org/index.php/Beginners'_guide
-	parted /dev/sda ->
-	mklabel msdos
-	mkpart primary ext4 1MiB 512MiB
-	set 1 boot on
-	mkpart primary linux-swap 538MiB 8624MiB
-	mkpart primary ext4 9053MiB 29533MiB
-
-	lsblk /dev/sda
-	mkfs.ext4 /dev/sda1; mkfs.ext4 /dev/sda3
-
-	mkswap /dev/sda2
-	swapon /dev/sda2
-
-	mount /dev/sda3 /mnt
-	mkdir -p /mnt/boot
-	mount /dev/sda1 /mnt/boot
-
-	pacstrap -i /mnt base base-devel
-
-	genfstab -U /mnt > /mnt/etc/fstab
-	arch-chroot /mnt /bin/bash
-
-	locale-gen
-	# Create /etc/locale.conf, add/ uncomment
-	LANG=en_US.UTF-8
-
-	tzselect
-	ln -s /usr/share/zoneinfo/Zone/SubZone /etc/localtime
-	hwclock --systohc --utc
-
-	mkinitcpio -p linux
-
-	pacman -S grub os-prober
-	grub-install --recheck /dev/sda
-	grub-mkconfig -o /boot/grub/grub.cfg
-
-	systemctl enable dhcpcd@enp0s25.service; systemctl start dhcpcd@enp0s25.service
-
-	pacman -S iw wpa_supplicant dialog
-
-	passwd
-	exit
-
-	umount -R /mnt; reboot
-
-	groupadd <USER>
-	useradd -m -g <USER> -G wheel <USER>
 
 installed package
 	gnupg then sudo mkdir /root/.gnupg; touch .gnupg/dirmngr.conf
@@ -4237,7 +4248,7 @@ after- install configuration
 
 	fcitx-googlepinyin fcitx-configtool fcitx-gtk2 fcitx-gtk3 fcitx-qt4 fcitx-qt5 fcitx-im adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts opendesktop-fonts ttf-fantasque-sans-git ttf-liberation ttf-hack ttf-gentium ttf-fira-mono ttf-fira-sans
 
-configure fcitx
+font configure fcitx font
 	cat ~/.xprofile
 	export GTK_IM_MODULE=fcitx
 	export QT_IM_MODULE=fcitx
@@ -4256,7 +4267,7 @@ start gdm
 
 getlantern	network autoproxy http://127.0.0.1:16823/proxy_on.pac
 
-
+wireless	git clone from https://aur.archlinux.org/packages/broadcom-wl/
 
 
 
