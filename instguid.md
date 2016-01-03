@@ -4203,7 +4203,7 @@ key refresh
 	sudo pacman-key --populate
 	sudo pacman -Syu	# fresh package
 
-	edit /etc/pacman.conf
+	edit /etc/pacman.conf	# https://github.com/archlinuxcn/repo
 	[archlinuxcn]
 	SigLevel = Optional TrustedOnly
 	Server = http://repo.archlinuxcn.org/$arch
