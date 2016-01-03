@@ -4191,18 +4191,19 @@ bootloader on mac
 
 	umount -R /mnt; reboot
 
-	groupadd <USER>
-	useradd -m -g <USER> -G wheel <USER>
+	groupadd and useradd
+	groupadd users
+	useradd -m -g MY_GROUP -G wheel -s /bin/bash ME
 
 
-refresh key
+key refresh 
 	sudo pacman-key --init
 	sudo pacman-key --refresh-keys
 	sudo pacman-key --populate
 	sudo pacman -Syu	# fresh package
 	sudo pacman -Syy && sudo pacman -S archlinuxcn-keyring archlinux-keyring
 
-package manager optimize performance
+pacman performance optimizer perf
 	sudo packman -Sc && sudo pacman-optimize && sudo pacman -Syu
 
 pacman - list unused
@@ -4223,25 +4224,13 @@ pacman - list installed from official repo
 	figure out a file being owned by which package
 	pacman -Qo /usr/lib/libappindicator3.so.1.0.0
 
-install package from pkgbuild
+pkgbuild install package from pkgbuild
 	git clone [package].git
 	makepkg
 
-ubuntu fonts
-	pacman -U ttf-ubuntu-font-family-0.83-1-any.pkg.tar.xz
-
-groupadd and useradd
-	groupadd users
-	useradd -m -g MY_GROUP -G wheel -s /bin/bash ME
-
-
-installed package
-	gnupg then sudo mkdir /root/.gnupg; touch .gnupg/dirmngr.conf
-
-	sudo pacman-key --init
-	sudo pacman-key --refresh-keys
 
 after- install configuration
+	gnupg then sudo mkdir /root/.gnupg; touch .gnupg/dirmngr.conf
 	gnupg gnome gnome-shell gnome-extra gdm gnome-disk-utility gnome-tweak-tool gnome-control-center gnome-backgrounds
 
 	gimp geeqie vim libreoffice-fresh nautilus vlc chromium git firefox terminator openvpn openssh wget flashplugin java-runtime-common jre7-openjdk ebtables dnsmasq
@@ -4253,6 +4242,9 @@ font configure fcitx font
 	export GTK_IM_MODULE=fcitx
 	export QT_IM_MODULE=fcitx
 	export XMODIFIERS="@im=fcitx"
+
+font ubuntu fonts
+	pacman -U ttf-ubuntu-font-family-0.83-1-any.pkg.tar.xz
 
 virtualization virtualisation virt-manager
 	pacman -Syu ebtables dnsmasq
