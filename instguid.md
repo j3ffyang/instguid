@@ -4244,6 +4244,8 @@ after- install configuration
 
 	fcitx-googlepinyin fcitx-configtool fcitx-gtk2 fcitx-gtk3 fcitx-qt4 fcitx-qt5 fcitx-im adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts opendesktop-fonts ttf-fantasque-sans-git ttf-liberation ttf-hack ttf-gentium ttf-fira-mono ttf-fira-sans wqy-zenhei wqy-bitmapfont wqy-microhei wqy-microhei-lite
 
+	synaptics rsync cryptsetup linux-headers 
+
 font setfont terminal font size
 	setfont iso02-12x22
 
