@@ -4248,6 +4248,7 @@ after- install configuration
 
 font setfont terminal font size
 	setfont iso02-12x22
+	setfont sun12x22
 
 font configure fcitx font
 	cat ~/.xprofile
