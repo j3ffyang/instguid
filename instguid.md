@@ -4238,7 +4238,7 @@ pkgbuild install package from pkgbuild
 
 after- install configuration
 	gnupg then sudo mkdir /root/.gnupg; touch .gnupg/dirmngr.conf
-	gnupg gnome gnome-shell gnome-extra gdm gnome-disk-utility gnome-tweak-tool gnome-control-center gnome-backgrounds
+	gnupg gnome gnome-shell gnome-extra gdm gnome-disk-utility gnome-tweak-tool gnome-control-center gnome-backgrounds xf86-video-intel
 
 	gimp geeqie vim libreoffice-fresh nautilus vlc chromium git firefox terminator openvpn openssh wget flashplugin java-runtime-common jre7-openjdk ebtables dnsmasq
 
