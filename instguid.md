@@ -4156,9 +4156,10 @@ install	https://wiki.archlinux.org/index.php/Beginners'_guide
 	genfstab -U /mnt > /mnt/etc/fstab
 	arch-chroot /mnt /bin/bash
 
-	locale-gen
-	# Create /etc/locale.conf, add/ uncomment
+	# edit /etc/locale.gen, uncomment
 	LANG=en_US.UTF-8
+	locale-gen
+	cp /etc/locale.gen /etc/locale.conf
 
 	echo arch > /etc/hostname
 
@@ -4242,7 +4243,7 @@ after- install configuration
 
 	gimp geeqie vim libreoffice-fresh nautilus vlc chromium git firefox terminator openvpn openssh wget flashplugin java-runtime-common jre7-openjdk ebtables dnsmasq
 
-	fcitx-googlepinyin fcitx-configtool fcitx-gtk2 fcitx-gtk3 fcitx-qt4 fcitx-qt5 fcitx-im adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts opendesktop-fonts ttf-fantasque-sans-git ttf-liberation ttf-hack ttf-gentium ttf-fira-mono ttf-fira-sans wqy-zenhei wqy-bitmapfont wqy-microhei wqy-microhei-lite
+	fcitx-googlepinyin fcitx-configtool fcitx-gtk2 fcitx-gtk3 fcitx-qt4 fcitx-qt5 fcitx-im adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts opendesktop-fonts ttf-fantasque-sans-git ttf-liberation ttf-hack ttf-gentium ttf-fira-mono ttf-fira-sans wqy-zenhei wqy-bitmapfont wqy-microhei wqy-microhei-lite libreoffice-fresh-zh-CN libreoffice-fresh-zh-TW
 
 	synaptics rsync cryptsetup linux-headers libvirt qemu atom-editor-bin
 
