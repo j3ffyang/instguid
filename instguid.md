@@ -4260,6 +4260,9 @@ font configure fcitx font
 font ubuntu fonts
 	pacman -U ttf-ubuntu-font-family-0.83-1-any.pkg.tar.xz
 
+audio / skype
+	pacman -S pavucontrol; pavucontrol	# disable mute in input device
+
 virtualization virtualisation virt-manager
 	pacman -Syu ebtables dnsmasq
 	systemctl start virtlogd.service; systemctl start libvirtd.service
