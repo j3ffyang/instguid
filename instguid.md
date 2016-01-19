@@ -4321,5 +4321,23 @@ temperature
 	grep . -r /sys/firmware/acpi/interrupts			# find the highest gpe value
 	echo "disable" > /sys/firmware/acpi/interrupts/gpe4E	# 4E is an example
 
+	# Create the following script
+	[root@arch system]# pwd
+	/etc/systemd/system
+	[root@arch system]# cat suppress-gpe4E.service 
+	# /etc/systemd/system/suppress-gpe4E.service
+	
+	[Unit]
+	Description=Disables GPE 0D
+	
+	[Service]
+	ExecStart=/bin/bash -c 'echo "disable" > /sys/firmware/acpi/interrupts/gpe4E'
+	
+	[Install]
+	WantedBy=multi-user.target
+
+	# sudo systemctl enable suppress-gpe4E.service
+
+
 
 ```
