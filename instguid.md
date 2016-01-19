@@ -4320,6 +4320,7 @@ wireless	git clone from https://aur.archlinux.org/packages/broadcom-wl/
 temperature
 	grep . -r /sys/firmware/acpi/interrupts			# find the highest gpe value
 	echo "disable" > /sys/firmware/acpi/interrupts/gpe4E	# 4E is an example
+	cat /sys/firmware/acpi/interrupts/gpe4E
 
 	# Create the following script
 	[root@arch system]# pwd
