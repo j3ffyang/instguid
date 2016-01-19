@@ -4317,7 +4317,9 @@ getlantern	network autoproxy http://127.0.0.1:16823/proxy_on.pac
 
 wireless	git clone from https://aur.archlinux.org/packages/broadcom-wl/
 
-
+temperature
+	grep . -r /sys/firmware/acpi/interrupts			# find the highest gpe value
+	echo "disable" > /sys/firmware/acpi/interrupts/gpe4E	# 4E is an example
 
 
 ```
