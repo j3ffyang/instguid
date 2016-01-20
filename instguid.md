@@ -4286,6 +4286,9 @@ after- install configuration
 
 	synaptics rsync cryptsetup linux-headers libvirt qemu atom-editor-bin
 
+install from aur git
+	broadcom-wl-dkms lantern.arch_git thermald gnome-shell-extension-kimpanel-git mbpfan-git
+
 font setfont terminal font size
 	setfont iso02-12x22
 	setfont sun12x22
