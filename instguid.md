@@ -4349,5 +4349,7 @@ temperature
 	sudo pacman -U mbpfan-git-1.9.1.r8.g6c8ad53-1-x86_64.pkg.tar.xz
 	sudo systemctl start mbpfan.service
 
+	sudo systemctl start thermald.service
+
 
 ```
