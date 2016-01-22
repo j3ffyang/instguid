@@ -4354,4 +4354,6 @@ temperature
 	sudo cpupower frequency-set -g powersave
 	sudo cpupower frequency-info
 
+	echo 1 > /sys/devices/system/cpu/intel_pstate/no_turbo
+
 ```
