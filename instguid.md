@@ -4351,5 +4351,7 @@ temperature
 
 	sudo systemctl start thermald.service
 
+	sudo cpupower frequency-set -g powersave
+	sudo cpupower frequency-info
 
 ```
