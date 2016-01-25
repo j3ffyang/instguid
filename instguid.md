@@ -4351,8 +4351,12 @@ temperature
 
 	sudo systemctl start thermald.service
 
+	# edit /etc/default/cpupower
 	sudo cpupower frequency-set -g powersave
 	sudo cpupower frequency-info
+	sudo systemctl restart cpupower.service
+	# check freq
+	sudo cat /sys/devices/system/cpu/cpu{0..3}/cpufreq/cpuinfo_cur_freq 
 
 	echo 1 > /sys/devices/system/cpu/intel_pstate/no_turbo
 
