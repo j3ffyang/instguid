@@ -4357,6 +4357,7 @@ temperature
 	sudo systemctl restart cpupower.service
 	# check freq
 	sudo cat /sys/devices/system/cpu/cpu{0..3}/cpufreq/cpuinfo_cur_freq 
+	grep \"cpu MHz\" /proc/cpuinfo
 
 	echo 1 > /sys/devices/system/cpu/intel_pstate/no_turbo
 
