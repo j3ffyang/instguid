@@ -4356,4 +4356,7 @@ temperature
 
 	echo 1 > /sys/devices/system/cpu/intel_pstate/no_turbo
 
+	cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+	sudo cat /sys/devices/system/cpu/cpu{0..3}/cpufreq/cpuinfo_cur_freq 
+
 ```
