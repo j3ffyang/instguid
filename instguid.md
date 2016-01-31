@@ -4364,4 +4364,12 @@ temperature
 	cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 	sudo cat /sys/devices/system/cpu/cpu{0..3}/cpufreq/cpuinfo_cur_freq 
 
+journal
+	journalctl -b -1 -n 100
+
+
+
+
+
+
 ```
