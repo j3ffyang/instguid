@@ -4287,7 +4287,7 @@ after- install configuration
 	synaptics rsync cryptsetup linux-headers libvirt qemu atom-editor-bin
 
 install for bluetooth, then restart "pulseaudio --kill; pulseaudio --start"
- 	pulseaudio-bluetooth bluez-utils
+	pulseaudio-bluetooth bluez-utils
 
 install from aur git
 	broadcom-wl-dkms lantern.arch_git thermald gnome-shell-extension-kimpanel-git mbpfan-git
@@ -4356,10 +4356,8 @@ temperature
 
 	# edit /etc/default/cpupower
 	sudo cpupower frequency-set -g powersave
+	sudo cpupower frequency-info
 	sudo systemctl restart cpupower.service
-	sudo cpupower -c 0-3 frequency-info 
-	sudo cpupower frequency-set --min 2.0G --max 3.0G
-
 	# check freq
 	sudo cat /sys/devices/system/cpu/cpu{0..3}/cpufreq/cpuinfo_cur_freq 
 	grep \"cpu MHz\" /proc/cpuinfo
@@ -4371,5 +4369,10 @@ temperature
 
 journal
 	journalctl -b -1 -n 100
+
+
+
+
+
 
 ```
