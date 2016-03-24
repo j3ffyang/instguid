@@ -4263,6 +4263,10 @@ pacman - remove unused
 	sudo pacman -Rsn $(sudo pacman -Qdtq)
 	sudo pacman -Rscnd <PACKAGE_NAME>
 
+pacman - remove /var/cache/pacman/pkg
+	pacman -Sc
+	pacman -Scc
+
 pacman - list installed from official repo
 	sudo pacman -Qen
        - list installed from unofficial repo
