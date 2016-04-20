@@ -4290,6 +4290,12 @@ after- install configuration
 
 	synaptics rsync cryptsetup linux-headers libvirt qemu atom-editor-bin
 
+	#flash
+	chromium-pepper-flash
+
+freemind (mindmap)
+	sudo pacman -U freemind-unstable-1.1.0.Beta1-1-any.pkg.tar.xz
+
 install for bluetooth, then restart "pulseaudio --kill; pulseaudio --start"
  	pulseaudio-bluetooth bluez-utils
 
