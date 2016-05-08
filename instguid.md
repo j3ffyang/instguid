@@ -4299,6 +4299,9 @@ freemind (mindmap)
 install for bluetooth, then restart "pulseaudio --kill; pulseaudio --start"
  	pulseaudio pulseaudio-bluetooth bluez bluez-utils pavucontrol
 
+	# refer to https://wiki.archlinux.org/index.php/bluetooth#Bluetoothctl
+	sudo systemctl start bluetooth; bluetoothctl
+
 install from aur git
 	broadcom-wl-dkms lantern.arch_git thermald gnome-shell-extension-kimpanel-git mbpfan-git
 
