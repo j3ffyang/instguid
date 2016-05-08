@@ -4297,7 +4297,9 @@ freemind (mindmap)
 	sudo pacman -U freemind-unstable-1.1.0.Beta1-1-any.pkg.tar.xz
 
 install for bluetooth, then restart "pulseaudio --kill; pulseaudio --start"
- 	pulseaudio pulseaudio-bluetooth bluez bluez-utils pavucontrol
+ 	pulseaudio pulseaudio-bluetooth bluez bluez-utils pavucontrol rfkill
+
+	sudo rfkill unblock bluetooth
 
 	# refer to https://wiki.archlinux.org/index.php/bluetooth#Bluetoothctl
 	sudo systemctl start bluetooth; bluetoothctl
