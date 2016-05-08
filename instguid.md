@@ -4297,7 +4297,7 @@ freemind (mindmap)
 	sudo pacman -U freemind-unstable-1.1.0.Beta1-1-any.pkg.tar.xz
 
 install for bluetooth, then restart "pulseaudio --kill; pulseaudio --start"
- 	pulseaudio pulseaudio-bluetooth bluez-utils
+ 	pulseaudio pulseaudio-bluetooth bluez-utils pavucontrol
 
 install from aur git
 	broadcom-wl-dkms lantern.arch_git thermald gnome-shell-extension-kimpanel-git mbpfan-git
