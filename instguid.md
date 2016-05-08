@@ -4303,6 +4303,7 @@ install for bluetooth, then restart "pulseaudio --kill; pulseaudio --start"
 
 	# refer to https://wiki.archlinux.org/index.php/bluetooth#Bluetoothctl
 	sudo systemctl start bluetooth; bluetoothctl
+	[bluetooth]# power on | scan on 
 
 install from aur git
 	broadcom-wl-dkms lantern.arch_git thermald gnome-shell-extension-kimpanel-git mbpfan-git
