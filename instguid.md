@@ -4302,6 +4302,7 @@ install for bluetooth, then restart "pulseaudio --kill; pulseaudio --start"
 	sudo rfkill unblock bluetooth
 
 	# refer to https://wiki.archlinux.org/index.php/bluetooth#Bluetoothctl
+	# http://sarveshseri.blogspot.hk/2014/07/archlinux-bluetooth.html
 	sudo systemctl start bluetooth; bluetoothctl
 	[bluetooth]# power on | scan on 
 
