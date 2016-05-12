@@ -2664,6 +2664,10 @@ Linux ssh keys setup http://www.arches.uga.edu/~pkeck/ssh/
 	ssh-agent sh -c 'ssh-add < /dev/null && bash'
 	# start ssh-agent, add the default identity keys
 
+ssh-keygen
+	ssh-keygen -lf ~/.ssh/id_rsa.pub
+	ssh-keygen -E md5 -lf ~/.ssh/id_rsa.pub
+
 ssh + rsync
 	rsync -avz -e ssh --delete /file/ user@remote:/path/
 	rsync -vrlptg --delete /SRC /DEST --exclude-from=/EXCLUDE
