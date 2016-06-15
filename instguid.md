@@ -2781,6 +2781,29 @@ ssh tunnel script
 	rm -f /tmp/pid.SSHTunnel >/dev/null
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+## On hostA; connect A --> B on which MySQL is running
+## This script will attempt to SSH to localhost port 19922 and run the ‘ls’ command. If that fails, it will attempt to create the SSH tunnel. The command to create the SSH tunnel will tunnel local port 13306 to port 3306 on hostb. You should modify that as necessary for your configuration. It will also create a tunnel for local port 19922 to port 22 on hostb which the script uses for testing the connection.
+
+createTunnel() {
+    /usr/bin/ssh -f -N -L13306:hostb:3306 -L19922:hostb:22 tunnel@hostb
+    if [[ $? -eq 0 ]]; then
+        echo Tunnel to hostb created successfully
+    else
+        echo An error occurred creating a tunnel to hostb RC was $?
+    fi
+}
+
+## Run the 'ls' command remotely.  If it returns non-zero, then create a new connection
+/usr/bin/ssh -p 19922 tunnel@localhost ls
+if [[ $? -ne 0 ]]; then
+    echo Creating new tunnel connection
+    createTunnel
+fi
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 ssh tunnel crontab
 # m     h       dom     mon     dow     command
