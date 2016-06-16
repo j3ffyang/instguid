@@ -4194,6 +4194,11 @@ gitgitgitgit
 	# change/ update branch, you'd touch
 	.git/config + .git/HEAD + .git/refs/heads/master
 
+atomatomatom atom-editor installing plugin 
+	markdown-toc vim-mode
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
