@@ -4034,6 +4034,7 @@ show date @ menu panel dconf-editor
 	Enable/Tick/Check the "show-date".
 
 multimedia driver gstreamer
+	ffmpeg -i demo.ogv -f mp4 demo.mp4
 	ffmpeg convert > ffmpeg -vcodec copy -i orig.ogv outfile.avi
 	ffmpeg cut     > ffmpeg -ss 00:00:00 -i orig.ogv -vcodec copy -t 00:02:54 output.ogv
 
