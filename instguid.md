@@ -3718,7 +3718,7 @@ package to install
 	skype icedtea-7-plugin openjdk-7-jre
 
 	# 16.04
-	git terminator ubuntu-desktop p7zip gimp imagemagick chromium-browser ubuntu-restricted-extras ssh docnf-tools vim cups-pdf flashplugin vlc
+	git terminator ubuntu-desktop p7zip gimp imagemagick chromium-browser ubuntu-restricted-extras ssh docnf-tools vim cups-pdf flashplugin vlc gstm openvpn
 
 	ubuntu-desktop p7zip gimp imagemagick chromium-browser pidgin qemu-system-x86 libvirt-bin ubuntu-vm-builder bridge-utils ubuntu-restricted-extras ssh virt-manager virt-viewer openconnect dconf-tools network-manager-vpnc vim cups-pdf lvm2 icedtea-plugin terminator cryptsetup
 
