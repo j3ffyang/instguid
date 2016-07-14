@@ -3686,6 +3686,14 @@ sublimesublimesublime
 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
 
+disable "system program problem detected"
+	$ sudo sed -i 's/^enabled=1/enabled=0/' /etc/default/apport
+	$ sudo cat /etc/default/apport
+	# set this to 0 to disable apport, or to 1 to enable it
+	# you can temporarily override this with
+	# sudo service apport start force_start=1
+	enabled=0
+
 script in /etc/rc.local
 	echo 30 | sudo tee /sys/class/backlight/acpi_video0/brightness
 	echo 3 | sudo tee /sys/devices/platform/applesmc.768/leds/smc::kbd_backlight/brightness
