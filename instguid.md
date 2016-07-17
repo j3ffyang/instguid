@@ -1,5 +1,5 @@
 ```
-Unix, AIX and Linux junjun
+Unix, AIX and Linux
 
   / /  (_)__  __ ____  __
  / /__/ / _ \/ // /\ \/ /
