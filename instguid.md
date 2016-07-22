@@ -3703,7 +3703,7 @@ script in /etc/rc.local
 
 	sudo cryptsetup luksOpen /dev/sda7 pool; sudo mount /dev/mapper/pool /media/jeff/pool/
 
-burn iso to usb		sudo dd if=/path/Fedora-I.iso of=/dev/sdb bs=8M
+burn iso to usb		dd bs=4M if=/path/any.iso of=dev/sdx status=progress && sync	# not sdxx
 
 ubuntu 	# release	cat /etc/issue
 	# receive key
@@ -3996,7 +3996,7 @@ create livecd from ubuntu
 	apt-get install syslinux isomd5sum extlinux
 	extract iso and copy LiveOS/livecd-iso-to-disk
 	livecd-iso-to-disk --overlay-size-mb 512 /path/iso /path/usb
-	dd if=/path/livecd.iso of=/dev/sdX bs=8M
+	dd if=/path/livecd.iso of=/dev/sdX bs=8M status=progress && sync
 
 repo setting > http://rpmfusion.org/Configuration/
 	su -c 'yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm'
