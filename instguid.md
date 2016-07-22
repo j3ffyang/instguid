@@ -3711,13 +3711,10 @@ ubuntu 	# release	cat /etc/issue
 	wget -q -O /tmp/ocdc-keyring.deb http://ocdc.hursley.ibm.com/ocdc/ocdc-archive-keyring.deb; sudo dpkg -i /tmp/ocdc-keyring.deb;
 
 package to install
-	ibm-global-print openclient-config-vpnc
+	# gnome-desktop
+	gnome-shell ubuntu-gnome-desktop ubuntu-desktop 
 
-	gnome-shell ubuntu-gnome-desktop	# install gnome-shell
-
-	skype icedtea-7-plugin openjdk-7-jre
-
-	# 16.04 basuc
+	# 16.04 basic 1604
 	git terminator ubuntu-desktop p7zip gimp imagemagick chromium-browser ubuntu-restricted-extras ssh dconf-tools vim cups-pdf flashplugin vlc gstm openvpn libavcodec-extra icedtea-8-plugin openjdk-8-jre bridge-utils
 
 	# virt, network, encryption
@@ -3725,6 +3722,13 @@ package to install
 
 	# multi- media
 	gstreamer0.10-plugins-ugly gstreamer0.10-ffmpeg libxine1-ffmpeg gxine mencoder libdvdread4 totem-mozilla icedax tagtool easytag id3tool lame nautilus-script-audio-convert libmad0 mpg321 gstreamer1.0-libav vlc
+
+	# java
+	icedtea-7-plugin openjdk-7-jre
+	sun-java6-bin		
+	sun-java6-jdk
+	update-java-alternatives -l	# list
+	update-java-alternatives -s java-6-sun
 
 chinese input method / im-config / im-choose
 
@@ -3753,16 +3757,6 @@ apt-file	# file which package a particular file belongs to
 	apt-get install apt-file
 	apt-file update
 	apt-file search /path/target_file
-
-java
-	apt-get install sun-java6-bin		# java
-	apt-get install sun-java6-jdk
-	update-java-alternatives -l	# list
-	update-java-alternatives -s java-6-sun
-
-java-sun in firefox plugin
-	cd /usr/lib/firefox-addons/plugins
-	sudo ln -s /usr/lib/jvm/java-6-sun/jre/lib/i386/libnpjp2.so .
 
 internal repo / ibm repo / notes repo
 	deb http://ocdc.hursley.ibm.com/ocdc raring-safe IBM IBM-layer
