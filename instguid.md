@@ -3717,11 +3717,13 @@ package to install
 
 	skype icedtea-7-plugin openjdk-7-jre
 
-	# 16.04
-	git terminator ubuntu-desktop p7zip gimp imagemagick chromium-browser ubuntu-restricted-extras ssh docnf-tools vim cups-pdf flashplugin vlc gstm openvpn libavcodec-extra icedtea-8-plugin openjdk-8-jre 
+	# 16.04 basuc
+	git terminator ubuntu-desktop p7zip gimp imagemagick chromium-browser ubuntu-restricted-extras ssh dconf-tools vim cups-pdf flashplugin vlc gstm openvpn libavcodec-extra icedtea-8-plugin openjdk-8-jre bridge-utils
 
-	ubuntu-desktop p7zip gimp imagemagick chromium-browser pidgin qemu-system-x86 libvirt-bin ubuntu-vm-builder bridge-utils ubuntu-restricted-extras ssh virt-manager virt-viewer openconnect dconf-tools network-manager-vpnc vim cups-pdf lvm2 icedtea-plugin terminator cryptsetup
+	# virt, network, encryption
+	pidgin qemu-system-x86 libvirt-bin ubuntu-vm-builder bridge-utils virt-manager virt-viewer openconnect network-manager-vpnc lvm2 cryptsetup
 
+	# multi- media
 	gstreamer0.10-plugins-ugly gstreamer0.10-ffmpeg libxine1-ffmpeg gxine mencoder libdvdread4 totem-mozilla icedax tagtool easytag id3tool lame nautilus-script-audio-convert libmad0 mpg321 gstreamer1.0-libav vlc
 
 chinese input method / im-config / im-choose
