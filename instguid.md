@@ -3717,7 +3717,7 @@ package to install
 	# 16.04 basic 1604
 	git terminator ubuntu-desktop p7zip gimp imagemagick chromium-browser ubuntu-restricted-extras ssh dconf-tools vim cups-pdf flashplugin vlc gstm openvpn libavcodec-extra icedtea-8-plugin openjdk-8-jre bridge-utils
 
-	# virt, network, encryption
+	# virt, network, encryption, cryptography
 	pidgin qemu-system-x86 libvirt-bin ubuntu-vm-builder bridge-utils virt-manager virt-viewer openconnect network-manager-vpnc lvm2 cryptsetup
 
 	# multi- media
