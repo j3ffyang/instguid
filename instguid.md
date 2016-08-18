@@ -3686,6 +3686,9 @@ sublimesublimesublime
 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
 
+change default editor
+	sudo update-alternatives --config editor
+
 disable "system program problem detected"
 	$ sudo sed -i 's/^enabled=1/enabled=0/' /etc/default/apport
 	$ sudo cat /etc/default/apport
