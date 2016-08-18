@@ -4429,4 +4429,11 @@ temperature
 journal
 	journalctl -b -1 -n 100
 
+nodejsnodejsnodejsnodejsnodejsnodejsnodejs
+	sudo npm install -g gitbook-cli gitbook-pdf
+	gitbook serve; gitbook pdf <DIR>
+
+nodejsnodejsnodejsnodejsnodejsnodejsnodejs
+
+
 ```
