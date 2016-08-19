@@ -4433,7 +4433,7 @@ journal
 	journalctl -b -1 -n 100
 
 nodejsnodejsnodejsnodejsnodejsnodejsnodejs
-	sudo npm install -g gitbook-cli gitbook-pdf
+	sudo npm install -g gitbook-cli gitbook-pdf svgexport
 	gitbook serve; gitbook pdf <DIR>
 
 nodejsnodejsnodejsnodejsnodejsnodejsnodejs
