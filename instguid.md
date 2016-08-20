@@ -4436,6 +4436,9 @@ nodejsnodejsnodejsnodejsnodejsnodejsnodejs
 	sudo npm install -g gitbook-cli gitbook-pdf svgexport
 	gitbook serve; gitbook pdf <DIR>
 
+	# install calibre for gitbook
+sudo -v && wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup/linux-installer.py | sudo python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()"
+
 nodejsnodejsnodejsnodejsnodejsnodejsnodejs
 
 
