@@ -4433,8 +4433,13 @@ journal
 	journalctl -b -1 -n 100
 
 nodejsnodejsnodejsnodejsnodejsnodejsnodejs
-	sudo npm install -g gitbook-cli gitbook-pdf svgexport
+
+	sudo npm install -g gitbook-cli gitbook-pdf svgexport markdown-toc
 	gitbook serve; gitbook pdf <DIR>
+
+	# install dependency on ubuntu
+	sudo apt-get install libcairo2-dev libjpeg-dev libgif-dev
+	gitbook install
 
 	# install calibre for gitbook
 sudo -v && wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup/linux-installer.py | sudo python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()"
