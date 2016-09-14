@@ -3737,6 +3737,8 @@ chinese input method / im-config / im-choose
 
 	fcitx fcitx-table-wbpy fcitx-googlepinyin
 
+update font preference > jeff@s900:/etc/fonts/conf.d$ cat 64-language-selector-prefer.conf 
+
 apt-get proxy
 	apt-get install [PACKAGE] -o acquire::http::proxy="http://[IP]:[8085]"
 
