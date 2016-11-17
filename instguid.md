@@ -4449,6 +4449,10 @@ nodejsnodejsnodejsnodejsnodejsnodejsnodejs
 	# install calibre for gitbook
 sudo -v && wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup/linux-installer.py | sudo python -c "import sys; main=lambda:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main()"
 
+	# apidoc
+	npm install apidoc -g
+	# apidoc ~/
+
 nodejsnodejsnodejsnodejsnodejsnodejsnodejs
 
 
