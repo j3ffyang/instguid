@@ -3758,8 +3758,8 @@ apt-get proxy
 	deb http://cz.archive.ubuntu.com/ubuntu lucid main universe
 
 adduser
-	sudo adduser ubuntu		# create /home/ubuntu
-	sudo adduser ubuntu sudo	# add user ubuntu into sudoer group
+	adduser nonroot			# create /home/ubuntu
+	usermod -aG sudo nonroot	# add user ubuntu into sudoer group
 
 apt-file	# file which package a particular file belongs to
 	apt-get install apt-file
