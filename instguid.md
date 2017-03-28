@@ -656,7 +656,7 @@ Linux swap file
 	mkswap /swapfile
 	swapon /swapfile
 	add the following in /etc/fstab
-		/swapfile	swap	swap	default		0 0
+		/swapfile	swap	swap	defaults	0 0
 
 	# to remove a swap space
 	swapoff /dev/hdb2
