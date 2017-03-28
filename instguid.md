@@ -697,7 +697,7 @@ disk raid
 	mkraid /dev/md0		# start array
 	raidstart /dev/md0	# manually activate
 	watch cat /proc/mdstat	# watch the array building progress
-	mke2fs -j -b 4096 -R stride=8 /dev/md0
+	make2fs -j -b 4096 -R stride=8 /dev/md0
 		# format the raid fs. 4096x8=32 in chunk-size in /etc/raidtab
 	mount /dev/md0 /<mount_point>
 	lsraid -A -a /dev/md0	# display info on state of raid
