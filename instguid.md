@@ -2198,6 +2198,10 @@ openssl
         test file
         =-=-
 
+openssl / gnutls regen trust untrusted key
+	dpkg-reconfigure ca-certificates
+	update-ca-certificates 
+
 
 -----------------------------------------------------------------------------------------
 openssl openssl openssl openssl openssl openssl sslsslsslsslsslssl
