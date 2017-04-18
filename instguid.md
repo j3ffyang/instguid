@@ -2202,6 +2202,10 @@ openssl / gnutls trust untrusted key
 	dpkg-reconfigure ca-certificates
 	update-ca-certificates 
 
+openssl	# test connection through specific port w/ ver of tls
+	openssl s_client -tls1_2 -connect localhost:636
+	gnutls-cli -p 636 localhost
+
 
 -----------------------------------------------------------------------------------------
 openssl openssl openssl openssl openssl openssl sslsslsslsslsslssl
