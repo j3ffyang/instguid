@@ -1756,7 +1756,7 @@ dhcp client 	$dhcpcd -h hostname -D -H eth0 	#bind with hostname when getting dh
 	interface "eth0" {
 	send host-name "summerpalace.domain.com";
 	}
-	
+
 	send dhcp-lease-time 3600;
 	prepend domain-name-servers 127.0.0.1;
 	request subnet-mask, broadcast-address, time-offset, routers, domain-name,
@@ -2200,7 +2200,7 @@ openssl
 
 openssl / gnutls trust untrusted key
 	dpkg-reconfigure ca-certificates
-	update-ca-certificates 
+	update-ca-certificates
 
 openssl	# test connection through specific port w/ ver of tls
 	openssl s_client -tls1_2 -connect localhost:636
@@ -2702,10 +2702,11 @@ ssh encrypted channel port forwarding
 	ssh -L 8888:ssh_host:80 -L 110:ssh_host:110 25:ssh_host:25 user@computer -N
 
 ssh proxy
+  ssh -N -p 22 -D 1080 user@ip
 	sudo ssh -N -v -D 8081 user@domain.net
 	ssh -C2qTnN -D 8080 usr@domain.net
 
-	ssh -D *:9999 158.85.164.5
+	ssh -D *:9999 ip_address 
 
 	for i in 50070 8080 8088 2222 2223; do ssh -N -f -L 192.168.200.2:$i:127.0.0.1:$i localhost;
 
@@ -2770,22 +2771,22 @@ ssh tunnel script
 	#!/bin/bash
 	# Get the  PID of the ssh process run by the SSHTunnel user
 	rm -f /tmp/pid.SSHTunnel > /dev/null
-	
+
 	#ps -U mytunneluser | grep -v grep | grep ssh >/tmp/pid.SSHTunnel
 	ps -ef | grep 20081 | grep ssh | awk '{print $2}' > /tmp/pid.SSHTunnel
-	
+
 	# If the file is zero sized, then SSH is not running
 	if [ -s /tmp/pid.SSHTunnel ]
 		then
 			echo "I'm alive. Hahaha"
 	fi
-	
+
 	if [ ! -s /tmp/pid.SSHTunnel ]
 		then
 	  		echo "SSH Tunnel not running - restarting"
 			ssh -N -f -R 192.168.200.2:20081:192.168.1.101:22 bryan@121.201.13.44
 	fi
-	
+
 	rm -f /tmp/pid.SSHTunnel >/dev/null
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -2902,21 +2903,21 @@ iptables/ IPTables load modules for passive ftp / iptables faq
 	iptables -t nat -A PREROUTING -i $LAN_IFACE -p tcp \
 	         -s $LAN_NETWORK --sport 1024:65535 --dport 80 \
 	         -j REDIRECT --to-port 3128
-	
+
 	# INPUT rule to accept the packet. To ACCEPT the REDIRECT
 	iptables -A INPUT -i $LAN_IFACE -p tcp \
 	         -s $LAN_NETWORK --sport 1024:65535 -d $LAN_IP --dport 3128 \
 	         -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
-	
+
 	# Squid establishes connections with the remote web server as client.
 	iptables -A OUTPUT -o $INET_IFACE -p tcp \
 	         -s $INET_IP --sport 1024:65535 --dport 80 \
 	         -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT
-	
+
 	iptables -A INPUT -i $INET_IFACE -p tcp \
 	         --sport 80 -d $INET_IP --dport 1024:65535 \
 	         -m state --state ESTABLISHED,RELATED -j ACCEPT
-	
+
 	# Responds as a server to LAN clients.
 	iptables -A OUTPUT -o $LAN_IFACE -p tcp \
 	         -s $LAN_IP --sport 80 --dport 1024:65535 \
@@ -3460,7 +3461,7 @@ wireless configuration on thinkpad t43
 	iwlist wlan0 scan | grep Frequency | sort | uniq -c | sort -n
 	iwlist wlan0 scan | grep -C3 NETWORK_ID
 	iwlist wlan0 scan | grep \(Channel
-	
+
 	iwconfig eth1 essid linksys channel 6 rate auto key hex_26_chars
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -3475,17 +3476,17 @@ leap / LEAP dependent and required packages
 
 	#example of /etc/xsupplicant/xsupplicant.conf
 	#for LEAP protocol
-	
+
 	network_list = all
 	#the list of networks to access
-	
+
 	default_netname = default
 	#the default access network
-	
+
 	first_auth_command = <BEGIN_COMMAND>dhclient %i<END_COMMAND>
 	#The command before authentication, which is usually used to get some info from
 	#the network
-	
+
 	logfile = /var/log/xsupplicant.log
 	#log file
 
@@ -3530,30 +3531,30 @@ HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
 hadoop HADOOP distributed file system
 
 	apt-get install sun-java6-jdk
-	
+
 	sudo addgroup hadoop
 	sudo adduser --ingroup hadoop hadoop
-	
+
 	ssh-keygen -t rsa -P ""
 	cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorzied_keys2
-	
+
 	# disable IPv6
 	HADOOP_OPTS=-Djava.net.preferIPv4Stack=true
-	
+
 	sudo mkdir /opt/hadoop-datastore
 	chown -R hadoop.hadoop /opt/hadoop-datastore
 	chown -R hadoop.hadoop /opt/hadoop*
-	
+
 	tar -xzvf hadoop-0.17.0.tar.gz
 	sudo mv hadoop-0.17.0 /opt
-	
+
 	cd /opt
 	sudo ln -s hadoop-0.17.0/ hadoop
-	
+
 	configuration | Configuration
 	config/hadoop-env.sh
 	export JAVA_HOME=/usr/lib/jvm/java-6-sun
-	
+
 	config/*-site.xml
 
 	port to verify: 50030, 50040, 50070
@@ -3726,7 +3727,7 @@ ubuntu 	# release	cat /etc/issue
 
 package to install
 	# gnome-desktop
-	gnome-shell ubuntu-gnome-desktop ubuntu-desktop 
+	gnome-shell ubuntu-gnome-desktop ubuntu-desktop
 
 	# 16.04 basic 1604
 	git terminator ubuntu-desktop p7zip gimp imagemagick chromium-browser ubuntu-restricted-extras ssh dconf-tools vim cups-pdf flashplugin vlc gstm openvpn libavcodec-extra icedtea-8-plugin openjdk-8-jre bridge-utils git-review
@@ -3751,7 +3752,7 @@ chinese input method / im-config / im-choose
 
 	fcitx fcitx-table-wbpy fcitx-googlepinyin
 
-update font preference > jeff@s900:/etc/fonts/conf.d$ cat 64-language-selector-prefer.conf 
+update font preference > jeff@s900:/etc/fonts/conf.d$ cat 64-language-selector-prefer.conf
 
 apt-get proxy
 	apt-get install [PACKAGE] -o acquire::http::proxy="http://[IP]:[8085]"
@@ -3931,12 +3932,12 @@ sony vaio
 Configure video driver + trackball @ /etc/default/grub
 
 	GRUB_CMDLINE_LINUX_DEFAULT="quiet splash mem=1900mb nohz=off i8042.reset i8042.nomux i8042.nopnp i8042.noloop"
-	
+
 	sudo add-apt-repository ppa:gma500/ppa && sudo apt-get update
-	
+
 	sudo apt-get remove mplayer sudo apt-get install gnome-mplayer gecko-mediaplayer
 	sudo apt-get install poulsbo-driver-2d poulsbo-driver-3d poulsbo-config
-	
+
 	sudo update-grub
 sony vaio
 
@@ -4095,25 +4096,25 @@ set touchpad 3rd button on mac
 
 HSLTHSLTHSLTHSLT
 	scp -r -p o StrictHostKeyChecking=no jeffyang@bejgsa.ibm.com:/gsa/bejgsa/projects/h/hslt/build/image/HSLT_dev/$BUILDNAME /home/jeff/Downloads/scratch/hslt/build/latest/
-	
+
 	ssh -L 9.123.127.201:33090:10.10.3.38:33090 10.10.3.38
-	
+
 	# recycle Hbase/ hbase
 	# In all Hbase nodes
 	kill -i `ps -ef | grep java | awk '{print $2}'`
-	
+
 	#Stop Hadoop on hbase-1
 	/opt/IHC-*/bin/stop-dfs.sh
-	
+
 	#Start Hadoop on hbase-1
 	/opt/IHC-*/bin/start-dfs.sh
-	
+
 	#Start Hbase on hbase-1
 	/opt/hbase-*/bin/start-hbase.sh
-	
+
 	#Start RestServer on hbase-4
 	/iaas/iaas-rest-srv/bin/rest_server.sh start
-	
+
 	#Restart ruby on Storage-1/2
 	/iaas/storage_bots/rubybots/re-run.sh
 
@@ -4169,7 +4170,7 @@ tp-link wr703n hack
 	    option proto 'static'
 	    option ipaddr '127.0.0.1'
 	    option netmask '255.0.0.0'
-	
+
 	config interface 'lan'
 	    option ifname 'eth0'
 	    option type 'bridge'
@@ -4195,7 +4196,7 @@ tp-link wr703n hack
 	    list ht_capab   DSSS_CCK-40
 	    # REMOVE THIS LINE TO ENABLE WIFI:
 	    #option disabled 1
-	
+
 	config wifi-iface
 	    option device   radio0
 	    #option network  lan
@@ -4221,7 +4222,7 @@ gitgitgitgit
 	# change/ update branch, you'd touch
 	.git/config + .git/HEAD + .git/refs/heads/master
 
-atomatomatom atom-editor installing plugin 
+atomatomatom atom-editor installing plugin
 	markdown-toc vim-mode
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -4296,7 +4297,7 @@ bootloader on mac
 install	https://wiki.archlinux.org/index.php/Beginners'_guide
 
 
-key refresh 
+key refresh
 	sudo pacman-key --init
 	sudo pacman-key --refresh-keys
 	sudo pacman-key --populate
@@ -4363,7 +4364,7 @@ install for bluetooth, then restart "pulseaudio --kill; pulseaudio --start"
 	# refer to https://wiki.archlinux.org/index.php/bluetooth#Bluetoothctl
 	# http://sarveshseri.blogspot.hk/2014/07/archlinux-bluetooth.html
 	sudo systemctl start bluetooth; bluetoothctl
-	[bluetooth]# power on | scan on 
+	[bluetooth]# power on | scan on
 
 install from aur git
 	broadcom-wl-dkms lantern.arch_git thermald gnome-shell-extension-kimpanel-git mbpfan-git
@@ -4407,22 +4408,22 @@ temperature
 	# Create the following script
 	[root@arch system]# pwd
 	/etc/systemd/system
-	[root@arch system]# cat suppress-gpe4E.service 
+	[root@arch system]# cat suppress-gpe4E.service
 	# /etc/systemd/system/suppress-gpe4E.service
-	
+
 	[Unit]
 	Description=Disables GPE 0D
-	
+
 	[Service]
 	ExecStart=/bin/bash -c 'echo "disable" > /sys/firmware/acpi/interrupts/gpe4E'
-	
+
 	[Install]
 	WantedBy=multi-user.target
 
 	# sudo systemctl enable suppress-gpe4E.service
 
 temperature
-	git clone https://aur.archlinux.org/mbpfan-git.git 
+	git clone https://aur.archlinux.org/mbpfan-git.git
 	cd mbpfan-git/
 	makepkg
 	sudo pacman -U mbpfan-git-1.9.1.r8.g6c8ad53-1-x86_64.pkg.tar.xz
@@ -4433,17 +4434,17 @@ temperature
 	# edit /etc/default/cpupower
 	sudo cpupower frequency-set -g powersave
 	sudo systemctl restart cpupower.service
-	sudo cpupower -c 0-3 frequency-info 
+	sudo cpupower -c 0-3 frequency-info
 	sudo cpupower frequency-set --min 2.0G --max 3.0G
 
 	# check freq
-	sudo cat /sys/devices/system/cpu/cpu{0..3}/cpufreq/cpuinfo_cur_freq 
+	sudo cat /sys/devices/system/cpu/cpu{0..3}/cpufreq/cpuinfo_cur_freq
 	grep \"cpu MHz\" /proc/cpuinfo
 
 	echo 1 > /sys/devices/system/cpu/intel_pstate/no_turbo
 
 	cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
-	sudo cat /sys/devices/system/cpu/cpu{0..3}/cpufreq/cpuinfo_cur_freq 
+	sudo cat /sys/devices/system/cpu/cpu{0..3}/cpufreq/cpuinfo_cur_freq
 
 journal
 	journalctl -b -1 -n 100
