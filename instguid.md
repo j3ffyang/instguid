@@ -2703,7 +2703,6 @@ ssh encrypted channel port forwarding
 
 ssh proxy
     ssh -N -p 22 -D 1080 user@ip
-    sudo ssh -N -v -D 8081 user@domain.net
     ssh -C2qTnN -D 8080 usr@domain.net
 
     for i in 50070 8080 8088 2222 2223; do ssh -N -f -L 192.168.200.2:$i:127.0.0.1:$i localhost;
@@ -3728,7 +3727,7 @@ package to install
 	gnome-shell ubuntu-gnome-desktop ubuntu-desktop
 
 	# 16.04 basic 1604
-	git terminator ubuntu-desktop p7zip gimp imagemagick chromium-browser ubuntu-restricted-extras ssh dconf-tools vim cups-pdf flashplugin vlc gstm openvpn libavcodec-extra icedtea-8-plugin openjdk-8-jre bridge-utils git-review
+	git terminator ubuntu-desktop p7zip gimp imagemagick ubuntu-restricted-extras ssh dconf-tools vim cups-pdf vlc gstm openvpn libavcodec-extra icedtea-8-plugin openjdk-8-jre bridge-utils git-review
 
 	# 16.04 package to remove
 	tracker-extract tracker-miner-fs gvfs-backends nautilus-sendto nautilus-share python-nautilus
