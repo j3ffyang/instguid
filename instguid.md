@@ -2702,13 +2702,11 @@ ssh encrypted channel port forwarding
 	ssh -L 8888:ssh_host:80 -L 110:ssh_host:110 25:ssh_host:25 user@computer -N
 
 ssh proxy
-  ssh -N -p 22 -D 1080 user@ip
-	sudo ssh -N -v -D 8081 user@domain.net
-	ssh -C2qTnN -D 8080 usr@domain.net
+    ssh -N -p 22 -D 1080 user@ip
+    sudo ssh -N -v -D 8081 user@domain.net
+    ssh -C2qTnN -D 8080 usr@domain.net
 
-	ssh -D *:9999 ip_address 
-
-	for i in 50070 8080 8088 2222 2223; do ssh -N -f -L 192.168.200.2:$i:127.0.0.1:$i localhost;
+    for i in 50070 8080 8088 2222 2223; do ssh -N -f -L 192.168.200.2:$i:127.0.0.1:$i localhost;
 
 openssh / ssh install
 	./configure --prefix=PATH --with-ssl-dir=PATH
