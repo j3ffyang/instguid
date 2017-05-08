@@ -4018,8 +4018,9 @@ create livecd from ubuntu
 repo setting > http://rpmfusion.org/Configuration/
 	su -c 'yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm'
 
-chromium repo
-	chromium-browser --proxy-server=192.168.101.2:31280
+chrome browser w/ proxy-server
+  chromium-browser --proxy-server=http://192.168.101.2:31280
+  chromium-browser --proxy-server=socks://192.168.101.2:31280
 
 adobe flash >
 	rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm
