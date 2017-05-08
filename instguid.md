@@ -4019,8 +4019,8 @@ repo setting > http://rpmfusion.org/Configuration/
 	su -c 'yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm'
 
 chrome browser w/ proxy-server
-  chromium-browser --proxy-server=http://192.168.101.2:31280
-  chromium-browser --proxy-server=socks://192.168.101.2:31280
+  chromium-browser --proxy-server=http://ip:port
+  chromium-browser --proxy-server=socks://ip:port
 
 adobe flash >
 	rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm
