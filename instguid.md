@@ -3723,20 +3723,19 @@ ubuntu 	# release	cat /etc/issue
 	wget -q -O /tmp/ocdc-keyring.deb http://ocdc.hursley.ibm.com/ocdc/ocdc-archive-keyring.deb; sudo dpkg -i /tmp/ocdc-keyring.deb;
 
 package to install
-	# gnome-desktop
+	# gnome-shell
 	gnome-shell ubuntu-gnome-desktop ubuntu-desktop
 
 	# 16.04 basic 1604
-	git terminator ubuntu-desktop p7zip gimp imagemagick ubuntu-restricted-extras ssh dconf-tools vim cups-pdf vlc gstm openvpn libavcodec-extra icedtea-8-plugin openjdk-8-jre bridge-utils git-review
+	git terminator p7zip gimp imagemagick ubuntu-restricted-extras ssh dconf-tools vim cups-pdf openvpn cryptsetup
 
-	# 16.04 package to remove
-	tracker-extract tracker-miner-fs gvfs-backends nautilus-sendto nautilus-share python-nautilus
+chinese input method / im-config / im-choose
+	fcitx fcitx-table-wbpy fcitx-googlepinyin
 
 	# virt, network, encryption, cryptography
-	pidgin qemu-system-x86 libvirt-bin ubuntu-vm-builder bridge-utils virt-manager virt-viewer openconnect network-manager-vpnc lvm2 cryptsetup
+	bridge-utils pidgin qemu-system-x86 libvirt-bin ubuntu-vm-builder virt-manager virt-viewer openconnect network-manager-vpnc lvm2 cryptsetup
 
-	# multi- media
-	gstreamer0.10-plugins-ugly gstreamer0.10-ffmpeg libxine1-ffmpeg gxine mencoder libdvdread4 totem-mozilla icedax tagtool easytag id3tool lame nautilus-script-audio-convert libmad0 mpg321 gstreamer1.0-libav vlc
+update font preference > jeff@s900:/etc/fonts/conf.d$ cat 64-language-selector-prefer.conf
 
 	# java
 	icedtea-7-plugin openjdk-7-jre
@@ -3744,12 +3743,6 @@ package to install
 	sun-java6-jdk
 	update-java-alternatives -l	# list
 	update-java-alternatives -s java-6-sun
-
-chinese input method / im-config / im-choose
-
-	fcitx fcitx-table-wbpy fcitx-googlepinyin
-
-update font preference > jeff@s900:/etc/fonts/conf.d$ cat 64-language-selector-prefer.conf
 
 apt-get proxy
 	apt-get install [PACKAGE] -o acquire::http::proxy="http://[IP]:[8085]"
