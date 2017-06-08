@@ -548,6 +548,12 @@ Command line internet
 	text internet	$lynx	#(shift+o -> options)
 			$links
 
+command line browser
+    links2 -socks-proxy localhost:1080 google.com
+
+    # and start ssh tunnel in another session
+    ssh -4 -N -p 22 -D 1080 nonroot@[get_rid_of_gfw_ip]
+
 Zip/zip/unzip	jar -x -> to unzip
 		jar -t -> to list the content.
 		unzip file.zip
