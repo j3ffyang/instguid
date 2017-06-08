@@ -4230,6 +4230,9 @@ atomatomatom atom-editor installing plugin
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 
+	# wireless enablement
+	wife-menu -o
+
 install	https://wiki.archlinux.org/index.php/Beginners'_guide
 	parted /dev/sda ->
 	mklabel msdos
@@ -4245,7 +4248,7 @@ install	https://wiki.archlinux.org/index.php/Beginners'_guide
 	mkswap /dev/sda2
 	swapon /dev/sda2
 
-	mount /dev/sda3 /mnt
+	mount /dev/sda3 /mnt	# /dev/sda3 = /
 	mkdir -p /mnt/boot
 	mount /dev/sda1 /mnt/boot
 
@@ -4268,19 +4271,21 @@ install	https://wiki.archlinux.org/index.php/Beginners'_guide
 
 	mkinitcpio -p linux
 
-bootloader on pc
+	# bootloader on pc
 	pacman -S grub os-prober
 	grub-install --recheck /dev/sda
 	grub-mkconfig -o /boot/grub/grub.cfg
-bootloader on pc
+	# bootloader on pc
 
 # efi gpt
-bootloader on mac with efi enabled
+	# bootloader on mac with efi enabled
 	pacman -S grub-efi-x86_64
 	grub-mkconfig -o boot/grub/grub.cfg
 	grub-mkstandalone -o boot.efi -d usr/lib/grub/x86_64-efi -O x86_64-efi --compress=xz boot/grub/grub.cfg
-bootloader on mac
+	# bootloader on mac
+# efi gpt
 
+	# enable dhcpcd
 	systemctl enable dhcpcd@enp0s25.service; systemctl start dhcpcd@enp0s25.service
 
 	pacman -S iw wpa_supplicant dialog xterm terminator xf86-video-intel # intel video driver
@@ -4300,7 +4305,7 @@ install	https://wiki.archlinux.org/index.php/Beginners'_guide
   pacman -S gdm gnome-shell gnome-desktop gnome-extra gnome-tweak-tool \
       gnome-backgrounds gnome-disk-utility gnome-control-center
 
-  ## fonts
+  ## fonts (run in text mode, without gdm, as rendering might hang the system)
   pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts \
       ttf-arphic-ukai ttf-arphic-uming opendesktop-fonts \
       wqy-microhei wqy-zenhei wqy-bitmapfont  
