@@ -382,6 +382,9 @@ Linux Profile/profile / Environment Setting (env)
 	$HOME/.bashrc contains user aliases and functions; 	
 	$HOME/.bash_profile contains user environment stuff and startup programs
 
+	# auto complete sudo autocomplete
+	cat "complete -cf sudo" >> ~/.bashrc
+
 Linux .profile / PROFILE/ Profile sample
 	# .profile
 
@@ -4220,8 +4223,6 @@ atomatomatom atom-editor installing plugin
 
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
-archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
-archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 
 install	https://wiki.archlinux.org/index.php/Beginners'_guide
 	parted /dev/sda ->
@@ -4234,6 +4235,7 @@ install	https://wiki.archlinux.org/index.php/Beginners'_guide
 	lsblk /dev/sda
 	mkfs.ext4 /dev/sda1; mkfs.ext4 /dev/sda3
 
+  # no swap required in most cases when ram >= 4G
 	mkswap /dev/sda2
 	swapon /dev/sda2
 
@@ -4241,15 +4243,16 @@ install	https://wiki.archlinux.org/index.php/Beginners'_guide
 	mkdir -p /mnt/boot
 	mount /dev/sda1 /mnt/boot
 
+  # choose the nearest mirror
+  edit /mnt/etc/pacman.d/mirrirlist
+
 	pacstrap -i /mnt base base-devel
 
 	genfstab -U /mnt > /mnt/etc/fstab
 	arch-chroot /mnt /bin/bash
 
-	# edit /etc/locale.gen, uncomment
-	LANG=en_US.UTF-8
 	locale-gen
-	cp /etc/locale.gen /etc/locale.conf
+	cat "LANG=en_US.UTF-8" > /etc/locale.conf
 
 	echo arch > /etc/hostname
 
@@ -4265,27 +4268,66 @@ bootloader on pc
 	grub-mkconfig -o /boot/grub/grub.cfg
 bootloader on pc
 
-
+# efi gpt
 bootloader on mac with efi enabled
 	pacman -S grub-efi-x86_64
 	grub-mkconfig -o boot/grub/grub.cfg
 	grub-mkstandalone -o boot.efi -d usr/lib/grub/x86_64-efi -O x86_64-efi --compress=xz boot/grub/grub.cfg
 bootloader on mac
 
-
 	systemctl enable dhcpcd@enp0s25.service; systemctl start dhcpcd@enp0s25.service
 
-	pacman -S iw wpa_supplicant dialog
+	pacman -S iw wpa_supplicant dialog xterm terminator xf86-video-intel # intel video driver
 
 	passwd
 	exit
 
 	umount -R /mnt; reboot
 
-	groupadd and useradd
+	#groupadd and useradd
 	groupadd users
 	useradd -m -g MY_GROUP -G wheel -s /bin/bash ME
 install	https://wiki.archlinux.org/index.php/Beginners'_guide
+
+  # post-install
+  ## gnome + gdm
+  pacman -S gdm gnome-shell gnome-desktop gnome-extra gnome-tweak-tool \
+      gnome-backgrounds gnome-disk-utility gnome-control-center
+
+  ## fonts
+  pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts \
+      ttf-arphic-ukai ttf-arphic-uming opendesktop-fonts \
+      wqy-microhei wqy-zenhei wqy-bitmapfont  
+
+  ## pinyin im
+  pacman -S fcitx-googlepinyin fcitx-configtool
+
+  ## browser
+  pacman -S firefox chromium
+
+  ## util
+  pacman -S gnupg openssh openvpn terminator gimp nautilus wget git vim vlc \
+    rsync cryptsetup
+
+  ## office
+  pacman -S libreoffice-fresh libreoffice-fresh-zh-CN libreoffice-fresh-zh-TW
+
+  ## others
+  pacman -S geeqie flashplugin java-runtime-common jre7-openjdk ebtables dnsmasq
+
+  #flash
+	chromium-pepper-flash
+
+  # bluetooth
+  install for bluetooth, then restart "pulseaudio --kill; pulseaudio --start"
+
+  pacman -S pulseaudio pulseaudio-bluetooth bluez bluez-utils pavucontrol rfkill
+  sudo rfkill unblock bluetooth
+
+  # refer to https://wiki.archlinux.org/index.php/bluetooth#Bluetoothctl
+  # http://sarveshseri.blogspot.hk/2014/07/archlinux-bluetooth.html
+  sudo systemctl start bluetooth; bluetoothctl
+  [bluetooth]# power on | scan on  
 
 
 key refresh
@@ -4328,34 +4370,8 @@ pacman - list installed from official repo
 
 pkgbuild install package from pkgbuild
 	git clone [package].git
-	makepkg
+	makepkg -si
 
-
-after- install configuration
-	gnupg then sudo mkdir /root/.gnupg; touch .gnupg/dirmngr.conf
-	gnupg gnome gnome-shell gnome-extra gdm gnome-disk-utility gnome-tweak-tool gnome-control-center gnome-backgrounds xf86-video-intel
-
-	gimp geeqie vim libreoffice-fresh nautilus vlc chromium git firefox terminator openvpn openssh wget flashplugin java-runtime-common jre7-openjdk ebtables dnsmasq
-
-	fcitx-googlepinyin fcitx-configtool fcitx-gtk2 fcitx-gtk3 fcitx-qt4 fcitx-qt5 fcitx-im adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts opendesktop-fonts ttf-fantasque-sans-git ttf-liberation ttf-hack ttf-gentium ttf-fira-mono ttf-fira-sans wqy-zenhei wqy-bitmapfont wqy-microhei wqy-microhei-lite libreoffice-fresh-zh-CN libreoffice-fresh-zh-TW
-
-	synaptics rsync cryptsetup linux-headers libvirt qemu atom-editor-bin
-
-	#flash
-	chromium-pepper-flash
-
-freemind (mindmap)
-	sudo pacman -U freemind-unstable-1.1.0.Beta1-1-any.pkg.tar.xz
-
-install for bluetooth, then restart "pulseaudio --kill; pulseaudio --start"
- 	pulseaudio pulseaudio-bluetooth bluez bluez-utils pavucontrol rfkill
-
-	sudo rfkill unblock bluetooth
-
-	# refer to https://wiki.archlinux.org/index.php/bluetooth#Bluetoothctl
-	# http://sarveshseri.blogspot.hk/2014/07/archlinux-bluetooth.html
-	sudo systemctl start bluetooth; bluetoothctl
-	[bluetooth]# power on | scan on
 
 install from aur git
 	broadcom-wl-dkms lantern.arch_git thermald gnome-shell-extension-kimpanel-git mbpfan-git
@@ -4372,9 +4388,6 @@ font configure fcitx font
 
 font ubuntu fonts
 	pacman -U ttf-ubuntu-font-family-0.83-1-any.pkg.tar.xz
-
-audio / skype
-	pacman -S pavucontrol; pavucontrol	# disable mute in input device
 
 virtualization virtualisation virt-manager
 	pacman -Syu ebtables dnsmasq
