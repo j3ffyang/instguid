@@ -1,15 +1,13 @@
-
-# Unix, AIX and Linux
-
 ```
+Unix, AIX and Linux
+
   / /  (_)__  __ ____  __
  / /__/ / _ \/ // /\ \/ /
 /____/_/_//_/\_,_/ /_/\_\
 
-
 ###############################################################################
 
-## AIX System Admin
+AIX System Admin
 
 AIX Tools and Util (iostat and vmstat filesed, etc.
 
@@ -385,7 +383,7 @@ Linux Profile/profile / Environment Setting (env)
 	$HOME/.bash_profile contains user environment stuff and startup programs
 
 	# auto complete sudo autocomplete
-	echo "complete -cf sudo" >> ~/.bashrc
+	cat "complete -cf sudo" >> ~/.bashrc
 
 Linux .profile / PROFILE/ Profile sample
 	# .profile
@@ -4226,81 +4224,70 @@ gitgitgitgit
 
 atomatomatom atom-editor installing plugin
 	markdown-toc vim-mode
-```
+
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 
+	# wireless enablement
+	wife-menu -o
 
-## arch
+install	https://wiki.archlinux.org/index.php/Beginners'_guide
+	parted /dev/sda ->
+	mklabel msdos
+	mkpart primary ext4 1MiB 512MiB
+	set 1 boot on
+	mkpart primary linux-swap 538MiB 8624MiB
+	mkpart primary ext4 9053MiB 29533MiB
 
-### wireless enablement
-	wifi-menu -o
+	lsblk /dev/sda
+	mkfs.ext4 /dev/sda1; mkfs.ext4 /dev/sda3
 
-### install
-[https://wiki.archlinux.org/index.php/Beginners'_guide](https://wiki.archlinux.org/index.php/Beginners'_guide)
+  # no swap required in most cases when ram >= 4G
+	mkswap /dev/sda2
+	swapon /dev/sda2
 
-```
-  parted /dev/sda ->
-  mklabel msdos
-  mkpart primary ext4 1MiB 512MiB
-  set 1 boot on
-  mkpart primary linux-swap 538MiB 8624MiB
-  mkpart primary ext4 9053MiB 29533MiB
+	mount /dev/sda3 /mnt	# /dev/sda3 = /
+	mkdir -p /mnt/boot
+	mount /dev/sda1 /mnt/boot
 
-  lsblk /dev/sda
-  mkfs.ext4 /dev/sda1; mkfs.ext4 /dev/sda3
+  # choose the nearest mirror
+  edit /mnt/etc/pacman.d/mirrirlist
 
-  mkswap /dev/sda2
-  swapon /dev/sda2
+	pacstrap -i /mnt base base-devel
 
-  mount /dev/sda3 /mnt	# /dev/sda3 = /
-  mkdir -p /mnt/boot
-  mount /dev/sda1 /mnt/boot
-```
+	genfstab -U /mnt > /mnt/etc/fstab
+	arch-chroot /mnt /bin/bash
 
-### choose the nearest mirror
-  edit ```/mnt/etc/pacman.d/mirrirlist```
-```
-  pacstrap -i /mnt base base-devel
+	locale-gen
+	cat "LANG=en_US.UTF-8" > /etc/locale.conf
 
-  genfstab -U /mnt > /mnt/etc/fstab
-  arch-chroot /mnt /bin/bash
+	echo arch > /etc/hostname
 
-  locale-gen
-  cat "LANG=en_US.UTF-8" > /etc/locale.conf
+	tzselect
+	ln -s /usr/share/zoneinfo/Zone/SubZone /etc/localtime
+	hwclock --systohc --utc
 
-  echo arch > /etc/hostname
+	mkinitcpio -p linux
 
-  tzselect
-  ln -s /usr/share/zoneinfo/Zone/SubZone /etc/localtime
-  hwclock --systohc --utc
+	# bootloader on pc
+	pacman -S grub os-prober
+	grub-install --recheck /dev/sda
+	grub-mkconfig -o /boot/grub/grub.cfg
+	# bootloader on pc
 
-  mkinitcpio -p linux
-```
+# efi gpt
+	# bootloader on mac with efi enabled
+	pacman -S grub-efi-x86_64
+	grub-mkconfig -o boot/grub/grub.cfg
+	grub-mkstandalone -o boot.efi -d usr/lib/grub/x86_64-efi -O x86_64-efi --compress=xz boot/grub/grub.cfg
+	# bootloader on mac
+# efi gpt
 
-### bootloader on pc
-```
-  pacman -S grub os-prober
-  grub-install --recheck /dev/sda
-  grub-mkconfig -o /boot/grub/grub.cfg
-  # bootloader on pc
-```
-
-### bootloader on mac with efi enabled efi gpt
-```
-  pacman -S grub-efi-x86_64
-  grub-mkconfig -o boot/grub/grub.cfg
-  grub-mkstandalone -o boot.efi -d usr/lib/grub/x86_64-efi \
-    -O x86_64-efi --compress=xz boot/grub/grub.cfg
-  # efi partition would be /dev/sda1 around 500M
-```
-
-### enable dhcpcd
+	# enable dhcpcd
 	systemctl enable dhcpcd@enp0s25.service; systemctl start dhcpcd@enp0s25.service
 
-### install earlier
 	pacman -S iw wpa_supplicant dialog xterm terminator xf86-video-intel # intel video driver
 
 	passwd
@@ -4308,86 +4295,62 @@ archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 
 	umount -R /mnt; reboot
 
-### groupadd and useradd
+	#groupadd and useradd
 	groupadd users
 	useradd -m -g MY_GROUP -G wheel -s /bin/bash ME
+install	https://wiki.archlinux.org/index.php/Beginners'_guide
 
+  # post-install
+  ## gnome + gdm
+  pacman -S gdm gnome-shell gnome-desktop gnome-extra gnome-tweak-tool \
+      gnome-backgrounds gnome-disk-utility gnome-control-center
 
-### post-install
+  ## fonts (run in text mode, without gdm, as rendering might hang the system)
+  pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts \
+      ttf-arphic-ukai ttf-arphic-uming opendesktop-fonts \
+      wqy-microhei wqy-zenhei wqy-bitmapfont  
 
-### gnome + gdm
-```
-  pacman -S gdm gnome-shell gnome-desktop gnome-extra \
-    gnome-tweak-tool gnome-backgrounds \
-    gnome-disk-utility gnome-control-center
-```
+  ## pinyin im
 
-### fonts
-(run in text mode, without gdm, as rendering might hang the system)
-```
-  pacman -S adobe-source-han-sans-cn-fonts \
-    adobe-source-han-sans-tw-fonts \
-    ttf-arphic-ukai ttf-arphic-uming opendesktop-fonts \
-    wqy-microhei wqy-zenhei wqy-bitmapfont  
-```
-
-### pinyin im input method
-```
   pacman -S fcitx-im fcitx-googlepinyin fcitx-configtool
-```
 
-run ```fcitx configuration ```, add ```google-pinyin```
-edit ```~/.xprofile```
-```
+  # run fcitx configuration, add google-pinyin edit ~/.xprofile
+
   export GTK_IM_MODULE=fcitx
   export QT_IM_MODULE=fcitx
   export XMODIFIERS=@im=fcitx
-```
-```
+
   source ~/.xprofile
-```
-edit ```~/.bashrc```, add ```source ~/.xprofile``` at the bottom
 
+  edit ~/.bashrc, add source ~/.xprofile at the bottom
 
-### browser
-  ```pacman -S firefox chromium```
+  ## browser
+  pacman -S firefox chromium
 
-### util
-```
-  pacman -S gnupg openssh openvpn terminator gimp nautilus \
-    wget git vim vlc rsync cryptsetup
-```
+  ## util
+  pacman -S gnupg openssh openvpn terminator gimp nautilus wget git vim vlc \
+    rsync cryptsetup
 
-### office
-```
-  pacman -S libreoffice-fresh libreoffice-fresh-zh-CN \
-    libreoffice-fresh-zh-TW
-```
+  ## office
+  pacman -S libreoffice-fresh libreoffice-fresh-zh-CN libreoffice-fresh-zh-TW
 
-### others
-```
-  pacman -S geeqie flashplugin java-runtime-common \
-    jre7-openjdk ebtables dnsmasq
-```
+  ## others
+  pacman -S geeqie flashplugin java-runtime-common jre7-openjdk ebtables dnsmasq
 
-### flash
-```	chromium-pepper-flash```
+  #flash
+	chromium-pepper-flash
 
-### bluetooth
-  install for bluetooth, then restart ```pulseaudio --kill; pulseaudio --start```
+  # bluetooth
+  install for bluetooth, then restart "pulseaudio --kill; pulseaudio --start"
 
-```
-  pacman -S pulseaudio pulseaudio-bluetooth bluez \
-    bluez-utils pavucontrol rfkill
+  pacman -S pulseaudio pulseaudio-bluetooth bluez bluez-utils pavucontrol rfkill
   sudo rfkill unblock bluetooth
-```
 
-#### refer to [http://sarveshseri.blogspot.hk/2014/07/archlinux-bluetooth.html](http://sarveshseri.blogspot.hk/2014/07/archlinux-bluetooth.html)
-
-```
+  # refer to https://wiki.archlinux.org/index.php/bluetooth#Bluetoothctl
+  # http://sarveshseri.blogspot.hk/2014/07/archlinux-bluetooth.html
   sudo systemctl start bluetooth; bluetoothctl
   [bluetooth]# power on | scan on  
-```
+
 
 key refresh
 	sudo pacman-key --init
