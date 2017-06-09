@@ -1,13 +1,15 @@
-```
-Unix, AIX and Linux
 
+# Unix, AIX and Linux
+
+```
   / /  (_)__  __ ____  __
  / /__/ / _ \/ // /\ \/ /
 /____/_/_//_/\_,_/ /_/\_\
 
+
 ###############################################################################
 
-AIX System Admin
+## AIX System Admin
 
 AIX Tools and Util (iostat and vmstat filesed, etc.
 
@@ -4224,70 +4226,81 @@ gitgitgitgit
 
 atomatomatom atom-editor installing plugin
 	markdown-toc vim-mode
-
+```
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 
-	# wireless enablement
-	wife-menu -o
 
-install	https://wiki.archlinux.org/index.php/Beginners'_guide
-	parted /dev/sda ->
-	mklabel msdos
-	mkpart primary ext4 1MiB 512MiB
-	set 1 boot on
-	mkpart primary linux-swap 538MiB 8624MiB
-	mkpart primary ext4 9053MiB 29533MiB
+## arch
 
-	lsblk /dev/sda
-	mkfs.ext4 /dev/sda1; mkfs.ext4 /dev/sda3
+### wireless enablement
+	wifi-menu -o
 
-  # no swap required in most cases when ram >= 4G
-	mkswap /dev/sda2
-	swapon /dev/sda2
+### install
+[https://wiki.archlinux.org/index.php/Beginners'_guide](https://wiki.archlinux.org/index.php/Beginners'_guide)
 
-	mount /dev/sda3 /mnt	# /dev/sda3 = /
-	mkdir -p /mnt/boot
-	mount /dev/sda1 /mnt/boot
+```
+  parted /dev/sda ->
+  mklabel msdos
+  mkpart primary ext4 1MiB 512MiB
+  set 1 boot on
+  mkpart primary linux-swap 538MiB 8624MiB
+  mkpart primary ext4 9053MiB 29533MiB
 
-  # choose the nearest mirror
-  edit /mnt/etc/pacman.d/mirrirlist
+  lsblk /dev/sda
+  mkfs.ext4 /dev/sda1; mkfs.ext4 /dev/sda3
 
-	pacstrap -i /mnt base base-devel
+  mkswap /dev/sda2
+  swapon /dev/sda2
 
-	genfstab -U /mnt > /mnt/etc/fstab
-	arch-chroot /mnt /bin/bash
+  mount /dev/sda3 /mnt	# /dev/sda3 = /
+  mkdir -p /mnt/boot
+  mount /dev/sda1 /mnt/boot
+```
 
-	locale-gen
-	cat "LANG=en_US.UTF-8" > /etc/locale.conf
+### choose the nearest mirror
+  edit ```/mnt/etc/pacman.d/mirrirlist```
+```
+  pacstrap -i /mnt base base-devel
 
-	echo arch > /etc/hostname
+  genfstab -U /mnt > /mnt/etc/fstab
+  arch-chroot /mnt /bin/bash
 
-	tzselect
-	ln -s /usr/share/zoneinfo/Zone/SubZone /etc/localtime
-	hwclock --systohc --utc
+  locale-gen
+  cat "LANG=en_US.UTF-8" > /etc/locale.conf
 
-	mkinitcpio -p linux
+  echo arch > /etc/hostname
 
-	# bootloader on pc
-	pacman -S grub os-prober
-	grub-install --recheck /dev/sda
-	grub-mkconfig -o /boot/grub/grub.cfg
-	# bootloader on pc
+  tzselect
+  ln -s /usr/share/zoneinfo/Zone/SubZone /etc/localtime
+  hwclock --systohc --utc
 
-# efi gpt
-	# bootloader on mac with efi enabled
-	pacman -S grub-efi-x86_64
-	grub-mkconfig -o boot/grub/grub.cfg
-	grub-mkstandalone -o boot.efi -d usr/lib/grub/x86_64-efi -O x86_64-efi --compress=xz boot/grub/grub.cfg
-	# bootloader on mac
-# efi gpt
+  mkinitcpio -p linux
+```
 
-	# enable dhcpcd
+### bootloader on pc
+```
+  pacman -S grub os-prober
+  grub-install --recheck /dev/sda
+  grub-mkconfig -o /boot/grub/grub.cfg
+  # bootloader on pc
+```
+
+### bootloader on mac with efi enabled efi gpt
+```
+  pacman -S grub-efi-x86_64
+  grub-mkconfig -o boot/grub/grub.cfg
+  grub-mkstandalone -o boot.efi -d usr/lib/grub/x86_64-efi \
+    -O x86_64-efi --compress=xz boot/grub/grub.cfg
+  # efi partition would be /dev/sda1 around 500M
+```
+
+### enable dhcpcd
 	systemctl enable dhcpcd@enp0s25.service; systemctl start dhcpcd@enp0s25.service
 
+### install earlier
 	pacman -S iw wpa_supplicant dialog xterm terminator xf86-video-intel # intel video driver
 
 	passwd
@@ -4295,51 +4308,86 @@ install	https://wiki.archlinux.org/index.php/Beginners'_guide
 
 	umount -R /mnt; reboot
 
-	#groupadd and useradd
+### groupadd and useradd
 	groupadd users
 	useradd -m -g MY_GROUP -G wheel -s /bin/bash ME
-install	https://wiki.archlinux.org/index.php/Beginners'_guide
 
-  # post-install
-  ## gnome + gdm
-  pacman -S gdm gnome-shell gnome-desktop gnome-extra gnome-tweak-tool \
-      gnome-backgrounds gnome-disk-utility gnome-control-center
 
-  ## fonts (run in text mode, without gdm, as rendering might hang the system)
-  pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts \
-      ttf-arphic-ukai ttf-arphic-uming opendesktop-fonts \
-      wqy-microhei wqy-zenhei wqy-bitmapfont  
+### post-install
 
-  ## pinyin im
-  pacman -S fcitx-googlepinyin fcitx-configtool
+### gnome + gdm
+```
+  pacman -S gdm gnome-shell gnome-desktop gnome-extra \
+    gnome-tweak-tool gnome-backgrounds \
+    gnome-disk-utility gnome-control-center
+```
 
-  ## browser
-  pacman -S firefox chromium
+### fonts
+(run in text mode, without gdm, as rendering might hang the system)
+```
+  pacman -S adobe-source-han-sans-cn-fonts \
+    adobe-source-han-sans-tw-fonts \
+    ttf-arphic-ukai ttf-arphic-uming opendesktop-fonts \
+    wqy-microhei wqy-zenhei wqy-bitmapfont  
+```
 
-  ## util
-  pacman -S gnupg openssh openvpn terminator gimp nautilus wget git vim vlc \
-    rsync cryptsetup
+### pinyin im input method
+```
+  pacman -S fcitx-im fcitx-googlepinyin fcitx-configtool
+```
 
-  ## office
-  pacman -S libreoffice-fresh libreoffice-fresh-zh-CN libreoffice-fresh-zh-TW
+run ```fcitx configuration ```, add ```google-pinyin```
+edit ```~/.xprofile```
+```
+  export GTK_IM_MODULE=fcitx
+  export QT_IM_MODULE=fcitx
+  export XMODIFIERS=@im=fcitx
+```
+```
+  source ~/.xprofile
+```
+edit ```~/.bashrc```, add ```source ~/.xprofile``` at the bottom
 
-  ## others
-  pacman -S geeqie flashplugin java-runtime-common jre7-openjdk ebtables dnsmasq
 
-  #flash
-	chromium-pepper-flash
+### browser
+  ```pacman -S firefox chromium```
 
-  # bluetooth
-  install for bluetooth, then restart "pulseaudio --kill; pulseaudio --start"
+### util
+```
+  pacman -S gnupg openssh openvpn terminator gimp nautilus \
+    wget git vim vlc rsync cryptsetup
+```
 
-  pacman -S pulseaudio pulseaudio-bluetooth bluez bluez-utils pavucontrol rfkill
+### office
+```
+  pacman -S libreoffice-fresh libreoffice-fresh-zh-CN \
+    libreoffice-fresh-zh-TW
+```
+
+### others
+```
+  pacman -S geeqie flashplugin java-runtime-common \
+    jre7-openjdk ebtables dnsmasq
+```
+
+### flash
+```	chromium-pepper-flash```
+
+### bluetooth
+  install for bluetooth, then restart ```pulseaudio --kill; pulseaudio --start```
+
+```
+  pacman -S pulseaudio pulseaudio-bluetooth bluez \
+    bluez-utils pavucontrol rfkill
   sudo rfkill unblock bluetooth
+```
 
-  # refer to https://wiki.archlinux.org/index.php/bluetooth#Bluetoothctl
-  # http://sarveshseri.blogspot.hk/2014/07/archlinux-bluetooth.html
+#### refer to [http://sarveshseri.blogspot.hk/2014/07/archlinux-bluetooth.html](http://sarveshseri.blogspot.hk/2014/07/archlinux-bluetooth.html)
+
+```
   sudo systemctl start bluetooth; bluetoothctl
   [bluetooth]# power on | scan on  
-
+```
 
 key refresh
 	sudo pacman-key --init
