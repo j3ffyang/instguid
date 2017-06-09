@@ -383,7 +383,7 @@ Linux Profile/profile / Environment Setting (env)
 	$HOME/.bash_profile contains user environment stuff and startup programs
 
 	# auto complete sudo autocomplete
-	cat "complete -cf sudo" >> ~/.bashrc
+	echo "complete -cf sudo" >> ~/.bashrc
 
 Linux .profile / PROFILE/ Profile sample
 	# .profile
