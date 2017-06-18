@@ -3724,7 +3724,7 @@ script in /etc/rc.local
 
 	sudo cryptsetup luksOpen /dev/sda7 pool; sudo mount /dev/mapper/pool /media/jeff/pool/
 
-burn iso to usb		dd bs=4M if=/path/any.iso of=dev/sdx status=progress && sync	# not sdxx
+burn iso to usb		dd bs=4M if=/path/any.iso of=/dev/sdx status=progress && sync	# not sdxx
 
 ubuntu 	# release	cat /etc/issue
 	# receive key
@@ -4261,7 +4261,7 @@ install	https://wiki.archlinux.org/index.php/Beginners'_guide
 	arch-chroot /mnt /bin/bash
 
 	locale-gen
-	cat "LANG=en_US.UTF-8" > /etc/locale.conf
+	echo "LANG=en_US.UTF-8" > /etc/locale.conf
 
 	echo arch > /etc/hostname
 
@@ -4280,8 +4280,8 @@ install	https://wiki.archlinux.org/index.php/Beginners'_guide
 # efi gpt
 	# bootloader on mac with efi enabled
 	pacman -S grub-efi-x86_64
-	grub-mkconfig -o boot/grub/grub.cfg
-	grub-mkstandalone -o boot.efi -d usr/lib/grub/x86_64-efi -O x86_64-efi --compress=xz boot/grub/grub.cfg
+	grub-mkconfig -o /boot/grub/grub.cfg
+	grub-mkstandalone -o boot.efi -d /usr/lib/grub/x86_64-efi -O x86_64-efi --compress=xz /boot/grub/grub.cfg
 	# bootloader on mac
 # efi gpt
 
