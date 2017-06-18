@@ -4231,7 +4231,7 @@ archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 
 	# wireless enablement
-	wife-menu -o
+	wifi-menu -o
 
 install	https://wiki.archlinux.org/index.php/Beginners'_guide
 	parted /dev/sda ->
@@ -4253,7 +4253,7 @@ install	https://wiki.archlinux.org/index.php/Beginners'_guide
 	mount /dev/sda1 /mnt/boot
 
   # choose the nearest mirror
-  edit /mnt/etc/pacman.d/mirrirlist
+  edit /etc/pacman.d/mirrirlist
 
 	pacstrap -i /mnt base base-devel
 
