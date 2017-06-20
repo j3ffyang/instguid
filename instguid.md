@@ -3726,10 +3726,7 @@ script in /etc/rc.local
 
 burn iso to usb		dd bs=4M if=/path/any.iso of=/dev/sdx status=progress && sync	# not sdxx
 
-ubuntu 	# release	cat /etc/issue
-	# receive key
-	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5A9BF3BB4E5E17B5
-	wget -q -O /tmp/ocdc-keyring.deb http://ocdc.hursley.ibm.com/ocdc/ocdc-archive-keyring.deb; sudo dpkg -i /tmp/ocdc-keyring.deb;
+ubuntu 	# release	cat /etc/issu
 
 package to install
 	# gnome-shell
@@ -3744,6 +3741,7 @@ chinese input method / im-config / im-choose
 	# virt, network, encryption, cryptography
 	bridge-utils pidgin qemu-system-x86 libvirt-bin ubuntu-vm-builder virt-manager virt-viewer openconnect network-manager-vpnc lvm2 cryptsetup
 
+font change / language change
 update font preference > jeff@s900:/etc/fonts/conf.d$ cat 64-language-selector-prefer.conf
 
 	# java
@@ -3756,17 +3754,10 @@ update font preference > jeff@s900:/etc/fonts/conf.d$ cat 64-language-selector-p
 apt-get proxy
 	apt-get install [PACKAGE] -o acquire::http::proxy="http://[IP]:[8085]"
 
-
-	compizconfig-settings-manager compiz-fusion-plugins-extra
-	ccsm > General > General Options > Desktop Size
-
 	# install dvd codec / player repository on ubuntu
 	https://help.ubuntu.com/community/RestrictedFormats
 	sudo apt-get install ubuntu-restricted-extras
 	sudo /usr/share/doc/libdvdread4/install-css.sh
-
-	# nmon
-	deb http://cz.archive.ubuntu.com/ubuntu lucid main universe
 
 adduser
 	adduser nonroot			# create /home/ubuntu
@@ -3923,32 +3914,10 @@ Philips bluray region free setting
 
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-3g wcdma on Ubuntu 10.04 w/ China Unicom
-	sudo apt-get install usb-modeswitch ; reboot
-	nm-connection-editor > Mobile Broadband > ... > APN: uninet PIN: 1234
-
-sony vaio
-Configure video driver + trackball @ /etc/default/grub
-
-	GRUB_CMDLINE_LINUX_DEFAULT="quiet splash mem=1900mb nohz=off i8042.reset i8042.nomux i8042.nopnp i8042.noloop"
-
-	sudo add-apt-repository ppa:gma500/ppa && sudo apt-get update
-
-	sudo apt-get remove mplayer sudo apt-get install gnome-mplayer gecko-mediaplayer
-	sudo apt-get install poulsbo-driver-2d poulsbo-driver-3d poulsbo-config
-
-	sudo update-grub
-sony vaio
-
 =-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Tenda router configuration
 192.168.2.1 / admin:admin
-
-I9oyOv8SuplL	rcxasa
-114.255.174.144
-
-w3-connections https://lmc2.watson.ibm.com:15001/mobile
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-
 
