@@ -4192,7 +4192,7 @@ gitgitgitgit
 	.git/config + .git/HEAD + .git/refs/heads/master
 
 atomatomatom atom-editor installing plugin
-	markdown-toc vim-mode
+	markdown-toc vim-mode markdown-pdf markdown-preview-enhanced mscgen-preview
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -4448,6 +4448,16 @@ archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 
 nodejsnodejsnodejsnodejsnodejsnodejsnodejs
+
+# install nodejs ppa
+  sudo apt-get install python-software-properties
+  curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+
+# install nodejs
+  sudo apt-get install nodejs
+
+# install npm component for atom
+  npm install phantomjs
 
 	sudo npm install -g gitbook-cli gitbook-pdf svgexport markdown-toc
 	gitbook serve; gitbook pdf <DIR>
