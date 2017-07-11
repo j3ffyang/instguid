@@ -3736,7 +3736,10 @@ package to install
 	git terminator p7zip gimp imagemagick ubuntu-restricted-extras ssh dconf-tools vim cups-pdf openvpn cryptsetup
 
 terminator window size in 1360x768
-	size = 665, 835
+	[[[window0]]]
+      		parent = ""
+      		type = Window
+      		size = 665, 835
 
 chinese input method / im-config / im-choose
 	fcitx fcitx-table-wbpy fcitx-googlepinyin
