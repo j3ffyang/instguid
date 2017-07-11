@@ -3735,6 +3735,9 @@ package to install
 	# 16.04 basic 1604
 	git terminator p7zip gimp imagemagick ubuntu-restricted-extras ssh dconf-tools vim cups-pdf openvpn cryptsetup
 
+terminator window size in 1360x768
+	size = 665, 835
+
 chinese input method / im-config / im-choose
 	fcitx fcitx-table-wbpy fcitx-googlepinyin
 
