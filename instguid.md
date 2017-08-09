@@ -3784,6 +3784,10 @@ internal repo / ibm repo / notes repo
 #Security updates
 deb http://security.ubuntu.com/ubuntu lucid-security main restricted universe multiverse
 
+curl curl curl continuous download after reconnection
+
+  curl -L -O -C - http://ftp.ussg.iu.edu/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-bin-DVD1.iso
+
 pidgin
 	apt-get install pidgin	# sametime replacement
 	cd ~/.purple; vi accouns.xml -> change fake_client_id = 1
