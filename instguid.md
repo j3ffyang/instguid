@@ -2437,10 +2437,10 @@ encrypted file system / encrypt
         sync
 
 encrypt file system / cryptsetup
-	cryptsetup --verify-passphrase luksFormat /dev/sdc1 -c aes -s 256 -h sha256
-	cryptsetup luksOpen /dev/sdc1 <ENCRYPTION_PARTITION_NAME>
-	pv -tpreb /dev/zero | dd of=/dev/mapper/nebula bs=128M
-	mkfs.ext4 /dev/mapper/nebula -m 1 -O dir_index,filetype,sparse_super
+  cryptsetup --verify-passphrase luksFormat /dev/sdb -c aes -s 256 -h sha256
+  cryptsetup luksOpen /dev/sdb 64g_encrypted
+  pv -tpreb /dev/zero | sudo dd of=/dev/mapper/64g_encrypted bs=128M
+  mkfs.ext4 /dev/mapper/64g_encrypted -m 1 -O dir_index,filetype,sparse_super
 
 	dmsetup remove /dev/mapper/nebula
 
