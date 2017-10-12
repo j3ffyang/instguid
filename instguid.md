@@ -2518,7 +2518,8 @@ limit login session	# limits some user telnet login
 			superseded by PAM "pam_cracklib". See pam_crasklib
 			param "minlen" /lib/security/pam_cracklib.so
 
-	/etc/default/useradd	GROUP	default group
+	/etc/default/
+  	GROUP	default group
 				HOME	default user home location
 				INACTIVE	max # of days after a passwd
 						expired that a yser can change
@@ -3701,8 +3702,9 @@ sublimesublimesublime
 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
 
-useradd
-	sudo usermod -aG sudo USER_ID
+useradd / adduser
+  adduser USER_ID
+	usermod -aG sudo USER_ID
 
 change default editor
 	sudo update-alternatives --config editor
