@@ -4203,6 +4203,9 @@ gitgitgitgit
 	# change/ update branch, you'd touch
 	.git/config + .git/HEAD + .git/refs/heads/master
 
+	git log --graph --decorate --oneline
+	git reset --hard bf92f59
+
 atomatomatom atom-editor installing plugin
 	markdown-toc vim-mode markdown-pdf markdown-preview-enhanced mscgen-preview
 
