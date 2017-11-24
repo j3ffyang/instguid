@@ -4490,5 +4490,7 @@ sudo -v && wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/mas
 
 nodejsnodejsnodejsnodejsnodejsnodejsnodejs
 
+pandoc converter from markdown to word (https://mrjoe.uk/convert-markdown-to-word-document/)
 
+  pandoc -o output.docx -f markdown -t docx filename.md
 ```
