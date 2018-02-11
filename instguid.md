@@ -3790,6 +3790,9 @@ curl curl curl continuous download after reconnection
 
   curl -L -O -C - http://ftp.ussg.iu.edu/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-bin-DVD1.iso
 
+curl with proxy
+  curl -x 'http://10.10.10.1:3128' -O https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz
+
 pidgin
 	apt-get install pidgin	# sametime replacement
 	cd ~/.purple; vi accouns.xml -> change fake_client_id = 1
@@ -4463,6 +4466,9 @@ archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 
 nodejsnodejsnodejsnodejsnodejsnodejsnodejs
+
+# set registry
+  sudo npm install cnpm -g --registry=https://registry.npm.SOMEWHERE.org
 
 # install nodejs ppa
   sudo apt-get install python-software-properties
