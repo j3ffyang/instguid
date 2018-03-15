@@ -2215,6 +2215,13 @@ openssl	# test connection through specific port w/ ver of tls
 	openssl s_client -tls1_2 -connect localhost:636
 	gnutls-cli -p 636 localhost
 
+openssl # encrypt entire dir
+  tar -czf - * | openssl enc -e -aes256 -out secured.tar.gz
+  # -e = an enc cmd option to encrypt the input file, which in above is the output of tar
+
+openssl # decrypt a dir
+  openssl enc -d -aes256 -in secured.tar.gz | tar xz -C test
+  # -d = decrypt, -c = extract in subdir named test
 
 -----------------------------------------------------------------------------------------
 openssl openssl openssl openssl openssl openssl sslsslsslsslsslssl
