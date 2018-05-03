@@ -1061,54 +1061,6 @@ netstat interface	$netstat -in -t
 	# Search for open UDP network ports
 	netstat -apNlu
 
-Linux wu-ftp/ FTP anonymous turnoff
-	Turn off anonymous ftp access (if you have to have ftp at all) by editing /etc/ftpaccess
-	You will see a line :
-
-	class   all   real,guest,anonymous  *
-	Just remove the words guest and anonymous from the line.
-
-	another way to permanently remove anonymous ftp
-	userdel ftp
-	rpm -qa | grep anonftp
-
-tcp wrapper
-	Restricting access to local users with TCP wrappers
-
-	The tcpd program is configured using two files: /etc/hosts.allow and
-	/etc/hosts.deny. These files have lines of the form:
-
-	daemon_list : client_list [ : shell_command ]
-
-	Access is granted or denied in the following order. The search stops at the first match:
-
-    * Access is granted when a match is found in /etc/hosts.allow
-    * Access is denied when a match is found in /etc/hosts.deny
-    * Access is granted if nothing matches
-
-	For example, to allow telnet access only to our internal network, we
-	start by setting policy (reject all connections with a source other
-	than localhost) in /etc/hosts.deny:
-
-	in.telnetd: ALL EXCEPT LOCAL
-
-Linux Telnet Connection Refused.
-	Uncomment or Add in.telnetd:ALL:ALLOW in /etc/hosts.allow
-	eg. enable some service like telnet, ssh, etc-> add below lines in hosts.allow
-	sshd:ALL
-	telnetd:ALL
-	ftp:ALL
-	in.telnetd:ALL:ALLOW
-	ALL:192.168.0/255.0
-
-	Then make sure below is added in hosts.deny
-	ALL:ALL
-
-Linux Telnet Login/login text. message of the day
-	$vi /etc/issue -> text added in this file will be displayed when system starts on screen
-	$vi /etc/issue.net -> usually copied from above file. The text added will display on telnet.
-	/etc/motd -> msg of the day.	 
-
 Linux NFS mount config		
 	exportfs -ra	# apply the /etc/exports change
 	vi /etc/exports, add ->		/mnt/cdrom	192.168.1.1(ro,no_root_squash)
@@ -1406,30 +1358,6 @@ wclinux         IN      A       192.168.10.17
 db2linux        IN      A       192.168.10.18
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
-
-Linux securing e-mail
-	#mailq	-> check mail queue
-	#sendmail -q -> send mail pending in queue.
-	mail -f ~/mbox	# read the saved mail in mailbox
-
-	/etc/sendmail.cf -> comment out the line containing: O Daemon Port Options=Port=smtp...
-
-linux qmail	how to hide domain name
-	echo linuxaid.com.cn > /var/qmail/control/defaulthost
-	chmod 644 /var/qmail/control/defaulthost
-
-sendmail configuration
-	install rpms of sendmail, sendmail-cf, m4, procmail
-	vi /etc/mail/sendmail.mc -> Comment out the line below by prepending it w/ "dnl ", like so:
-	dnl DAEMON_OPTIONS(`Port=smtp,Addr=127.0.0.1, Name=MTA')
-
-	cp /etc/mail/sendmail.cf /etc/mail/sendmail.cf.orig
-	cp /etc/mail/sendmail.mc /etc/mail/sendmail.mc.orig
-
-	m4 /etc/mail/sendmail.mc > /etc/mail/sendmail.cf
-
-sendmail debug -> sendmail -d0 < /dev/null
-
 Linux mail command/ mail cmd sendmail cmd
 	mail -s subject -c cclist -b bcclist toaddr < somefile
 
@@ -1484,188 +1412,6 @@ Linux sendmail server setup procedure.
 	221 noao.edu delivering mail
 --------------------------------------------------------------------------------
 
-postfix	check verion
-	postconf mail_version
-
-
-postfix A Quick- Start Procedure
-	edit /etc/postfix/main.cf -> myhostname = penguinsecurity.net
-	myorigin = $hostname
-	mydestination = $myhostname, localhost.$mydomain, $mydomain
-	uncomment home_mailbox = Maildir/ # if using IMAP
-
-	postqueue -p	-> check mails in q
-	postalias aliases	-> aliases
-	postmap access		-> access
-	postconf alias_maps	-> locate alias maps
-
-	postfix reload | start | stop
-
-postfix rpm configuration. switch MTA/ mta (using source code, don't need this)
-	redhat-switch-mail
-	alternatives --set mta /usr/sbin/sendmail.postfix
-	install from rpm -> redhat-switchmail-nox
-	postconf	-> list all set param
-	postconf -d	-> list default param
-	postconf -n	-> list diff one
-
-postfix anti- spam
-	Anti-UCE
-	/etc/postfix/sample-smtpd.cf
-	smtpd_recipient_limit	-> default = 250
-	smtpd_recipient_restrictions
-		check_recipient_access = hash:/etc/postfix/access
-		create /etc/postfix/access -> refer man 5 access
-		run postmap hash:/etc/postfix/access
-	smtpd_client_restrictions
-		reject_maps_rbl
-		reject_unknown_client
-	maps_rbl_domains -> refer to blackholes.mail-abuse.org
-
-
-squirrelmail configuration
-	unzip the zip file in /PATH/squirrelmail-version/
-	PATH=/opt
-	ln -s /PATH/squirrelmail $apache_docroot/webmail
-	cd /PATH/squirrelmail/config
-	perl conf.pl
-		change all localhost to IP
-
-	vi /PATH/squirrelmail/config/config.php	# default NOT need to change
-	default_sub_of_inbox=true	# for courier
-	default_folder_prefix=		<- nothing
-	trash_folder=INBOX.Trash
-	sent_folder=INBOX.Sent
-	draft_folder=INBOX.Drafts
-
-	# security / Security
-	mkdir attach
-	chown -R nobody.nobody data + attach
-	# make sure data+ attach are outside of www tree
-
-	# php.ini may be locate /usr/local/php/lib
-	vi php.ini -> register_global=Off -> security issue
-		   -> file_uploads = On   -> send email out
-
-	# upload file size/ attachment size
-	edit $PHP/lib/php.ini ->memory_limit (larger than other 2 params)
-				post_max_size
-				upload_max_filesize
-	check httpd.conf ->	LimitRequestBody	20480000
-
-courier-imap
-	su - non-root before compile
-	rpm -Uvh openssl-devel
-	./configure --prefix=/usr/local/courier-imap<version> \
-		--without-ipv6 --enable-unicode \
-		--with-redhat --with-ssl
-	# default path=/usr/lib/courier-imap
-	make; make install; make install-configure
-
-	# run this in each user who need mail
-	su - thatuser -> cd ~
-	$courier-imap/bin/maildirmake Maildir	# create maildir
-	su - root -> change the default login to nologin for all mail users.
-
-	$courier-imap/libexec/imapd.rc start | stop
-
-	autostart courier-imap
-	ln -s $courier-imap/libexec/imapd.rc /etc/init.d/courier-imapd
-	add
-	# chkconfig: - 81 30
-	# description: courier-imapd
-	then
-	chkconfig --level 345 courier-imapd on
-
-courier-imap	-> virtual account
-	# convert OS passwd to imap. must run each time when new user comes in.
-	touch /etc/userdb -> chmod 700 chown root.root
-	$courier-imap/sbin/pw2userdb > /etc/userdb	#convertpasswd
-	$courier-imap/sbin/makeuserdb			#compile
-	chmod 600 /etc/userdb
-
-	courier-authdaemon restart
-	courier-imap restart
-
-
-spamassassin / spam assassin
-	export LANG=en_US
-	perl -MCPAN -e shell
-	install Mail::SpamAssassin
-
-
-pop3 / pop / dovecot
-	yum install dovecot
-	edit /etc/dovecot.conf >
-
-	# Protocols we want to be serving:
-	# imap imaps pop3 pop3s
-	protocols = imap pop3
-
-	/etc/init.d/dovecot restart
-
-
-zlib	http://www.gzip.org/zlib
-	http://www.devside.net/web/server/linux/zlib
-	make clean -> ./configure --prefix=PATH -> make -> make install
-	or ./configure -s -> make -> make test -> make install
-	cp zutil.* /usr/include
-	add PATH/lib in /etc/ld.so.conf -> ldconfig
-
-openssl	# make sure zlib is install and added in libpath, run ldconfig
-	./config --prefix=/usr/local/openssl shared zlib-dynamic
-	./config -t
-	make -> make test -> make install
-	add /usr/local/openssl/lib to /etc/ld.so.conf -> ldconfig
-	openssl version
-
-apache / httpd
-	./configure --prefix=/usr/local/apache2052 \
-		--enable-mods-shared=most \
-		--enable-rewrite --enable-spelling \
-		--enable-ssl \
-		--with-z=/usr/lib \
-		--with-ssl=/usr/local/openssl
-		--enable-so
-	make ; make install
-
-	# enable ssl
-	mkdir /usr/local/apache2/conf/ssl.crt + ssl.key
-	openssl req -new -out server.csr
-	openssl rsa < privkey.pem > server.key
-	openssl x509 -in server.csr -out server.crt -req -signkey server.key -days 365
-	mv server.crt /usr/local/apache2/conf/ssl.crt
-	mv server.key /usr/local/apache2/conf/ssl.key
-
-php	pre-requisite	-> flex, bison, libjpeg-devel, gd-devel, zlib-devel, libxml2
-	./configure --prefix=/usr/local/php \
-	--with-apxs2=/usr/local/apache2/bin/apxs \
-	--with-openssl=/usr/local/openssl \
-	--with-mysql=/usr/local/mysql \
-	--with-gd=/usr \
-	--with-jpeg-dir=/usr/lib \
-	--with-zlib=/usr \
-	--enable-mbstring
-	--with-pdflib
-	--with-tiff-dir=/usr/lib
-	--with-png-dir=/usr/lib		(require libpng-devel, libtiff-devel)
-	make; make install
-
-	$source/php.ini-recommended -> /usr/local/php/lib/php.ini
-
-	configure with apache -> edit httpd.conf
-	LoadModule php4_module modules/libphp4.so
-	DirectoryIndex index.html index.html.var index.php
-	AddType application/x-httpd-php	.php
-	AddType application/x-httpd-php-source	.phps
-
-	# enable mbstring
-	uncomment ;extension=php_mbstring.dll
-
-	# php logging / log level	http://ca.php.net/errorfunc
-	# reduce loglevel in php.ini	# ~ = not
-	error_reporting = E_ALL & ~E_NOTICE & ~E_STRICT
-
 gd	http://www.boutell.com/gd/
 	install libpng-*+dev, libjpeg*+dev, freetype*+dev
 	./configure --with-png=/usr/lib \
@@ -1676,58 +1422,6 @@ jpeg	ftp://ftp.uu.net/graphics/jpeg/
 	or install from rpm of both libjpeg and libjpeg-devel
 	default install ./configure -> install in /usr/lib
 	ldconfig -> load lib
-
-mysql
-	download binary package -> don't need compile -> place to /usr/local
-	-> ln -s full_name mysql -> cd support-files -> cp my-medium.cnf $mysql/data/my.cnf
-	-> make sure client/ server's socket's path is correct & same -> socket=/usr/local/mysql/data
-
-	cd mysql -> scripts/mysql_install_db
-	chown -R root .
-	chown -R mysql data
-	chgrp -R mysql .
-	bin/mysqld_safe --user=mysql &
-
-	mysqladmin -uroot -p shutdown
-
-	# refresh the security control
-	mysqladmin reload -uuser -ppassword
-
-	# mysql log
-	$LOG=$MYSQL_HOME/data/$HOSTNAME.err
-
-	http://www.yolinux.com/TUTORIALS/LinuxTutorialMySQL.html
-	https://penguinsecurity.net/txt/mysql.txt
-	# contains more info on compilation
-
-	don't forget installing php-mysql rpm
-
-	# configure mysql
-	mysql -uuser -p
-	use mysql;
-	update user set password=password('xyz');
-	delete from user where user='';
-
-	# After 4.1. Passwd hashing changed.
-	UPDATE mysql.user SET Password = OLD_PASSWORD('newpwd') ->
-	-> WHERE Host = 'some_host' AND User = 'some_user';
-	FLUSH PRIVILEGES;
-	http://dev.mysql.com/doc/mysql/en/Old_client.html
-	http://dev.mysql.com/doc/mysql/en/Password_hashing.html
-
-
-vsftpd
-	modify default anonymous path in vsftpd.conf
-	mkdir -p /var/ftp/pub/upload; chown 777 /var/ftp/pub/upload
-
-jakarta-tomcat	-> cd $CATALINA_HOME/conf -> vi tomcat-users.xml
-	-> <user username="tomcat" password="password" roles="admin,manager"/>
-	-> restart tomcat
-	put CATALINA_OPTS=-Dfile.encoding=ISO-8859-1
-
-opencms	-> read install.html -> in mysql, grant all on *.* to <user>;
-	-> use mysql; -> update user set host='fqhostname' where host='%';
-	-> flush privileges;
 
 gallery
 	tar -xzvf -> mv gallery $web -> cd $web/gallery/ -> touch config.php .htaccess
@@ -1745,7 +1439,6 @@ gallery upgrade
 - upload tarball
 - remove resized folder and backup
 - clean up compact flash
-
 
 
 Linux linuxconf	http://www.solucorp.qc.ca/
@@ -1877,7 +1570,6 @@ squid3 squid proxy sample /etc/squid3/squid.conf
 	http_access allow localnet
 	http_port 0.0.0.0:3128
 
-
 Linux apache/ httpd/ http server test, configtest
 	# limit upload file size at 10M
 	LimitRequestBody 10240000
@@ -1963,48 +1655,6 @@ apache / rewriterule
 
 	rewrite guide
 	http://httpd.apache.org/docs/2.0/misc/rewriteguide.html
-
-LDAP / OpenLDAP / ldap
-
-	command line
-	ldapsearch -vx -H ldaps://bluepages.ibm.com -b "ou=bluepages,o=ibm.com" "(email=who@us.ibm.com)" -L
-
-	strace -e file ldapsearch -vx -H ldaps://bluepages.ibm.com -b "ou=bluepages,o=ibm.com" "(email=who@us.ibm.com)" -L
-
-	Configuring Apahce/IHS to Authenticate against Enterprise Directory
-
-	Base System:
-	RedHat 7 with patches
-	Apache and Apache-devel
-	apache-devel-1.3.14-3
-	apache-1.3.14-3
-	Openldap
-	openldap-1.2.11-15
-	openldap-devel-1.2.11-15
-	openldap-clients-1.2.11-15
-
-	Needed:
-		1. mod_auth_ldap source code - Install to /tmp/
-		2. cd to the dir in /tmp where the mod_auth_ldap source was expanded to
-		3. execute: /usr/sbin/apxs -lldap -llber -lresolv -a -i -c mod_auth_ldap.c
-		4. Edit httpd.conf to make sure the following lines were added at the end of the respective sections:
-			LoadModule ldap_auth_module modules/mod_auth_ldap.so
-			AddModule mod_auth_ldap.c
-		5. Execute from command line or put in startup script: stunnel -d 127.0.0.1:636 -r bluepages.ibm.com:636 -c
-		Now you have an ssl tunnel between 127.0.0.1 port 636 and bluepages.ibm.com port 636
-		6. Protect the Locations that you want similiar to the following:
-
-	AllowOverride None
-	Options None
-	Satisfy all
-	AuthName Blueorg
-	AuthType basic
-	LDAP_Server 127.0.0.1 #LDAP Server to talk to
-	LDAP_Port 636 #Port to use, default ssl port
-	Base_DN "ou=bluepages,o=ibm.com" #Base DN of LDAP tree to use
-	UID_Attr mail # attribute to match username filed from 401 challenge to
-	Require valid-user
-
 
 Linux snmpd / snmp
 	snmpwalk -v 1 localhost somerandomstring system
@@ -2121,21 +1771,8 @@ ddclient	http://www.aei.ca/~pmatulis/pub/dyndns.html
 	checking /var/log/messages should determine whether everything worked or not.
 	Feb 9 22:52:52 veritas ddclient[24339]: SUCCESS: updating pmatulis.dyndns.org: good: IP address set to 216.209.130.107
 
-vmware / VMWare -> err msg: cannot rm /var/run/vmware/<user> when boot
-	+++ rc.sysinit  2003-11-17 19:08:09.000000000 +0100
-	@@ -647,7 +647,8 @@
-        if [ -d "$afile" ]; then
-           case "$afile" in
-                */news|*/mon)   ;;
--               */sudo|*/vmware)        rm -f $afile/*/* ;;
-+               */sudo) rm -f $afile/*/* ;;
-+               */vmware)       rm -rf $afile/*/* ;;
-                *)              rm -f $afile/* ;;
-           esac
-        else
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
 ###############################################################################
@@ -2346,7 +1983,6 @@ Get information about a stand-alone certificate
 Convert a JKS file to PKCS12 format (Java 1.6.x and above)
 	keytool -importkeystore -srckeystore KEYSTORE.jks -destkeystore KEYSTORE.p12 -srcstoretype JKS -deststoretype PKCS12 -srcstorepass mysecret -deststorepass mysecret -srcalias myalias -destalias myalias -srckeypass mykeypass -destkeypass mykeypass -noprompt
 
-
 certutil
 
 Add a PKCS12 to a windows certificate store
@@ -2548,9 +2184,6 @@ limit login session	# limits some user telnet login
 	-s 	default shell
 
 	usermod -a -G sudo user	# add user into sudo group
-
-root telnet / telnet by root	# allow root telnet
-	edit /etc/securetty -> add pts/0 , pts/1, pts/2, pts/3, pts/4
 
 Linux user login time control
 	/etc/security/time.conf -> define what, where, who and when
@@ -3375,9 +3008,6 @@ java thread dump
 	# get a tree view of the threads
 	ps -e f
 
-download java plugin
-	http://wp.netscape.com/plugins/jvm.html
-
 java plugin in mozilla http://plugindoc.mozdev.org/faqs/java.html
 	download jre 1.4.2 from http://java.sun.com/j2se/1.4.2/download.html
 	install from rpm -> cd $MOZILLA_HOME/plugin/ ->
@@ -3391,28 +3021,6 @@ java plugin in mozilla http://plugindoc.mozdev.org/faqs/java.html
 
 Application/ application
 
-adobe disable adobe plugin in firefox
-	cd /usr/lib/acroread/Browser/intellinux/ -> mv nppdf.so nppdf.so.orig
-
-firefox using specific profile, like java
-	firefox -profile <java_profile>
-
-firefox start with a newly created profile
-	firefox -ProfileManager
-
-firefox gives: Could not initialize the browser security component
-	Help > Troubleshooting > Open Containing Folder > rm -fr cert8.db
-
-firefox The page you are trying to view cannot be shown because the authenticity of the received data could not be verified.  Please contact the website owners to inform them of this problem.
-
-	about:config > security.tls.insecure_fallback_hosts > left mouse click > add the complete website
-
-Linux Wine Configuration
-	Download from www.linuxwine.com-> tar -xvzf source
-	cp xxx /tmp/wine
-	Read README and follow the indtruction
-	Change the path in /usr/local/etc/wine.conf-> add /windows/C/winnt/system;/windows/C/winnt/system32
-
 Microsoft windows diet / windows performance/ microsoft
 	cmd -> sfc.exe /purgecache
 	%windows%driver/cachei386/driver.cab
@@ -3422,18 +3030,6 @@ Microsoft windows diet / windows performance/ microsoft
 	disacle Windows Messager -> regedit -> HKEY_CURRENT_USERSoftwareMicrosoftWindowsCurrentVersionRunMSMSGS� /BACKGROUND
 
 	fasten speed -> regedit -> HKEY_LOCAL_MACHINESYSTEMCurrentControlSetControlSession ManagerMemory ManagementPrefetchParameters -> EnablePrefetcher -> 1
-
-Lotus Notes / lotus notes connection
-	File -> Mobile -> Server Phone Number -> Advanced -> Connections
-	# increase/ decrease font size. add the following into ~/lotus*/notes.init
-	Dislay_font_adjustment=-1
-
-        # disable sametime in systemtray, add
-        com.ibm.collaboration.realtime.application/useSystemTray=false
-        into /opt/ibm/lotus/notes/framework/rcp/plugin_customization.ini
-
-	# refresh design to recover Sent folder missing
-	Workspace > mail on Local > right click > Replication > Refresh Design > choose actual server address @ With design from Server > Yes
 
 Wiki | wiki
 http://wiki.dreamhost.com/MediaWiki
@@ -3485,39 +3081,6 @@ wireless configuration on thinkpad t43
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-leap / LEAP dependent and required packages
-	c4eb-config-NetworkManager hostapd wpa_supplicant
-
-	#example of /etc/xsupplicant/xsupplicant.conf
-	#for LEAP protocol
-
-	network_list = all
-	#the list of networks to access
-
-	default_netname = default
-	#the default access network
-
-	first_auth_command = <BEGIN_COMMAND>dhclient %i<END_COMMAND>
-	#The command before authentication, which is usually used to get some info from
-	#the network
-
-	logfile = /var/log/xsupplicant.log
-	#log file
-
-	myssid #here is your network id, may be listed in the network list
-	{
-	  type = wireless
-	  ssid = <BEGIN_SSID>myssid<END_SSID>
-	  allow_types = all
-	  identity = <BEGIN_ID>myid@domain.org<END_ID>
-	  eap-leap {
-	      username = <BEGIN_UNAME>myid@domain.org<END_UNAME>
-	      password = <BEGIN_PASS>mypasswd<END_PASS>
-	  }#setup for leap
-	}
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
 vpnc - http://www.unix-ag.uni-kl.de/~massar/vpnc/
 dependency:	libgcrypt	libgcrypt-devel
 		libgpg-error	libgpg-error-devel
@@ -3537,7 +3100,6 @@ Example /etc/vpnc.conf:
 	Domain torolab
 
 =-=-
-
 
 HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
 HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
@@ -3701,7 +3263,6 @@ virt network bridge
 
 sublimesublimesublime
     enable vi > Preferences > Setting-Default > change `"ignored_packages": ["Vintage"]` to `"ignored_packages": []`
-
 
 sublimesublimesublime
 
@@ -3897,7 +3458,7 @@ linode br0 > edit /etc/network/interfaces
         	bridge_maxage 12
         	bridge_stp off
 
-linode security
+linode security secsecsecsec
 	Append "set -o vi" in /etc/bash.bashrc
 	useradd -c "usr" -m -s "/bin/bash" usr -G sudo
 	passwd usr; cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
@@ -3923,7 +3484,7 @@ rsyslog > /etc/rsyslog.conf > to avoid rate-limiting error @ /var/log/messages
 	$SystemLogRateLimitInterval 2
 	$SystemLogRateLimitBurst 50
 
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<G
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 virtualbox sun VirtualBox bluescreen
 
 	HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Intelppm
@@ -3949,6 +3510,9 @@ Android device adb sdk
 
 	sudo vi /etc/udev/rules.d/51-android.rules > add the following
 	SUBSYSTEM=="usb", SYSFS{idVendor}=="0bb4", SYMLINK+="android_adb", MODE="0666"
+
+firefox on android - https://webcazine.com/4949/2-ways-to-configure-proxy-server-on-firefox-for-android/
+  about:config > proxy.http > network.proxy.type
 
 for Samsung Galaxy 3
 	SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="plugdev"
@@ -4032,7 +3596,6 @@ multimedia driver gstreamer
 	lsdvd libdvdnav libdvdread ffmpeg gstreamer-ffmpeg gstreamer-plugins-bad gstreamer-plugins-bad-extras gstreamer-plugins-ugly libdvdcss flash-plugin mplayer phonon-backend-gstreamer
 
 notes repo for x64	http://ocfedora.hursley.ibm.com/fedora/1X/x86_64/	-> yum install ibm-notes-config
-
 
 nvidia driver installed, to fix "cannot open font file true"
 	sudo vi /etc/default/grub
@@ -4123,7 +3686,7 @@ appliance definition
 	os:
 	  name: rhel
 	  version: 6
-	  password: passw0rd
+	  password: mysecret
 	hardware:
 	  cpus: 1
 	  memory: 512
