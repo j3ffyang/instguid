@@ -1987,8 +1987,25 @@ certutil
 
 Add a PKCS12 to a windows certificate store
 	certutil -p secret -importpfx KEYSTORE.p12
+
 -----------------------------------------------------------------------------------------
 
+bcrypt https://stackoverflow.com/questions/6832445/how-can-bcrypt-have-built-in-salts
+Stored in the database, a bcrypt "hash" might look something like this:
+
+    $2a$10$vI8aWBnW3fID.ZQ4/zo1G.q1lRps.9cGLcZEiGDMVr5yUP1KUOYTa
+
+This is actually three fields, delimited by "$":
+
+1. 2a identifies the bcrypt algorithm version that was used.
+2. 10 is the cost factor; 210 iterations of the key derivation function are used (which is \
+   not enough, by the way. I'd recommend a cost of 12 or more.)
+3. vI8aWBnW3fID.ZQ4/zo1G.q1lRps.9cGLcZEiGDMVr5yUP1KUOYTa is the salt and the cipher text, \
+   concatenated and encoded in a modified Base-64. The first 22 characters decode to a \
+   16-byte value for the salt. The remaining characters are cipher text to be compared \
+   for authentication.
+
+-----------------------------------------------------------------------------------------
 
 chkrootkit -> make sense -> ./chkrootkit
 
