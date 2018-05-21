@@ -2084,6 +2084,21 @@ gnupg / gpg / pgp
 	gpg --keyserver keyserver --revc-keys key_id
 	gpg --keyserver keyserver --search-keys string_to_match
 
+----
+
+# keybase.io
+
+  # list fingerprint
+  gpg -K --keyid-format long --with-colons --with-fingerprint
+
+  # export public key
+  gpg --export -a xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+  # export private key
+  gpg --export-secret-keys -a xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+----
+
 encrypted file system / encrypt
         /sbin/modprobe cryptoloop
         /sbin/modprobe blowfish
