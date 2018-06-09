@@ -2869,6 +2869,10 @@ language setting @ windows
 	regional & language > languages > details > add @ settings > add
 	regional & language > advanced > set @ select a language to match lang..
 
+screencast, screen recorder, gnome
+  gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 300
+  Ctrl + Alt + Shift + R
+
 ###############################################################################
 ###############################################################################
 
