@@ -2035,6 +2035,9 @@ gnupg / gpg / pgp
 
 	gpg --import --allow-secret-key-import keyfile	# if sec key in keyfile
 
+        # encrypt by AES256 to override the default CAST5
+        gpg --cipher-algo AES256 -o output.gpg -c output.orig
+
 	# encrypt by using recipient's public key
 	gpg --output doc.gpg --encrypt --recipient blake@domain.org doc
 	# encrypt a dir
