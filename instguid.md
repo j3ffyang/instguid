@@ -4110,3 +4110,9 @@ pandoc converter from markdown to word (https://mrjoe.uk/convert-markdown-to-wor
 
   pandoc -o output.docx -f markdown -t docx filename.md
 ```
+
+pythonpythonpython
+
+# install pip3
+  wget https://bootstrap.pypa.io/get-pip.py
+  sudo python3 get-pip.py
