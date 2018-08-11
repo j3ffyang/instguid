@@ -4117,6 +4117,9 @@ sudo -v && wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/mas
 	npm install apidoc -g
 	# apidoc ~/
 
+  # apm behind proxt
+  apm config get https-proxy
+
 nodejsnodejsnodejsnodejsnodejsnodejsnodejs
 
 pandoc converter from markdown to word (https://mrjoe.uk/convert-markdown-to-word-document/)
@@ -4128,4 +4131,8 @@ pythonpythonpython
   # install pip3
   wget https://bootstrap.pypa.io/get-pip.py
   sudo python3 get-pip.py
+
+  # pip behind proxy
+  pip3 --proxy http://10.10.10.1:3128 install tensor
+
 ```
