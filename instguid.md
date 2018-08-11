@@ -3443,6 +3443,19 @@ touchpad > enable 3rd button copy & paste
 	chmod +x ~/touchpad_settings.sh
 	gsettings set org.gnome.settings-daemon.peripherals.input-devices hotplug-command "/home/user/touchpad_settings.sh"
 
+debian touchpad xfce
+	apt purge xserver-xorg-input-synaptics
+	apt install xserver-xorg-input-libinput
+	su -
+	echo 'Section "InputClass"
+        	Identifier "libinput touchpad catchall"
+        	MatchIsTouchpad "on"
+        	MatchDevicePath "/dev/input/event*"
+        	Driver "libinput"
+        	Option "Tapping" "on"
+	EndSection' > /etc/X11/xorg.conf.d/40-libinput.conf
+
+	systemctl restart lightdm
 
 wicd | wireless -> apt-get install wicd | replace of network-manager
 install wpa_supplicant > vi /etc/wpa_supplicant/wpa_supplicant.conf
