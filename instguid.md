@@ -3442,6 +3442,10 @@ touchpad > enable 3rd button copy & paste
 	chmod +x ~/touchpad_settings.sh
 	gsettings set org.gnome.settings-daemon.peripherals.input-devices hotplug-command "/home/user/touchpad_settings.sh"
 
+
+debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
+debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
+
 debian touchpad xfce
 	apt purge xserver-xorg-input-synaptics
 	apt install xserver-xorg-input-libinput
@@ -3456,6 +3460,8 @@ debian touchpad xfce
 
 	systemctl restart lightdm
 
+debian screencast
+	sudo apt-get install ffmpeg mkvtoolnix
 
 debian  # bluetooth, guide for debian
   apt install pulseaudio bluez bluez-utils pavucontrol rfkill
@@ -3469,6 +3475,8 @@ debian  # bluetooth, guide for debian
   sudo pactl load-module module-bluetooth-discover
   sudo pactl load-module module-switch-on-connect
 
+debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
+debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
 log into text mode >	update-rc.d -f gdm remove	#textmode
 log into gui mode  > 	update-rc.d -f gdm defaults
