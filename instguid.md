@@ -430,8 +430,6 @@ cvs / CVS
 	# retrieve the source
 	cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/open1x get xsupplicant
 
-Linux editor	=> kate / vi / jedit
-
 Command line ftp through ftp | http
 	wget -t3 -c -r -l 10 http://somewhere
 	# -t= retry, -c=continue, -r=recursive, -l=depth
@@ -516,7 +514,6 @@ lsof advanced usage
 		# to show all open files that have a link count less than 1.
 		# indicative of a cracker trying to hide something
 
-
 Linux log rotate
 	$less /etc/logrotate.conf
 	$man logrotate
@@ -528,12 +525,6 @@ Linux date/ cal (display how many days of today in this year.)
 	date +%j
 
 Linux Calendar/ calendar	cal mm yyyy
-
-Linux print configurator
-	/usr/sbin/printtool
-
-	# printer on ubuntu 11.10
-	system-config-printer > Add > Internet Printing Protocol > ipp://9.123.142.17:631/ipp > Forward > Generic (recommended) > PCL 6/PCL XL (recommended) > Generic PCL 6/PCL XL Printer Foomatmatic/pxlcolor [en](recommended)
 
 Unix ls command
 	ls -ltr 	# will list the most recent updated files at the bottom
@@ -1133,29 +1124,29 @@ vlan
 
 vxlan
 	1. Create vxlan device
-	  # ip li add vxlan0 type vxlan id 42 group 239.1.1.1 dev eth1
+	ip li add vxlan0 type vxlan id 42 group 239.1.1.1 dev eth1
 
 	This creates a new device (vxlan0). The device uses the
 	the multicast group 239.1.1.1 over eth1 to handle packets where
 	no entry is in the forwarding table.
 
 	2. Delete vxlan device
-	  # ip link delete vxlan0
+	ip link delete vxlan0
 
 	3. Show vxlan info
-	  # ip -d link show vxlan0
+	ip -d link show vxlan0
 
 	It is possible to create, destroy and display the vxlan
 	forwarding table using the new bridge command.
 
 	1. Create forwarding table entry
-	  # bridge fdb add to 00:17:42:8a:b4:05 dst 192.19.0.2 dev vxlan0
+	bridge fdb add to 00:17:42:8a:b4:05 dst 192.19.0.2 dev vxlan0
 
 	2. Delete forwarding table entry
-	  # bridge fdb delete 00:17:42:8a:b4:05 dev vxlan0
+	bridge fdb delete 00:17:42:8a:b4:05 dev vxlan0
 
 	3. Show forwarding table
-	  # bridge fdb show dev vxlan0
+	bridge fdb show dev vxlan0
 
 disable multicast_snooping on neutron's physical box when running Neutron neutron in VM
 	echo "0" > /sys/devices/virtual/net/br1/bridge/multicast_snooping
@@ -1574,9 +1565,9 @@ Linux apache/ httpd/ http server test, configtest
 	# limit upload file size at 10M
 	LimitRequestBody 10240000
 
-	In Unix, $IBMHTTPServer/bin/apachectl configtest
+	On Unix, $IBMHTTPServer/bin/apachectl configtest
 
-	In Micro$oft Windows
+	On Micro$oft Windows
 		$IBMHTTPServer\apache -t
 		$IBMHTTPServer\apache -help to get help list
 
@@ -1687,11 +1678,6 @@ time / ntp client tcp/udp:123
 
 	# http://portal.suse.com/sdb/en/2002/02/xntp.html
 	ntpdate ntp1.ptb.de
-
-svscan is started from init. add following entry in /etc/inittab
-	SV:123456:respawn:/command/svscanboot
-	# all daemons in /service/* will be started by this.
-	# this daemons in /service/ is symbolink created.
 
 ntp server
       # Look at the Startup Script in /etc/rc.d/init.d/ntpd
@@ -2855,27 +2841,12 @@ linux alsa | advanced linux sound architect configuration | capture | audio
 
 	gnome-sound-properties		#
 
-amarok kde amarok audio internet radio > increase buffer
-	edit ~/.kde/share/apps/amarok/xine-config
-	engine.buffers.audio_num_buffers:230 change to read 10000
-
-	edit ~/.kde/share/config/amarokrc
-	add > Streaming Buffer = 400 or 800
-
-Windows / windows dvd copier.
-	Run DVD Decrypter to find out how many layers on DVD.
-	Use DVD Decrypter to copy all DVD files on hard drive.
-	Use DVDFab to Copy main movie from DVD (Strip/ Split)
-		or Use DVD2one to shrink the movie into one DVD
-	Use Nero to burn the disk.
-
-language setting @ windows
-	regional & language > languages > details > add @ settings > add
-	regional & language > advanced > set @ select a language to match lang..
-
 screencast, screen recorder, gnome
-  gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 300
-  Ctrl + Alt + Shift + R
+	gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 300
+  	Ctrl + Alt + Shift + R
+
+	debian screencast
+	sudo apt-get install ffmpeg mkvtoolnix
 
 ###############################################################################
 ###############################################################################
@@ -2951,9 +2922,6 @@ Linux screenshot capture
 Linux xlock/ screensaver/ screen saver causing system hangs (icewm/ IceWM)
 # Command to lock display/screensaver
 LockCommand="xlock -mode blank"
-
-Linux screen screenshare screen sharing
-
 
 Linux screen screenshare screen sharing
 	1. set /usr/bin/screen setuid root
@@ -3034,6 +3002,13 @@ gnome-xgl | gnome | xgl
 	gnome-xgl-switch --disable-xgl
 	gnome-xgl-switch --enable --auto
 
+
+set primary monitor / screen
+	xrandr --output LVDS1 --primary
+	/usr/bin/xrandr --output eDP1 --mode 1920x1200
+
+set touchpad 3rd button on mac
+	synclient TapButton3=2
 
 ###############################################################################
 ###############################################################################
@@ -3362,7 +3337,7 @@ update font preference > jeff@s900:/etc/fonts/conf.d$ cat 64-language-selector-p
 
   # install fonts
   apt install ttf-mscorefonts-installer ttf-liberation
-  fc-list 
+  fc-list
   dpkg-reconfigure fontconfig-config; dpkg-reconfigure fontconfig
 
 	# java
@@ -3403,7 +3378,7 @@ curl curl curl continuous download after reconnection
 
   curl -L -O -C - http://ftp.ussg.iu.edu/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-bin-DVD1.iso
 
-curl with proxy
+curl with proxy behind proxy
   curl -x 'http://10.10.10.1:3128' -O https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz
 
 pidgin
@@ -3461,6 +3436,20 @@ debian touchpad xfce
 	EndSection' > /etc/X11/xorg.conf.d/40-libinput.conf
 
 	systemctl restart lightdm
+
+
+debian  # bluetooth, guide for debian
+  apt install pulseaudio bluez bluez-utils pavucontrol rfkill
+
+  cat /etc/bluetooth/audio.conf
+  [General]
+  Disable=Socket
+  Enable=Media,Source,Sink,Gateway
+
+  sudo systemctl restart bluetooth
+  sudo pactl load-module module-bluetooth-discover
+  sudo pactl load-module module-switch-on-connect
+
 
 wicd | wireless -> apt-get install wicd | replace of network-manager
 install wpa_supplicant > vi /etc/wpa_supplicant/wpa_supplicant.conf
@@ -3550,10 +3539,10 @@ virtualbox sun VirtualBox bluescreen
 
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
+home appliance setting
+
 Philips bluray region free setting
 	no disc in tray > Press Home > Scroll to settings > 13893108520
-
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -3561,6 +3550,60 @@ Tenda router configuration
 192.168.2.1 / admin:admin
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-
+
+tp-link wr703n hack
+	power down > power up > hit "Reset" pin when seeing indicator blinks immediately >
+	telnet 192.168.1.1 to get into failsafe mode > firstboot then reboot -f to flush all config
+
+/etc/config/network
+
+	config interface 'loopback'
+	    option ifname 'lo'
+	    option proto 'static'
+	    option ipaddr '127.0.0.1'
+	    option netmask '255.0.0.0'
+
+	config interface 'lan'
+	    option ifname 'eth0'
+	    option type 'bridge'
+	    option proto 'static'
+	    option ipaddr '192.168.1.1'
+	    option netmask '255.255.255.0'
+
+	config interface 'wan'
+	    option ifname 'wlan0'
+	    option proto 'dhcp'
+
+/etc/config/wireless
+
+	config wifi-device  radio0
+	    option type     mac80211
+	    option channel  11
+	    option hwmode   11ng
+	    option path 'platform/ar933x_wmac'
+	    option htmode   HT20
+	    list ht_capab   SHORT-GI-20
+	    list ht_capab   SHORT-GI-40
+	    list ht_capab   RX-STBC1
+	    list ht_capab   DSSS_CCK-40
+	    # REMOVE THIS LINE TO ENABLE WIFI:
+	    #option disabled 1
+
+	config wifi-iface
+	    option device   radio0
+	    #option network  lan
+	    option network  wan
+	    #option mode     ap
+	    option mode     sta
+	    option ssid     'THE NAME OF OUR EXISTING WIFI NETWORK'
+	    #option encryption none
+	    option encryption wep+shared
+	    option key 'WEP PASSWORD FOR OUR EXISTING WIFI NETWORK'
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 Android device adb sdk
 
@@ -3633,7 +3676,7 @@ create livecd from ubuntu
 repo setting > http://rpmfusion.org/Configuration/
 	su -c 'yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm'
 
-chrome browser w/ proxy-server
+chrome browser w/ proxy-server behind proxy
   chromium-browser --proxy-server=http://ip:port
   chromium-browser --proxy-server=socks://ip:port
 
@@ -3653,18 +3696,12 @@ package to install
 multimedia driver gstreamer
 	lsdvd libdvdnav libdvdread ffmpeg gstreamer-ffmpeg gstreamer-plugins-bad gstreamer-plugins-bad-extras gstreamer-plugins-ugly libdvdcss flash-plugin mplayer phonon-backend-gstreamer
 
-notes repo for x64	http://ocfedora.hursley.ibm.com/fedora/1X/x86_64/	-> yum install ibm-notes-config
-
 nvidia driver installed, to fix "cannot open font file true"
 	sudo vi /etc/default/grub
 	Look for "SYSFONT=True" and replace it with "SYSFONT=latarcyrheb-sun16"
 	sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 
 ms truetype font
-	wget "http://blog.andreas-haerter.com/_export/code/2011/07/01/install-msttcorefonts-fedora.sh?codeblock=1" -O "/tmp/install-msttcorefonts-fedora.sh"
-	chmod a+rx "/tmp/install-msttcorefonts-fedora.sh"
-	su -c "/tmp/install-msttcorefonts-fedora.sh"
-	(option 2)
 	sudo yum install liberation-fonts-common
 	sudo yum install freetype-freeworld
 
@@ -3689,157 +3726,13 @@ check system boot
 	systemd-analyze
 	systemd-analyze blame
 
-	systemctl stop    bluetooth.service
-	systemctl disable bluetooth.service
-
 	sudo package-cleanup --orphans
 	sudo package-cleanup --leaves
 
 FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 
-set primary monitor / screen
-	xrandr --output LVDS1 --primary
-	/usr/bin/xrandr --output eDP1 --mode 1920x1200
-
-set touchpad 3rd button on mac
-	synclient TapButton3=2
-
-
-HSLTHSLTHSLTHSLT
-	scp -r -p o StrictHostKeyChecking=no jeffyang@bejgsa.ibm.com:/gsa/bejgsa/projects/h/hslt/build/image/HSLT_dev/$BUILDNAME /home/jeff/Downloads/scratch/hslt/build/latest/
-
-	ssh -L 9.123.127.201:33090:10.10.3.38:33090 10.10.3.38
-
-	# recycle Hbase/ hbase
-	# In all Hbase nodes
-	kill -i `ps -ef | grep java | awk '{print $2}'`
-
-	#Stop Hadoop on hbase-1
-	/opt/IHC-*/bin/stop-dfs.sh
-
-	#Start Hadoop on hbase-1
-	/opt/IHC-*/bin/start-dfs.sh
-
-	#Start Hbase on hbase-1
-	/opt/hbase-*/bin/start-hbase.sh
-
-	#Start RestServer on hbase-4
-	/iaas/iaas-rest-srv/bin/rest_server.sh start
-
-	#Restart ruby on Storage-1/2
-	/iaas/storage_bots/rubybots/re-run.sh
-
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-boxgrinder
-
-sudo boxgrinder-build firstbox.appl -d libvirt --delivery-config connection_uri:qemu:///system,image_delivery_uri:/home/user/boxgrinder
-
-appliance definition
-	[jeff@jytpt410 boxgrinder]$ cat firstbox.appl
-	name: rhel
-	summary: rhel6.1
-	os:
-	  name: rhel
-	  version: 6
-	  password: mysecret
-	hardware:
-	  cpus: 1
-	  memory: 512
-	  partitions:
-	    "/":
-	      size: 5
-	repos:
-	  - name: "base"
-	    baseurl: "file:///mnt/rhel61_iso"
-
-vim /boot/grub/grub.conf
-console=ttyS0
-	kernel /boot/vmlinuz-2.6.32-220.el6.x86_64 ... console=ttyS0
-
-fedora performance | boot performance
-	systemd-analyze time			# summarized
-	systemd-analyze blame			# check the details
-	systemd-analyze plot > boot-graph.png	# capture and gerate a graphy report
-
-	systemctl --failed			# check the failed
-	systemctl status systemd-tmpfiles-clean.service
-	systemctl disable mdmonitor.service	# service to disable jetty.service sendmail.service ip6tables.service vmware-USBArbitrator.service
-	yum remove abrt*
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-tp-link wr703n hack
-	power down > power up > hit "Reset" pin when seeing indicator blinks immediately >
-	telnet 192.168.1.1 to get into failsafe mode > firstboot then reboot -f to flush all config
-
-/etc/config/network
-
-	config interface 'loopback'
-	    option ifname 'lo'
-	    option proto 'static'
-	    option ipaddr '127.0.0.1'
-	    option netmask '255.0.0.0'
-
-	config interface 'lan'
-	    option ifname 'eth0'
-	    option type 'bridge'
-	    option proto 'static'
-	    option ipaddr '192.168.1.1'
-	    option netmask '255.255.255.0'
-
-	config interface 'wan'
-	    option ifname 'wlan0'
-	    option proto 'dhcp'
-
-/etc/config/wireless
-
-	config wifi-device  radio0
-	    option type     mac80211
-	    option channel  11
-	    option hwmode   11ng
-	    option path 'platform/ar933x_wmac'
-	    option htmode   HT20
-	    list ht_capab   SHORT-GI-20
-	    list ht_capab   SHORT-GI-40
-	    list ht_capab   RX-STBC1
-	    list ht_capab   DSSS_CCK-40
-	    # REMOVE THIS LINE TO ENABLE WIFI:
-	    #option disabled 1
-
-	config wifi-iface
-	    option device   radio0
-	    #option network  lan
-	    option network  wan
-	    #option mode     ap
-	    option mode     sta
-	    option ssid     'THE NAME OF OUR EXISTING WIFI NETWORK'
-	    #option encryption none
-	    option encryption wep+shared
-	    option key 'WEP PASSWORD FOR OUR EXISTING WIFI NETWORK'
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-gitgitgitgit
-	git config --list
-
-	git config --global core.editor vim
-	git config --global merge.tool vimdiff
-
-	git branch -rd origin/gh-pages		# delete remote branch
-	git push origin --delete gh-pages	# delete remote branch
-
-	# change/ update branch, you'd touch
-	.git/config + .git/HEAD + .git/refs/heads/master
-
-	git log --graph --decorate --oneline
-	git reset --hard bf92f59
-
-atomatomatom atom-editor installing plugin
-	markdown-toc vim-mode markdown-pdf markdown-preview-enhanced mscgen-preview
-
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
@@ -4127,9 +4020,27 @@ sudo -v && wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/mas
 
 nodejsnodejsnodejsnodejsnodejsnodejsnodejs
 
-pandoc converter from markdown to word (https://mrjoe.uk/convert-markdown-to-word-document/)
+markdownmarkdown
+	# pandoc converter from markdown to word (https://mrjoe.uk/convert-markdown-to-word-document/)
+  	pandoc -o output.docx -f markdown -t docx filename.md
 
-  pandoc -o output.docx -f markdown -t docx filename.md
+gitgitgitgit
+	git config --list
+
+	git config --global core.editor vim
+	git config --global merge.tool vimdiff
+
+	git branch -rd origin/gh-pages		# delete remote branch
+	git push origin --delete gh-pages	# delete remote branch
+
+	# change/ update branch, you'd touch
+	.git/config + .git/HEAD + .git/refs/heads/master
+
+	git log --graph --decorate --oneline
+	git reset --hard bf92f59
+
+atomatomatom atom-editor installing plugin
+	markdown-toc vim-mode markdown-pdf markdown-preview-enhanced mscgen-preview
 
 pythonpythonpython
 
@@ -4145,5 +4056,35 @@ pythonpythonpython
 
   # install tkinter
   apt install python3-tk
+
+pythonpythonpython
+
+
+HSLTHSLTHSLTHSLT
+	scp -r -p o StrictHostKeyChecking=no jeffyang@bejgsa.ibm.com:/gsa/bejgsa/projects/h/hslt/build/image/HSLT_dev/$BUILDNAME /home/jeff/Downloads/scratch/hslt/build/latest/
+
+	ssh -L 9.123.127.201:33090:10.10.3.38:33090 10.10.3.38
+
+	# recycle Hbase/ hbase
+	# In all Hbase nodes
+	kill -i `ps -ef | grep java | awk '{print $2}'`
+
+	#Stop Hadoop on hbase-1
+	/opt/IHC-*/bin/stop-dfs.sh
+
+	#Start Hadoop on hbase-1
+	/opt/IHC-*/bin/start-dfs.sh
+
+	#Start Hbase on hbase-1
+	/opt/hbase-*/bin/start-hbase.sh
+
+	#Start RestServer on hbase-4
+	/iaas/iaas-rest-srv/bin/rest_server.sh start
+
+	#Restart ruby on Storage-1/2
+	/iaas/storage_bots/rubybots/re-run.sh
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 ```
