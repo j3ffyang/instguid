@@ -4140,8 +4140,8 @@ pythonpythonpython
   # pip behind proxy
   pip3 --proxy http://10.10.10.1:3128 install tensor
 
-  # pip install
-  torch tensor tensorflow tensorboard keras matplotlib
+  # pip install; pip3 install
+  torch tensor tensorflow tensorboard keras matplotlib pandas
 
   # install tkinter
   apt install python3-tk
