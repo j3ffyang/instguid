@@ -2488,6 +2488,25 @@ ssh tunnel crontab
 */1     *       *       *       *       /root/createtunnel.sh
 
 
+openvpnopenvpnopenvpn
+
+openvpn	# create tls-auth key, then copy to /etc/openvpn and update /etc/openvpn/server.conf to reflect the change
+	openvpn --genkey --secret static.key
+
+openvpn /etc/openvpn/server.conf
+	port 1195
+	proto tcp
+	tls-auth ta.key 0 # 0 on srv & 1 on client
+
+openvpn --auth-user-pass /etc/openvpn/yegle/up --config /etc/openvpn/yegle/fremont-1-normal.ovpn
+
+openvpn force all traffic from the client to get directed to the VPN server > edit server.conf
+	push "redirect-gateway def1 bypass-dhcp"
+
+	echo "1" > /proc/sys/net/ipv4/ip_forward
+	iptables -t nat -A POSTROUTING -j MASQUERADE
+
+
 Linux Password Lost/ Control / passwd / password lost
 	boot machine as linux single in lilo. then do passwd change.
 	For Grub hit 'e' at the Grub screen and then add 'single' to the kernel line and boot.
@@ -3451,20 +3470,6 @@ debian  # bluetooth, guide for debian
   sudo pactl load-module module-switch-on-connect
 
 
-wicd | wireless -> apt-get install wicd | replace of network-manager
-install wpa_supplicant > vi /etc/wpa_supplicant/wpa_supplicant.conf
-	network={
-	        ssid="{NETWORK_ID}"
-	        psk="{26_HEX_SECRET}"
-	        priority=5
-	        }
-sudo wpa_supplicant -iwlan0 -c/etc/wpa_supplicant/wpa_supplicant.conf
-
-update-rc.d (equivalent to chkconfig @ ubuntu) -> apt-get install rcconf
-	update-rc.d vsftpd defaults 	(to restore)
-	dpkg-reconfigure vsftpd 	(to restore)
-	update-rc.d -f vsftpd remove	(to remove )
-
 log into text mode >	update-rc.d -f gdm remove	#textmode
 log into gui mode  > 	update-rc.d -f gdm defaults
 
@@ -3511,97 +3516,23 @@ linode security secsecsecsec
 	passwd usr; cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 	vi /etc/ssh/sshd_config # set PermitRootLogin no; /etc/init.d/ssh restart
 
-openvpn	# create tls-auth key, then copy to /etc/openvpn and update /etc/openvpn/server.conf to reflect the change
-	openvpn --genkey --secret static.key
-
-openvpn /etc/openvpn/server.conf
-	port 1195
-	proto tcp
-	tls-auth ta.key 0 # 0 on srv & 1 on client
-
-openvpn --auth-user-pass /etc/openvpn/yegle/up --config /etc/openvpn/yegle/fremont-1-normal.ovpn
-
-openvpn force all traffic from the client to get directed to the VPN server > edit server.conf
-	push "redirect-gateway def1 bypass-dhcp"
-
-	echo "1" > /proc/sys/net/ipv4/ip_forward
-	iptables -t nat -A POSTROUTING -j MASQUERADE
 
 rsyslog > /etc/rsyslog.conf > to avoid rate-limiting error @ /var/log/messages
 	$SystemLogRateLimitInterval 2
 	$SystemLogRateLimitBurst 50
 
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-virtualbox sun VirtualBox bluescreen
 
-	HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Intelppm
-	And changing the Start value to 4
+wicd | wireless -> apt-get install wicd | replace of network-manager
+install wpa_supplicant > vi /etc/wpa_supplicant/wpa_supplicant.conf
+	network={
+	        ssid="{NETWORK_ID}"
+	        psk="{26_HEX_SECRET}"
+	        priority=5
+	        }
+sudo wpa_supplicant -iwlan0 -c/etc/wpa_supplicant/wpa_supplicant.conf
 
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-home appliance setting
-
-Philips bluray region free setting
-	no disc in tray > Press Home > Scroll to settings > 13893108520
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-Tenda router configuration
-192.168.2.1 / admin:admin
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-tp-link wr703n hack
-	power down > power up > hit "Reset" pin when seeing indicator blinks immediately >
-	telnet 192.168.1.1 to get into failsafe mode > firstboot then reboot -f to flush all config
-
-/etc/config/network
-
-	config interface 'loopback'
-	    option ifname 'lo'
-	    option proto 'static'
-	    option ipaddr '127.0.0.1'
-	    option netmask '255.0.0.0'
-
-	config interface 'lan'
-	    option ifname 'eth0'
-	    option type 'bridge'
-	    option proto 'static'
-	    option ipaddr '192.168.1.1'
-	    option netmask '255.255.255.0'
-
-	config interface 'wan'
-	    option ifname 'wlan0'
-	    option proto 'dhcp'
-
-/etc/config/wireless
-
-	config wifi-device  radio0
-	    option type     mac80211
-	    option channel  11
-	    option hwmode   11ng
-	    option path 'platform/ar933x_wmac'
-	    option htmode   HT20
-	    list ht_capab   SHORT-GI-20
-	    list ht_capab   SHORT-GI-40
-	    list ht_capab   RX-STBC1
-	    list ht_capab   DSSS_CCK-40
-	    # REMOVE THIS LINE TO ENABLE WIFI:
-	    #option disabled 1
-
-	config wifi-iface
-	    option device   radio0
-	    #option network  lan
-	    option network  wan
-	    #option mode     ap
-	    option mode     sta
-	    option ssid     'THE NAME OF OUR EXISTING WIFI NETWORK'
-	    #option encryption none
-	    option encryption wep+shared
-	    option key 'WEP PASSWORD FOR OUR EXISTING WIFI NETWORK'
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
+UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
+UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
 
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -4086,5 +4017,73 @@ HSLTHSLTHSLTHSLT
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+home appliance setting
+
+Philips bluray region free setting
+	no disc in tray > Press Home > Scroll to settings > 13893108520
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Tenda router configuration
+192.168.2.1 / admin:admin
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+tp-link wr703n hack
+	power down > power up > hit "Reset" pin when seeing indicator blinks immediately >
+	telnet 192.168.1.1 to get into failsafe mode > firstboot then reboot -f to flush all config
+
+/etc/config/network
+
+	config interface 'loopback'
+	    option ifname 'lo'
+	    option proto 'static'
+	    option ipaddr '127.0.0.1'
+	    option netmask '255.0.0.0'
+
+	config interface 'lan'
+	    option ifname 'eth0'
+	    option type 'bridge'
+	    option proto 'static'
+	    option ipaddr '192.168.1.1'
+	    option netmask '255.255.255.0'
+
+	config interface 'wan'
+	    option ifname 'wlan0'
+	    option proto 'dhcp'
+
+/etc/config/wireless
+
+	config wifi-device  radio0
+	    option type     mac80211
+	    option channel  11
+	    option hwmode   11ng
+	    option path 'platform/ar933x_wmac'
+	    option htmode   HT20
+	    list ht_capab   SHORT-GI-20
+	    list ht_capab   SHORT-GI-40
+	    list ht_capab   RX-STBC1
+	    list ht_capab   DSSS_CCK-40
+	    # REMOVE THIS LINE TO ENABLE WIFI:
+	    #option disabled 1
+
+	config wifi-iface
+	    option device   radio0
+	    #option network  lan
+	    option network  wan
+	    #option mode     ap
+	    option mode     sta
+	    option ssid     'THE NAME OF OUR EXISTING WIFI NETWORK'
+	    #option encryption none
+	    option encryption wep+shared
+	    option key 'WEP PASSWORD FOR OUR EXISTING WIFI NETWORK'
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+virtualbox sun VirtualBox bluescreen
+
+	HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Intelppm
+	And changing the Start value to 4
 
 ```
