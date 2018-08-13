@@ -2487,6 +2487,18 @@ ssh tunnel crontab
 # m     h       dom     mon     dow     command
 */1     *       *       *       *       /root/createtunnel.sh
 
+icmp tunneling ping tunnel
+  https://github.com/j3ffyang/docker/blob/master/docs/20170808_icmptunnel.md
+
+  tar -xzvf hans-version.tar.gz
+  cd hans-version
+  make
+
+  # Run as server by root (blue one)
+  sudo ./hans -s 10.10.10.0 -p password
+
+  # Run as client by root (green one)
+  sudo ./hans -c SERVER_IP -p password
 
 openvpnopenvpnopenvpn
 
@@ -3459,6 +3471,17 @@ debian touchpad xfce
 
 debian screencast
 	sudo apt-get install ffmpeg mkvtoolnix
+
+	# capture
+	ffmpeg -f x11grab -s 1366x768 -i :0.0 -r 25 -vcodec libx264 output.mkv
+	# find current resolution
+	xrandr -q --current | grep '*' | awk '{print$1}'
+
+	# qt-based gui
+	sudo apt-get install vokoscreen
+
+	# start display the webcam
+	ffplay -f video4linux2 -i /dev/video0 -video_size 320x240
 
 debian  # bluetooth, guide for debian
   apt install pulseaudio bluez bluez-utils pavucontrol rfkill
