@@ -3947,15 +3947,18 @@ archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 
 nodejsnodejsnodejsnodejsnodejsnodejsnodejs
 
-# set registry
-  sudo npm install cnpm -g --registry=https://registry.npm.SOMEWHERE.org
-
 # install nodejs ppa
   sudo apt-get install python-software-properties
   curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 
 # install nodejs
   sudo apt-get install nodejs
+
+# npm behind proxy
+  npm config set proxy http://10.10.10.1:3128
+
+# set registry
+  sudo npm install cnpm -g --registry=https://registry.npm.SOMEWHERE.org
 
 # install npm component for atom
   npm install phantomjs
@@ -3975,7 +3978,8 @@ sudo -v && wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/mas
 	# apidoc ~/
 
   # apm behind proxt
-  apm config get https-proxy
+  apm config set https-proxy=https://proxy:3128
+  apm config list
 
 nodejsnodejsnodejsnodejsnodejsnodejsnodejs
 
