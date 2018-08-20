@@ -3469,6 +3469,13 @@ debian touchpad xfce
 
 	systemctl restart lightdm
 
+debian font
+  cp -var ./ubuntu-font-family-0.83/* /usr/share/fonts/local/
+  fc-list
+  sudo dpkg-reconfigure fontconfig-config
+  sudo dpkg-reconfigure fontconfig
+  sudo fc-cache -fv
+
 debian screencast
 	sudo apt-get install ffmpeg mkvtoolnix
 
@@ -3986,6 +3993,11 @@ nodejsnodejsnodejsnodejsnodejsnodejsnodejs
 markdownmarkdown
 	# pandoc converter from markdown to word (https://mrjoe.uk/convert-markdown-to-word-document/)
   	pandoc -o output.docx -f markdown -t docx filename.md
+
+  	# r = read format, w = write format
+  	pandoc -r markdown -w html -o *yourfilename*.html *yourfilename*.md
+    pandoc -r markdown -w odt -o pandoctemplate.odt *yourfilename*.md
+    pandoc -r markdown -o *yourfilename*.pdf *yourfilename*.md
 
 gitgitgitgit
 	git config --list
