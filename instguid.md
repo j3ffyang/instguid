@@ -3409,6 +3409,9 @@ curl curl curl continuous download after reconnection
 curl with proxy behind proxy
   curl -x 'http://10.10.10.1:3128' -O https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz
 
+wget behind proxy (use https_proxy if target is https)
+  wget -e use_proxy=yes -e https_proxy=http://[proxy_srv]:3128 https://target
+
 pidgin
 	apt-get install pidgin	# sametime replacement
 	cd ~/.purple; vi accouns.xml -> change fake_client_id = 1
