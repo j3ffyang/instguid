@@ -3313,6 +3313,9 @@ sublimesublimesublime
 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
 
+flush dns cache
+	sudo systemd-resolve --flush-caches
+
 useradd / adduser
   adduser USER_ID
 	usermod -aG sudo USER_ID
@@ -4034,6 +4037,17 @@ pythonpythonpython
 
   # install tkinter
   apt install python3-tk
+
+  A little bit of theory:
+  Objects are a representation of real world objects like cars, dogs, or bikes. The objects share two main characteristics: data and behavior.
+
+  Cars have data, like number of wheels, number of doors, and seating capacity They also exhibit behavior: they can accelerate, stop, show how much fuel is left, and so many other things.
+
+  We identify data as attributes and behavior as methods in object-oriented programming. Again:
+
+  Data → Attributes and Behavior → Methods
+
+  And a Class is the blueprint from which individual objects are created. In the real world, we often find many objects with the same type. Like cars. All the same make and model (and all have an engine, wheels, doors, and so on). Each car was built from the same set of blueprints and has the same components.
 
 pythonpythonpython
 
