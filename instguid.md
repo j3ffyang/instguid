@@ -3508,6 +3508,15 @@ debian  # bluetooth, guide for debian
   sudo pactl load-module module-bluetooth-discover
   sudo pactl load-module module-switch-on-connect
 
+debian screencast
+	sudo apt-get install ffmpeg mkvtoolnix
+
+debian wireless network manager
+  nmtui; nmcli
+
+debian bluetooth output switch
+  pavucontrol
+
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
