@@ -3505,12 +3505,22 @@ debian screencast
 	ffplay -f video4linux2 -i /dev/video0 -video_size 320x240
 
 debian  # bluetooth, guide for debian
-  apt install pulseaudio bluez pavucontrol rfkill
+  apt install pulseaudio bluez pavucontrol rfkill pulseaudio-bluetooth blueman 
 
   cat /etc/bluetooth/audio.conf
   [General]
   Disable=Socket
   Enable=Media,Source,Sink,Gateway
+
+debian bluetoothd
+  mod
+	/lib/systemd/system/bluetooth.service
+  to have
+	ExecStart=/usr/lib/bluetooth/bluetoothd -E
+  instead of
+	ExecStart=/usr/lib/bluetooth/bluetoothd 
+  then
+	sudo systemctl daemon-reload; sudo systemctl restart bluetooth.service
 
   sudo systemctl restart bluetooth
   sudo pactl load-module module-bluetooth-discover
@@ -3840,7 +3850,7 @@ install	https://wiki.archlinux.org/index.php/Beginners'_guide
   # bluetooth
   install for bluetooth, then restart "pulseaudio --kill; pulseaudio --start"
 
-  pacman -S pulseaudio pulseaudio-bluetooth bluez bluez-utils pavucontrol rfkill
+  pacman -S pulseaudio pulseaudio-bluetooth bluez blueman pavucontrol rfkill
   sudo rfkill unblock bluetooth
 
   # refer to https://wiki.archlinux.org/index.php/bluetooth#Bluetoothctl
