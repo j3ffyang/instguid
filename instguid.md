@@ -3535,6 +3535,9 @@ debian wireless network manager
 debian bluetooth output switch
   pavucontrol
 
+debian audio vol control in xfce4
+  panel > add new item > search "pulseaudio"
+
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
