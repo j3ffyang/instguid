@@ -3461,6 +3461,9 @@ touchpad > enable 3rd button copy & paste
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
+debian bash shell customization 
+    PS1='\e[32;1m\u@\h: \e[34m\W\e[0m\$ '
+
 debian install on xps 9360
 	firmware-atheros rsync sudo python3-pip ssh ufw python3-tk ffmpeg mkvtoolnix dirmngr
 
