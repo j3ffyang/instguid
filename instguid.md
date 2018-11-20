@@ -3505,7 +3505,7 @@ debian screencast
 	ffplay -f video4linux2 -i /dev/video0 -video_size 320x240
 
 debian  # bluetooth, guide for debian
-  apt install pulseaudio bluez bluez-utils pavucontrol rfkill
+  apt install pulseaudio bluez pavucontrol rfkill
 
   cat /etc/bluetooth/audio.conf
   [General]
