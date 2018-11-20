@@ -3462,7 +3462,7 @@ debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
 debian install on xps 9360
-	firmware-atheros rsync sudo python3-pip ssh ufw python3-tk
+	firmware-atheros rsync sudo python3-pip ssh ufw python3-tk ffmpeg mkvtoolnix
 
        uninstall vim.tiny then install vim-gtk3 (with python support)
 
