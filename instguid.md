@@ -3466,6 +3466,9 @@ debian install on xps 9360
 
        uninstall vim.tiny then install vim-gtk3 (with python support)
 
+debian check avail package - chinese font
+	apt-cache search chinese font
+
 debian touchpad xfce
 	apt purge xserver-xorg-input-synaptics
 	apt install xserver-xorg-input-libinput
