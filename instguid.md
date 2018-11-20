@@ -3461,6 +3461,11 @@ touchpad > enable 3rd button copy & paste
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
+debian install on xps 9360
+	firmware-atheros rsync sudo python3-pip ssh ufw python3-tk
+
+       uninstall vim.tiny then install vim-gtk3 (with python support)
+
 debian touchpad xfce
 	apt purge xserver-xorg-input-synaptics
 	apt install xserver-xorg-input-libinput
