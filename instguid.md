@@ -3541,6 +3541,14 @@ debian bluetooth output switch
 debian audio vol control in xfce4
   panel > add new item > search "pulseaudio"
 
+debian skype 
+  su -
+  echo "deb [arch=amd64] https://repo.skype.com/deb stable main" |  tee /etc/apt/sources.list.d/skype-stable.list 
+  wget https://repo.skype.com/data/SKYPE-GPG-KEY 
+  apt-key add SKYPE-GPG-KEY
+  apt install apt-transport-https; apt update 
+  apt install skypeforlinux
+
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
