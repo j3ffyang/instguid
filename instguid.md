@@ -3552,6 +3552,41 @@ debian skype
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
+proxyproxyproxyproxy
+proxyproxyproxyproxy
+
+command line brownser 
+    links2 -socks-proxy localhost:1080 google.com
+
+apt-get proxy
+	apt-get install [PACKAGE] -o acquire::http::proxy="http://[IP]:[8085]"
+
+curl with proxy behind proxy
+    curl -x 'http://10.10.10.1:3128' -O https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz
+
+wget behind proxy (use https_proxy if target is https)
+    wget -e use_proxy=yes -e https_proxy=http://[proxy_srv]:3128 https://target_file
+
+chrome browser w/ proxy-server behind proxy
+  chromium-browser --proxy-server=http://ip:port
+  chromium-browser --proxy-server=socks://ip:port
+
+youtube-dl  # youtube download 
+    sudo pip3 install youtube-dl 
+    youtube-dl --proxy http://10.10.10.1:3128 URL 
+
+npm behind proxy
+    npm config set proxy http://10.10.10.1:3128
+
+apm behind proxt
+    apm config set https-proxy=https://proxy:3128
+
+pip behind proxy
+    pip3 --proxy http://10.10.10.1:3128 install tensor
+
+proxyproxyproxyproxy
+proxyproxyproxyproxy
+
 log into text mode >	update-rc.d -f gdm remove	#textmode
 log into gui mode  > 	update-rc.d -f gdm defaults
 
