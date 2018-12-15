@@ -1023,6 +1023,9 @@ add/ delete routing table
 	ip route add 9.0.0.0/8 via 9.115.78.1 dev br1
 	ip route add 172.16.0.0/16 via 172.16.27.1 dev br0
 
+find ip addr from cmdline commandline/ dnsutils
+  dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed 's/"//g'
+
 netstat interface	$netstat -in -t
 			#netstat -a | grep pts
 			#netstat -tap -> tell you who owns the processes.
@@ -3461,7 +3464,7 @@ touchpad > enable 3rd button copy & paste
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
-debian bash shell customization 
+debian bash shell customization
     PS1='\e[32;1m\u@\h: \e[34m\W\e[0m\$ '
 
 debian install on xps 9360
@@ -3508,7 +3511,7 @@ debian screencast
 	ffplay -f video4linux2 -i /dev/video0 -video_size 320x240
 
 debian  # bluetooth, guide for debian
-  apt install pulseaudio bluez pavucontrol rfkill pulseaudio-bluetooth blueman 
+  apt install pulseaudio bluez pavucontrol rfkill pulseaudio-bluetooth blueman
 
   cat /etc/bluetooth/audio.conf
   [General]
@@ -3521,7 +3524,7 @@ debian bluetoothd
   to have
 	ExecStart=/usr/lib/bluetooth/bluetoothd -E
   instead of
-	ExecStart=/usr/lib/bluetooth/bluetoothd 
+	ExecStart=/usr/lib/bluetooth/bluetoothd
   then
 	sudo systemctl daemon-reload; sudo systemctl restart bluetooth.service
 
@@ -3541,12 +3544,12 @@ debian bluetooth output switch
 debian audio vol control in xfce4
   panel > add new item > search "pulseaudio"
 
-debian skype 
+debian skype
   su -
-  echo "deb [arch=amd64] https://repo.skype.com/deb stable main" |  tee /etc/apt/sources.list.d/skype-stable.list 
-  wget https://repo.skype.com/data/SKYPE-GPG-KEY 
+  echo "deb [arch=amd64] https://repo.skype.com/deb stable main" |  tee /etc/apt/sources.list.d/skype-stable.list
+  wget https://repo.skype.com/data/SKYPE-GPG-KEY
   apt-key add SKYPE-GPG-KEY
-  apt install apt-transport-https; apt update 
+  apt install apt-transport-https; apt update
   apt install skypeforlinux
 
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
@@ -3555,7 +3558,7 @@ debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 proxyproxyproxyproxy
 proxyproxyproxyproxy
 
-command line brownser 
+command line brownser
     links2 -socks-proxy localhost:1080 google.com
 
 apt-get proxy
@@ -3571,9 +3574,9 @@ chrome browser w/ proxy-server behind proxy
   chromium-browser --proxy-server=http://ip:port
   chromium-browser --proxy-server=socks://ip:port
 
-youtube-dl  # youtube download 
-    sudo pip3 install youtube-dl 
-    youtube-dl --proxy http://10.10.10.1:3128 URL 
+youtube-dl  # youtube download
+    sudo pip3 install youtube-dl
+    youtube-dl --proxy http://10.10.10.1:3128 URL
 
 npm behind proxy
     npm config set proxy http://10.10.10.1:3128
