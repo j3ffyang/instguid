@@ -3360,6 +3360,10 @@ terminator window size in 1360x768
       		type = Window
       		size = 665, 835
 
+terminator window size
+  tput cols; tput lines
+  stty size
+
 chinese input method / im-config / im-choose
 	fcitx fcitx-table-wbpy fcitx-googlepinyin
 
@@ -3369,10 +3373,10 @@ chinese input method / im-config / im-choose
 font change / language change
 update font preference > jeff@s900:/etc/fonts/conf.d$ cat 64-language-selector-prefer.conf
 
-  # install fonts
-  apt install ttf-mscorefonts-installer ttf-liberation
-  fc-list
-  dpkg-reconfigure fontconfig-config; dpkg-reconfigure fontconfig
+    # install fonts
+    apt install ttf-mscorefonts-installer ttf-liberation
+    fc-list
+    dpkg-reconfigure fontconfig-config; dpkg-reconfigure fontconfig
 
 	# java
 	icedtea-7-plugin openjdk-7-jre
