@@ -1306,10 +1306,10 @@ Slave queue ID: 0
 conclusion: eth3 doesn't have correct link even it's connected
 
 ethtool
-	find device driver and firmware info
+	# find device driver and firmware info
 	ethtool -i eth0
 
-	find factory- default MAC addr
+	# find factory- default MAC addr
 	ethtool -P eth0
 
 
@@ -4120,6 +4120,12 @@ pythonpythonpython
 
   # install tkinter
   apt install python3-tk
+
+  # check site-packages
+  python3 -c "import site; print(site.getsitepackages())"
+
+  # list packages installed by pip3 
+  pip3 list
 
   A little bit of theory:
   Objects are a representation of real world objects like cars, dogs, or bikes. The objects share two main characteristics: data and behavior.
