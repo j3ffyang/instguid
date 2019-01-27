@@ -2924,6 +2924,9 @@ vimrc	~/.vimrc
 	colorscheme solarized
 
 ImageMagick
+  # save output of cmd into an image img by imagemagick
+  ip a | convert label:@- myipaddress.png
+
 	/usr/local/bin/magick/display -window root filename
 	display -window root /usr/share/wallpapers/No-Ones-Laughing-3.jpg
 
@@ -4055,6 +4058,8 @@ nodejsnodejsnodejsnodejsnodejsnodejsnodejs
 
 # set registry
   sudo npm install cnpm -g --registry=https://registry.npm.SOMEWHERE.org
+  npm config set registry http://r.cnpmjs.org
+  npm config list
 
 # install npm component for atom
   npm install phantomjs
@@ -4124,7 +4129,7 @@ pythonpythonpython
   # check site-packages
   python3 -c "import site; print(site.getsitepackages())"
 
-  # list packages installed by pip3 
+  # list packages installed by pip3
   pip3 list
 
   A little bit of theory:
