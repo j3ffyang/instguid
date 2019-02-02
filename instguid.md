@@ -2923,6 +2923,9 @@ vimrc	~/.vimrc
 	set background=dark
 	colorscheme solarized
 
+vimvimvim	# get rid of inotify error
+	echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+
 ImageMagick
   # save output of cmd into an image img by imagemagick
   ip a | convert label:@- myipaddress.png
