@@ -3565,6 +3565,9 @@ debian skype
   apt install apt-transport-https; apt update
   apt install skypeforlinux
 
+dell hardware
+  sudo dmidecode | grep "Product Name"
+
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
