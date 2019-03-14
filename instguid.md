@@ -3373,7 +3373,12 @@ terminator window size
 chinese input method / im-config / im-choose
 	fcitx fcitx-table-wbpy fcitx-googlepinyin
 
-	# virt, network, encryption, cryptography
+input method/ im-config im-switch
+  im-config -l        # list
+  im-config -m        # show the default
+  im-config -n fcitx  # switch to fcitx
+
+# virt, network, encryption, cryptography
 	bridge-utils pidgin qemu-system-x86 libvirt-bin ubuntu-vm-builder virt-manager virt-viewer openconnect network-manager-vpnc lvm2 cryptsetup
 
 font change / language change
