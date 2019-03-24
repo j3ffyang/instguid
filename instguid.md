@@ -3573,7 +3573,8 @@ debian skype
 dell hardware
   sudo dmidecode | grep "Product Name"
 
-install steam on debian
+install steam on debian 
+  https://unix.stackexchange.com/questions/264004/installing-steam-on-debian
   # add i386 
   sudo dpkg --add-architecture i386 
 
