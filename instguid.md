@@ -2357,7 +2357,7 @@ ssh + rsync
 	--exclude 'source'
 	--exclude-from '/home/path/exclude.txt'
 
-	rsync --compress --sparse --progress -e ssh source.file user@ipaddr:/path
+	rsync --compress --sparse --progress -e ssh source.file user@ipaddr:/path --address=SOURCE_IP
 	rsync --archive -v -z -r --inplace --progress -e ssh source target
 
 ssh to run cmd on remote srv
@@ -3573,20 +3573,20 @@ debian skype
 dell hardware
   sudo dmidecode | grep "Product Name"
 
-install steam on debian 
+install steam on debian
   https://unix.stackexchange.com/questions/264004/installing-steam-on-debian
-  # add i386 
-  sudo dpkg --add-architecture i386 
+  # add i386
+  sudo dpkg --add-architecture i386
 
-  # add contrib and non-free repo in /etc/apt/sources.list 
+  # add contrib and non-free repo in /etc/apt/sources.list
   deb http://ftp.fr.debian.org/debian stretch main contrib non-free
 
-  # update then install steam 
-  sudo apt update; sudo apt install steam:i386 
+  # update then install steam
+  sudo apt update; sudo apt install steam:i386
 
   # install the appropriate 3D libraries
-  libgl1-mesa-glx:i386 for Mesa, 
-  libgl1-fglrx-glx:i386 for fglrx on AMD GPUs, or 
+  libgl1-mesa-glx:i386 for Mesa,
+  libgl1-fglrx-glx:i386 for fglrx on AMD GPUs, or
   libgl1-nvidia-glx:i386 for the NVIDIA binary driver
 
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
