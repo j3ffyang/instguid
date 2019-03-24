@@ -3573,6 +3573,9 @@ debian skype
 dell hardware
   sudo dmidecode | grep "Product Name"
 
+install steam on debian
+
+
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
@@ -4276,7 +4279,7 @@ virtualbox sun VirtualBox bluescreen
 	HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Intelppm
 	And changing the Start value to 4
 
-install on debian
+install on debian # https://www.linuxbabe.com/debian/install-virtualbox-debian-9-stretch
   # add source into /etc/apt/source.list
   deb http://ftp.debian.org/debian stretch-backports main contrib
 
