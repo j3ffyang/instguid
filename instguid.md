@@ -3731,6 +3731,27 @@ script in /etc/rc.local
         /usr/bin/synclient TapButton3=2
         /usr/bin/xrandr --output eDP1 --mode 1680x1050
 
+install brew.sh
+
+change hostname
+    sudo scutil --set HostName <new_name>
+
+turn on remotelogin
+    sudo systemsetup -setremotelogin on
+
+turn on firewall
+    system pref > security & privacy
+
+tunnelblick
+    brew cask install tunnelblick
+
+bash completion
+    brew install bash-completion
+    brew install docker-completion
+    brew install docker-compose-completion
+
+other install > iterm2 python
+
 macmacmacmac
 
 
@@ -4254,5 +4275,12 @@ virtualbox sun VirtualBox bluescreen
 
 	HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Intelppm
 	And changing the Start value to 4
+
+install on debian
+  # add source into /etc/apt/source.list
+  deb http://ftp.debian.org/debian stretch-backports main contrib
+
+  # then install
+  apt install -t stretch-backports virtualbox
 
 ```
