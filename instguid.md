@@ -3574,7 +3574,19 @@ dell hardware
   sudo dmidecode | grep "Product Name"
 
 install steam on debian
+  # add i386 
+  sudo dpkg --add-architecture i386 
 
+  # add contrib and non-free repo in /etc/apt/sources.list 
+  deb http://ftp.fr.debian.org/debian stretch main contrib non-free
+
+  # update then install steam 
+  sudo apt update; sudo apt install steam:i386 
+
+  # install the appropriate 3D libraries
+  libgl1-mesa-glx:i386 for Mesa, 
+  libgl1-fglrx-glx:i386 for fglrx on AMD GPUs, or 
+  libgl1-nvidia-glx:i386 for the NVIDIA binary driver
 
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
@@ -4280,7 +4292,7 @@ virtualbox sun VirtualBox bluescreen
 	And changing the Start value to 4
 
 install on debian # https://www.linuxbabe.com/debian/install-virtualbox-debian-9-stretch
-  # add source into /etc/apt/source.list
+  # add source into /etc/apt/sources.list
   deb http://ftp.debian.org/debian stretch-backports main contrib
 
   # then install
