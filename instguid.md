@@ -2926,6 +2926,10 @@ vimrc	~/.vimrc
 vimvimvim	# get rid of inotify error
 	echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
+vim vi color
+  colo desert
+  colo delek
+
 ImageMagick
   # save output of cmd into an image img by imagemagick
   ip a | convert label:@- myipaddress.png
