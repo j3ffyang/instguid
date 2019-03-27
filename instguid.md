@@ -3762,15 +3762,17 @@ turn on remotelogin
 turn on firewall
     system pref > security & privacy
 
-tunnelblick
     brew cask install tunnelblick
-
-bash completion
     brew install bash-completion
     brew install docker-completion
     brew install docker-compose-completion
+    brew install iproute2mac
 
 other install > iterm2 python
+
+python pip3 install list
+  scikit-learn tflearn tensorflow pandas numpy opencv-python Keras jedi pep8
+  scipy PyYaml pygame nltk Markdown seaborn pyflakes
 
 macmacmacmac
 
