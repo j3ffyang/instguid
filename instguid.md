@@ -3593,6 +3593,10 @@ install steam on debian
   libgl1-fglrx-glx:i386 for fglrx on AMD GPUs, or
   libgl1-nvidia-glx:i386 for the NVIDIA binary driver
 
+doing nothing after lid closed
+  modify /etc/systemd/logind.conf > HandleLidSwitch=ignore
+  systemctl restart systemd-logind.service
+
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
