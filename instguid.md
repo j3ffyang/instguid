@@ -2329,6 +2329,9 @@ xauth | xauthority | to avoid Xlib: connection to ":0.0" refused by server > Xli
 tap tun	http://en.wikipedia.org/wiki/TUN/TAP
 TAP (as in network tap) simulates a link layer device and it operates with layer 2 packets such as Ethernet frames. TUN (as in network TUNnel) simulates a network layer device and it operates with layer 3 packets such as IP packets. TAP is used to create a network bridge, while TUN is used with routing.
 
+Use TUN if you just use the VPN to connect to the internet.
+Use TAP if you want to connect to the actual remote network (printers, remote desktops, etc.)
+
 ssh / SSH / sshd performance
 	@ /etc/ssh/sshd_config
 	GSSAPIAuthentication no
