@@ -1788,11 +1788,8 @@ openssl
 
 	openssl rsa -in privkey.pem -out server.key
 
-	# create a self- signed ssl cert
-	openssl req -new -x509 -days 365 -out filename.crt -keyout privkey.pem
-	openssl x509 -in server.csr -out server.crt -req -signkey server.key -days 365
-	## mv server.crt $apache/conf/ssl.crt
-	## mv server.key $apache/conf/ssl.key
+  # create a self- signed ssl cert
+    openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
 
 	# set up a CA / ca
 	ssl/misc/CA.pl -newca
