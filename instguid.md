@@ -3778,6 +3778,11 @@ python pip3 install list
   scikit-learn tflearn tensorflow pandas numpy opencv-python Keras jedi pep8
   scipy PyYaml pygame nltk Markdown seaborn pyflakes
 
+uninstall checkpoint cp
+  remove checkpoint from application
+  sudo rm -fr /private/var/db/receipts/com.checkpoint.pkg.epc.plist
+  sudo rm -fr /private/var/db/receipts/com.checkpoint.pkg.epc.bom
+  
 macmacmacmac
 
 
