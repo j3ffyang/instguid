@@ -3771,6 +3771,7 @@ turn on firewall
     brew install docker-completion
     brew install docker-compose-completion
     brew install iproute2mac
+    brew cask install chromium
 
 other install > iterm2 python
 
@@ -3782,7 +3783,7 @@ uninstall checkpoint cp
   remove checkpoint from application
   sudo rm -fr /private/var/db/receipts/com.checkpoint.pkg.epc.plist
   sudo rm -fr /private/var/db/receipts/com.checkpoint.pkg.epc.bom
-  
+
 macmacmacmac
 
 
