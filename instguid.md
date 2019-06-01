@@ -3490,9 +3490,9 @@ debian shell auto-correction | autocorrect
 	shopt -s cdspell
 
 debian install on xps 9360
-	firmware-atheros rsync sudo python3-pip ssh ufw python3-tk ffmpeg mkvtoolnix dirmngr
+  firmware-atheros rsync sudo python3-pip ssh ufw python3-tk ffmpeg mkvtoolnix dirmngr
 
-       uninstall vim.tiny then install vim-gtk3 (with python support)
+uninstall vim.tiny then install vim-gtk3 (with python support)
 
 debian check avail package - chinese font
 	apt-cache search chinese font
@@ -3596,6 +3596,14 @@ install steam on debian
 doing nothing after lid closed
   modify /etc/systemd/logind.conf > HandleLidSwitch=ignore
   systemctl restart systemd-logind.service
+
+adobe-flash / adobe flash
+  sudo add-apt-repository "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
+  sudo apt-get update
+  sudo apt-get install adobe-flashplugin
+
+  sudo apt-get install chromium-browser
+  sudo apt-get upgrade
 
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
