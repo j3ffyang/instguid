@@ -2521,6 +2521,15 @@ openvpn force all traffic from the client to get directed to the VPN server > ed
 	echo "1" > /proc/sys/net/ipv4/ip_forward
 	iptables -t nat -A POSTROUTING -j MASQUERADE
 
+openvpn mtu
+  # determine mtu
+  ping -M do -s 1500 -c 1 www.example.com
+
+  MSS = MTU  - 40
+
+  # OpenVPN requires a value called the MSS to be set. The MSS is the value for the MTU minus 40
+  # add the following at the end of *.ovpn
+  mssfix 1460
 
 Linux Password Lost/ Control / passwd / password lost
 	boot machine as linux single in lilo. then do passwd change.
