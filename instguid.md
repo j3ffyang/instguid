@@ -2522,14 +2522,28 @@ openvpn force all traffic from the client to get directed to the VPN server > ed
 	iptables -t nat -A POSTROUTING -j MASQUERADE
 
 openvpn mtu
+  https://openvpn.net/archive/openvpn-users/2004-11/msg00649.html
+
+  It varies depending on options.  With a TUN-style tunnel over UDP using
+  the default TLS options, the per-packet overhead is:
+
+  - 41 bytes security layer overhead (includes packet tag (1), HMAC-SHA1
+    signature (20), initialization vector (16), sequence number (4))
+  - 28 bytes tunneling overhead (includes IP + UDP header)
+  Total: 69 bytes per packet
+
+  If your data stream is compressible, you can potentially gain back all of
+  this overhead.
+
   # determine mtu
   ping -M do -s 1500 -c 1 www.example.com
 
-  MSS = MTU  - 40
+  MSS = MTU  - (28+ 41+ 4)  # 4= vpn options
+  IP size : 20 bytes, UPD size : 8 bytes, VPN overhead : 41 bytes, VPN "options" : 4 bytes
 
   # OpenVPN requires a value called the MSS to be set. The MSS is the value for the MTU minus 40
   # add the following at the end of *.ovpn
-  mssfix 1460
+  mssfix 1427
 
 Linux Password Lost/ Control / passwd / password lost
 	boot machine as linux single in lilo. then do passwd change.
