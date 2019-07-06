@@ -2503,6 +2503,21 @@ icmp tunneling ping tunnel
   # Run as client by root (green one)
   sudo ./hans -c SERVER_IP -p password
 
+ssh openssh hardening and auditing
+  https://linux-audit.com/audit-and-harden-your-ssh-configuration/
+
+  # check active connection
+  ss -n -o state established '( dport = :22 or sport = :22 )'
+
+  X11Forwarding no
+  MaxAuthTries 3
+
+  PermitEmptyPasswords no
+  PubkeyAuthentication yes
+  PasswordAuthentication no
+  PermitRootLogin no
+
+
 openvpnopenvpnopenvpn
 
 openvpn	# create tls-auth key, then copy to /etc/openvpn and update /etc/openvpn/server.conf to reflect the change
