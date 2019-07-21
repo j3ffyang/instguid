@@ -2917,7 +2917,11 @@ screencast, screen recorder, gnome
 	gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 300
   	Ctrl + Alt + Shift + R
 
-	debian screencast
+gnome gnome-shell disable animation 
+    gsettings set org.gnome.settings-daemon.plugins.remote-display active false
+    gsettings set org.gnome.desktop.interface enable-animations false
+
+debian screencast
 	sudo apt-get install ffmpeg mkvtoolnix
 
 ###############################################################################
@@ -3530,6 +3534,7 @@ debian shell auto-correction | autocorrect
 debian install on xps 9360
   firmware-atheros rsync sudo python3-pip ssh ufw python3-tk ffmpeg mkvtoolnix dirmngr
 
+python3 feature
 uninstall vim.tiny then install vim-gtk3 (with python support)
 
 debian check avail package - chinese font
