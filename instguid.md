@@ -2917,9 +2917,14 @@ screencast, screen recorder, gnome
 	gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 300
   	Ctrl + Alt + Shift + R
 
-gnome gnome-shell disable animation 
+gnome gnome-shell disable animation
     gsettings set org.gnome.settings-daemon.plugins.remote-display active false
     gsettings set org.gnome.desktop.interface enable-animations false
+
+gnome gnome-shell icon missing
+    cd /usr/share/applications/; cat tusk.desktop
+    find /usr -type f -name "tusk.png"
+    sudo cp /usr/share/icons/hicolor/0x0/apps/tusk.png /usr/share/pixmaps/
 
 debian screencast
 	sudo apt-get install ffmpeg mkvtoolnix
