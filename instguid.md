@@ -2929,6 +2929,10 @@ gnome gnome-shell icon missing
 debian screencast
 	sudo apt-get install ffmpeg mkvtoolnix
 
+termtosvg   # terminal screencast 
+
+    pip3 install --user termtosvg   # dependency: pyte python-xlib svgwrite
+
 ###############################################################################
 ###############################################################################
 
