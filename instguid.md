@@ -2515,8 +2515,10 @@ ssh openssh hardening and auditing
   PermitEmptyPasswords no
   PubkeyAuthentication yes
   PasswordAuthentication no
-  PermitRootLogin no
+  PermitRootLogin none
 
+
+sslh    # share a same port for https, ssh and openvpn with openssl
 
 openvpnopenvpnopenvpn
 
