@@ -2931,7 +2931,7 @@ gnome gnome-shell icon missing
 debian screencast
 	sudo apt-get install ffmpeg mkvtoolnix
 
-termtosvg   # terminal screencast 
+termtosvg   # terminal screencast
 
     pip3 install --user termtosvg   # dependency: pyte python-xlib svgwrite
 
@@ -3845,6 +3845,10 @@ uninstall checkpoint cp
   remove checkpoint from application
   sudo rm -fr /private/var/db/receipts/com.checkpoint.pkg.epc.plist
   sudo rm -fr /private/var/db/receipts/com.checkpoint.pkg.epc.bom
+
+delete all *DS_Store
+  find . -type f -name "*DS_Store"
+  sudo find / -name ".DS_Store" -depth -exec rm {} \;
 
 macmacmacmac
 
