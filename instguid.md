@@ -3846,8 +3846,8 @@ uninstall checkpoint cp
   sudo rm -fr /private/var/db/receipts/com.checkpoint.pkg.epc.plist
   sudo rm -fr /private/var/db/receipts/com.checkpoint.pkg.epc.bom
 
-delete all *DS_Store
-  find . -type f -name "*DS_Store"
+delete all .DS_Store
+  find . -type f -name ".DS_Store"
   sudo find / -name ".DS_Store" -depth -exec rm {} \;
 
 macmacmacmac
