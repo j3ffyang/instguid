@@ -4381,4 +4381,9 @@ install on debian # https://www.linuxbabe.com/debian/install-virtualbox-debian-9
   # then install
   apt install -t stretch-backports virtualbox
 
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+android termux 
+
+    termux-setup-storage    # create storage path
 ```
