@@ -3855,7 +3855,12 @@ docker-completion docker completion
     if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
     fi
-    EOL
+    EOL 
+
+    cd /usr/local/etc/bash_completion.d
+    ln -s /Applications/Docker.app/Contents/Resources/etc/docker.bash-completion
+    ln -s /Applications/Docker.app/Contents/Resources/etc/docker-machine.bash-completion
+    ln -s /Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion
 
 macmacmacmac
 
