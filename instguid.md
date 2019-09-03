@@ -3850,7 +3850,7 @@ delete all .DS_Store
   find . -type f -name ".DS_Store"
   sudo find / -name ".DS_Store" -depth -exec rm {} \;
 
-docker-completion docker completion
+docker-completion docker completion     # https://blog.alexellis.io/docker-mac-bash-completion/
     cat >> ~/.bashrc <<EOL
     if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
