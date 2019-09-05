@@ -3862,6 +3862,9 @@ docker-completion docker completion     # https://blog.alexellis.io/docker-mac-b
     ln -s /Applications/Docker.app/Contents/Resources/etc/docker-machine.bash-completion
     ln -s /Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion
 
+dock with stuck progress bar 
+    defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
+
 macmacmacmac
 
 
