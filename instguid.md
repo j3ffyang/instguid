@@ -570,6 +570,8 @@ cpu temperature / thermal
        temperature:             60 C
        critical (S5):           255 C
 
+max ram / max memory
+    sudo dmidecode -t 16
 
 logging > strace -ff -F -tt -v -o /tmp/passwd-trace.log -s 102400 passwd "user" # increase tracing level upon passwd command
 
@@ -3855,14 +3857,14 @@ docker-completion docker completion     # https://blog.alexellis.io/docker-mac-b
     if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
     fi
-    EOL 
+    EOL
 
     cd /usr/local/etc/bash_completion.d
     ln -s /Applications/Docker.app/Contents/Resources/etc/docker.bash-completion
     ln -s /Applications/Docker.app/Contents/Resources/etc/docker-machine.bash-completion
     ln -s /Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion
 
-dock with stuck progress bar 
+dock with stuck progress bar
     defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
 
 macmacmacmac
@@ -4398,7 +4400,7 @@ install on debian # https://www.linuxbabe.com/debian/install-virtualbox-debian-9
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-android termux 
+android termux
 
     termux-setup-storage    # create storage path
 ```
