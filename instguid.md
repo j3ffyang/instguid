@@ -4241,7 +4241,10 @@ markdownmarkdown
   	# r = read format, w = write format
   	pandoc -r markdown -w html -o *yourfilename*.html *yourfilename*.md
     pandoc -r markdown -w odt -o pandoctemplate.odt *yourfilename*.md
-    pandoc -r markdown -o *yourfilename*.pdf *yourfilename*.md
+    pandoc -r markdown -o *yourfilename*.pdf *yourfilename*.MODE="0666"
+
+    # pre-req on Debian 
+    apt install pandoc texlive texlive-plain-generic
 
 gitgitgitgit
 	git config --list
