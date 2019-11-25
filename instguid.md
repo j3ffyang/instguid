@@ -4244,7 +4244,7 @@ markdownmarkdown
     pandoc -r markdown -o *yourfilename*.pdf *yourfilename*.MODE="0666"
 
     # pre-req on Debian 
-    apt install pandoc texlive texlive-plain-generic
+    apt install pandoc texlive texlive-plain-generic texlive-latex-recommended texlive-latex-extra
 
 gitgitgitgit
 	git config --list
