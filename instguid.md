@@ -4405,5 +4405,8 @@ install on debian # https://www.linuxbabe.com/debian/install-virtualbox-debian-9
 
 android termux
 
-    termux-setup-storage    # create storage path
+    termux-setup-storage    # create storage PATH:
+
+    # login 
+    ssh u0@ip:8022
 ```
