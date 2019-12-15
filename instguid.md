@@ -4274,7 +4274,11 @@ pythonpythonpython
   pip3 --proxy http://10.10.10.1:3128 install tensor
 
   # pip install; pip3 install
-  torch tensor tensorflow tensorboard keras matplotlib pandas xlrd
+  torch tensor tensorflow tensorboard keras matplotlib pandas xlrd 
+
+  # detect errors 
+  pip3 install flake8 flake8-docstrings
+  apm install linter-flake8
 
   # install tkinter
   apt install python3-tk
