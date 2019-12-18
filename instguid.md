@@ -424,6 +424,13 @@ script	# record scripting in shell	# recording replay
 	script -t 2> tutorial.timing -a tutorial.session # record w/ timing
 	scriptreplay tutorial.timing tutorial.session	 # replay
 
+    # record 
+    script -a my_terminal_activities -t=time.log 
+
+    # replay 
+    scriptreplay -t=time.log my_terminal_activities
+
+
 cvs / CVS
 	# login
 	cvs -d:pserver:anonymous@cvs.sourceforge.net:/cvsroot/open1x login
