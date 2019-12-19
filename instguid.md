@@ -424,10 +424,10 @@ script	# record scripting in shell	# recording replay
 	script -t 2> tutorial.timing -a tutorial.session # record w/ timing
 	scriptreplay tutorial.timing tutorial.session	 # replay
 
-    # record 
-    script -a my_terminal_activities -t=time.log 
+    # record
+    script -a my_terminal_activities -t=time.log
 
-    # replay 
+    # replay
     scriptreplay -t=time.log my_terminal_activities
 
 
@@ -3452,7 +3452,7 @@ update font preference > jeff@s900:/etc/fonts/conf.d$ cat 64-language-selector-p
 
     # install fonts
     apt install ttf-mscorefonts-installer ttf-liberation
-    fc-list
+    fc-list; fc-cache -fv # update
     dpkg-reconfigure fontconfig-config; dpkg-reconfigure fontconfig
 
 	# java
@@ -4250,7 +4250,7 @@ markdownmarkdown
     pandoc -r markdown -w odt -o pandoctemplate.odt *yourfilename*.md
     pandoc -r markdown -o *yourfilename*.pdf *yourfilename*.MODE="0666"
 
-    # pre-req on Debian 
+    # pre-req on Debian
     apt install pandoc texlive texlive-plain-generic texlive-latex-recommended texlive-latex-extra
 
 gitgitgitgit
@@ -4281,9 +4281,9 @@ pythonpythonpython
   pip3 --proxy http://10.10.10.1:3128 install tensor
 
   # pip install; pip3 install
-  torch tensor tensorflow tensorboard keras matplotlib pandas xlrd 
+  torch tensor tensorflow tensorboard keras matplotlib pandas xlrd
 
-  # detect errors 
+  # detect errors
   pip3 install flake8 flake8-docstrings
   apm install linter-flake8
 
@@ -4418,6 +4418,6 @@ android termux
 
     termux-setup-storage    # create storage PATH:
 
-    # login 
+    # login
     ssh u0@ip:8022
 ```
