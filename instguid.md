@@ -1,4 +1,4 @@
-```
+```bash
 Unix, AIX and Linux
 
   / /  (_)__  __ ____  __
