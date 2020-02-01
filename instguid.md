@@ -4275,6 +4275,33 @@ gitgitgitgit
 atomatomatom atom-editor installing plugin
 	markdown-toc vim-mode markdown-pdf markdown-preview-enhanced mscgen-preview
 
+    Community Packages (24) /home/jeff/.atom/packages
+    ├── atom-eclipse-syntax@0.0.6
+    ├── atom-material-syntax@1.0.8
+    ├── autocomplete-python@1.16.0
+    ├── busy-signal@2.0.1
+    ├── fonts@3.10.0
+    ├── fonts-cjk@2.2.0
+    ├── intentions@1.1.5
+    ├── jackhammer-syntax@1.1.0
+    ├── kite@0.177.0
+    ├── linter@2.3.1
+    ├── linter-flake8@2.4.0
+    ├── linter-ui-default@1.8.0
+    ├── markdown-pdf@2.2.0
+    ├── markdown-preview-enhanced@0.17.0
+    ├── markdown-themeable-pdf@1.2.1
+    ├── markdown-toc@0.4.2
+    ├── minimap@4.29.9
+    ├── mscgen-preview@1.12.18
+    ├── pandoc@0.2.2
+    ├── platformio-ide-terminal@2.10.0
+    ├── predawn-syntax@1.0.4
+    ├── python-autopep8@0.1.3
+    ├── script@3.25.0
+    └── slides-preview@0.3.1
+    
+
 pythonpythonpython
 
   # install pip3
