@@ -2811,7 +2811,7 @@ Linux Kernel Configuration Options (kernel configuration/ config options)
 	#protection against FIN attacks
 	net.ipv4.tcp_fin_timeout = 30
 
-liux max perf / maximum performance
+linux max perf / maximum performance
 	add these settings to /etc/sysctl.conf
 	# Decrease the time default value for tcp_fin_timeout connection
 	net.ipv4.tcp_fin_timeout = 30
@@ -4300,7 +4300,7 @@ atomatomatom atom-editor installing plugin
     ├── python-autopep8@0.1.3
     ├── script@3.25.0
     └── slides-preview@0.3.1
-    
+
 
 pythonpythonpython
 
