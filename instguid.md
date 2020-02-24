@@ -253,7 +253,7 @@ Disk Performance Tuning and Monitoring (Disk Perf)
 	files to be buffered more effectively.
 	if iostat cmd indicates I/O activity is not distributed among the sys disk drives, and the util of one or more disk
 	drives is often 40- 50% or more, -> consider reorg fs.
-	if workload access patterm is random, -> adding disks and distributing the randomlu accessed files across more drives.
+	if workload access pattern is random, -> adding disks and distributing the randomly accessed files across more drives.
 
 Disk- Physical volume level report
 	#filemon -o /tmp/filemonLF.out -O pv
@@ -4337,6 +4337,22 @@ pythonpythonpython
   Data → Attributes and Behavior → Methods
 
   And a Class is the blueprint from which individual objects are created. In the real world, we often find many objects with the same type. Like cars. All the same make and model (and all have an engine, wheels, doors, and so on). Each car was built from the same set of blueprints and has the same components.
+
+# random string
+
+  jeff@debian:~$ cat /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 25
+  Hx5xbKo1bRAU5lpjODfGEvz4Kjeff@debian:~$
+  jeff@debian:~$
+  jeff@debian:~$ python3
+  Python 3.7.3 (default, Apr  3 2019, 05:39:12)
+  [GCC 8.3.0] on linux
+  Type "help", "copyright", "credits" or "license" for more information.
+  >>> from string import ascii_letters, digits
+  >>> from random import choices
+  >>> print(''.join(choices(ascii_letters+digits*2, k=25)))
+  tDhKdzQgOfxIqSi9HZliAqD0M
+  >>>
+
 
 pythonpythonpython
 
