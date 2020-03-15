@@ -3693,6 +3693,7 @@ wget behind proxy (use https_proxy if target is https)
 chrome browser w/ proxy-server behind proxy
   chromium-browser --proxy-server=http://ip:port
   chromium-browser --proxy-server=socks://ip:port
+  chrome://flags/#enable-force-dark   # dark mode
 
 youtube-dl  # youtube download
     sudo pip3 install youtube-dl
