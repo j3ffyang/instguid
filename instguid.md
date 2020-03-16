@@ -3702,7 +3702,7 @@ youtube-dl  # youtube download
 npm behind proxy
     npm config set proxy http://10.10.10.1:3128
 
-apm behind proxt
+apm behind proxy
     apm config set https-proxy=https://proxy:3128
 
 pip behind proxy
