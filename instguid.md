@@ -2892,6 +2892,19 @@ picture resize
 	mogrify -resize 800 *.jpg
 	mogrify -resize 320x240! *.jpg	# resize to a fixed size
 
+png in base64
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" />
+
+copy long text file into clipboard
+  xclip -sel c < /tmp/arch.b64
+
+convert png in base64
+  openssl enc -base64 -in rose.png -out rose.txt
+
+  ref > https://stackoverflow.com/questions/32698451/how-do-i-convert-a-base64-image
+  { echo "data:image/png;base64,"; cat rose.txt; } | convert inline:- out.jpg
+  cat rose.txt | tr -d "\r\n" | convert inline:data:- out.jpg
+
 picture blur
 	convert orig.jpg -blur 0x4 blurred.jpg
 
