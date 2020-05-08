@@ -3789,7 +3789,10 @@ install wpa_supplicant > vi /etc/wpa_supplicant/wpa_supplicant.conf
 	        psk="{26_HEX_SECRET}"
 	        priority=5
 	        }
-sudo wpa_supplicant -iwlan0 -c/etc/wpa_supplicant/wpa_supplicant.conf
+sudo wpa_supplicant -iwlan0 -c/etc/wpa_supplicant/wpa_supplicant.configuration
+
+wifi - find wifi pass psk 
+    sudo grep -r '^psk=' /etc/NetworkManager/system-connections/
 
 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
