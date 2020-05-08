@@ -1667,6 +1667,12 @@ Linux Time Syncronize in a group server
 	with -M option will be treated as master time sources by others.  
 
 time / ntp client tcp/udp:123
+    # force a clock update using ntp 
+    sudo systemctl stop ntp 
+    sudo ntpd -gq 
+    sudo systemctl start ntp
+
+
 	place following cmd into crontab -e
 	0 2 * * * /usr/sbin/ntpdate -s -b -p 8 -u 129.132.2.21
 
