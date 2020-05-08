@@ -2845,6 +2845,10 @@ from the sysctl command:
 	net.ipv4.tcp_sack = 1
 	net.ipv4.tcp_window_scaling = 1
 
+network performance tuning perf tune perftune for V2Ray/ v2ray 
+    net.core.default_qdisc=fq
+    net.ipv4.tcp_congestion_control=bbr
+
 ###############################################################################
 script to capture all perf performance param tuning
 
