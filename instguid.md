@@ -1667,9 +1667,9 @@ Linux Time Syncronize in a group server
 	with -M option will be treated as master time sources by others.  
 
 time / ntp client tcp/udp:123
-    # force a clock update using ntp 
-    sudo systemctl stop ntp 
-    sudo ntpd -gq 
+    # force a clock update using ntp
+    sudo systemctl stop ntp
+    sudo ntpd -gq
     sudo systemctl start ntp
 
 
@@ -2845,9 +2845,14 @@ from the sysctl command:
 	net.ipv4.tcp_sack = 1
 	net.ipv4.tcp_window_scaling = 1
 
-network performance tuning perf tune perftune for V2Ray/ v2ray 
+network performance tuning perf tune perftune for V2Ray/ v2ray
     net.core.default_qdisc=fq
     net.ipv4.tcp_congestion_control=bbr
+# Google developed a TCP Congestion Control Algorithm (CCA) called TCP \
+ Bottleneck Bandwidth and RRT (BBR) that overcomes many of the issues \
+ found in both Reno and CUBIC (the default CCAs).
+
+https://www.techrepublic.com/article/how-to-enable-tcp-bbr-to-improve-network-speed-on-linux/
 
 ###############################################################################
 script to capture all perf performance param tuning
@@ -3795,7 +3800,7 @@ install wpa_supplicant > vi /etc/wpa_supplicant/wpa_supplicant.conf
 	        }
 sudo wpa_supplicant -iwlan0 -c/etc/wpa_supplicant/wpa_supplicant.configuration
 
-wifi - find wifi pass psk 
+wifi - find wifi pass psk
     sudo grep -r '^psk=' /etc/NetworkManager/system-connections/
 
 UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
