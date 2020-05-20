@@ -2364,7 +2364,10 @@ Linux ssh keys setup http://www.arches.uga.edu/~pkeck/ssh/
 
 ssh-keygen
 	ssh-keygen -lf ~/.ssh/id_rsa.pub
-	ssh-keygen -E md5 -lf ~/.ssh/id_rsa.pub
+	ssh-keygen -E md5 -lf ~/.ssh/id_rsa.pubkeyauthentication
+
+ssh-keygen # convert the ssh2-format key to openssh 
+    ssh-keygen -i -f ssh2.pub
 
 ssh + rsync
 	rsync -avz -e ssh --delete /file/ user@remote:/path/
@@ -2848,9 +2851,13 @@ from the sysctl command:
 network performance tuning perf tune perftune for V2Ray/ v2ray
     net.core.default_qdisc=fq
     net.ipv4.tcp_congestion_control=bbr
-# Google developed a TCP Congestion Control Algorithm (CCA) called TCP \
- Bottleneck Bandwidth and RRT (BBR) that overcomes many of the issues \
- found in both Reno and CUBIC (the default CCAs).
+
+    # check
+    sysctl net.ipv4.tcp_available_congestion_control
+
+    # Google developed a TCP Congestion Control Algorithm (CCA) called TCP \
+    Bottleneck Bandwidth and RRT (BBR) that overcomes many of the issues \
+    found in both Reno and CUBIC (the default CCAs).
 
 https://www.techrepublic.com/article/how-to-enable-tcp-bbr-to-improve-network-speed-on-linux/
 
