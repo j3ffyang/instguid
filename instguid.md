@@ -1322,6 +1322,9 @@ ethtool
 	ethtool -P eth0
 
 
+# socat
+  sudo socat TCP4-LISTEN:2222 TCP4:10.165.73.144:22
+
 ###############################################################################
 ###############################################################################
 
@@ -2366,7 +2369,7 @@ ssh-keygen
 	ssh-keygen -lf ~/.ssh/id_rsa.pub
 	ssh-keygen -E md5 -lf ~/.ssh/id_rsa.pubkeyauthentication
 
-ssh-keygen # convert the ssh2-format key to openssh 
+ssh-keygen # convert the ssh2-format key to openssh
     ssh-keygen -i -f ssh2.pub
 
 ssh + rsync
