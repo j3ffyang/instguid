@@ -2405,7 +2405,7 @@ ssh proxy
 
 openssh / ssh install
 	./configure --prefix=PATH --with-ssl-dir=PATH
-	cd $ssh	-> mv etc etc.orig -> copy old etc whih stores old keys
+	cd $ssh	-> mv etc etc.orig -> copy old etc which stores old keys
 	# sshd restart with reading config file
 	$sshd/sbin/sshd -t -f $sshd/etc/sshd_config
 
