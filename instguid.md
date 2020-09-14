@@ -3710,6 +3710,9 @@ adobe-flash / adobe flash
   sudo apt-get install chromium-browser
   sudo apt-get upgrade
 
+debian disable auto-sleep
+  vi /etc/gdm3/greeter.dconf-defaults
+
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
