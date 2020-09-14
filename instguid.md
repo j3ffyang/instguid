@@ -3712,12 +3712,15 @@ adobe-flash / adobe flash
 
 debian disable auto-sleep
   vi /etc/gdm3/greeter.dconf-defaults
+  systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+  systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
 
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
 proxyproxyproxyproxy
-proxyproxyproxyproxy
+proxyproxyproxyproxy  
 
 command line brownser
     links2 -socks-proxy localhost:1080 google.com
