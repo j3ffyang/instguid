@@ -3926,6 +3926,10 @@ docker-completion docker completion     # https://blog.alexellis.io/docker-mac-b
 dock with stuck progress bar
     defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
 
+restart sshd
+  sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist
+  sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
+
 macmacmacmac
 
 
