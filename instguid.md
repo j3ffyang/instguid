@@ -2306,6 +2306,9 @@ Linux nessus
 	cd /var/lib/nessus ; touch nessus-services
 	nessusd -D	# start daemon
 
+	# scan udp port
+	nmap –sU –p 161 192.168.1.1
+
 Linux Ethereal/ ethereal
 	http://www.ethereal.com/distribution/ -> download to /download
 	cd /usr/src-> tar -xzvf /download/ethereal-version.tar.gz
