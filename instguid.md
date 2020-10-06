@@ -1123,10 +1123,11 @@ network resolvconf resolv.conf on Ubuntu ubuntu
 	nmcli dev list iface eth0 | grep IP4.DNS
 	sudo dpkg-reconfigure resolvconf or sudo ln -sf ../run/resolvconf/resolv.conf /etc/resolv.conf
 
-nmcli
+nmcli wifi wireless signal quality
 	nmcli dev wifi					# signal
 	nmcli -f GENERAL,WIFI-PROPERTIES dev show   	# dev properties
 	sudo iwconfig wlp58s0 | grep -i --color quality	# list quality
+	watch -n 1 cat /proc/net/wireless
 	
 
 ngrep - packet monitor
