@@ -1123,6 +1123,12 @@ network resolvconf resolv.conf on Ubuntu ubuntu
 	nmcli dev list iface eth0 | grep IP4.DNS
 	sudo dpkg-reconfigure resolvconf or sudo ln -sf ../run/resolvconf/resolv.conf /etc/resolv.conf
 
+nmcli
+	nmcli dev wifi					# signal
+	nmcli -f GENERAL,WIFI-PROPERTIES dev show   	# dev properties
+	sudo iwconfig wlp58s0 | grep -i --color quality	# list quality
+	
+
 ngrep - packet monitor
 	ngrep port 22 and src host <ssh_client_ip> and dst host <ssh_server_ip>
 	 ngrep -q -t -wi "<string_to_search>" port 22
