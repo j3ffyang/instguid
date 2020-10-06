@@ -1128,6 +1128,7 @@ nmcli wifi wireless signal quality
 	nmcli -f GENERAL,WIFI-PROPERTIES dev show   	# dev properties
 	sudo iwconfig wlp58s0 | grep -i --color quality	# list quality
 	watch -n 1 cat /proc/net/wireless
+	wavemon
 	
 
 ngrep - packet monitor
