@@ -988,10 +988,13 @@ TCP/IP layer / tcpip reference model
 	subnet layer
 	cable, wire, microwave, radio
 
-    IP vs UDP vs TCP (ip vs udp vs tcp)
+  IP vs UDP vs TCP (ip vs udp vs tcp)
 	IP -> datagram, data forward
 	UDP -> parallel w/ TCP, on top of IP, packed in IP. No connection.
 	TCP -> same as UDP. Connection required. Verify connection always. Busy traffic. ie. Telnet. Photo call.
+
+  # nc udp
+  nc -z -v -u 172.18.10.253 9116
 
 ip
 	show
@@ -1129,7 +1132,7 @@ nmcli wifi wireless signal quality
 	sudo iwconfig wlp58s0 | grep -i --color quality	# list quality
 	watch -n 1 cat /proc/net/wireless
 	wavemon
-	
+
 
 ngrep - packet monitor
 	ngrep port 22 and src host <ssh_client_ip> and dst host <ssh_server_ip>
