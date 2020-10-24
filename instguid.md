@@ -3729,6 +3729,8 @@ debian disable auto-sleep
   systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
   systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
 
+reduce pdf in size
+  ps2pdf input.pdf output.pdf
 
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian

@@ -1,0 +1,1567 @@
+Sample script / sample script / sample code
+
+${#*} and ${#@}		give the number of positional parameters
+
+
+AWKAWKAWK AWKAWKAWK AWKAWKAWK AWKAWKAWK
+
+awk	syntax
+	-f	script
+	-F	field delimiter
+
+awk	# -F'[=(]' -> delimiter grouped by = and (.
+	id=`id | awk -F'[=(]' ' {print $2}'`
+	echo $id
+
+awk	echo 210.32.38.76 | awk -F'.' '{ printf("%03d.%03d.%03d.%03d\n",$1,$2,$3,$4) }'
+
+awk 	# do a ls in a 2nd level subdir
+	for i in `ls -l | grep '^d' | awk '{print $9}'`; do ls $i/*; done
+
+	# remove DB2 packages on sun/ Sun/ Solaris/ solaris
+	cd /var/sdam/pkg
+	ls -la | grep -i db2 | awk '{print $9}'
+	for i in `cat db2pkg.out`; do pkgrm $i; done
+
+awk	error msg
+	Not enclosing a procedure within braces ({})
+	Not surrounding the instructions within single quotes (`')
+	Not enclosing regular expressions within slashes (//)
+
+awk	$kill -9 `ps -ef | grep java | awk '{print $2}'`
+	# kill all java process
+
+	ps -ef | grep admin | $(kill -9 awk '{print $1'})
+	# kill all process owned by admin
+
+	rm `ls -la | grep Aug | awk '{print $9}'`
+	# to remove all files created in Aug. The files name is listed in 9th column.
+
+awk	ps -ef |awk -v ID=${PPID} '{if ( $3 == ID ) {print $0}}'
+	# list the parent id/ parent pid
+
+awk '/^[ ]*Text/ { text=$0; getline; getline; getline; getline; print $3 "#" text }' db2_evtmon1.out | sort -nr
+	^[ ]*Text	every line starts from _*Text
+	text=$0		$0=current line
+	getline		Set $0 from next input record; set NF, NR, FNR.
+	print #3	print column 3
+	"#"		print # after column 3
+	text		which was set as text=$0.
+	sort -nr	by number and reverse
+
+	db2 evt mon output format sample
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+114) Statement Event ...
+  Appl Handle: 74
+  Appl Id: 205520F4.8AF0.021017234034
+  Appl Seq number: 0001
+
+  Record is the result of a flush: FALSE
+  -------------------------------------------
+  Type     : Dynamic
+  Operation: Close
+  Section  : 5
+  Creator  : NULLID
+  Package  : SQLLC000
+  Cursor   : SQLCUR5
+  Cursor was blocking: FALSE
+  Text     : SELECT T1.TYPE, T1.MEMBER_ID, '?', '?', -1, '?', '?', '?', '?', '?', '?', -1, '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', '?', T2.FIELD2, T2.SETCCURR, T2.REGISTRATIONCANCEL, T2.FIELD3, T2.LASTORDER, T2.PROFILETYPE, T2.FIELD1, T2.LANGUAGE_ID, T2.REGISTERTYPE, T2.REGISTRATION, T2.LASTSESSION, T2.REGISTRATIONUPDATE, T2.DN, T2.PREVLASTSESSION FROM MEMBER  T1, USERS  T2 WHERE ((T1.MEMBER_ID = T2.USERS_ID) AND (T1.TYPE IN ( 'U'))) AND (T1.MEMBER_ID = ?)
+  -------------------------------------------
+  Start Time: 10-17-2002 09:39:36.788918
+  Stop Time:  10-17-2002 09:39:36.878623
+  Exec Time:  0.089705 seconds
+  Number of Agents created: 1
+  User CPU:   0.000000 seconds
+  System CPU: 0.000000 seconds
+  Fetch Count: 1
+  Sorts: 0
+  Total sort time: 0
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+# addition, add, sum, by awk
+sum.txt
+20000201 abc 1 100.00
+20000301 abc 2 8000.00
+20000212 abc 1 200.00
+20000401 abc 3 20.00
+20000201 cba 2 600.00
+
+awk '$1 >=  20000201 && $1 <= 20030201 && /abc 1/ {sum += $4} END {print sum}'  sum.txt
+# date between 20000201 and 20030201, for abc+ 1, sum $4
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+# print lines containing express1 and express2
+# ie. some lines has exp1 and some lines has exp2. print them all.
+awk '/exp1/ || /exp2/ {print}' file
+
+grep -e "exp1" -e "exp2" file
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Pat   100 97 58
+Sandy  84 72 93
+Chris  72 92 89
+
+This programs takes the file `grades', and prints the average of the scores.
+
+$ awk '{ sum = $2 + $3 + $4 ; avg = sum / 3
+>        print $1, avg }' grades
+-| Pat 85
+-| Sandy 83
+-| Chris 84.3333
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+awk '/execution time/ {time=$0;getline;getline;getline;print time $0}' db2snapEPIX.out  | awk 'BEGIN {FS="= "} {print $2 $3}' | sed 's/Statement text                    //g' | sort -nr > /tmp/gysort.out
+
+sample source file
+...
+ Statement sorts                    = 14
+ Total execution time (sec.ms)      = 0.637678
+ Total user cpu time (sec.ms)       = 0.170000
+ Total system cpu time (sec.ms)     = 0.000000
+ Statement text                     = SELECT T1.SCSINSTREFNUM, T1.SCSEND, T1.SCSRESULT, T1.SCSQUEUE, T1.SCSSTATE, T1.SCSSEQUENCE, T1.SCSACTLSTART, T1.SCSATTLEFT, T1.SCSPREFSTART, T1.SCSJOBNBR, T1.SCSINSTRECOV, T2.SCCPRIORITY FROM SCHCONFIG T2, SCHSTATUS  T1 WHERE  T1.SCSJOBNBR = T2.SCCJOBREFNUM AND T1.SCSPREFSTART < ? AND (T1.SCSSTATE = 'I' OR T1.SCSSTATE = 'IF') AND T1.SCSQUEUE IS NULL AND (T2.SCCHOST IS NULL OR T2.SCCHOST = ?) ORDER BY T1.SCSPREFSTART, T2.SCCPRIORITY DESC
+
+the output
+0.637678  SELECT T1.SCSINSTREFNUM, T1.SCSEND, T1.SCSRESULT, T1.SCSQUEUE, T1.SCSSTATE, T1.SCSSEQUENCE, T1.SCSACTLSTART, T1.SCSATTLEFT, T1.SCSPREFSTART, T1.SCSJOBNBR, T1.SCSINSTRECOV, T2.SCCPRIORITY FROM SCHCONFIG T2, SCHSTATUS  T1 WHERE  T1.SCSJOBNBR
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+awk example	get ip address from ifconfig
+	/sbin/ifconfig eth1 | awk '/inet addr/ {split($2,x,":");print x[2]}'
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+awk + sed
+	scenario: mv patternA-patternB.file patternB.file
+	ls -1 *-*.file | sed 's/\(.*-\)\(.*\.file\)/mv \1\2 \2/' | sh
+	ls -1 *-*.file | awk 'BEGIN {FS="-"} {printf "mv %s %s\n", $0, $2}' | sh
+
+	# mv 123.JPG 23.JPG
+	ls -1 *.JPG | sed 's/\(.\)\(..\.JPG\)/mv \1\2 \2/' | sh
+
+	# mv 01xxxx.a 01.a
+	# patter: 01xxx.a 02xxx.a 03xxx.a moved to 01.a 02.a 03.a
+	ls -l | awk '{print $9}' | sed 's/\(0.\)\(.*\.a\)/ mv \1\2 \1\.a/'
+	ls -1 | sed 's/\(0.\)\(.*\.a\)/mv \1\2 \1\.a/' | sh
+
+	# mv *-1234 to *
+	touch file1-1234 file2-1234 file3-1234
+	ls * | sed 's/\(.*\)\(-.*\)/mv \1\2 \1/'  | sh
+
+	# mv pattern* to pattern.jpg
+	touch A1 A2 A3 > mv to A1.jpg A2.jpg A3.jpg
+	ls * | sed 's/\(A.*\)\(.*\)/mv \1\2 \1\2.jpg/' | sh
+
+	# mv $file.cgi to $file.jpg
+	ls * | sed 's/\(.*\)\(.cgi\)/mv \1\2 \1.jpg/' | sh
+
+	for file in *;do mv $file ${file:0:2}.a;done;
+
+sort w/awk	$cat pgm.c | awk '/patern1/||/pattern2/||/pattern3/{print $0}' > newfile
+	#0=all columns. If 1, means first column.
+	#Scenario description: the outputfile ONLY contains the sorted patterns (1,2,3).
+
+	cat batchfile | awk '{print $0 ";"}' > sqlperf.out
+	to add ';' at the end of each line of batchfile then pipe to sqlperf.out file.
+
+	/etc/hosts sort sort -t . -k 1,1n -k 2,2n -k 3,3n -k 4,4n /etc/hosts
+
+# merge multiple lines into single line
+	awk -vORS=' ' 1 file.txt
+
+# take value from file1.txt then search the values in file2.txt. eg. Having userlist, search in address list that contains users in user list.
+	#!/bin/bash
+
+	userlst=user.txt
+	addrlst=addr.txt
+
+	x=1
+	linenum=`wc -l $userlst | cut -d' ' -f1`
+
+	while [ $x -le $linenum ]
+		do
+			y=`awk -vORS=' ' 1 $userlst | cut -d' ' -f$x`
+		#	echo $y
+			grep $y $addrlst
+
+			let x=$x+1
+		done
+
+
+SEDSEDSED SEDSEDSED SEDSEDSED SEDSEDSED
+
+sed example
+	# Append and insert. manpage
+	sed '/aaa/a\bbb' file
+	sed '/bbb/i\aaa' file
+
+	# delete all line TILL string/ flag
+	sed -e "1,/string/d"
+
+	# Assume the string is FLAG, want to delete all lines AFTER FLAG
+	sed -e "/FLAG/,$ d"
+	# To print the deleted lines
+	sed -ne "/FLAG/,$ p"
+	# If multiple FLAG as strings in file, delete all after the last string
+	sed -ne '1h;1!H;/5/{n;x;p}'
+	# Same as above, and also delete the last FLAG
+	sed -ne '1h;1!H;/5/{n;x;p}' yourfile|sed -ne '$!p'
+
+	sed '/^G/!s/.*/U &/g' final2.out > final3.out
+	^G = line begins w/ G
+	!s = all lines except lines beginning w/ G
+	.* = very beginning of line
+	U & = add U_ (U and one space) and rest of content
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+# have multiple files which contains files' name as content.
+# batch change to code in multiple files.
+for FILE in *; do sed "s/$FILE/code/g" $FILE > $FILE.tmp; done
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+sed	sed 's/^M//g' dos.log > unix.txt	^M= ctrl+v+m
+
+	ls /etc -FA | grep [^/]$ | sed -e "s/[*@=|]$//g"
+	#list filename w/o dir
+	ls -la /etc | awk '/^-/ {print $9}'
+
+	insert a repeated line into each line in file
+	scenario:
+	abc
+	bcd
+	cde
+	After modifying
+	abc
+	111
+	bcd
+	111
+	cde
+	111
+
+	awk 'BEGIN {FS="\n"} {print $0,"\n""111"}' yourfile
+	in vi -> :%s/$/^M111/g	# % = all lines
+	sed -n "p; s/.*/111/p" < yourfile
+
+	# print line 2, line 1, line 4, line 3, line 6, line 5, etc...
+	sed -ne "h;n;G;p" inputfile
+	sed -ne 'h;$!{n;G;};p
+	awk '{b=$0;if(getline){b=$0"\n"b}print b}'
+	# h= copy, n= next line, G= append the copied, p= print
+
+CUTCUTCUT CUTCUTCUT CUTCUTCUT CUTCUTCUT
+
+cut	cut -d' ' -f11 msg.out | uniq -c | sort -nr | grep SRC | more	# delimiter: 1 space, field 11, unique, sort reverse
+	$cut -d : -f2 pgm.c > file.out
+	#Cut everything, but leave field 2.
+	#-d delimiter ":"  -f2 (field 2, separated by delimiter. can be -f2,5-> means to select field 2 and field 5.)
+
+cut and sort/ sort and cut	# analyze connection status in message log
+	awk '/SRC=/ {print $11}' /var/log/messages | cut -d"=" -f2 | sort -nr | uniq -c | sort -nr | more
+	awk 'BEGIN {FS="SRC="} {print $2}' /var/log/messages | cut -d' ' -f1 | sort -nr | uniq -c | sort -nr | more
+	sed 's/SRC=/#/g' message | cut -d'#' -f2 | cut -d' ' -f1 | sort -nr | uniq -c | sort -rn | more
+	sed 's/SRC=/#/g' messages | cut -d'#' -f2 | cut -d' ' -f1 | sort -nr | uniq -c | sort -rn | sed '/[A-Za-z]/d' | more
+
+sort	sort -t " " -k 2 -> -t " "= space as delimiter, -k 2= sort the 2nd field
+
+# a string = 12345abcde, want to split to 12345 and abcde
+	$ string=12345abcde
+	echo ${string:0:5}
+	echo ${string:5}
+or
+	cut -b -5 string
+
+
+SPLIT/ split / csplit
+# csplit
+	csplit file.txt /"string"/
+
+
+DATEDATE DATEDATE DATEDATE DATEDATE
+
+date	# obtain yesterday's date value
+	date -d '1 day ago' +'%Y-%m-%d'
+	date --date="yesterday" +%Y-%m-%d
+
+
+DUDUDU DUDUDU DUDUDU DUDUDU
+du
+	du -sk $(ls -l | grep '^d' | awk '{print $9}') | sort -n
+	du -sk --exclude='proc' $(ls -l | grep '^d' | awk '{print $9}') | sort -n
+	du -cks * |sort -rn
+	# have it in .profile
+	alias ducks='du -cks * | sort -rn | head -11'
+
+    sudo find -printf '%s %p\n'| sort -nr | head -10
+    sudo du /var -a | sort -n -r | head -n 10
+
+    du -h --max-depth=1 | sort -hr  # directory size
+
+
+FORFORFOR FORFORFOR FORFORFOR FORFORFOR
+
+for	for i in *;do j=`echo $i | tr A-Z a-z`;mv $i $j; done
+	# change all files in captical to lower case filename
+
+	# change file name from 11.22.33 to 11.22 in batch
+	for i in `ls *.*.*`; do
+	mv $i `echo $i | sed -e 's/\(.*\..*\)\..*/\1/'`
+	done
+	for i in *.*.*; do
+	mv $i ${i%.*}
+	done
+
+
+FINDFIND FINDFIND FINDFIND FINDFIND
+
+find	find multi garbage files then rm
+	find -type f \( -name pattern1 -o -name pattern2 \) -exec rm -fr {} \;
+
+find	find /path -name file.name -mount	# exclude mounted filesystem.
+
+find	the largest file/ large file
+	find / -dev -size +3000 -exec ls -l {} \;
+	find /usr -dev -size +5000 -exec ls -l {} \;
+	find /where_ever -type f -ls | sort -k7rn | more
+
+	security find all suid/ sgid programs on system
+	find / -type f \( -perm -04000 -o -perm -02000 \) \-exec ls -lg {} \;
+	find / -user root -perm -4000 -type f
+
+	security locate all group & world- writable files
+	find / -type f \( -perm -2 -o -perm -20 \) -exec ls -lg {} \;
+
+	security locate all group & world- writable directories
+	find / -type d \( -perm -2 -o -perm -20 \) -exec ls -ldg {} \;
+
+	scan your disks for unauthorized device files
+	find / \( -type c -o -type b \) -ls
+
+	find all the world-writable files
+	find / -perm -002
+
+	locate setuid/ setgid-> remove the s bit.
+	find / -type f -perm +6000 -ls
+	output sample:
+	59520	30 -rwsr-xr-x	1 root	root	30560 Apr 15	1999 /usr/bin/chage
+	Then do: chmod -s /usr/bin/chage /usr/bin/lpq
+
+	locate all world- writable files
+	find / -perm -2 ! -type l -ls
+
+	find hidden files.
+	find / -name ".." -print -xdev
+	find / -name ".*" -print -xdev | cat -v
+
+	find / -nouser -o -nogroup	#find nouser nogroup files
+
+	find / -name .rhosts		#find .rhosts
+
+	find /home -name .rhost		#security find .rhost SECURITY
+
+	find / -atime 1		#find last accessed 24 hours
+
+	find / -ctime 1		#find created 24 hours
+
+	find / -mtime -7	#find modified <7 days
+
+	find . -type f -exec file {} \;-> find . -type f-> then file <each file>
+ 	or file `find . -type f | awk '{print $2}'`
+
+	find multiple strings then rm -fr
+	rm -fr `find /dir \( -name  "file1" -o -name "file2" \)`
+
+	find filetype *.html then exec grep Spoon
+	find . -type f -name "*.html" -exec grep Spoon {} \; -print
+	{} = filename output of previous function
+	\; = to separate cmd
+
+	# find world-writable files
+	find /file/system -xdev -perm +o=w ! \( -type d -perm +o=t \) ! -type l -print
+
+	# find any files changed in the last 30 days but that do not contain the string .svn and list
+	find . -type f -ctime -30 -not -regex '.*svn.*' -exec ls {} -al \;
+
+	# find and then delete the file which is owned by me
+	find /tmp -type f -user `whoami` -exec rm -f {} \;
+
+
+GREPGREP GREPGREP GREPGREP GREPGREP
+
+grep	# DANGEROUS invert matching. find all non-jpg file then delete
+	find . -type f | grep -iv "jpg" | xargs rm -fr
+
+
+grep	# ls file(s) that the 3rd char in filename is neither char or num
+        # ie. 12.3 23.4
+        ls | grep '^..[^[:alnum:]].*'
+
+$grep -i "pattern1 | patterm2" pgm.c 2>/dev/null > file.out
+	#grep 2 patterns, then output to a file.
+	#-i (ignore the letter case), 2>/dev/null (ignore error msg/ stdout)
+
+	# grep then search
+	find ./ -name "*.log" -print | xargs grep -i msgid=47368
+
+	grep "[^0-9][16]/" /etc/services
+	# [^0-9] = NOT any digit
+	# [16]/ = 1/ or 6/
+
+	grep "(16) | (17)" xxx	# 16 or 17
+	grep " 1[67] " xxx	# 16 or 17
+
+	echo ?1234 | grep "[0-9]?"	-> no output
+	echo ?1234 | grep "?[0-9]"	-> output: ?1234
+
+	echo ?1234 | sed -n "/[0-9]?/p"	-> no output
+	echo ?1234 | sed -n "/?[0-9]/p"	-> ?1234
+
+	echo ?1234 | awk "/[0-9]?/{print}"	-> ?1234
+	echo abcd  | awk "/[0-9]?/{print}"	-> abcd
+
+	grep -iv grep		-> doesn't grep itself. Invert match.
+
+	grep -RiL "string" <dir>	# R= recursive, i= case- insensitive, L= print file name
+
+	grep -E p\{2}	> apple # 2 "p"s in result.
+	# {n} = n*times exactly, {n,m}= more than n but less than m times. {n,}= n & beyond 
+
+JOINJOINJOINJOINJOINJOINJOINJOINJOINJOINJOINJOINJOINJOIN
+	# join 2 files
+	# file1:
+		100 Shoes
+		200 Laces
+		300 Socks
+
+	# file2:
+		100 $40.00
+		200 $1.00
+		300 $2.00
+
+	join file1 file2
+		100 Shoes $40.00
+		200 Laces $1.00
+		300 Socks $2.00
+
+
+KILLKILLKILL KILLKILLKILL KILLKILLKILL KILLKILLKILL
+
+	rm `ls -la | grep Aug | awk '{print $9}'`
+	# to remove all files created in Aug. The files name is listed in 9th column.
+
+	pgrep	pgrep "^sshd$" -> will like all process id ONLY related to sshd, nothing else.
+	pkill "^sshd$" -> will kill all process id only related to sshd.
+
+	$cat pgm.c | awk '{print $0 ";"}' > outputfile
+	# print $0=whole line.
+	# Scenario description: add ";" to end of each line.
+
+	file `ls` | grep text | cut -d":" -f1 | xargs cat | grep -i string
+	# ls all file -> file -> grep all text file type -> cut the filename
+	# only -> cat all listed file -> grep string
+
+	find .-type f -name '*.jpg' -print | xargs -l50 rm -f
+	# find all file with type = jpg, pipe to xargs which then execute rm -f on a max of 50 files at a time.
+
+
+READREADREADREADREADREADREADREADREADREADREADREAD
+
+	#!/bin/sh
+	# Description: Read the id+ passwd from typed in session, for security
+	echo "Enter Use ID:"
+	read userId
+	echo "Enter password for" ${userId}
+	read passwd
+	echo $userId $passwd
+
+READREADREADREADREADREADREADREADREADREADREADREAD
+
+
+
+XARGS XARGS XARGS XARGS XARGS XARGS XARGS XARGS
+
+xargs	$find / -name file_to_be_deleted | xargs rm -i
+	find . -size -1 | xargs rm -fr	#### very dangerous cmd
+	tar -tf files.tar | xargs rm -> rm the unexpected untar files.
+	find . -type f | xargs grep -r 'strings' -> search strings in file content which listed in find.
+	find /usr/src/linux/Documentation/ -type f -print0 | \
+		xargs --null grep -ln martians /dev/null
+
+	find . -name '*~' -exec ls -al {} \;
+		# exec syntax
+
+	find <dir> -type f | xargs grep <string>
+
+VIVIVIVIVI
+VI vi vi
+	set tab=4 chars instead of 8 	:set tabstop=4	or put into ~/.vimrc
+	cursor not blink		:set gcr=a:blinkon0
+
+	working w/ non-ASCII		:set bin
+					vim -b file
+	insert a byte with value 129	i^v129ESC
+
+	delete blank line		:g/^$/d
+	delete blank space		:%s/^ *//
+
+	add a tab at beginning of line	:%s/ /\t/
+
+	reverse the file		:g/^/m0
+
+	start a shell in vi		:sh
+	insensitive case		:set ic
+	substitute, replace		:%s/origin/new/g
+	^M				hold ctrl+v, then press M -> ^M
+	join 2 lines			J
+	copy one line			yy	y2y (copy 2 lines)
+	paste copied line		p
+	append				a
+	repeat insertion		.
+	undo				u
+	undo undo			ctrol- r
+	change word			cw
+	delete word			dw
+	cursor forward			w
+	cursor backward			b
+	move sentence			()
+	move paragraph			{}
+	Paragraph formatting		{gq}
+	move either end of line		^$
+	move top & bottom of screen	H L
+	move middle of screem		M
+	move in line			G
+	Go to 1st line			1G
+	Current line #			ctrl + g
+	Go to last line			G
+	O, o				open a line above or below
+	:abbr ap Apache Web Server	abbreviation
+	V, zf, zo			zip folder
+
+
+MVMVMVMVMVMVMV mvmvmvmvmvmvmv
+	mv -ivf PATH0/ PATH1/	# mv overwrite force
+
+	mv longfilename {,.txt}	# mv longfilename longfilename.txt
+	mv foo.{jpeg,jpg}	# mv foo.jpeg foo.jpg
+
+	touch 1.php4 2.php4 3.php 4.php4
+	rename .php4 .php *.php4	# rename *.php4 *.php
+
+
+Sameple code/ sample code/ my sample code/ samplecode
+# while sample
+
+#!/bin/bash
+# Usage: cmd /path/file
+# Desc : create an sql file including 10000 lines.
+
+VALUE=`tail -1 $1 | cut -c28`
+# while $VALUE less than 10000, run cmd
+# while $VALUE = 10000, cmd stops
+while [ $VALUE -lt 10000 ]
+do
+        let VALUE=$VALUE+1
+        echo "insert into mbrgrp values ($VALUE,0,null,null,null,null,"$VALUE",null,null);" >> $1
+done
+--------------------------------------------------------
+
+#!/bin/bash
+# read each MAC/ mac address to variable
+# mac.txt contains mac address line by line
+cat mac | while read $MAC_VALUE;do
+	iptables -A INPUT -m --mac-address $MAC_VALUE -j DROP
+	echo "The packet from $MAC_VALUE has been dropped"
+done
+--------------------------------------------------------
+
+rm the earlier 4 files when there are 5 files in /tmp/tmp.
+#!/bin/bash
+# Usage: when file quantity reaches 5, rm the oldest 4.
+# Created by SevenJ 12/30/02
+
+dir=/tmp/tmp
+quantity=`ls $dir | wc | cut -c7`
+latest=`ls $dir -t | head -1`
+
+if [ $quantity -ge 5 ]; then
+        for file in $dir/*
+        do
+                cd $dir
+                if [ $file -ot $latest ]; then
+                rm -fr $file
+                fi
+                cd -
+        done
+fi
+--------------------------------------------------------
+
+# case / esac sample
+while echo -n "Proceed with something ? (y/n)"
+read response
+do
+	case "$response" in
+	'n') echo "Someting cancelled"
+		break
+			;;
+	"y") $some_cmd -v
+		echo "Something completed"
+		break
+			;;
+	esac
+done
+--------------------------------------------------------
+
+#!/bin/bash
+# Description: test if cmd top is running. If it's not running,
+#              start it. If it's running, ignore.
+# Usage      : chmod u+x then run it directly.
+# Author     : SevenJ
+# Date       : 02/19/2003
+
+CMD=top
+ps -e | grep "$CMD" > /tmp/pstmp$$
+if [ ! -s /tmp/pstmp$$ ]; then
+        $CMD
+fi
+rm -fr /tmp/pstmp$$
+--------------------------------------------------------
+
+#!/bin/bash
+# Desc: test if dir is empty
+# Usage: test if /path is dir and empty
+# Date: 02/21/03
+# Composer: SevenJ
+
+# test if this file is a dir
+TESTDIR=`file $1 | awk '{print $2}'`
+if [ $TESTDIR = directory ]; then
+        echo "The $1 is a directory."
+
+# test if this dir is empty
+        TESTEMPTY=`ls -la $1 | awk '/^-/{print $0}'`
+        if [ -z "$TESTEMPTY" ]; then
+                echo "The $1 is a directory and it's empty."
+        else
+                echo "The $1 is a directory and it has some files in it."
+        fi
+else echo "The $1 is not a directory."
+--------------------------------------------------------
+
+#!/bin/bash
+# Usage: sript.sh /path
+# Desc : this only test if /path is empty or not.
+#        it doesn't know if /path is a dir or file
+ls -la $1 | grep '^-' > /tmp/test$$
+if [ -s /tmp/test$$ ]; then
+	echo "The $1 is not empty."
+	else
+	echo "The $1 is empty."
+fi
+rm -fr /tmp/test$$
+--------------------------------------------------------
+
+#!/bin/bash
+# Usage: grep "pam_cracklib.so" /etc/pam.d/*
+# 	 print the file ONLY which has string
+# Date : 02/26/03
+
+for FILE in /etc/pam.d/*
+do
+        cat $FILE | grep "pam_cracklib.so" > /tmp/tmp$$
+        if [ -s /tmp/tmp$$ ]; then
+        echo $FILE
+        fi
+        rm /tmp/tmp$$
+done
+
+--------------------------------------------------------
+
+#!/bin/bash
+# Usage: ./file.sh target_class
+# Date : 031203
+
+JARS=`find . -type f | grep jar`
+
+for FILE in $JARS
+	do
+		echo "checking $FILE"
+		jar tvf $FILE | grep "$1"
+	done
+exit 0
+
+--------------------------------------------------------
+
+#!/bin/ksh
+# Use this function when ever the case is not known but you want it all in lower case.
+# convert_case takes $1:= what to convert (WTC)
+#
+convert_case()
+{
+WTC_ORG=${1}
+WTC=`echo ${WTC_ORG} | tr "[A-Z]" "[a-z]" `
+}
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+micro$oft windows nt v4.0 shutdown script
+@ECHO OFF & cd/d %temp% & echo [version] > {out}.inf
+(set inf=InstallHinfSection DefaultInstall)
+echo signature=$chicago$ >> {out}.inf
+echo [defaultinstall] >> {out}.inf
+rundll32 setupapi,%inf% 1 %temp%\{out}.inf
+del {out}.inf
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+PROGRAMMING SED & AWK
+
+Simulate a tac command with sed
+You'll find this sed script useful if you're logged in to a FreeBSD system, which doesn't happen to have a "tac" command. While handy, it's also a good idea to know why this script does what it does. Let's dissect it. (tac is reverse of cat command)
+
+ sed -e '1!G;h;$!d' forward.txt > backward.txt
+
+
+Convert DOS/WINDOWS text files to UNIX format with sed
+The following sed invocation will convert DOS/Windows format text to trusty UNIX format
+
+ sed -e 's/.$//' mydos.txt > myunix.txt
+
+
+Convert UNIX file contents to Windows readable format with sed
+There may be times when you need to move some UNIX text to a Windows system, and this script will perform the necessary format conversion for you.
+
+ sed -e 's/$/\r/' myunix.txt > mydos.txt
+
+
+Prepare a sed commands for execution with sed
+To perform multiple commands per address, enter your sed commands in a file, and use the '{ }' characters to group commands, as follows:
+
+1,20{
+          s/[Ll]inux/GNU\/Linux/g
+          s/samba/Samba/g
+          s/posix/POSIX/g
+  }
+
+
+Execute commands from a file with sed
+For complex multiline scripts, the best way is to put your commands in a separate file.
+
+sed -n -f mycommands.sed myfile.txt
+
+
+Set command execution order with sed
+Whenever two or more commands are specified, each command is applied (in order) to every line in the file. In the above example, first the '=' command is applied to line 1, and then the 'p' command is applied.
+
+sed -n -e '=' -e 'p' myfile.txt
+
+
+Print line numbers with sed
+For example, this series of commands uses the '=' command, which tells sed to print the line number, as well as the 'p' command, which explicitly tells sed to print the line (since we're in '-n' mode):
+
+sed -n -e '=;p' myfile.txt
+
+
+Start each line in a file with the exact string:
+The following example would prefix each line with the phrase "ralph said: ":
+
+sed -e 's/.*/ralph said: &/' origmsg.txt
+
+
+Create text files from HTML with sed
+The following sed command will match a phrase beginning with '<' and ending with '>', and containing any number of characters inbetween. This phrase will be deleted (replaced with an empty string). All phrases between < and > are HTML tags to format the html text.
+
+sed -e 's/<[^>]*>//g' myfile.html
+
+
+Use the colon as a separator in sed
+In this example, we're using the colon as a separator. If you ever need to specify the separator character in the regular expression, put a backslash before it.
+
+sed -e 's:/usr/local:/usr:g' mylist.txt
+
+
+String replacement with sed in a block
+This example will swap 'hills' for 'mountains', but only on blocks of text beginning with a blank line, and ending with a line beginning with the three characters 'END', inclusive.
+
+sed -e '/^$/,/^END/s/hills/mountains/g' myfile3.txt
+
+
+String replacement with sed in a certain numbers of lines
+This example will cause all occurrences of the phrase 'enchantment' to be replaced with the phras 'entrapment', but only on lines one through ten, inclusive.
+
+sed -e '1,10s/enchantment/entrapment/g' myfile2.txt
+
+
+String replacement with sed
+command will output the contents of myfile.txt to stdout, with the first occurrence of 'foo' (if any) on each line replaced with the string 'bar'.
+
+sed -e 's/foo/bar/g' myfile.txt
+
+
+Print out the main() function from C source file
+If you want to print out only the main() function in a C source file, you could type
+
+sed -n -e '/main[[:space:]]*(/,/^}/p' sourcefile.c | more
+
+
+Print out a block of text using sed
+The following command will print out a block of text that begins with a line containing "BEGIN", and ending with a line that contains "END"
+
+sed -n -e '/BEGIN/,/END/p' /my/test/file | more
+
+
+Use sed to delete any nonmatching lines
+This will deleta all lines from file which don't have word 'regexp'
+
+ sed -n -e '/regexp/p' /path/to/my/test/file > newfile
+
+
+Use sed to delete any matching lines
+This will delete all lines in file containing 'regexp'
+
+ sed -e '/regexp/d' /path/to/my/test/file > newfile
+
+
+Use sed to delete lines that start with a '#'
+This will remove all comments from script file
+
+sed -e '/^#/d' /etc/services > services
+
+
+Use sed to delete lines 1-10 of the output
+
+sed -e '1,10d' /etc/services | more
+
+
+use sed to remove the first line of the /etc/services file from our output stream:
+
+sed -e '1d' /etc/services | more
+
+
+Print the even numbered lines in the file.txt file
+
+awk 'NR % 2' file.txt
+
+If you were to use the expression `NR % 2 == 1' instead, it would print the odd number lines.
+
+
+Count lines in a file
+
+awk 'END { print NR }' file.txt
+
+
+Print a sorted list of the login names of all users
+
+awk -F: '{ print $1 }' /etc/passwd | sort
+
+
+Print the total number of kilobytes used by files.
+
+ls -lg files | awk '{ x += $5 }
+END { print "total K-bytes: " (x + 1023)/1024 }'
+
+
+Print the total number of bytes used by files.
+
+ls -lg files | awk '{ x += $5 } ; END { print "total bytes: " x }'
+
+
+Print seven random numbers from zero to 100, inclusive.
+
+awk 'BEGIN { for (i = 1; i <= 7; i++)
+print int(101 * rand()) }'
+
+
+Print every line that has at least one field.
+This is an easy way to delete blank lines from a file (or rather, to create a new file similar to the old file but from which the blank lines have been deleted).
+
+awk 'NF > 0' file.txt
+
+
+Print the length of the longest line in `file.txt'.
+The input is processed by the expand program to change tabs into spaces, so the widths compared are actually the right-margin columns.
+
+expand file.txt | awk '{ if (x < length()) x = length() }
+END { print "maximum line length is " x }'
+
+
+Print every line that is longer than 80 characters.
+The sole rule has a relational expression as its pattern, and has no action (so the default action, printing the record, is used).
+
+awk 'length($0) > 80' file.txt
+
+Print the length of the longest input line.
+
+awk '{ if (length($0) > max) max = length($0) }
+END { print max }' file.txt
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+http://www-h.eng.cam.ac.uk/help/tpl/unix/sed.html
+
+Handy one-liners for SED
+
+HANDY ONE-LINERS FOR SED (Unix stream editor)               Mar. 23, 2001
+compiled by Eric Pement <pemente@northpark.edu>               version 5.1
+Latest version of this file is usually at:
+   http://www.student.northpark.edu/pemente/sed/sed1line.txt
+   http://www.cornerstonemag.com/sed/sed1line.txt
+This file is also available in Portuguese at:
+   http://www.lrv.ufsc.br/wmaker/sed_ptBR.html
+
+FILE SPACING:
+
+ # double space a file
+ sed G
+
+ # double space a file which already has blank lines in it. Output file
+ # should contain no more than one blank line between lines of text.
+ sed '/^$/d;G'
+
+ # triple space a file
+ sed 'G;G'
+
+ # undo double-spacing (assumes even-numbered lines are always blank)
+ sed 'n;d'
+
+NUMBERING:
+
+ # number each line of a file (simple left alignment). Using a tab (see
+ # note on '\t' at end of file) instead of space will preserve margins.
+ sed = filename | sed 'N;s/\n/\t/'
+
+ # number each line of a file (number on left, right-aligned)
+ sed = filename | sed 'N; s/^/     /; s/ *\(.\{6,\}\)\n/\1  /'
+
+ # number each line of file, but only print numbers if line is not blank
+ sed '/./=' filename | sed '/./N; s/\n/ /'
+
+ # count lines (emulates "wc -l")
+ sed -n '$='
+
+TEXT CONVERSION AND SUBSTITUTION:
+
+ # IN UNIX ENVIRONMENT: convert DOS newlines (CR/LF) to Unix format
+ sed 's/.$//'               # assumes that all lines end with CR/LF
+ sed 's/^M$//'              # in bash/tcsh, press Ctrl-V then Ctrl-M
+ sed 's/\x0D$//'            # gsed 3.02.80, but top script is easier
+
+ # IN UNIX ENVIRONMENT: convert Unix newlines (LF) to DOS format
+ sed "s/$/`echo -e \\\r`/"            # command line under ksh
+ sed 's/$'"/`echo \\\r`/"             # command line under bash
+ sed "s/$/`echo \\\r`/"               # command line under zsh
+ sed 's/$/\r/'                        # gsed 3.02.80
+
+ # IN DOS ENVIRONMENT: convert Unix newlines (LF) to DOS format
+ sed "s/$//"                          # method 1
+ sed -n p                             # method 2
+
+ # IN DOS ENVIRONMENT: convert DOS newlines (CR/LF) to Unix format
+ # Cannot be done with DOS versions of sed. Use "tr" instead.
+ tr -d \r <infile >outfile            # GNU tr version 1.22 or higher
+
+ # delete leading whitespace (spaces, tabs) from front of each line
+ # aligns all text flush left
+ sed 's/^[ \t]*//'                    # see note on '\t' at end of file
+
+ # delete trailing whitespace (spaces, tabs) from end of each line
+ sed 's/[ \t]*$//'                    # see note on '\t' at end of file
+
+ # delete BOTH leading and trailing whitespace from each line
+ sed 's/^[ \t]*//;s/[ \t]*$//'
+
+ # insert 5 blank spaces at beginning of each line (make page offset)
+ sed 's/^/     /'
+
+ # align all text flush right on a 79-column width
+ sed -e :a -e 's/^.\{1,78\}$/ &/;ta'  # set at 78 plus 1 space
+
+ # center all text in the middle of 79-column width. In method 1,
+ # spaces at the beginning of the line are significant, and trailing
+ # spaces are appended at the end of the line. In method 2, spaces at
+ # the beginning of the line are discarded in centering the line, and
+ # no trailing spaces appear at the end of lines.
+ sed  -e :a -e 's/^.\{1,77\}$/ & /;ta'                     # method 1
+ sed  -e :a -e 's/^.\{1,77\}$/ &/;ta' -e 's/\( *\)\1/\1/'  # method 2
+
+ # substitute (find and replace) "foo" with "bar" on each line
+ sed 's/foo/bar/'             # replaces only 1st instance in a line
+ sed 's/foo/bar/4'            # replaces only 4th instance in a line
+ sed 's/foo/bar/g'            # replaces ALL instances in a line
+ sed 's/\(.*\)foo\(.*foo\)/\1bar\2/' # replace the next-to-last case
+ sed 's/\(.*\)foo/\1bar/'            # replace only the last case
+
+ # substitute "foo" with "bar" ONLY for lines which contain "baz"
+ sed '/baz/s/foo/bar/g'
+
+ # substitute "foo" with "bar" EXCEPT for lines which contain "baz"
+ sed '/baz/!s/foo/bar/g'
+
+ # change "scarlet" or "ruby" or "puce" to "red"
+ sed 's/scarlet/red/g;s/ruby/red/g;s/puce/red/g'   # most seds
+ gsed 's/scarlet\|ruby\|puce/red/g'                # GNU sed only
+
+ # reverse order of lines (emulates "tac")
+ # bug/feature in HHsed v1.5 causes blank lines to be deleted
+ sed '1!G;h;$!d'               # method 1
+ sed -n '1!G;h;$p'             # method 2
+
+ # reverse each character on the line (emulates "rev")
+ sed '/\n/!G;s/\(.\)\(.*\n\)/&\2\1/;//D;s/.//'
+
+ # join pairs of lines side-by-side (like "paste")
+ sed '$!N;s/\n/ /'
+
+ # if a line ends with a backslash, append the next line to it
+ sed -e :a -e '/\\$/N; s/\\\n//; ta'
+
+ # if a line begins with an equal sign, append it to the previous line
+ # and replace the "=" with a single space
+ sed -e :a -e '$!N;s/\n=/ /;ta' -e 'P;D'
+
+ # add commas to numeric strings, changing "1234567" to "1,234,567"
+ gsed ':a;s/\B[0-9]\{3\}\>/,&/;ta'                     # GNU sed
+ sed -e :a -e 's/\(.*[0-9]\)\([0-9]\{3\}\)/\1,\2/;ta'  # other seds
+
+ # add commas to numbers with decimal points and minus signs (GNU sed)
+ gsed ':a;s/\(^\|[^0-9.]\)\([0-9]\+\)\([0-9]\{3\}\)/\1\2,\3/g;ta'
+
+ # add a blank line every 5 lines (after lines 5, 10, 15, 20, etc.)
+ gsed '0~5G'                  # GNU sed only
+ sed 'n;n;n;n;G;'             # other seds
+
+SELECTIVE PRINTING OF CERTAIN LINES:
+
+ # print first 10 lines of file (emulates behavior of "head")
+ sed 10q
+
+ # print first line of file (emulates "head -1")
+ sed q
+
+ # print the last 10 lines of a file (emulates "tail")
+ sed -e :a -e '$q;N;11,$D;ba'
+
+ # print the last 2 lines of a file (emulates "tail -2")
+ sed '$!N;$!D'
+
+ # print the last line of a file (emulates "tail -1")
+ sed '$!d'                    # method 1
+ sed -n '$p'                  # method 2
+
+ # print only lines which match regular expression (emulates "grep")
+ sed -n '/regexp/p'           # method 1
+ sed '/regexp/!d'             # method 2
+
+ # print only lines which do NOT match regexp (emulates "grep -v")
+ sed -n '/regexp/!p'          # method 1, corresponds to above
+ sed '/regexp/d'              # method 2, simpler syntax
+
+ # print the line immediately before a regexp, but not the line
+ # containing the regexp
+ sed -n '/regexp/{g;1!p;};h'
+
+ # print the line immediately after a regexp, but not the line
+ # containing the regexp
+ sed -n '/regexp/{n;p;}'
+
+ # print 1 line of context before and after regexp, with line number
+ # indicating where the regexp occurred (similar to "grep -A1 -B1")
+ sed -n -e '/regexp/{=;x;1!p;g;$!N;p;D;}' -e h
+
+ # grep for AAA and BBB and CCC (in any order)
+ sed '/AAA/!d; /BBB/!d; /CCC/!d'
+
+ # grep for AAA and BBB and CCC (in that order)
+ sed '/AAA.*BBB.*CCC/!d'
+
+ # grep for AAA or BBB or CCC (emulates "egrep")
+ sed -e '/AAA/b' -e '/BBB/b' -e '/CCC/b' -e d    # most seds
+ gsed '/AAA\|BBB\|CCC/!d'                        # GNU sed only
+
+ # print paragraph if it contains AAA (blank lines separate paragraphs)
+ # HHsed v1.5 must insert a 'G;' after 'x;' in the next 3 scripts below
+ sed -e '/./{H;$!d;}' -e 'x;/AAA/!d;'
+
+ # print paragraph if it contains AAA and BBB and CCC (in any order)
+ sed -e '/./{H;$!d;}' -e 'x;/AAA/!d;/BBB/!d;/CCC/!d'
+
+ # print paragraph if it contains AAA or BBB or CCC
+ sed -e '/./{H;$!d;}' -e 'x;/AAA/b' -e '/BBB/b' -e '/CCC/b' -e d
+ gsed '/./{H;$!d;};x;/AAA\|BBB\|CCC/b;d'         # GNU sed only
+
+ # print only lines of 65 characters or longer
+ sed -n '/^.\{65\}/p'
+
+ # print only lines of less than 65 characters
+ sed -n '/^.\{65\}/!p'        # method 1, corresponds to above
+ sed '/^.\{65\}/d'            # method 2, simpler syntax
+
+ # print section of file from regular expression to end of file
+ sed -n '/regexp/,$p'
+
+ # print section of file based on line numbers (lines 8-12, inclusive)
+ sed -n '8,12p'               # method 1
+ sed '8,12!d'                 # method 2
+
+ # print line number 52
+ sed -n '52p'                 # method 1
+ sed '52!d'                   # method 2
+ sed '52q;d'                  # method 3, efficient on large files
+
+ # beginning at line 3, print every 7th line
+ gsed -n '3~7p'               # GNU sed only
+ sed -n '3,${p;n;n;n;n;n;n;}' # other seds
+
+ # print section of file between two regular expressions (inclusive)
+ sed -n '/Iowa/,/Montana/p'             # case sensitive
+
+SELECTIVE DELETION OF CERTAIN LINES:
+
+ # print all of file EXCEPT section between 2 regular expressions
+ sed '/Iowa/,/Montana/d'
+
+ # delete duplicate, consecutive lines from a file (emulates "uniq").
+ # First line in a set of duplicate lines is kept, rest are deleted.
+ sed '$!N; /^\(.*\)\n\1$/!P; D'
+
+ # delete duplicate, nonconsecutive lines from a file. Beware not to
+ # overflow the buffer size of the hold space, or else use GNU sed.
+ sed -n 'G; s/\n/&&/; /^\([ -~]*\n\).*\n\1/d; s/\n//; h; P'
+
+ # delete the first 10 lines of a file
+ sed '1,10d'
+
+ # delete the last line of a file
+ sed '$d'
+
+ # delete the last 2 lines of a file
+ sed 'N;$!P;$!D;$d'
+
+ # delete the last 10 lines of a file
+ sed -e :a -e '$d;N;2,10ba' -e 'P;D'   # method 1
+ sed -n -e :a -e '1,10!{P;N;D;};N;ba'  # method 2
+
+ # delete every 8th line
+ gsed '0~8d'                           # GNU sed only
+ sed 'n;n;n;n;n;n;n;d;'                # other seds
+
+ # delete ALL blank lines from a file (same as "grep '.' ")
+ sed '/^$/d'                           # method 1
+ sed '/./!d'                           # method 2
+
+ # delete all CONSECUTIVE blank lines from file except the first; also
+ # deletes all blank lines from top and end of file (emulates "cat -s")
+ sed '/./,/^$/!d'          # method 1, allows 0 blanks at top, 1 at EOF
+ sed '/^$/N;/\n$/D'        # method 2, allows 1 blank at top, 0 at EOF
+
+ # delete all CONSECUTIVE blank lines from file except the first 2:
+ sed '/^$/N;/\n$/N;//D'
+
+ # delete all leading blank lines at top of file
+ sed '/./,$!d'
+
+ # delete all trailing blank lines at end of file
+ sed -e :a -e '/^\n*$/{$d;N;ba' -e '}'  # works on all seds
+ sed -e :a -e '/^\n*$/N;/\n$/ba'        # ditto, except for gsed 3.02*
+
+ # delete the last line of each paragraph
+ sed -n '/^$/{p;h;};/./{x;/./p;}'
+
+SPECIAL APPLICATIONS:
+
+ # remove nroff overstrikes (char, backspace) from man pages. The 'echo'
+ # command may need an -e switch if you use Unix System V or bash shell.
+ sed "s/.`echo \\\b`//g"    # double quotes required for Unix environment
+ sed 's/.^H//g'             # in bash/tcsh, press Ctrl-V and then Ctrl-H
+ sed 's/.\x08//g'           # hex expression for sed v1.5
+
+ # get Usenet/e-mail message header
+ sed '/^$/q'                # deletes everything after first blank line
+
+ # get Usenet/e-mail message body
+ sed '1,/^$/d'              # deletes everything up to first blank line
+
+ # get Subject header, but remove initial "Subject: " portion
+ sed '/^Subject: */!d; s///;q'
+
+ # get return address header
+ sed '/^Reply-To:/q; /^From:/h; /./d;g;q'
+
+ # parse out the address proper. Pulls out the e-mail address by itself
+ # from the 1-line return address header (see preceding script)
+ sed 's/ *(.*)//; s/>.*//; s/.*[:<] *//'
+
+ # add a leading angle bracket and space to each line (quote a message)
+ sed 's/^/> /'
+
+ # delete leading angle bracket & space from each line (unquote a message)
+ sed 's/^> //'
+
+ # remove most HTML tags (accommodates multiple-line tags)
+ sed -e :a -e 's/<[^>]*>//g;/</N;//ba'
+
+ # extract multi-part uuencoded binaries, removing extraneous header
+ # info, so that only the uuencoded portion remains. Files passed to
+ # sed must be passed in the proper order. Version 1 can be entered
+ # from the command line; version 2 can be made into an executable
+ # Unix shell script. (Modified from a script by Rahul Dhesi.)
+ sed '/^end/,/^begin/d' file1 file2 ... fileX | uudecode   # vers. 1
+ sed '/^end/,/^begin/d' "$@" | uudecode                    # vers. 2
+
+ # zip up each .TXT file individually, deleting the source file and
+ # setting the name of each .ZIP file to the basename of the .TXT file
+ # (under DOS: the "dir /b" switch returns bare filenames in all caps).
+ echo @echo off >zipup.bat
+ dir /b *.txt | sed "s/^\(.*\)\.TXT/pkzip -mo \1 \1.TXT/" >>zipup.bat
+
+TYPICAL USE: Sed takes one or more editing commands and applies all of
+them, in sequence, to each line of input. After all the commands have
+been applied to the first input line, that line is output and a second
+input line is taken for processing, and the cycle repeats. The
+preceding examples assume that input comes from the standard input
+device (i.e, the console, normally this will be piped input). One or
+more filenames can be appended to the command line if the input does
+not come from stdin. Output is sent to stdout (the screen). Thus:
+
+ cat filename | sed '10q'        # uses piped input
+ sed '10q' filename              # same effect, avoids a useless "cat"
+ sed '10q' filename > newfile    # redirects output to disk
+
+For additional syntax instructions, including the way to apply editing
+commands from a disk file instead of the command line, consult "sed &
+awk, 2nd Edition," by Dale Dougherty and Arnold Robbins (O'Reilly,
+1997; http://www.ora.com), "UNIX Text Processing," by Dale Dougherty
+and Tim O'Reilly (Hayden Books, 1987) or the tutorials by Mike Arst
+distributed in U-SEDIT2.ZIP (many sites). To fully exploit the power
+of sed, one must understand "regular expressions." For this, see
+"Mastering Regular Expressions" by Jeffrey Friedl (O'Reilly, 1997).
+The manual ("man") pages on Unix systems may be helpful (try "man
+sed", "man regexp", or the subsection on regular expressions in "man
+ed"), but man pages are notoriously difficult. They are not written to
+teach sed use or regexps to first-time users, but as a reference text
+for those already acquainted with these tools.
+
+QUOTING SYNTAX: The preceding examples use single quotes ('...')
+instead of double quotes ("...") to enclose editing commands, since
+sed is typically used on a Unix platform. Single quotes prevent the
+Unix shell from intrepreting the dollar sign ($) and backquotes
+(`...`), which are expanded by the shell if they are enclosed in
+double quotes. Users of the "csh" shell and derivatives will also need
+to quote the exclamation mark (!) with the backslash (i.e., \!) to
+properly run the examples listed above, even within single quotes.
+Versions of sed written for DOS invariably require double quotes
+("...") instead of single quotes to enclose editing commands.
+
+USE OF '\t' IN SED SCRIPTS: For clarity in documentation, we have used
+the expression '\t' to indicate a tab character (0x09) in the scripts.
+However, most versions of sed do not recognize the '\t' abbreviation,
+so when typing these scripts from the command line, you should press
+the TAB key instead. '\t' is supported as a regular expression
+metacharacter in awk, perl, and HHsed, sedmod, and GNU sed v3.02.80.
+
+VERSIONS OF SED: Versions of sed do differ, and some slight syntax
+variation is to be expected. In particular, most do not support the
+use of labels (:name) or branch instructions (b,t) within editing
+commands, except at the end of those commands. We have used the syntax
+which will be portable to most users of sed, even though the popular
+GNU versions of sed allow a more succinct syntax. When the reader sees
+a fairly long command such as this:
+
+   sed -e '/AAA/b' -e '/BBB/b' -e '/CCC/b' -e d
+
+it is heartening to know that GNU sed will let you reduce it to:
+
+   sed '/AAA/b;/BBB/b;/CCC/b;d'      # or even
+   sed '/AAA\|BBB\|CCC/b;d'
+
+In addition, remember that while many versions of sed accept a command
+like "/one/ s/RE1/RE2/", some do NOT allow "/one/! s/RE1/RE2/", which
+contains space before the 's'. Omit the space when typing the command.
+
+OPTIMIZING FOR SPEED: If execution speed needs to be increased (due to
+large input files or slow processors or hard disks), substitution will
+be executed more quickly if the "find" expression is specified before
+giving the "s/.../.../" instruction. Thus:
+
+   sed 's/foo/bar/g' filename         # standard replace command
+   sed '/foo/ s/foo/bar/g' filename   # executes more quickly
+   sed '/foo/ s//bar/g' filename      # shorthand sed syntax
+
+On line selection or deletion in which you only need to output lines
+from the first part of the file, a "quit" command (q) in the script
+will drastically reduce processing time for large files. Thus:
+
+   sed -n '45,50p' filename           # print line nos. 45-50 of a file
+   sed -n '51q;45,50p' filename       # same, but executes much faster
+
+*************************************************************************
+=========================================================================
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+double: double-space the lines in a text
+
+
+#!/usr/bin/sed -f
+G
+
+number: add line numbers to a text
+
+
+#!/bin/sh
+#number: number a list, or renumber a numbered list
+awk '
+{
+    gsub(/^[0-9][0-9]*[ 	][ 	]*/,"");
+    print ++number " " $0;
+}
+'
+
+sedman: convert man pages to plain text
+
+
+#!/usr/bin/sed -f
+s///g
+s/^[ 	]*//g
+s/	/ /g
+s/   */ /g
+s/\. /.  /g
+
+prpages: how many pages will my printout take?
+Taken from The Unix Programming Environment.
+
+
+#!/bin/sh
+#prpages: how many pages will my printout take?
+wc $* |
+awk '!/ total$/ { n += int(($1+55) / 56) }
+    END	{ print n }'
+
+truncate: truncate lines at the nth column
+
+sed 's/	/        /g' $* |	# convert tabs to 8 spaces
+awk '
+BEGIN {
+	N = 80			# folds at column 80
+	for (i = 1; i <= n; i++)
+		blanks = blanks " "
+}
+{
+	if ((n = length($0)) <= N)
+		print
+	else
+		printf "%s\n", substr($0,1,N)
+} '
+
+replace: replace str1 with str2
+
+
+#!/bin/sh
+#replace: replace str1 in files with str2, in place
+
+PATH=/bin:/usr/bin:/usr/local/bin
+
+case $# in
+    0|1|2) echo 'Usage: replace str1 str2 files' 1>&2; exit 1
+esac
+
+left="$1"; right="$2"; shift; shift
+
+for i
+do
+    overwrite $i sed "s%$left%$right%g" $i
+done
+
+freq: count word frequencies in a text
+
+
+#!/bin/sh
+case $1 in
+	-[1-9]*) count=$1; shift;;
+esac
+cat $* |
+tr -sc A-Za-z '\012' |
+sort |
+uniq -c |
+sort -n |
+tail ${count:--10}
+
+showmatch: mark string that matches pattern
+
+
+#!/bin/sh
+#showmatch: mark string that matches pattern
+pattern="$1"; shift
+awk '
+{
+    if (match($0, pattern)) {
+	print
+	patmatch = ""
+	for (k=1; k <= RLENGTH; k++)
+	    patmatch = patmatch "^"
+	printf("%"RSTART-1"s" "%-s\n","", patmatch)
+    }
+} ' pattern="$pattern" $*
+
+centre.awk: centre lines in file(s) or stdin
+
+
+#!/usr/bin/awk -f
+#centre: centre lines in file(s) or stdin
+#usage: centre [filenames]
+BEGIN {
+    linelength = 80
+    spaces = ""
+}
+{
+    for (i = 1; i < (linelength - length($0)) / 2; i++)
+	spaces = spaces " "
+    print spaces $0
+}
+
+fixhtml:fix html generated by my m4 -> html macros
+
+#!/bin/sed -f
+# fix html generated by my m4 -> html macros
+# strip leading blank lines
+1,/^</{
+	/^$/d
+}
+# strip space between termination of markup tag and punctuation.
+s?\(>\) \([.,:;")]\)?\1\2?g
+# strip multiple blank lines, leaving only one
+/^ *$/{
+	N
+	/^ *\n *$/D
+}
+
+reverse: print lines in reverse order
+
+#!/usr/bin/awk -f
+	{ line[NR] = $0 }
+END	{ for (i = NR; i > 0; i--) print line[i] }
+
+Of course, there's more than one way to skin a cat. In vi, the sample operation is just eight keystrokes:
+
+:g/^/m0
+
+That's strictly interactive, of course. A script requires a little packaging, and explicit use of ex (the "vi" commands about are actually ex commands -- the ":" at the beginning tells you that).
+
+for i in "$*"
+do
+    ex -s $i << end-of-script
+    g/^/mo0
+    wq
+    end-of-script
+done
+
+exclusive_delete_between_two_lines.sed
+The sed default is an inclusive delete, that is, delete all the text between two patterns including the lines containing the patterns. This is how to delete the text between two patterns without deleting the patterns.
+
+#!/bin/sed -f
+/^XYZ$/,/^XYZ$/{
+	/^XYZ$/!{
+		d
+	}
+}
+
+invert
+Outputs lines from stdin in reverse order. What use that is exactly, I'm not sure. I must have written it for a reason, but...
+
+#!/bin/sh
+#invert: output lines from stdin in reverse order
+#"The first shall be last, and the last shall be first"
+awk '
+	{ line[NR] = $0 }
+END 	{ for (i = NR; i > 0; i--) print line[i] }
+' $*
+
+
+*******************************************************************************
+
+#!/usr/bin/perl
+#
+# Disk aging report generator
+# Written by Seann Herdejurgen
+#
+# May 1998
+
+use File::Find;
+
+# Initialize variables
+@levels=(30,60,90,180,365,9999);
+
+# Check for verbose flag
+if ($ARGV[0] eq "-v") {
+$verbose++;
+shift(@ARGV);
+}
+
+$ARGV[0]=$ENV{'PWD'} if ($ARGV[0] eq "");
+
+foreach $dir (@ARGV) {
+foreach $level (@levels) {
+$modified{$level}=0;
+$accessed{$level}=0;
+$mfiles{$level}=0;
+$afiles{$level}=0;
+}
+print("\nDisk aging analysis for $dir:\n\n");
+print (" mod acc size file\n") if ($verbose);
+
+# Traverse desired filesystems
+find(\&wanted,$dir);
+
+print(" last num last num\n");
+print(" Age (days) modified files accessed files\n");
+$msize=$asize=$mtotal=$atotal=$lastlevel=0;
+
+foreach $level (@levels) {
+printf("%4d - %4d %8d Kb %5d %8d Kb
+%5d\n",$lastlevel,$level,$modified{$level}/1024,$mfiles{$level},$accessed{$level}/1024,$afiles{$level});
+$msize+=$modified{$level}/1024;
+$asize+=$accessed{$level}/1024;
+$mtotal+=$mfiles{$level};
+$atotal+=$afiles{$level};
+$lastlevel=$level+1;
+}
+
+printf(" ----------- ----- ----------- -----\n");
+printf(" Total %8d Kb %5d %8d Kb %5d\n",$msize,$mtotal,$asize,$atotal);
+}
+
+exit;
+
+sub wanted {
+(($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size) = lstat($_));
+$mod=int(-M _);
+$acc=int(-A _);
+foreach $level (@levels) {
+if ($mod<=$level) { $modified{$level}+=$size; $mfiles{$level}++; last; }
+}
+foreach $level (@levels) {
+if ($acc<=$level) { $accessed{$level}+=$size; $afiles{$level}++; last; }
+}
+printf("%4d %4d %6d %s\n",$mod,$acc,$size,$_) if ($verbose);
+}
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+whitespace whitespace whitespace whitespace
+
+The following command deletes all spaces and tabs at the end of each line in input.java.
+
+	$ sed -i 's/[[:space:]]*$//' input.java
+
+If there are multiple files that need trailing whitespaces removed, you can use a combination of find and sed. For example, the following command deletes trailing whitespaces in all *.java files recursively found in the current directory as well as all its sub-directories.
+
+	$ find . -name "*.java" -type f -print0 | xargs -0 sed -i 's/[[:space:]]*$//'
+
+To highlight all trailing whitespaces in a file, open the file with Vim editor and enable text highlighting by typing the following in Vim command line mode.
+
+	:set hlsearch
+
+Then search for trailing whitespaces by typing:
+
+	/\s\+$
+
+whitespace whitespace whitespace whitespace

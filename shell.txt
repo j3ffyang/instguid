@@ -1,0 +1,1036 @@
+11111111111111111111111111111111111111
+1. basic concept
+invoke shell
+	bash		# begin a shell
+	bash -c cmd	# run a cmd in a shell
+	bash -posix	# starts a posix compatible shell
+	exec bash	# terminate current shell and replaces w/ new shell
+
+invoke script
+	. prog		# run prog in current shell
+	bash prog	# run prog in a new shell
+	prog		# run executable prog
+	exec prog	# run a new shell to replace the current on
+
+wildcard metacharacters /meta char / wild card
+	*		match any number of any char
+	?		machine any single char
+	[abc]		match a single char from the bracketed list
+	[!az]		match any single char except those listed
+	[^ab]		with a ^ in place of a ! to signify an exclusion list.
+	[a-z]		inclusive range for a list
+
+	^		line begin. name: CARET/ caret
+	$		end to line end
+
+	[[:alnum:]]  - [A-Za-z0-9]     Alphanumeric characters
+	[[:alpha:]]  - [A-Za-z]        Alphabetic characters
+	[[:blank:]]  - [ \x09]         Space or tab characters only
+	[[:cntrl:]]  - [\x00-\x19\x7F] Control characters
+	[[:digit:]]  - [0-9]           Numeric characters
+	[[:graph:]]  - [!-~]           Printable and visible characters
+	[[:lower:]]  - [a-z]           Lower-case alphabetic characters
+	[[:print:]]  - [ -~]           Printable (non-Control) characters
+	[[:punct:]]  - [!-/:-@[-`{-~]  Punctuation characters
+	[[:space:]]  - [ \t\v\f]       All whitespace chars
+	[[:upper:]]  - [A-Z]           Upper-case alphabetic characters
+	[[:xdigit:]] - [0-9a-fA-F]     Hexadecimal digit characters
+
+Example / example
+	# ls file(s) that the 3rd char in filename is neither char or num
+	# ie. 12.3 23.4
+	ls | grep '^..[^[:alnum:]].*'
+
+expansion examples
+	rm d*y			rm diary file
+	file script*		identify script2 and script3 files
+	head script[345]	display the top lines of script[345]
+	less script[3-6]	less file3- file6 if there is
+	tail scriput[!12]	display last line of script3
+	touch ?a*		touch a file name ?a*
+	more [st][ah]*		display sa*, sh*, ta*, th*
+
+quoting
+	"double quote"		group chars into a string, and allow var & cmd subt
+	'single quota'		rm any special meaning for the char within them
+	\char			rm the special meaning of the char following the \
+	ls -l [Vv]*
+
+brace expansion		({})	-> ls *{1,2}
+			()	name ???
+			[]	may be one of them
+
+process i/o	every process has a file descriptor table associated with it	
+		input -	(0) -> process -(1) -> output
+					(2) -> error
+		stdin= 0	stdout= 1	stderr= 2
+
+device print 	echo xxx > /dev/pts/2	pseudo device
+device display	echo xxx > /dev/tty1	wired device
+
+input redirection	mail -s "Hello" terry < letter
+output redirection	cmd 2> filename
+			cmd > file 2>&1
+
+echo 	echo 'Why can'\''t I write '"'"'s between single quote'
+
+cmd grouping w/ ()	run cmds in subshell
+	( cmd ; cmd) > /dev/null 2>&1
+	ie. 	( cd /home/lynn ; chown lynn:bin d* )
+
+cmd grouping w/ {}	run cmds in current shell
+	ie.	{ cd /home/lynn ; chown lynn:bin s* ; }
+
+job control	jobs -> ctrl-z to suspend the current foreground job	
+	bg & fg
+	kill, fg and bg w/ the following arguments / arg
+		pid
+		%job_id
+		%% or %+	current job
+		%-		previous job
+		%command	match a cmd name
+		%?string	match a string in cmd name
+
+22222222222222222222222222222222222222222222
+2. variables/ var / return code / returncode
+unset		unset var1 -> release the var setting
+	$#	the number of Positional Parameters set
+	$@	Positional Parameters in a space separated list
+	$*	Positional Parameters in a list separated by the
+		first Field Separator (the default is a space)
+	"$@"	= "$1" "$2" "$3" 
+	"$*"	= "$1 $2 $3 ..."
+	
+	$0	If bash is invoked with a file of cmd, $0 is set to that file name
+	$$	the process id of current process (pid)
+	$-	shell options used to invoke the shell = set
+
+	$!	the pid of the last baskground proess
+	$?	the return code from the last cmd executed
+
+	echo `basename $PWD`	# basename of current working dir
+	echo "${PWD##*/}"	# basename of current working dir
+
+	echo $0			# name of script
+	echo "${0##*/}"		# name of script
+
+env var/ environment variable
+	CDPATH	HOME	
+	IFS (input field separators( defaults to: spae, tab newline))
+	MAIL	MAILCHECK (frequency check)
+	PATH	PS1(primary shell cmd) 	PS2(2nd prompt for multiline entry)	SHELL	TERM
+	BASH_ENV	COLUMNS (screen width)	
+	ENV (prog/ script to be sourced for each new shell)
+	FCEDIT (FC cmd)	FIGNORE (suffixes to be ignored for complete)
+	HISTSIZE	LINES (screen length)
+	OLDPWS (cd -) 	OPTARG 	OPTERR	PPID (parent pid)
+	PS3 (prompt for the select cmd)
+	PS4 (debug prompt for ksh w/ the -x option)
+	PWD	REPLY (select by select cmd and the read cmd if no arg given
+	TMOUT	
+
+setting PS1 in bash.
+	\t	time of day (13:43:21)
+	\d	date (fri jul 21)
+	\n	newline
+	\w	current working dir
+	\W	basename of current working dir
+	\h 	hostname
+	$PS1=[\u@\h \W]\$	output -> 	[root@tp755cd root]
+	PS1='\d \t\n\h: \w\$ '	output -> 	Mon Oct 14 12:39:24
+						tp755cd: ~# 
+
+escaped char / characters
+	\n	newline
+	\r	return
+	\t	tab
+	\v	vertical tab / pipe
+	\b	backspace
+	\a	alert (beep or flash)
+	\0xx	translate to the octal ASCII equivalent of 0xx
+
+	\"	echo "\"Hello\", he said."
+	\$	echo "\$var"
+	\\	echo "\\"
+
+33333333333333333333333333333333333333333333333
+3. return codes and traps / trap conditional execution
+	cmd1 && cmd2	# if cmd1 is successful execute cmd2
+	rm -f file1 $$ echo file1 removed
+
+	cmd1 || cmd2	# if cmd2 is NOT successful, execute cmd2
+	who | grep kate || echo Kate logged off
+
+test cmd	test cmd is used for expression evaluation
+	syntax: test expresstion or [ expression ]
+	exp1 -a exp2	binary and operation
+	exp1 -o exp2	binary or operation
+	! exp		logical negation
+	\( \)		to group expressions
+
+test operators/ test file
+	-s 		file size > 0
+	-r		exist and readable
+	-w		exist and writable
+	-x		exist and executable
+	-u		exist and has the SUID bit set
+	-g		exist and has the SGID bit set
+	-k		exist and has the SVTX sticky bit set
+	-e		exist
+	-f		exist and is an ordinary file
+	-d 		exist and is a dir
+	-c		exist as a char special file
+	-b 		exist as a block special file
+	-p		exist and is a named pipe file
+	-L 		exist and is a sumbolic link
+
+numberic expressions
+	exp1 -eq exp2	equal
+	exp1 -ne exp2	not equal
+	exp1 -lt exp2	less than
+	exp1 -le exp2	less than or equal to
+	exp1 -gt exp2	greater than
+	exp1 -ge exp2 	greater than or equal to
+
+string expressions
+	-n str		str is non- zero in length
+	-z str		str is zero in length
+	str1 = str2	str1 is the same as str2
+	str1 != str2	not the same
+
+more shell test operations
+	file1 -ef file2		file1 is another name for file2
+	file1 -nt file2		file1 is newer than file2
+	file1 -ot file2		file1 is older than file2
+	-O file			exists and its owner is the effective uid
+	-G file			exists and its group is the effective gid
+	-S file			exists as socket special file
+	-t des	file descriptor des is open and associated w/ a term dev
+
+	str = pattern		
+	str = !pattern
+	str1 < str2
+	str1 > str2
+
+practice test
+	[ -s /etc/passwd -o -r /etc/group ]	
+	-> /etc/passwd size > 0 or /etc/group readable
+
+signal list
+	0	EXIT	issued when a process completes
+	1	HUP	reread the conf file
+	2	INT	interupt pressed (ctrl + c)
+	3	QUIT	quit key sequence pressed (ctrl + \)
+	9	KILL	terminate the process (CAN'T trap & ignore)
+	15	TERM	default kill cmd signal
+	18	CONT	continue if stopped- 
+	19	STOP	process suspend (ctrl + z)
+
+	stty quit ^t	change QUIT sequence to ctrl-t
+	stty tostop	for bg process that attempt to write to a term
+
+catching signals with traps
+	trap 'rm /tmp/$$; print signal; exit 2' 2 3	# process signal
+	trap '' INT QUIT		# ignore signals
+	trap - INT QUIT	 or trap 2 3	# reset signal processing
+	trap 				# list traps set
+
+44444444444444444444444444444444444444
+4. flow control
+
+if - then - else
+
+if example syntax / IF
+	if expression 1
+	then 
+		cmd to be executed if expression 1 is true.
+	elif expression 2
+	then 
+		cmd to be executed if exp 1 is false, and exp2 is true
+	elif expr3
+	then 
+		cmd to be exe if expr1 and expr2 are false, but exp3 is true
+	else
+		cmd to be exe if all expr are false
+	fi
+
+if sample / IF
+	#!/bin/bash
+	# Usage: goodbye username
+	#
+	if [ $# -ne 1 ]
+	then
+		echo "Usage is: goodbye username"
+		echo "Please try again."
+		exit 1
+	fi
+	userdel $1
+	echo "O.K., $1 is removed."
+
+	-----------------------------------------
+	when we run above cmd
+	$ goodbye
+	Usage is: goodbye username
+	$ goodbye pete
+	O.K., pete is removed.
+
+until syntax
+	until expr
+	do
+		cmd exe
+	done
+
+while syntax
+	while expr_of_condition
+	do
+		cmd exe
+		when expr is true
+	done
+	.........................................
+
+until loop / UNTIL
+	----------
+	$ until cc prog.c
+	> do
+	> vi prog.c
+	> done
+	$ _
+
+	while and until are reversed
+
+while true example / WHILE TRUE
+	------------------
+	#!/bin/bash
+	# An endless loop with a trap for INT QUIT (2, 3)
+	trap 'echo "hasta la vista - baby!"' 2 3
+	while true
+	do
+		echo "I'll be back."
+		sleep 10
+	done
+
+	$ forever
+	I'll be back.
+	I'll be back.
+	I'll be back.
+
+	ctrl-c
+
+	basta la vista - baby!
+	I'll be back.
+	...
+	(you have to kill it from another terminal)
+
+for loop syntax / FOR
+	.........................................
+	for identifier in word1 word2 ...
+	do
+		cmd using $identifier
+		more cmds
+	done
+	.........................................
+
+	for identifier
+	# equivalent to : for identifier in "$@"
+	do
+		cmds using $identifier which takes
+		values from the positional parameters
+	done
+	.........................................
+	
+for loop example / FOR
+	---------------
+	$ for file in *.tmp
+	> do
+	> rm -f $file
+	> done
+	$ _
+
+	----------------
+	#!/bin/bash
+	# getprice.sh - select price from "pricelist" file
+	# for each item entered on the cmd line
+	# Usage: getprice item1 item2 ...
+	#
+	for item
+	do
+		grep -i "$item" pricelist
+	done
+
+	$ getprice.sh "Shock Absorbers" "Air Filter"
+	Front Shock Absorbers	49.99
+	Rear Shock Absorbers	59.99
+	Air Filter		10.99
+	$_
+
+case statement syntax/ CASE
+	case word in
+	pattern1 | pattern2 | ...)
+		action	;;
+	*)	default	;;
+	esac   
+	.........................................
+
+	case $identifier in
+	pattern1)	cmd1
+			more cmds	;;
+	pattern2 | pattern3)	cmd	;;
+	*)			cmd	;;
+	esac		
+	.........................................
+
+case code example / CASE
+	#!/bin/bash
+	# Usage: match string
+	# To see how lucky you are feeling today
+	case "$1" in
+		Ace	)	echo "You're really close." 		;;
+		King	)	echo "Missed it by that much."		;;
+		Queen	)	echo "Finally!"				;;
+		Jack	)	echo "I hope you'll get it next time."	;;
+		*	)	echo "Guess again."			;;
+	esac
+
+select syntax
+	select identifier in word1 word2 ...
+	do
+		cmds using $identifier usually
+		containing a case statement
+	done
+	.........................................
+	select identifier
+	# equivalent to : select identifier in "$@"
+	do
+		cmds using $identifier from positional
+		param usually containing a case statement
+	done
+	.........................................
+
+select code example
+	#!/bin/bash
+	# Usage: barn.sh
+	PS3="Pick an animal: "
+	select animal in cow pig dog quit
+	do	
+		case $animal in
+		cow)	echo "Moo"	;;
+		pig)	echo "Oink"	;;
+		dog)	echo "Woof"	;;
+		quit)	exit		;;
+		'')	echo "Not in the barn"	;;
+		esac
+	done
+
+55555555555555555555555555555555555555
+5. shell commands/ shell cmd
+
+echo cmd
+	echo argument	print argument to standard output separated by space
+	echo -n arg	no trailing newline after output
+	echo -e arg	interpret \char escapes
+	echo -E arg	do not interpret \char escapes
+
+special echo char
+	\a	alarm
+	\b	backspace
+	\c	print w/o trailing newline= print -n
+	\f	form feed
+	\n	newline
+	\r	return
+	\t	tab
+	\v	vertical tab
+	\\	backslash
+	\xxx	char w/ octal code xxx
+
+echo example	echo -e 'One quarter = \274' 	-> 1/4
+
+6666666666666666666666666666666666666666
+6. arithmetic
+
+expr arithmetic
+	expr arg1 operator arg2 ...
+		run in subshell
+		writes result to standard output
+		exit code is 0 for non- zero evaluables
+		exit code is 1 for zero or null evaluations
+		exit code is >=2 if an expression is invalid
+
+expr arithmetic operators
+	( )	fix eval order
+	*	multi
+	/	integer devision
+	%	remainder
+	+	addition
+	-	subtract
+
+expr logic operators
+	=	!=	< 	<=	>	>=
+	expr LHS \& RHS		and- results in LHS if both size are non-zero
+	expr LHS \| RHS		or - evaluates to LHS if it's non-zero,
+otherwise to RHS
+
+expr examples
+	$ var1=6; $2=var2=3
+	$ expr $var1 / $var2	-> 2
+	$ expr $var1 - $var2 	-> 3
+	$ expr \( $var1 + $var2 \) \* 5		-> 45
+
+	expr 10 % 3		-> 1
+	expr 10 / 3		-> 3
+
+	expr abc \< def		-> 1 means true
+	expr 3 \>= 4		-> 0 means false
+	expr 5 != 4		-> 1
+
+	expr 10 \| 3		-> 10
+	expr 10 \& 1 + 0	-> 10
+
+let arithmetic operators
+	()	override normal precedence rules
+	example
+	$ z=2; y="z + 1"
+	$ x=$(( 3*y ))	or	let x=3*y
+	$ echo $x	-> 9
+
+base#number syntax
+	2#100 	in bin		= 4
+	8#33	in octal	= 27
+	16#b	in hex		= 11
+	16#aA 	in base16	= 42
+
+let arithmetic example
+	$ a=1
+	$ b=2
+	$ z=$(( 2#10 + -b ))	unary minus needs a space before it
+	$ let c=a+b d=b\*b	no spaces, but \ needed for *
+	$ e=$(( 9 / 2#10 ))	integer division
+	$ let 'e += a'		assignment: addition
+	$ echo $z $a $b $c $d $e	-> 0 1 2 3 4 5
+
+let logical operators	&& -> and		|| -> or
+	! logical negation	!= not equal
+	== equal to
+
+let Logical Examples
+	$ let 'p = 9'
+	$ let 'p = p * 6'
+	$ echo $p
+	$ 54
+
+	$ let 'p > 0 && p <= 10'
+	$ echo $?
+	1	# means incorrect return
+
+	$ q=100
+	let 'p < q || p == 5'
+	echo $?
+	1	# means correct return
+
+	$ if let ' p < q && p == 54'
+	> then 
+	> echo TRUE
+	> fi
+	TRUE
+
+bc - Mathematics - An arbitrary precision calculator language
+	bc [file]
+	(, ), +, -, *, /, %, =	# as for let arithmetic operators
+	==, !=, <, <=, >, >=	# as for let logical operators
+	x^y			# raise x to the power y
+	sqrt (x)		# squaure root
+	x++ ++x		# post and pre increment x
+	x-- --x		# post and pre decrement x
+	x op= y		x = x op y	# for +=, -=,*=, /=, %=, ^=
+
+	a library provides complext mathematical functions:
+	s(x)		sine of x
+	c(x)		cosine of x
+	e(x)		natural exponential of x
+	l(x)		natural log of x
+	a(x)		arctangent of x
+	j(n,x)		Bessel function
+
+	Precision functions:
+	length(n)	# of significant digits	eg. 123.456 has n=6
+	scale(n)	# of digits after decimal point eg. 123.456 has n=3
+
+	comments may be included using the /* comment */ C notation
+
+bc Examples
+	$ echo '1/4' | bc
+	0
+	$ echo 'scale = 3 ; 1/4' | bc
+	0.250
+	$ echo '5.5 * 2.2' | bc
+	12.1
+	$ bc
+	sqrt( 4 )
+	2
+	Ctrl-d
+	$ _
+
+7777777777777777777777777777777777777777777777
+7. types, fuctions and commands
+	Array examples
+	$ list=("Line 0" "Line 1")	# fill the array list
+	$ list[3]="Line 3"
+	$ echo $list			# print the zeroth element.
+	Line 0
+	$ echo ${list[*]}		# print all elements
+	Line 0 Line 1 Line 3
+	$ echo ${list[0]}		# print elecments individually
+	Line 0
+	$ echo ${list[1]}
+	Line 1
+	$ echo ${list[2]}		# null
+	
+	$ echo ${list[3]}
+	Line 3
+	$ echo $list[1]			# w/o {} notation,
+	Line 0[1]			  get "$list" + "[1]"
+	$ _
+
+	another array example
+	#!/bin/bash2
+	# Usage: pickacard:sh
+	# To choose a random card from a new deck
+	declare -i number=0
+	for suit in CLUBS DIAMONDS HEARTS SPACES
+		do
+		for n in ACE 2 3 4 5 6 7 8 9 JACK QUEEN KING
+			do
+				card[number]="$n of $suit"
+				number=number+1
+			done
+		done
+	echo ${card[RANDOM%52]}
+
+command substitution
+	bash	variable=$(cmd)
+
+	nesting is possible:
+		var=`cmd1 \ `cmd2 \\\ `cmd\\\` \` `
+		var=$(cmd1 $(cmd2 $(cmd3) ) )
+
+command substitution examples
+	$ d=$(date)
+	$ echo $d
+	
+	$ echo "Contents of a file" > tmp_file
+	$ c=`cat tmp_file`
+	$ r=$(< tmp_file)
+	$ echo "Cat: $c \n<: $r"
+	Cat: Contents of a file
+	<: Contents of a file
+
+	$ echo "Most recent file: $(ls -t | head -1)"
+	Most recent file: tmp_file
+
+	$ arg1=1 ; arg2=2
+	$ answer=$(expr $arg2 \* $(expr $arg1 + 3) )
+	$ echo $answer
+	8
+
+function examples
+	$ function cd
+	> (
+	>	builtin cd "$@"		- builtin stops recursion
+		PS1="`pwd` " "		- PS1 is set to "/tmp:"
+	> )
+	$ cd /tmp
+	/tmp : cd /
+	/ : _
+
+ending functions
+	unset -f functionname
+
+declare examples
+	$ declare -ia a2[1]	integer array
+	$ a2=52
+	$ a2[1]=25
+	$ bash2			another shell
+	$ echo $a2 $(a2[1])
+				no array elements are exported
+	$ _
+
+declare with functions examples
+	$ declare -f 		lists functions in full
+	declare -f list ()
+	(
+		while [ "$1" != "X" ]
+		do
+			echo $1
+			shift 1
+		done
+	)
+	$ typeset -xf list 	export the list function
+	$ typeset -f list	lists amended function
+	declare -xf list ()
+	{
+		...		# fnction body in here
+	}
+	$ _
+
+alias and unalias
+	$ x=10
+	$ alias px="echo $x" rx='echo $x'
+	$ x=100
+	$ px			# echoes $x as it was
+	10
+	$ rx			# echoes the latest $x
+	100
+	$ alias od=done
+	$ for i in lazy done
+	> do
+	> 	echo $i
+	> od
+	lazy
+	done
+
+hashing
+	set -d or set -o nohash
+	hash command	# must be in PATH
+	hash -r		# delete
+
+type command
+	$ type -t vi
+	file
+	$ type vi
+	vi is /bin/vi
+	$ type echo
+	echo is a shell builtin
+	$ type ll
+	ll is aliased to `ls -l'
+	$ type for
+	for is a shell keyword
+	$ _
+
+888888888888888888888888888888888888888888
+8. more on shell variables
+	${variable:-word}	value is word if variable is unset (use default)
+	${variable:=word}	value is word if variable is unset and assigns 
+				word to variable if it is unset
+	${variable:+word}	value is null if variable is unset, else
+				value is word (use alternative value)
+	${variable:?word}	if variable is unset, word is displayed
+				on standard error and the shell script or
+				function terminates with a non- zero exit code
+
+some simple examples
+	to assign the value of TERM_DEF to TERM if it is unset or null:
+		TERM_DEF=linux
+		...
+		echo "TERM set as ${TERM:=$TERM_DEF}"
+
+	echo date and time using cmd subst, or what was set earlier
+	(don't allow null date):
+		echo ${date:-$(date)}
+	
+	using the alternate value "1" if variable has a value:
+		var_flag=${var:+1}
+
+	to exit the script if positional param 3 was not given (can be null)
+		${3?"No param 3? exiting"}
+
+bash shell sub-strings
+	${variable#pattern}	remove smallest matching left
+				pattern from variable
+	${variable##pattern}	removes the largest matching left pattern
+	${variable%pattern}	removes the smallest right matching pattern
+	${variable%%pattern}	removes the largest matching right pattern
+
+	       ##			*match
+	       #		
+	variable="string match and match again"
+				  	      %
+	       match*			      %%
+
+	bash shell sub-string examples
+		variable="Now is the time"
+		echo ${variable#N*i}	shortest left
+		s the time
+
+		echo ${variable##N*i}	longest left
+		me
+
+		echo ${variable%time}	shortest right
+		Now is the
+
+		echo ${variable%%t*e}	longest right
+		Now is
+
+	here's a function to strip out the file name from its path and print
+		function base
+		{
+			echo ${1##*/}	
+		}
+
+variable length
+	to find the number of char in a variable
+		${#variable}
+	the number of positional param is
+		${#*} 	or	${#@}
+	for the # of elements set in an array 
+	(not the highest elements subscript)
+		${#array[*]}	or	${#array[@]}
+
+tilde expansions
+	~		$HOME	# name TILT/ tilt
+	~+		PWD
+	~-		OLDPWD
+	~user_name	$HOME of user
+	~other_text	will be left alone
+
+	examples
+	chris=~chris	chris=/home/chris
+
+999999999999999999999999999999999999999999999999999
+9. regular expressions and text selection utilities
+
+	sample data file	
+	cat phone.list
+	
+	Terrell, Terry		617-7989
+	Franklin, Francis	704-3876
+	Patterson, Pat		614-6122
+	Robinson, Robin		411-3745
+	Christopher, Chris	305-5981
+	Martin, Marty		814-5587
+	Llewellyn, Lynn		316-6221
+	Jansen, Jan		903-3333
+	Llewellyn, Lee		817-8823
+
+regular expression matacharacters
+	.		any single char
+	[AZ]		one of A or Z
+	[^AZ]		any char not A or Z
+	[A-Z]		any char in range A to Z
+	[-AZ]		one of -, A or Z
+	[0-9]		any digit 0- 9
+
+extending the pattern	-> 2 ways: anchors and multipliers
+
+	anchors are
+	^		matches beginning of line
+	$		matches end of line
+
+	multiplier apply to patterns.
+	*		zero or more occurences of previous pattern
+	?		zero or one occurence of previous pattern
+	+		one or more occurences of previous pattern
+	{m,n}		at least m and no more than n occurences of 
+			previous pattern (a.k.a. "quoted braces")
+
+quoted braces
+	to specify the # of consecutive occurences
+	syntax 1:	regular_expression\{min, max\}
+	
+	eg. grep '[345]\{2,4\}' phone.list
+	to look for 2, 3, or 4 occurrences of any combination of the 
+	chars 3,4, and 5 consecutively
+
+	a\{4,5\}	says look for 4 or 5 repeats of char "a"
+	.\{6,7\}	look for 6 to 7 occurrences of any char
+	ab\{4,5\}	look for an "a" followed by 4 or 5 "b"s.
+
+	syntax 2: 	regular_expr\{exact\}
+	eg. grep 'r\{2\}' phone.list
+	look for any lines which have 2 consecutive "r" chars
+
+	syntax 3: 	regular_expr\{min,\}
+	eg. grep 'er\{2,\}' phone.list
+	look for any lines w/ at least 2 consecutive "r" chars preceded
+	by an "e"
+
+quoted prentheses
+	syntax:		\(regular expr\)
+
+	eg.
+	\(.\) = any single char 
+	\(.\)\1 = any single char put into register "\1". so identifies
+		a two- char sequence where both chars are the same.
+
+grep cmd
+	-v	print lines that do NOT match
+	-l	print only the names of the files with matching lines
+	-n	# of the matching lines
+	-w 	do a whole word search
+
+	ls -l | grep '^d'	# display directory
+	grep -n '.*' /etc/passwd > /tmp/tmp.passwd	
+				# pring all lines and add line #
+	egrep '^b(i|o)' /file	# begin either w/ bi or bo
+
+tr for translations
+	tr LISTIN LISTOUT < in_file > out_file		or
+	tr -d LISTIN < in_file > out_file
+	w/ -d = char in LISTIN will be deleted
+
+	echo $HOME tr "/" "-"
+	echo "{{[...]}}" | tr "{}" "()"	-> (([...]))
+	echo "Lower" | tr "[a-z]" "[A-Z]" -> LOWER
+	echo "TOP" | tr '[:upper:]' '[:lower:]'	-> top
+
+	echo "vowels and consonants" | tr -d aeiou
+	-> vwls nd cnsnnts
+
+	tr -d '\015' < dos_txt_file > lx_txt_file
+
+cut cmd
+	cut -dS -s -flist [file]
+	cut -cLIST [file]
+
+	-dS	where S is the char to take as a delimiter
+	-s	w/ -dS	suppresses lines that do not contains delimiters
+	-fLIST	specifies a LIST of fields to cut out and keep
+	-cLIST	is a LIST of columns to cut (char postions)
+	
+cut examples
+	cut -d: -f1,3 /etc/passwd | head -3
+	-> 	root:0
+		bin:1
+		daemon:2
+
+	cat /etc/passwd | cut -d'*' -s -f1
+	df | cut -c6-10 | tail +2
+	
+	$ text="Linux by Linus Torvalds is the King O.S."
+	$ echo $text | cut -c10-15,25-35
+	-> Linus is the King
+
+paste cmd
+	paste cmd is complementary to the cut cmd.
+	paste -dS file1 file2 ... > joined_file
+	
+
+1010101010101010101010101010101010
+10. util for personal productivity
+
+sed
+	sed 'SELECTION edit-instruction'
+	SELECTION can be
+		1	= line 1 of the input
+		$	= last line of the input
+		5, $	= from line 5 to last line
+		/string/	= selects all lines containing "strings"
+		/^on/,/off$/	= from the first line begining w/ "on"
+				  to the first ending in "off"
+
+sed examples
+	to precede each phone number w/ "Tel:"
+		sed '/[0-9]\{3\}-[0-9]\{4\}/s//Tel: &/g' phone.list
+		$ = redisplay what was previously matched.
+
+	echo "1234" | sed 's/^\(.\)/\1\1/'	-> 11234
+	#			^    ^ ^
+	# any single char to register 1 +, then display register 1 + register 1 repeat		
+
+
+	echo "1234" | sed 's/^\(.\)*\(.\)$/\1\2/'	-> 34
+
+	echo "1234" | sed 's/^\(.\).*\(.\)$/\1\2/'	-> 14
+                                ^      ^     ^ ^
+	# char to register 1+ char to register 2+, then display register 1+ 2
+	# register number seems to be position number
+
+Linux crontab sample file
+	SHELL=/bin/sh
+	# mail any output to `paul', no matter whose crontab this is
+	MAILTO=paul
+	#
+	# run five minutes after midnight, every day
+	5 0 * * *       $HOME/bin/daily.job >> $HOME/tmp/out 2>&1
+	# run at 2:15pm on the first of every month -- output mailed to paul
+	15 14 1 * *     $HOME/bin/monthly
+	# run at 10 pm on weekdays, annoy Joe
+	0 22 * * 1-5   mail -s "It's 10pm" joe%Joe,%%Where are your kids?%
+	23 0-23/2 * * * echo "run 23 minutes after midn, 2am, 4am ..., everyday"
+	5 4 * * sun     echo "run at 5 after 4 every sunday"
+
+	min 	hour 	day 	month 	weekday
+	0-59	0-23	1-31	1-12	0-6
+
+awk	build-in variables
+	NF	total number of fields in the current record
+	NR	number of records encountered
+	FS	Input field separator (default is space or tab)
+	RS	Input record separator (default is newline)
+	OFS	Output field separator (default is space)
+	ORS	Output record separator (default is newline)
+
+	example 1
+	$ cat employee.list
+	Name, company, city, phone
+	Pete Davis, IBM, Augusta, 770-835-1234
+	Bill Moran, IBM, Gaithersburg, 301-123-1234
+	Tommy Todd, IBM, Atlanta, 770-234-2345
+
+	$ awk 'BEGIN { FS = "," ; OFS = ":"} {print $1, $4}' employee.list
+	Name: phone
+	Pete Davis: 770-835-1234
+	Bill Moran: 301-123-1234
+	Tommy Todd: 770-234-2345
+
+	example 2
+	$ cat authors.txt
+	R.S. Davis
+	Augusta, GA 30809
+	770-835-1234
+
+	F.W. Moran
+	Altanta, GA 30339
+	770-835-2345
+
+	$ awk 'BEGIN { FS="\n" ; RS="\n\n" ; OFS="\n" ; ORS="\n\n"} {print $1 $3}' authors.txt
+	R.S. Davis
+	770-835-1234
+
+	F.W. Moran
+	770-835-2345
+
+	if - else if - else Statement
+	awk '{
+		if (1st logical test)	{
+			action if test true
+		}
+		else if (2nd logical test)	{
+			action if 1st test false and
+			2nd test true
+		}
+		else	{
+			action if both tests false
+		}
+	      }' file
+
+
+	example
+	awk '{
+		{ if ($2 == "Terry")
+			print $2 ", " $1 "--" $3
+		}
+	     }' phone.list
+
+
+	The while Loop
+	awk '	{
+		while	(condition)	{
+			action
+		}
+		}' file
+
+	example
+	awk '{
+		i=1
+		while	(i <= 4)	{
+			print $i
+			i++
+		}
+		}' file
+
+	To read and print each field of the current line
+		for (i=1; i<=NF; i++)
+			print $i
+
+	To print from the last field to the first of the current line
+		for (i=NF; i>=1; i--)
+			print $i
