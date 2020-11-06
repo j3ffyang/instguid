@@ -2796,6 +2796,11 @@ chcon - change security context
 	# scenario: Apache doesn't display TARGET_FILE even it has right permission set
 	chcon -R -t httpd_sys_content_t TARGET_FILE
 
+
+fail2ban
+	sudo fail2ban-client status
+	sudo fail2ban-client status sshd
+
 ###############################################################################
 ###############################################################################
 
