@@ -4345,6 +4345,24 @@ gitgitgitgit
 	git log --graph --decorate --oneline
 	git reset --hard bf92f59
 
+	# tidy up / clean up / thin
+	# list top 10 large files
+	git rev-list --objects --all | grep -f <(git verify-pack -v .git/objects/pack/*.idx| sort -k 3 -n | cut -f 1 -d " " | tail -10)
+
+	# git maintenance and data recovery
+	https://git-scm.com/book/en/v2/Git-Internals-Maintenance-and-Data-Recovery
+	
+	git gc --auto
+	find .git/refs -type f
+	cat .git/packed-refs
+
+	git log --pretty=oneline
+	git reset --hard 1a410efbd13591db07496601ebc7a059dd55cfe9
+	git reflog
+	git log -g
+
+	
+
 atomatomatom atom-editor installing plugin
 	markdown-toc vim-mode markdown-pdf markdown-preview-enhanced mscgen-preview
 
