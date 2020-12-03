@@ -1920,6 +1920,7 @@ convert (add) a seperate key and certificate to a new keystore of type PKCS#12 f
 you can repeat the combination of "-CAfile" and "-caname" for each intermediate certificate
 
 
+ref > https://www.sslshopper.com/article-most-common-openssl-commands.html
 check a private key
 	openssl rsa -in MYKEY.key -check
 	add -noout to not disclose the key
@@ -3734,8 +3735,17 @@ debian disable auto-sleep
   systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
   systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
 
-reduce pdf in size
+reduce pdf in size | resize pdf 
   ps2pdf input.pdf output.pdf
+
+  gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen \
+	-dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf input.pdf
+
+	-dPDFSETTINGS=/screen   (screen-view-only quality, 72 dpi images)
+	-dPDFSETTINGS=/ebook    (low quality, 150 dpi images)
+	-dPDFSETTINGS=/printer  (high quality, 300 dpi images)
+	-dPDFSETTINGS=/prepress (high quality, color preserving, 300 dpi imgs)
+	-dPDFSETTINGS=/default  (almost identical to /screen)
 
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
@@ -4351,7 +4361,7 @@ gitgitgitgit
 
 	# git maintenance and data recovery
 	https://git-scm.com/book/en/v2/Git-Internals-Maintenance-and-Data-Recovery
-	
+
 	git gc --auto
 	find .git/refs -type f
 	cat .git/packed-refs
@@ -4361,7 +4371,7 @@ gitgitgitgit
 	git reflog
 	git log -g
 
-	
+
 
 atomatomatom atom-editor installing plugin
 	markdown-toc vim-mode markdown-pdf markdown-preview-enhanced mscgen-preview
