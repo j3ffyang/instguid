@@ -2384,6 +2384,12 @@ ssh-keygen
 	ssh-keygen -lf ~/.ssh/id_rsa.pub
 	ssh-keygen -E md5 -lf ~/.ssh/id_rsa.pubkeyauthentication
 
+	# add passphrase
+	ssh-keygen -p
+
+	# check available keys
+	for key in ~/.ssh/id_*; do ssh-keygen -l -f "${key}"; done | uniq
+
 ssh-keygen # convert the ssh2-format key to openssh
     ssh-keygen -i -f ssh2.pub
 
