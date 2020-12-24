@@ -2308,20 +2308,6 @@ rpm integrity check
 	rpm -V rpm
 	rpm -V setup		/etc/passwd, group
 
-Linux nessus
-	nmap cmd line	nmap -sT -O localhost
-
-	nessus-mkcert	# create cert
-	nessus-adduser
-	nessus-fetch --register xxxx-xxxx-xxxx-xxxx-xxxx
-	nessus-fetch --plugins
-	cd /var/lib/nessus ; mkdir plugins ; cd plugins; tar -xzvf all-2.0.tar.gz
-	cd /var/lib/nessus ; touch nessus-services
-	nessusd -D	# start daemon
-
-	# scan udp port
-	nmap –sU –p 161 192.168.1.1
-
 Linux Ethereal/ ethereal
 	http://www.ethereal.com/distribution/ -> download to /download
 	cd /usr/src-> tar -xzvf /download/ethereal-version.tar.gz
@@ -2808,6 +2794,28 @@ chcon - change security context
 fail2ban
 	sudo fail2ban-client status
 	sudo fail2ban-client status sshd
+
+	sudo zgrep 'Ban' /var/log/fail2ban.log*
+
+Linux nessus
+	nmap cmd line	nmap -sT -O localhost
+
+	nessus-mkcert	# create cert
+	nessus-adduser
+	nessus-fetch --register xxxx-xxxx-xxxx-xxxx-xxxx
+	nessus-fetch --plugins
+	cd /var/lib/nessus ; mkdir plugins ; cd plugins; tar -xzvf all-2.0.tar.gz
+	cd /var/lib/nessus ; touch nessus-services
+	nessusd -D	# start daemon
+
+	# scan udp port
+	nmap -sU -p 161 192.168.1.1
+
+	nmap -sS -T4 -p [tcp_port1,tcp_port2,etc] --script vuln [IP_addr/IP_range]
+	nmap -sU -T4 -p [udp_port1,udp_port2,etc] --script vuln [ip_addr/ip_range]
+
+massscan | masScan
+	sudo masscan -p 1-65535,--U:1-65535 [IP_addr/IP_range] -e [network_interface]
 
 ###############################################################################
 ###############################################################################
