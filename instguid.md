@@ -2814,8 +2814,14 @@ Linux nessus
 	nmap -sS -T4 -p [tcp_port1,tcp_port2,etc] --script vuln [IP_addr/IP_range]
 	nmap -sU -T4 -p [udp_port1,udp_port2,etc] --script vuln [ip_addr/ip_range]
 
-massscan | masScan
+masscan | masScan
 	sudo masscan -p 1-65535,--U:1-65535 [IP_addr/IP_range] -e [network_interface]
+
+masscan example
+	export ip=172.16.52.200; sudo masscan $ip --top-ports 100 > $ip.txt
+
+	cat $ip.txt | cut -d/ -f1 | awk '{print $4}' > $ip.port; echo $ip; cat $ip.port
+
 
 ###############################################################################
 ###############################################################################
