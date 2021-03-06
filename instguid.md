@@ -616,6 +616,9 @@ hard drive / hard disk / hdd performance
 	# Get the current status of hard drive
 	hdparm -Tt /dev/hda
 
+	# Check perf performance
+	hdparm -Ttv /dev/hda
+
 	# Set up
 	hdparm -c1 -d1 -m16 /dev/hda
 	-c1		# turn on 32bit i/o on pci bus
@@ -2149,6 +2152,10 @@ mount encrypt / crypt disk / luks
 	umount /media/xxx/pool
 	udisksctl mount -b /dev/mapper/luks-931b8221-2851-4e51-8919-0d4f7634be3b
 
+cryfs  https://www.cryfs.org/tutorial
+	cryfs basedir mountdir	# eg. cryfs basedir Downloads
+	cryfs-unmount mountdir	# fusermount -u mountdir on cryfs 0.9
+
 PAM control / pam control
 	login time control	/etc/pam.d/login -> add 'auth required /lib/security/pam_time.so
 	change ftp to passwd change shell /etc/pam.d/ftp -> # pam_shells.so
@@ -2552,6 +2559,9 @@ ssh openssh hardening and auditing
 
 
 sslh    # share a same port for https, ssh and openvpn with openssl
+
+sshuttle ssh tunnel tunneling ssh_vpn ssh vpn
+  sudo sshuttle -r u0@49.4.26.136 -x REMOTE_IP 0/0 -vv
 
 openvpnopenvpnopenvpn
 
@@ -3582,6 +3592,9 @@ curl with proxy behind proxy
 wget behind proxy (use https_proxy if target is https)
   wget -e use_proxy=yes -e https_proxy=http://[proxy_srv]:3128 https://target
 
+apt-get using ipv4 IPv4
+	apt-get -o Acquire::ForceIPv4=true update
+
 pidgin
 	apt-get install pidgin	# sametime replacement
 	cd ~/.purple; vi accouns.xml -> change fake_client_id = 1
@@ -3756,7 +3769,7 @@ debian disable auto-sleep
   systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
   systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
 
-reduce pdf in size | resize pdf 
+reduce pdf in size | resize pdf
   ps2pdf input.pdf output.pdf
 
   gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen \
