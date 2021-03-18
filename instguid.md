@@ -2561,7 +2561,11 @@ ssh openssh hardening and auditing
 sslh    # share a same port for https, ssh and openvpn with openssl
 
 sshuttle ssh tunnel tunneling ssh_vpn ssh vpn
-  sudo sshuttle -r u0@49.4.26.136 -x REMOTE_IP 0/0 -vv
+  sshuttle -r user@remote-ip 0.0.0.0/0 --dns -vv	# dns from remote
+
+	# checking public ip
+	curl -s http://ifconfig.me
+	wget -O - -q http://whatismyip.org/
 
 openvpnopenvpnopenvpn
 
@@ -3780,6 +3784,39 @@ reduce pdf in size | resize pdf
 	-dPDFSETTINGS=/printer  (high quality, 300 dpi images)
 	-dPDFSETTINGS=/prepress (high quality, color preserving, 300 dpi imgs)
 	-dPDFSETTINGS=/default  (almost identical to /screen)
+
+nvidia rtx3070 on debian buster 10.7  # gamebox #gamer
+  download driver from https://www.nvidia.com/en-us/drivers/results/170804/ up to 20210318
+  apt search linux-headers-$(uname -r); sudo apt install linux-headers-5.10.0 # kernel source
+
+intel ax201 wifi wireless # gamebox gamer backport back-port
+  update kernel to 5.10 through back-port repo (personal experience)
+  update linux-firmware
+    jeff@gamer:~$ dpkg -l | grep firmware | awk '{print $2,$3}'
+    amd64-microcode 3.20181128.1
+    firmware-amd-graphics 20200918-1~bpo10+1
+    firmware-iwlwifi 20200918-1~bpo10+1
+    firmware-linux 20200918-1~bpo10+1
+    firmware-linux-free 3.4
+    firmware-linux-nonfree 20200918-1~bpo10+1
+    firmware-misc-nonfree 20200918-1~bpo10+1
+    fwupd-amd64-signed 1.2.13+2
+    intel-microcode 3.20201118.1~bpo10+1
+  download driver from https://www.intel.com/content/www/us/en/support/articles/000005511/wireless.html
+  unzip and cp code into /lib/firmware
+
+  install latest backport iwlwifi
+    > https://askubuntu.com/questions/1156167/unable-to-get-wifi-adapter-working-clean-19-04-install-network-unclaimed/
+    sudo apt update
+    sudo apt install git build-essential
+    git clone https://git.kernel.org/pub/scm/linux/kernel/git/iwlwifi/backport-iwlwifi.git
+    cd backport-iwlwifi/
+    make defconfig-iwlwifi-public
+    sed -i 's/CPTCFG_IWLMVM_VENDOR_CMDS=y/# CPTCFG_IWLMVM_VENDOR_CMDS is not set/' .config
+    make -j4
+    sudo make install
+    sudo modprobe iwlwifi
+
 
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
