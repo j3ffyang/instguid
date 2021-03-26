@@ -2188,10 +2188,6 @@ sudo	-> visudo -> # Uncomment to allow people in group wheel to runa all command
 Linux interface specific options are in
 	/proc/sys/net/ipv4/conf/<interface-name>
 
-Linux Firewall/ firewall machine setup. Filesystem/ partition size
-	/ 190, /boot 3, /var 30  /home 1  /usr 250  /tmp 20  swap 36 -> actual usage in tp755cd
-	/ 1500 /boot 50 /var 400 /home 100 /usr 4500 /tmp 300 /opt 1500 -> penguinsecurity
-
 Linux firewall log. put below line into /etc/syslog.conf-> service syslogd restart
 	kern.info /var/log/firewall
 	# all error and warning msg logged
@@ -2785,15 +2781,7 @@ su - root control
 
 	wheel/ WHEEL group is BSD flavor, vs. AIX it's AUDIT group w/ gid 10.
 
-Home machine securing
-	dhcpd.conf
-	iptables firewall+ nat, chkconfig --level 2345 firewall.iptables on
-	chkconfig --level 2345 sendmail etc off
-	sshd_config -> PermitRootLogin no + Protocol 2
-	wheel/ /etc/pam.d/su
-	chattr +i passwd group shadow gshadow services
-	chmod 700 /bin/rpm, chmod -R 700 /etc/rc.d/init.d
-
+	thinkpad 701c
 	TP701C Video config: Chips&Tech, CT65545, 50-90 Hz, 640x 480
 
 file permission		1755	-> sticky
@@ -2835,6 +2823,29 @@ masscan example
 	export ip=172.16.52.200; sudo masscan $ip --top-ports 100 > $ip.txt
 
 	cat $ip.txt | cut -d/ -f1 | awk '{print $4}' > $ip.port; echo $ip; cat $ip.port
+
+firewalld firewall-cmd
+	firewall-cmd --get-default-zone
+	firewall-cmd --get-active-zones
+	firewall-cmd --get-zones
+	firewall-cmd --set-default-zone=work
+
+	firewall-cmd --zone=public --list-all
+
+	firewall-cmd --zone=public --list-services
+	firewall-cmd --zone=public --get-services
+	firewall-cmd --zone=public --list-ports
+
+	firewall-cmd --permanent --zone=public --add-service=https	# --remove-service
+	firewall-cmd --permanent --zone=public --add-port=12345/udp	# --remove-port
+
+	firewall-cmd --reload
+
+	firewall-cmd --zone=public --add-masquerade --permanent
+	firewall-cmd --zone=public --query-masquerade 
+	cat /proc/sys/net/ipv4/ip_forward
+
+	firewall-cmd --zone=external --add-forward-port=port=22:proto=tcp:toport=22:toaddr=192.168.0.31
 
 
 ###############################################################################
