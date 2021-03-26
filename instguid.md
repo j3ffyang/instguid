@@ -2561,7 +2561,7 @@ ssh openssh hardening and auditing
 sslh    # share a same port for https, ssh and openvpn with openssl
 
 sshuttle ssh tunnel tunneling ssh_vpn ssh vpn
-  sshuttle -r user@remote-ip 0.0.0.0/0 --dns -vv	# dns from remote
+  sshuttle -r user@remote-ip 0/0 --dns -vv	# dns from remote
 
 	# checking public ip
 	curl -s http://ifconfig.me
@@ -3991,12 +3991,12 @@ turn on remotelogin
 turn on firewall
     system pref > security & privacy
 
-    brew cask install tunnelblick
     brew install bash-completion
     brew install docker-completion
     brew install docker-compose-completion
     brew install iproute2mac
-    brew cask install chromium
+    brew install --cask chromium
+    brew install --cask tunnelblick
 
 other install > iterm2 python
 
@@ -4031,6 +4031,12 @@ dock with stuck progress bar
 restart sshd
   sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist
   sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
+
+macports install 
+  download pkg > https://www.macports.org/install.php
+  
+sshuttle by port macports
+  port install sshuttle
 
 macmacmacmac
 
