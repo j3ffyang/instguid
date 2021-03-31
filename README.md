@@ -2557,7 +2557,8 @@ ssh openssh hardening and auditing
 sslh    # share a same port for https, ssh and openvpn with openssl
 
 sshuttle ssh tunnel tunneling ssh_vpn ssh vpn
-  sshuttle -r user@remote-ip 0/0 --dns -vv	# dns from remote
+  sshuttle -r user@remote-ip 0/0 --dns -vv			# dns from remote
+  sshuttle -r user@remote-ip 0/0 --dns -x=10.163.73.0/24	# execlude such subnet
 
 	# checking public ip
 	curl -s http://ifconfig.me
