@@ -2843,7 +2843,7 @@ firewalld firewall-cmd
 	firewall-cmd --reload
 
 	firewall-cmd --zone=public --add-masquerade --permanent
-	firewall-cmd --zone=public --query-masquerade 
+	firewall-cmd --zone=public --query-masquerade
 	cat /proc/sys/net/ipv4/ip_forward
 
 	firewall-cmd --zone=external --add-forward-port=port=22:proto=tcp:toport=22:toaddr=192.168.0.31
@@ -4003,12 +4003,19 @@ turn on remotelogin
 turn on firewall
     system pref > security & privacy
 
-    brew install bash-completion
-    brew install docker-completion
-    brew install docker-compose-completion
-    brew install iproute2mac
-    brew install --cask chromium
-    brew install --cask tunnelblick
+mac:~ jeff$ brew list
+    ==> Formulae
+    bash			gdk-pixbuf		icu4c			libtiff			lz4			pango			tcl-tk
+    bash-completion		gettext			iproute2mac		libtool			lzo			pcre			v2ray
+    cairo			glib			jasper			libx11			mpdecimal		pixman			watch
+    fontconfig		gobject-introspection	jpeg			libxau			ncurses			pkcs11-helper		webp
+    freetype		graphite2		libffi			libxcb			netpbm			pkg-config		wireguard-go
+    fribidi			graphviz		libpng			libxdmcp		openjdk			python@3.9		wireguard-tools
+    gd			gts			libpthread-stubs	libxext			openssl@1.1		readline		xorgproto
+    gdbm			harfbuzz		librsvg			libxrender		openvpn			sqlite			xz
+
+    ==> Casks
+    atom              chromium          firefox           google-chrome     iterm2            macfuse           microsoft-teams   tunnelblick       veracrypt         vlc
 
 other install > iterm2 python
 
@@ -4044,9 +4051,9 @@ restart sshd
   sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist
   sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
 
-macports install 
+macports install
   download pkg > https://www.macports.org/install.php
-  
+
 sshuttle by port macports
   port install sshuttle
 
