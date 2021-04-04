@@ -4522,6 +4522,8 @@ gitgitgitgit
 	nothing to commit, working tree clean
 	mac:knative jeff$
 
+	> ref > https://stackoverflow.com/questions/11542687/git-how-to-ignore-all-present-untracked-files
+
 
 atomatomatom atom-editor installing plugin
 	markdown-toc vim-mode markdown-pdf markdown-preview-enhanced mscgen-preview
