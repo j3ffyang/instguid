@@ -4468,6 +4468,60 @@ gitgitgitgit
 	git log -g
 
 
+	# reset HEAD; untrack; 
+
+	mac:knative jeff$ git status
+	On branch master
+	Your branch is up to date with 'origin/master'.
+	
+	Changes to be committed:
+	  (use "git restore --staged <file>..." to unstage)
+		new file:   knative_eventing_webhook
+		new file:   knative_im-controller
+		...
+	
+	mac:knative jeff$ git status | grep "new file:" | awk '{print $3}'
+	knative_eventing_webhook
+	knative_im-controller
+	
+	mac:knative jeff$ for i in `git status | grep "new file:" | awk '{print $3}'`; do git reset HEAD $i; done
+	mac:knative jeff$ git status
+	On branch master
+	Your branch is up to date with 'origin/master'.
+	
+	Untracked files:
+	  (use "git add <file>..." to include in what will be committed)
+		knative_eventing_webhook/
+		knative_im-controller/
+	
+	nothing added to commit but untracked files present (use "git add" to track)
+
+	mac:knative jeff$ git status -uno
+	On branch master
+	Your branch is up to date with 'origin/master'.
+	
+	nothing to commit (use -u to show untracked files)
+
+	mac:knative jeff$ git status
+	On branch master
+	Your branch is up to date with 'origin/master'.
+	
+	Untracked files:
+	  (use "git add <file>..." to include in what will be committed)
+		knative_eventing_webhook/
+		knative_im-controller/
+	
+	nothing added to commit but untracked files present (use "git add" to track)
+
+	# gitignore
+	mac:knative jeff$ git status --porcelain | sed -n -e 's/^?? //p' >> .gitignore
+	mac:knative jeff$ git status
+	On branch master
+	Your branch is up to date with 'origin/master'.
+	
+	nothing to commit, working tree clean
+	mac:knative jeff$
+
 
 atomatomatom atom-editor installing plugin
 	markdown-toc vim-mode markdown-pdf markdown-preview-enhanced mscgen-preview
