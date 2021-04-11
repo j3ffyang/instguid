@@ -4460,6 +4460,35 @@ markdownmarkdown
     apt install pandoc texlive texlive-plain-generic texlive-latex-recommended texlive-latex-extra
 
 gitgitgitgit
+
+# clean/ remove "Untracked files"
+mac:k8sdeploy_clusters_apac jeff$ git status
+On branch tdg
+Your branch is up to date with 'origin/tdg'.
+
+Untracked files:
+(use "git add <file>..." to include in what will be committed)
+stp/
+
+nothing added to commit but untracked files present (use "git add" to track)
+mac:k8sdeploy_clusters_apac jeff$ git clean -d -f -f
+Removing stp/
+mac:k8sdeploy_clusters_apac jeff$ git status
+On branch tdg
+Your branch is up to date with 'origin/tdg'.
+
+nothing to commit, working tree clean
+mac:k8sdeploy_clusters_apac jeff$ ls -la
+total 8
+drwxr-xr-x   7 jeff  staff  224 11 Apr 13:35 .
+drwxr-xr-x  19 jeff  staff  608 11 Apr 13:13 ..
+drwxr-xr-x  15 jeff  staff  480 11 Apr 13:35 .git
+drwxr-xr-x   4 jeff  staff  128 11 Apr 13:35 Docs
+-rw-r--r--   1 jeff  staff  599  9 Apr 18:15 README.md
+drwxr-xr-x   3 jeff  staff   96  9 Apr 18:15 infrastructure
+drwxr-xr-x   7 jeff  staff  224 11 Apr 13:35 tdg
+
+
 	git config --list
 
 	git config --global core.editor vim
@@ -4491,49 +4520,49 @@ gitgitgitgit
 	git log -g
 
 
-	# reset HEAD; untrack; 
+	# reset HEAD; untrack;
 
 	mac:knative jeff$ git status
 	On branch master
 	Your branch is up to date with 'origin/master'.
-	
+
 	Changes to be committed:
 	  (use "git restore --staged <file>..." to unstage)
 		new file:   knative_eventing_webhook
 		new file:   knative_im-controller
 		...
-	
+
 	mac:knative jeff$ git status | grep "new file:" | awk '{print $3}'
 	knative_eventing_webhook
 	knative_im-controller
-	
+
 	mac:knative jeff$ for i in `git status | grep "new file:" | awk '{print $3}'`; do git reset HEAD $i; done
 	mac:knative jeff$ git status
 	On branch master
 	Your branch is up to date with 'origin/master'.
-	
+
 	Untracked files:
 	  (use "git add <file>..." to include in what will be committed)
 		knative_eventing_webhook/
 		knative_im-controller/
-	
+
 	nothing added to commit but untracked files present (use "git add" to track)
 
 	mac:knative jeff$ git status -uno
 	On branch master
 	Your branch is up to date with 'origin/master'.
-	
+
 	nothing to commit (use -u to show untracked files)
 
 	mac:knative jeff$ git status
 	On branch master
 	Your branch is up to date with 'origin/master'.
-	
+
 	Untracked files:
 	  (use "git add <file>..." to include in what will be committed)
 		knative_eventing_webhook/
 		knative_im-controller/
-	
+
 	nothing added to commit but untracked files present (use "git add" to track)
 
 	# gitignore
@@ -4541,7 +4570,7 @@ gitgitgitgit
 	mac:knative jeff$ git status
 	On branch master
 	Your branch is up to date with 'origin/master'.
-	
+
 	nothing to commit, working tree clean
 	mac:knative jeff$
 
