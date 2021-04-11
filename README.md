@@ -4044,6 +4044,29 @@ docker-completion docker completion     # https://blog.alexellis.io/docker-mac-b
     ln -s /Applications/Docker.app/Contents/Resources/etc/docker-machine.bash-completion
     ln -s /Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion
 
+bash & ssh auto-completion. place the following into ~/.bash_profile
+
+_complete_ssh_hosts ()
+{
+        COMPREPLY=()
+        cur="${COMP_WORDS[COMP_CWORD]}"
+        comp_ssh_hosts=`cat ~/.ssh/known_hosts | \
+                        cut -f 1 -d ' ' | \
+                        sed -e s/,.*//g | \
+                        grep -v ^# | \
+                        uniq | \
+                        grep -v "\[" ;
+                cat ~/.ssh/config | \
+                        grep "^Host " | \
+                        awk '{print $2}'
+                `
+        COMPREPLY=( $(compgen -W "${comp_ssh_hosts}" -- $cur))
+        return 0
+}
+complete -F _complete_ssh_hosts ssh
+
+---
+
 dock with stuck progress bar
     defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
 
