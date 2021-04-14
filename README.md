@@ -35,10 +35,10 @@ AIX security mode install TCB (trusted computer base)
         ls -le	#list if there is a plus '+' at the end of file, indicating TCB installed
 
 manpage	man install - man page install manpage fileset
-                bos.html.en_US
-                bos.html.en_US.cmds
-                #bos.html.en_US.nav
-                bos.html.en_US.topnav
+        bos.html.en_US
+        bos.html.en_US.cmds
+        # bos.html.en_US.nav
+        bos.html.en_US.topnav
 
 vmstat and iostat filesets      bos.acct
 AIX debug fileset               bos.adt.debug
@@ -78,15 +78,15 @@ samba on aix, mount to remote windows
 	mount -v cifs -n <hostname>/userid/passwd /<remote_filesystem> /local
 
 Debug / trouble shooting
-	#Dump analysis and error report
+	# Dump analysis and error report
 	errpt -a
 	strings _ core | grep _=	# core analysis
 	dbx /usr/HTTPServer/bin/httpd core
-		# Available param
-		where
-		t
-		at
-		map
+	# Available param
+	where
+	t
+	at
+	map
 
 # mount an ISO on AIX
 	mklv -y cdlv rootvg ${num_of_pps}
@@ -4461,33 +4461,50 @@ markdownmarkdown
 
 gitgitgitgit
 
-# clean/ remove "Untracked files"
-mac:k8sdeploy_clusters_apac jeff$ git status
-On branch tdg
-Your branch is up to date with 'origin/tdg'.
+^^^
+    # clean/ remove "Untracked files"
+    mac:k8sdeploy_clusters_apac jeff$ git status
+    On branch tdg
+    Your branch is up to date with 'origin/tdg'.
 
-Untracked files:
-(use "git add <file>..." to include in what will be committed)
-stp/
+    Untracked files:
+    (use "git add <file>..." to include in what will be committed)
+    stp/
 
-nothing added to commit but untracked files present (use "git add" to track)
-mac:k8sdeploy_clusters_apac jeff$ git clean -d -f -f
-Removing stp/
-mac:k8sdeploy_clusters_apac jeff$ git status
-On branch tdg
-Your branch is up to date with 'origin/tdg'.
+    nothing added to commit but untracked files present (use "git add" to track)
+    mac:k8sdeploy_clusters_apac jeff$ git clean -d -f -f  # double force-delete a subdir which contains another branch
 
-nothing to commit, working tree clean
-mac:k8sdeploy_clusters_apac jeff$ ls -la
-total 8
-drwxr-xr-x   7 jeff  staff  224 11 Apr 13:35 .
-drwxr-xr-x  19 jeff  staff  608 11 Apr 13:13 ..
-drwxr-xr-x  15 jeff  staff  480 11 Apr 13:35 .git
-drwxr-xr-x   4 jeff  staff  128 11 Apr 13:35 Docs
--rw-r--r--   1 jeff  staff  599  9 Apr 18:15 README.md
-drwxr-xr-x   3 jeff  staff   96  9 Apr 18:15 infrastructure
-drwxr-xr-x   7 jeff  staff  224 11 Apr 13:35 tdg
+    Removing stp/
+    mac:k8sdeploy_clusters_apac jeff$ git status
+    On branch tdg
+    Your branch is up to date with 'origin/tdg'.
 
+    nothing to commit, working tree clean
+    mac:k8sdeploy_clusters_apac jeff$ ls -la
+    total 8
+    drwxr-xr-x   7 jeff  staff  224 11 Apr 13:35 .
+    drwxr-xr-x  19 jeff  staff  608 11 Apr 13:13 ..
+    drwxr-xr-x  15 jeff  staff  480 11 Apr 13:35 .git
+    drwxr-xr-x   4 jeff  staff  128 11 Apr 13:35 Docs
+    -rw-r--r--   1 jeff  staff  599  9 Apr 18:15 README.md
+    drwxr-xr-x   3 jeff  staff   96  9 Apr 18:15 infrastructure
+    drwxr-xr-x   7 jeff  staff  224 11 Apr 13:35 tdg
+vvv
+
+^^^
+    # clone a specific subdir in a repo
+    git init <repo>
+    cd <repo>
+    git remote add -f origin <url>
+
+    git config core.sparseCheckout true
+
+    echo "some/dir/" >> .git/info/sparse-checkout
+    echo "another/sub/tree" >> .git/info/sparse-checkout
+
+    git pull origin master
+    # ref > https://askubuntu.com/questions/460885/how-to-clone-only-some-directories-from-a-git-repository
+vvv
 
 	git config --list
 
@@ -4577,34 +4594,9 @@ drwxr-xr-x   7 jeff  staff  224 11 Apr 13:35 tdg
 	> ref > https://stackoverflow.com/questions/11542687/git-how-to-ignore-all-present-untracked-files
 
 
-atomatomatom atom-editor installing plugin
-	markdown-toc vim-mode markdown-pdf markdown-preview-enhanced mscgen-preview
-
-    Community Packages (24) /home/jeff/.atom/packages
-    ├── atom-eclipse-syntax@0.0.6
-    ├── atom-material-syntax@1.0.8
-    ├── autocomplete-python@1.16.0
-    ├── busy-signal@2.0.1
-    ├── fonts@3.10.0
-    ├── fonts-cjk@2.2.0
-    ├── intentions@1.1.5
-    ├── jackhammer-syntax@1.1.0
-    ├── kite@0.177.0
-    ├── linter@2.3.1
-    ├── linter-flake8@2.4.0
-    ├── linter-ui-default@1.8.0
-    ├── markdown-pdf@2.2.0
-    ├── markdown-preview-enhanced@0.17.0
-    ├── markdown-themeable-pdf@1.2.1
-    ├── markdown-toc@0.4.2
-    ├── minimap@4.29.9
-    ├── mscgen-preview@1.12.18
-    ├── pandoc@0.2.2
-    ├── platformio-ide-terminal@2.10.0
-    ├── predawn-syntax@1.0.4
-    ├── python-autopep8@0.1.3
-    ├── script@3.25.0
-    └── slides-preview@0.3.1
+atomatomatomatom
+    Community Packages (1) /Users/jeff/.atom/packages
+    └── markdown-preview-enhanced@0.18.10
 
 
 pythonpythonpython
@@ -4616,7 +4608,7 @@ pythonpythonpython
   # pip behind proxy
   pip3 --proxy http://10.10.10.1:3128 install tensor
 
-  # pip install; pip3 install
+  # pip3 install
   torch tensor tensorflow tensorboard keras matplotlib pandas xlrd
 
   # detect errors
