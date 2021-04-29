@@ -4507,7 +4507,7 @@ vvv
 vvv
 
     # autocomplete auto-complete
-    ref > eval "$(curl -s https://gist.github.com/raw/972430/install-git-completion.sh)"
+    eval $(curl -s  https://raw.github.com/git/git/master/contrib/completion/git-completion.bash)
 
 
 	# store passwd
