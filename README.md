@@ -4506,6 +4506,10 @@ vvv
     # ref > https://askubuntu.com/questions/460885/how-to-clone-only-some-directories-from-a-git-repository
 vvv
 
+    # autocomplete auto-complete
+    ref > eval "$(curl -s https://gist.github.com/raw/972430/install-git-completion.sh)"
+
+
 	# store passwd
 	git config --global credential.helper store
 	git config --global credential.helper cache	# for a session
