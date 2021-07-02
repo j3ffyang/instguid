@@ -3752,6 +3752,23 @@ debian skype
 dell hardware
   sudo dmidecode | grep "Product Name"
 
+  for d in system-manufacturer system-product-name bios-release-date bios-version; do echo "${d^}: " $(sudo dmidecode -s ${d}); done
+
+^^^
+  > ref > https://bugzilla.kernel.org/show_bug.cgi?id=205311#c8
+  # dell wireless hanging > deactivated wifi powersave in networkmanager the issue never occurred.
+
+  This can be done by adding the file `wifi-powersave-off.conf` with the content
+
+  ~~~
+  [connection]
+  # Values are 0 (use default), 1 (ignore/don't touch), 2 (disable) or 3 (enable).
+  wifi.powersave = 2
+  ~~~
+
+  to `/etc/NetworkManager/conf.d`
+vvv
+
 install steam on debian
   https://unix.stackexchange.com/questions/264004/installing-steam-on-debian
   # add i386
@@ -4507,7 +4524,13 @@ vvv
 vvv
 
     # autocomplete auto-complete
-    eval $(curl -s  https://raw.github.com/git/git/master/contrib/completion/git-completion.bash)
+    # eval $(curl -s  https://raw.github.com/git/git/master/contrib/completion/git-completion.bash)
+    curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash`
+    chmod u+x ~/.git-completion.bash
+    edit ~/.bash_profile > add
+	if [ -f ~/.git-completion.bash ]; then
+	. ~/.git-completion.bash
+	fi
 
 
 	# store passwd
