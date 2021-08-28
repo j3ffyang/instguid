@@ -2392,6 +2392,9 @@ ssh + rsync
 	rsync --compress --sparse --progress -e ssh source.file user@ipaddr:/path --address=SOURCE_IP
 	rsync --archive -v -z -r --inplace --progress -e ssh source target
 
+  rsync SOURCE TARGET --progress --archive --recursive --delete --exclude=".DS_Store" --iconv=utf-8,utf-8-mac --rsync-path=/opt/local/bin/rsync --dry-run
+  # --rsync-path > force to use rsync from such path on macOS
+
 ssh to run cmd on remote srv
 	ssh remote_server "cmd 1; cmd 2"
 
