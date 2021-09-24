@@ -3732,6 +3732,26 @@ debian bluetoothd
   sudo pactl load-module module-bluetooth-discover
   sudo pactl load-module module-switch-on-connect
 
+
+debian bluetooth speaker connected, but not shown in sounds setting
+  ref > https://askubuntu.com/questions/689281/pulseaudio-can-not-load-bluetooth-module
+  edit 
+	/etc/pulse/default.pa 
+
+  comment out
+	#load-module module-bluetooth-discover
+
+  edit 
+	/usr/bin/start-pulseaudio-x11
+
+  after the lines
+	 if [ x”$SESSION_MANAGER” != x ] ; then
+        /usr/bin/pactl load-module module-x11-xsmp “display=$DISPLAY session_manager=$SESSION_MANAGER” > /dev/null
+    fi
+
+  add the following
+	/usr/bin/pactl load-module module-bluetooth-discover
+
 debian screencast
 	sudo apt-get install ffmpeg mkvtoolnix
 
