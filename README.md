@@ -2562,10 +2562,12 @@ sslh    # share a same port for https, ssh and openvpn with openssl
 sshuttle ssh tunnel tunneling ssh_vpn ssh vpn
   sshuttle -r user@remote-ip 0/0 --dns -vv			# dns from remote
   sshuttle -r user@remote-ip 0/0 --dns -x=10.163.73.0/24	# execlude such subnet
+  sshuttle -r user@remote-ip 0/0 --dns --exclude=remote_subnet
+  # avoid loop
 
-	# checking public ip
-	curl -s http://ifconfig.me
-	wget -O - -q http://whatismyip.org/
+  # checking public ip
+  curl -s http://ifconfig.me
+  wget -O - -q http://whatismyip.org/
 
 openvpnopenvpnopenvpn
 
@@ -3739,13 +3741,13 @@ debian bluetoothd
 
 debian bluetooth speaker connected, but not shown in sounds setting
   ref > https://askubuntu.com/questions/689281/pulseaudio-can-not-load-bluetooth-module
-  edit 
-	/etc/pulse/default.pa 
+  edit
+	/etc/pulse/default.pa
 
   comment out
 	#load-module module-bluetooth-discover
 
-  edit 
+  edit
 	/usr/bin/start-pulseaudio-x11
 
   after the lines
