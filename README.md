@@ -3558,6 +3558,7 @@ input method/ im-config im-switch
 
 im-config / ibus
   ibus-pinyin ibus-libpinyin ibus-rime
+  https://lists.debian.org/debian-user/2015/05/msg00837.html
 
 # virt, network, encryption, cryptography
   bridge-utils pidgin qemu-system-x86 libvirt-bin ubuntu-vm-builder virt-manager virt-viewer openconnect network-manager-vpnc lvm2 cryptsetup
