@@ -3549,15 +3549,18 @@ terminator window size
   stty size
 
 chinese input method / im-config / im-choose
-	fcitx fcitx-table-wbpy fcitx-googlepinyin
+  fcitx fcitx-table-wbpy fcitx-googlepinyin
 
 input method/ im-config im-switch
   im-config -l        # list
   im-config -m        # show the default
   im-config -n fcitx  # switch to fcitx
 
+im-config / ibus
+  ibus-pinyin ibus-libpinyin ibus-rime
+
 # virt, network, encryption, cryptography
-	bridge-utils pidgin qemu-system-x86 libvirt-bin ubuntu-vm-builder virt-manager virt-viewer openconnect network-manager-vpnc lvm2 cryptsetup
+  bridge-utils pidgin qemu-system-x86 libvirt-bin ubuntu-vm-builder virt-manager virt-viewer openconnect network-manager-vpnc lvm2 cryptsetup
 
 font change / language change
 update font preference > jeff@s900:/etc/fonts/conf.d$ cat 64-language-selector-prefer.conf
@@ -4083,6 +4086,13 @@ docker-completion docker completion     # https://blog.alexellis.io/docker-mac-b
     ln -s /Applications/Docker.app/Contents/Resources/etc/docker.bash-completion
     ln -s /Applications/Docker.app/Contents/Resources/etc/docker-machine.bash-completion
     ln -s /Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion
+
+macmacmacmac
+  change default shell
+  echo $SHELL $BASH_VERSION
+  brew install bash
+  sudo vi /etc/shells # add /usr/local/bin/bash
+  chsh -s /usr/local/bin/bash
 
 bash & ssh auto-completion. place the following into ~/.bash_profile
 
