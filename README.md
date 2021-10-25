@@ -530,6 +530,7 @@ Linux log rotate
 Linux date/ cal (display how many days of today in this year.)
 	cal -j
 	date +%j
+	printf "%(%H:%M)T\n"
 
 Linux Calendar/ calendar	cal mm yyyy
 
