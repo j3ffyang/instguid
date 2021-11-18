@@ -3832,7 +3832,7 @@ debian disable auto-sleep
   systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
   systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
 
-reduce pdf in size | resize pdf
+reduce pdf in size | resize pdf | compress
   ps2pdf input.pdf output.pdf
 
   gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen \
