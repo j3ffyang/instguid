@@ -4040,6 +4040,8 @@ script in /etc/rc.local
         /usr/bin/xrandr --output eDP1 --mode 1680x1050
 
 install brew.sh
+    # install a homebrew formula without updating homebrew
+    HOMEBREW_NO_AUTO_UPDATE=1 brew install <formula>
 
 change hostname
     sudo scutil --set HostName <new_name>
