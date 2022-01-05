@@ -4136,6 +4136,9 @@ macports install
 sshuttle by port macports
   port install sshuttle
 
+# image viewer
+  brew install qview
+
 macmacmacmac
 
 
