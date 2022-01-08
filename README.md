@@ -4013,6 +4013,14 @@ android sametime ewg1.artour.ibm.com:15001
 
 
 macmacmacmac
+query hardware info
+mbp:~ jeff$ ioreg -r -n ARPT | grep IOName
+  |   "IOName" = "pci14e4,4464"
+mbp:~ jeff$ system_profiler SPHardwareDataType | grep "Model Identifier"
+      Model Identifier: MacBookPro16,2
+mbp:~ jeff$ ioreg -l | grep RequestedFiles
+    "RequestedFiles" = ({"Firmware"="C-4364__s-B3/trinidad.trx","TxCap"="C-4364__s-B3/trinidad-X3.txcb","Regulatory"="C-4364__s-B3/trinidad-X3.clmb","NVRAM"="C-4364__s-B3/P-trinidad-X3_M-HRPN_V-u__m-7.7.txt"})
+
 ubuntu 13.10 saucy for mac
 	symptom: boot hanging at smp
 	solution: disable smp in /etc/default/grub
