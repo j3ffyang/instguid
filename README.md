@@ -937,11 +937,9 @@ Linux chkconfig-> change runlevel.
 Linux at / AT
 	$ at 14:00	-> man at. schedule a cmd by at.
 
-History, key in		$cat /root/.bash_history
-	HISTFILESIZE environmental variable. To increase it,
-	put "export HISTFILESIZE=xxxx" in your .bashrc file.
-
-	in ubuntu, place "export HISTSIZE=5000" into ~/.bashrc
+histsize | histfilesize in ~/.bashrc (default in Ubuntu)
+	HISTSIZE=10000
+	HISTFILESIZE=10000
 
 Restore/ recovery boot manager/ bootmgr	$lilo -u /dev/hda
 
