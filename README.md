@@ -4035,7 +4035,7 @@ ubuntu 20.04 installation and configuration on mbp, MacBook Pro 16,2 Catalina
 	[device]
 	wifi.scan-rand-mac-address=no
 	wifi.backend=iwd
-    then disable | stop wpa_supplicant
+    then systemctl disable | stop wpa_supplicant
 
     systemctl disable | stop snapd; apt purge snapd
 
