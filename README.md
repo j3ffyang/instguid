@@ -4039,6 +4039,9 @@ ubuntu 20.04 installation and configuration on mbp, MacBook Pro 16,2 Catalina
 
     systemctl disable | stop snapd; apt purge snapd
 
+    check battery status
+	upower -i /org/freedesktop/UPower/devices/battery_BAT0
+
 
 ubuntu 13.10 saucy for mac
 	symptom: boot hanging at smp
