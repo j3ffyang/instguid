@@ -4023,6 +4023,21 @@ query hardware info
 query hardware info
     sudo dmidecode -s system-product-name
 
+ubuntu 20.04 installation and configuration on mbp, MacBook Pro 16,2 Catalina
+    firewalld vim gnome-tweak python3-pip screenfetch geeqie youtube-dl vlc inetutils-ping apt-transport-https curl sshuttle
+
+    ~/.bashrc
+	complete -cf sudo    # sudo autocomplete
+	HISTSIZE=10000
+	HISTFILESIZE=10000
+
+    edit /etc/NetworkManager/NetworkManager.conf, add 
+	[device]
+	wifi.scan-rand-mac-address=no
+	wifi.backend=iwd
+
+    systemctl disable | stop snapd; apt purge snapd
+
 ubuntu 13.10 saucy for mac
 	symptom: boot hanging at smp
 	solution: disable smp in /etc/default/grub
@@ -4577,7 +4592,7 @@ vvv
 
     # autocomplete auto-complete
     # eval $(curl -s  https://raw.github.com/git/git/master/contrib/completion/git-completion.bash)
-    curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash`
+    curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
     chmod u+x ~/.git-completion.bash
     edit ~/.bash_profile > add
 	if [ -f ~/.git-completion.bash ]; then
