@@ -4038,6 +4038,7 @@ ubuntu 20.04 installation and configuration on mbp, MacBook Pro 16,2 Catalina
     then systemctl disable | stop wpa_supplicant
 
     systemctl disable | stop snapd; apt purge snapd
+    systemctl disable | stop ufw
 
     check battery status
 	upower -i /org/freedesktop/UPower/devices/battery_BAT0
