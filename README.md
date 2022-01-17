@@ -4039,6 +4039,7 @@ ubuntu 20.04 installation and configuration on mbp, MacBook Pro 16,2 Catalina
 
     systemctl disable | stop snapd; apt purge snapd
 
+
 ubuntu 13.10 saucy for mac
 	symptom: boot hanging at smp
 	solution: disable smp in /etc/default/grub
