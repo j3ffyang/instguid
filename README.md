@@ -4018,7 +4018,7 @@ query hardware info
           Model Identifier: MacBookPro16,2
     mbp:~ jeff$ ioreg -l | grep RequestedFiles
         "RequestedFiles" = ({"Firmware"="C-4364__s-B3/trinidad.trx","TxCap"="C-4364__s-B3/trinidad-X3.txcb","Regulatory"="C-4364__s-B3/trinidad-X3.clmb","NVRAM"="C-4364__s-B3/P-trinidad-X3_M-HRPN_V-u__m-7.7.txt"})
-    
+
 
 query hardware info
     sudo dmidecode -s system-product-name
@@ -4031,7 +4031,7 @@ ubuntu 20.04 installation and configuration on mbp, MacBook Pro 16,2 Catalina
 	HISTSIZE=10000
 	HISTFILESIZE=10000
 
-    edit /etc/NetworkManager/NetworkManager.conf, add 
+    edit /etc/NetworkManager/NetworkManager.conf, add
 	[device]
 	wifi.scan-rand-mac-address=no
 	wifi.backend=iwd
@@ -4043,25 +4043,40 @@ ubuntu 20.04 installation and configuration on mbp, MacBook Pro 16,2 Catalina
     check battery status
 	upower -i /org/freedesktop/UPower/devices/battery_BAT0
 
+ubuntu 20.04 {fileManager, nautilus, nemo} poor performance
+  https://askubuntu.com/questions/1341909/file-browser-and-file-dialogs-take-a-long-time-to-open-or-fail-to-open-in-all-ap
 
-ubuntu 13.10 saucy for mac
-	symptom: boot hanging at smp
-	solution: disable smp in /etc/default/grub
+  Following mxmlnkn excellent answer, I've implemented a simple oneshot systemd service that kills gvfdsd-trash and prevents it from ever running again. This is useful when an unattended upgrade reinstall /usr/libexec/gvfsd-trash..
 
-	symptom: slow boot
-	solution: libata.force=1:noncq > append to /etc/default/grub
+  /usr/local/bin/clean-gvfsd-trash :
 
-	install bcm driver on saucy (wifi network)
-	sudo apt-get update
-	sudo apt-get install bcmwl-kernel-source
-	sudo modprobe wl
+  $ sudo tee /usr/local/bin/clean-gvfsd-trash << EOF > /dev/null
+  #!/bin/bash
+  pkill gvfsd-trash
+  path=$(dpkg -L gvfs-daemons | grep gvfsd-trash|xargs realpath|uniq)
+  mv $path{,.bak} || true
+  EOF
+  /lib/systemd/system/clean-gvfsd-trash.service :
 
-	audio internal speaker
-	apt-get install alsa-tools
-	hda-verb /dev/snd/hwC1D0 0x1 set_gpio_data 1
+  $ sudo tee /lib/systemd/system/clean-gvfsd-trash.service << EOF > /dev/null
+  [Unit]
+  Description=kill gvfsd-trash and prevent it from ever running again
+  Documentation=https://askubuntu.com/questions/1341909/file-browser-and-file-dialogs-take-a-long-time-to-open-or-fail-to-open-in-all-ap
 
-	switch fn (function) key -> f8= f8, not "play/pause"
-	echo 2 | sudo tee /sys/module/hid_apple/parameters/fnmode
+  [Service]
+  ExecStart=/usr/local/bin/clean-gvfsd-trash
+  Type=oneshot
+  RemainAfterExit=no
+
+  [Install]
+  WantedBy=multi-user.target
+  EOF
+  Service activation:
+
+  $ sudo systemctl daemon-reload
+  $ sudo systemctl enable clean-gvfsd-trash.service
+  $ sudo systemctl start clean-gvfsd-trash.service
+
 
 script in /etc/rc.local
         echo 30 | sudo tee /sys/class/backlight/acpi_video0/brightness
