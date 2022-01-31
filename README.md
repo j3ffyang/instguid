@@ -3874,6 +3874,8 @@ intel ax201 wifi wireless # gamebox gamer backport back-port
     sudo make install
     sudo modprobe iwlwifi
 
+debian gnome super key | win key
+    gnome-tweak > Keyboard & Mouse > Alt/Win key behavior > Alt is swapped with Win
 
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
