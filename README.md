@@ -4242,6 +4242,15 @@ multimedia driver gstreamer
 	ffmpeg convert > ffmpeg -vcodec copy -i orig.ogv outfile.avi
 	ffmpeg cut     > ffmpeg -ss 00:00:00 -i orig.ogv -vcodec copy -t 00:02:54 output.ogv
 
+	# merge multi videos
+	Create a file with all the video files > cat multiVideos.lst 
+		file 01.wmv
+		file 02.wmv
+		file 03.wmv
+	Then
+		ffmpeg -f concat -safe 0 -i multiVideos.lst -c copy finallyMerged.wmv
+
+
 	mencoder file.rmvb -oac mp3lame -lameopts preset=128 -ovc lavc -lavcopts vcodec=mpeg4:vbitrate=1200 -ofps 25 -of avi -o file.avi
 
 check dvd
