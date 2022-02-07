@@ -2471,6 +2471,11 @@ ssh tunnel @ ly	# 192.168.200.2 (hub@idevops) is an internal IP of a VM within q
 	bryan@idevops 	ssh -N -f -L 192.168.200.2:20081:127.0.0.1:20081 localhost
 	root@lynd1	ssh -N -f -R 192.168.200.2:20081:192.168.1.101:22 bryan@idevops
 
+ssh autocomplete > edit ~/.bashrc or ~/.bash_profile
+	WL="$(perl -ne 'print "$1\n" if /^Host (.+)$/' ~/.ssh/config | grep -v "*" | tr "\n" " ")"
+	complete -o plusdirs -f -W "$WL" ssh scp
+
+
 sslh ssl/ ssh share the same port >
 https://www.ostechnix.com/sslh-share-port-https-ssh/
   sudo apt-get install sslh
