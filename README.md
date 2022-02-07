@@ -2471,9 +2471,33 @@ ssh tunnel @ ly	# 192.168.200.2 (hub@idevops) is an internal IP of a VM within q
 	bryan@idevops 	ssh -N -f -L 192.168.200.2:20081:127.0.0.1:20081 localhost
 	root@lynd1	ssh -N -f -R 192.168.200.2:20081:192.168.1.101:22 bryan@idevops
 
-ssh autocomplete > edit ~/.bashrc or ~/.bash_profile
+ssh autocomplete | auto complete | autocompletion | auto completion > edit ~/.bashrc or ~/.bash_profile
 	WL="$(perl -ne 'print "$1\n" if /^Host (.+)$/' ~/.ssh/config | grep -v "*" | tr "\n" " ")"
 	complete -o plusdirs -f -W "$WL" ssh scp
+
+	alternative option. Add the following into ~/.bashrc
+
+	__complete_ssh_host() {
+	    local KNOWN_FILE=~/.ssh/known_hosts
+	    if [ -r $KNOWN_FILE ] ; then
+	        local KNOWN_LIST=`cut -f 1 -d ' ' $KNOWN_FILE | cut -f 1 -d ',' | grep -v '^[0-9[]'`
+	    fi
+	
+	    local CONFIG_FILE=~/.ssh/config
+	    if [ -r $CONFIG_FILE ] ; then
+	        local CONFIG_LIST=`awk '/^Host [A-Za-z]+/ {print $2}' $CONFIG_FILE`
+	    fi
+	
+	    local PARTIAL_WORD="${COMP_WORDS[COMP_CWORD]}";
+	
+	    COMPREPLY=( $(compgen -W "$KNOWN_LIST$IFS$CONFIG_LIST" -- "$PARTIAL_WORD") )
+	
+	    return 0
+	}
+	
+	complete -F __complete_ssh_host ssh
+	complete -f -F __complete_ssh_host scp
+
 
 
 sslh ssl/ ssh share the same port >
