@@ -2482,19 +2482,19 @@ ssh autocomplete | auto complete | autocompletion | auto completion > edit ~/.ba
 	    if [ -r $KNOWN_FILE ] ; then
 	        local KNOWN_LIST=`cut -f 1 -d ' ' $KNOWN_FILE | cut -f 1 -d ',' | grep -v '^[0-9[]'`
 	    fi
-	
+
 	    local CONFIG_FILE=~/.ssh/config
 	    if [ -r $CONFIG_FILE ] ; then
 	        local CONFIG_LIST=`awk '/^Host [A-Za-z]+/ {print $2}' $CONFIG_FILE`
 	    fi
-	
+
 	    local PARTIAL_WORD="${COMP_WORDS[COMP_CWORD]}";
-	
+
 	    COMPREPLY=( $(compgen -W "$KNOWN_LIST$IFS$CONFIG_LIST" -- "$PARTIAL_WORD") )
-	
+
 	    return 0
 	}
-	
+
 	complete -F __complete_ssh_host ssh
 	complete -f -F __complete_ssh_host scp
 
@@ -4073,6 +4073,7 @@ ubuntu 20.04 installation and configuration on mbp, MacBook Pro 16,2 Catalina
 
     check battery status
 	upower -i /org/freedesktop/UPower/devices/battery_BAT0
+  upower -i `upower -e | grep 'BAT'`
 
 ubuntu 20.04 {fileManager, nautilus, nemo} poor performance
   https://askubuntu.com/questions/1341909/file-browser-and-file-dialogs-take-a-long-time-to-open-or-fail-to-open-in-all-ap
@@ -4245,7 +4246,10 @@ adobe flash >
 repo fast repo
 	yum install yum-plugin-fastestmirror
 
-skype	yum install skype*.rpm , including glibc.i686 libXv.i686 alsa-lib.i686 libXScrnSaver.i686 qt-4.8.2-2.fc17.i686 qt-x11-4.8.2-2.fc17.i686
+
+skype
+  dnf config-manager --add-repo https://repo.skype.com/rpm/stable/skype-stable.repo
+  curl -o /etc/yum.repos.d/skype-stable.repo https://repo.skype.com/rpm/stable/skype-stable.repo
 
 package to install
 	kvm virt-manager libvirt p7zip gimp ImageMagick lvm2 xterm dconf-editor scim scim-pinyin ibus-pinyin chromium pidgin rdesktop vim rubygem-boxgrinder-build gnome-tweak-tool wget telnet spice-client anyconnect openssh terminator icedtea-web pv xorg-x11-drv-intel gpg powertop
@@ -4272,7 +4276,7 @@ multimedia driver gstreamer
 	ffmpeg cut     > ffmpeg -ss 00:00:00 -i orig.ogv -vcodec copy -t 00:02:54 output.ogv
 
 	# merge multi videos
-	Create a file with all the video files > cat multiVideos.lst 
+	Create a file with all the video files > cat multiVideos.lst
 		file 01.wmv
 		file 02.wmv
 		file 03.wmv
