@@ -4283,6 +4283,12 @@ multimedia driver gstreamer
 	Then
 		ffmpeg -f concat -safe 0 -i multiVideos.lst -c copy finallyMerged.wmv
 
+  mov file to mp4
+    ffmpeg -i Cindy5.mov -vcodec h264 -acodec mp2 Cindy5.mp4
+    
+  compress
+    ffmpeg -i 20220612_Cindy5.mp4 -vcodec libx265 -crf 28 20220612_Cindy5_compressed.mp4
+
 
 	mencoder file.rmvb -oac mp3lame -lameopts preset=128 -ovc lavc -lavcopts vcodec=mpeg4:vbitrate=1200 -ofps 25 -of avi -o file.avi
 
