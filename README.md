@@ -4767,6 +4767,10 @@ atomatomatomatom
     Community Packages (1) /Users/jeff/.atom/packages
     └── markdown-preview-enhanced@0.18.10
 
+vscodevscodevscode
+	# extension install 
+	ext install jebbs.plantuml
+	ext install shd101wyy.markdown-preview-enhanced
 
 pythonpythonpython
 
