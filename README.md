@@ -2351,6 +2351,8 @@ TAP (as in network tap) simulates a link layer device and it operates with layer
 Use TUN if you just use the VPN to connect to the internet.
 Use TAP if you want to connect to the actual remote network (printers, remote desktops, etc.)
 
+
+sshsshsshssh
 ssh / SSH / sshd performance
 	@ /etc/ssh/sshd_config
 	GSSAPIAuthentication no
@@ -2596,6 +2598,10 @@ sshuttle ssh tunnel tunneling ssh_vpn ssh vpn
   # checking public ip
   curl -s http://ifconfig.me
   wget -O - -q http://whatismyip.org/
+
+ssh jump    # https://askubuntu.com/questions/311447/how-do-i-ssh-to-machine-a-via-b-in-one-command
+    ssh -t user@machineA ssh user@machineB
+    ssh -J user@machineA user@machineB
 
 openvpnopenvpnopenvpn
 
