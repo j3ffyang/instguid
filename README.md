@@ -4298,12 +4298,20 @@ convert dvd into wav
 	mplayer dvd://1 -aid 128 -vo null -ao pcm:file='filename.wav'
 
 
+systemctl systemd
+    systemctl list-unit-files --type=service
+    systemctl list-unit-files --type=service --state=enabled --all
+    systemctl -at service 
+        ls /lib/systemd/system/*.service; ls /etc/systemd/system/*.service
+
+    systemctl list-unit-files | grep enabled
+    systemctl | grep running
+    systemctl -t service --state=active
+
 check system boot
 	systemd-analyze
 	systemd-analyze blame
 
-	sudo package-cleanup --orphans
-	sudo package-cleanup --leaves
 
 FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
