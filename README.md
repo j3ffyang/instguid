@@ -4095,7 +4095,7 @@ iwd, switched from wpa_supplicant
 	iwctl station wlan0 scan
 	iwctl station wlan0 get-networks
 	iwctl station wlan0 show
-	iwctl station wlan0 connect arda --passphrase mysupersecretpassphrase
+	iwctl station wlan0 connect "networkID" --passphrase mysecretpassphrase
 
 ubuntu 20.04 {fileManager, nautilus, nemo} poor performance
   https://askubuntu.com/questions/1341909/file-browser-and-file-dialogs-take-a-long-time-to-open-or-fail-to-open-in-all-ap
