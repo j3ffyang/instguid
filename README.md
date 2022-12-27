@@ -4079,7 +4079,23 @@ ubuntu 20.04 installation and configuration on mbp, MacBook Pro 16,2 Catalina
 
     check battery status
 	upower -i /org/freedesktop/UPower/devices/battery_BAT0
-  upower -i `upower -e | grep 'BAT'`
+  	upower -i `upower -e | grep 'BAT'`
+
+iwd, switched from wpa_supplicant
+	https://iwd.wiki.kernel.org/networkmanager#converting_network_profiles
+	Edit /etc/NetworkManager/NetworkManager.conf
+	```
+	[device]
+	wifi.backend=iwd
+	wifi.iwd.autoconnect=yes
+	```
+
+	nm-connection-editor > Wi-fi Security
+
+	iwctl station wlan0 scan
+	iwctl station wlan0 get-networks
+	iwctl station wlan0 show
+	iwctl station wlan0 connect arda --passphrase mysupersecretpassphrase
 
 ubuntu 20.04 {fileManager, nautilus, nemo} poor performance
   https://askubuntu.com/questions/1341909/file-browser-and-file-dialogs-take-a-long-time-to-open-or-fail-to-open-in-all-ap
