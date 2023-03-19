@@ -3939,6 +3939,12 @@ youtube-dl  # youtube download
     sudo pip3 install youtube-dl
     youtube-dl --proxy http://10.10.10.1:3128 URL
 
+    > https://stackoverflow.com/questions/75495800/error-unable-to-extract-uploader-id-youtube-discord-py
+
+    alternative >
+	python3 -m pip install --force-reinstall https://github.com/yt-dlp/yt-dlp/archive/master.tar.gz
+	yt-dlp URL
+
 npm behind proxy
     npm config set proxy http://10.10.10.1:3128
 
