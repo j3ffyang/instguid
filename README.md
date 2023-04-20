@@ -3881,6 +3881,15 @@ nvidia rtx3070 on debian buster 10.7  # gamebox #gamer
   download driver from https://www.nvidia.com/en-us/drivers/results/170804/ up to 20210318
   apt search linux-headers-$(uname -r); sudo apt install linux-headers-5.10.0 # kernel source
 
+  ## https://www.linuxcapable.com/install-nvidia-drivers-on-debian/
+  ## Tested on Debian 11
+  add-apt-repository contrib; add-apt-repository non-free	# add repo
+  lscpu | grep CPU	# check CPU
+  apt install linux-headers-amd64 nvidia-detect
+  nvidia-detect
+  apt install nvidia-driver linux-image-amd64	# reboot required
+  nvidia-smi	# show the installed driver
+
 intel ax201 wifi wireless # gamebox gamer backport back-port
   update kernel to 5.10 through back-port repo (personal experience)
   update linux-firmware
