@@ -3750,6 +3750,9 @@ debian screencast
 	# start display the webcam
 	ffplay -f video4linux2 -i /dev/video0 -video_size 320x240
 
+    # reduce size
+    ffmpeg -i input_video.mp4 -vf "fps=30" output_video.mp4
+
 debian  # bluetooth, guide for debian
   apt install pulseaudio bluez pavucontrol rfkill pulseaudio-bluetooth blueman
 
@@ -4868,6 +4871,10 @@ pythonpythonpython
   tDhKdzQgOfxIqSi9HZliAqD0M
   >>>
 
+
+conda miniconda
+    # auto-complete autocompletion
+    conda install -c conda-forge conda-bash-completion
 
 pythonpythonpython
 
