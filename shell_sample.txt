@@ -368,6 +368,8 @@ find	the largest file/ large file
 	find . -type f -exec file {} \;-> find . -type f-> then file <each file>
  	or file `find . -type f | awk '{print $2}'`
 
+	find . -type f -exec grep -l 'your_string' {} \;	# find then exec grep
+
 	find multiple strings then rm -fr
 	rm -fr `find /dir \( -name  "file1" -o -name "file2" \)`
 
