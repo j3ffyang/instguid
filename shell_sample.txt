@@ -297,6 +297,9 @@ du
 
     du -h --max-depth=1 | sort -hr  # directory size
 
+    du -sh -- *  | sort -rh  # Files and directories, or
+    du -sh -- */ | sort -rh  # Directories only
+
 
 FORFORFOR FORFORFOR FORFORFOR FORFORFOR
 
