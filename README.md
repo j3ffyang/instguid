@@ -3188,6 +3188,7 @@ Linux screen screenshare screen sharing
 
 linux screen 
     screen -dmS demo bash -c 'while ! read -t 1; do echo $((i++)); done'
+    screen -x demo
 
 nohup
     nohup git-lfs clone https://user:credential@huggingface.co/meta-llama > output.log 2>&1 &
