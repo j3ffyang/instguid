@@ -3186,6 +3186,12 @@ Linux screen screenshare screen sharing
 	   to change readonly -> Ctrl-a :aclchg student -w
 	6. student $screen -x username/SessionName
 
+linux screen 
+    screen -dmS demo bash -c 'while ! read -t 1; do echo $((i++)); done'
+
+nohup
+    nohup git-lfs clone https://user:credential@huggingface.co/meta-llama > output.log 2>&1 &
+
 SuSE X display local setting
 (optional)	from logged in user's session	-> xhost +local
 		from su'ed user's session	-> export DISPLAY=:0.0
