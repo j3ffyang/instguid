@@ -3606,7 +3606,7 @@ im-config / ibus
 # virt, network, encryption, cryptography
   bridge-utils pidgin qemu-system-x86 libvirt-bin ubuntu-vm-builder virt-manager virt-viewer openconnect network-manager-vpnc lvm2 cryptsetup
 
-font change / language change
+font change / language change/ japanese font CJK JP SC TC/ font selector prefer/ Noto
 update font preference > jeff@s900:/etc/fonts/conf.d$ cat 64-language-selector-prefer.conf
 
     # install fonts
@@ -4277,6 +4277,7 @@ create livecd from ubuntu
 	extract iso and copy LiveOS/livecd-iso-to-disk
 	livecd-iso-to-disk --overlay-size-mb 512 /path/iso /path/usb
 	dd if=/path/livecd.iso of=/dev/sdX bs=8M status=progress && sync
+    dd bs=4M if=./debian.iso of=/dev/sdX status=progress oflag=sync
 
 repo setting > http://rpmfusion.org/Configuration/
 	su -c 'yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm'
