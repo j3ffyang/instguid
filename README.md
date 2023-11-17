@@ -4618,6 +4618,15 @@ journal
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 
+manjaromanjaro
+manjaromanjaro
+
+    pamac install visual-studio-code-bin neofetch geeqie chromium 
+    sudo udevadm trigger	# trigger detect usb
+
+manjaromanjaro
+manjaromanjaro
+
 nodejsnodejsnodejsnodejsnodejsnodejsnodejs
 
 # install nodejs ppa
