@@ -4618,8 +4618,8 @@ journal
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 
-manjaromanjaro
-manjaromanjaro
+manjaromanjaromanjaromanjaro
+manjaromanjaromanjaromanjaro
 
     pamac install visual-studio-code-bin neofetch geeqie chromium firewalld npm
 neofetch docker vlc vim miniconda
@@ -4627,8 +4627,15 @@ neofetch docker vlc vim miniconda
 
     pip install qdrant-client streamlit transformers sentence-transformers torch langchain openai==0.28 python-dotenv jieba jionlp qianfan
 
-manjaromanjaro
-manjaromanjaro
+    # input method
+    yay -Syu fcitx fcitx-googlepinyin fcitx-im fcitx-configtool 
+    # edit /etc/profile. then add "Google Pinyin" in fcitx
+    export GTK_IM_MODULE=fcitx
+    export QT_IM_MODULE=fcitx
+    export XMODIFIERS=@im=fcitx
+
+manjaromanjaromanjaromanjaro
+manjaromanjaromanjaromanjaro
 
 nodejsnodejsnodejsnodejsnodejsnodejsnodejs
 
