@@ -4621,8 +4621,11 @@ archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 manjaromanjaro
 manjaromanjaro
 
-    pamac install visual-studio-code-bin neofetch geeqie chromium 
+    pamac install visual-studio-code-bin neofetch geeqie chromium firewalld npm
+neofetch docker vlc vim miniconda
     sudo udevadm trigger	# trigger detect usb
+
+    pip install qdrant-client streamlit transformers sentence-transformers torch langchain openai==0.28 python-dotenv jieba jionlp qianfan
 
 manjaromanjaro
 manjaromanjaro
