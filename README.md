@@ -4625,7 +4625,7 @@ manjaromanjaromanjaromanjaro
 neofetch docker vlc vim miniconda
     sudo udevadm trigger	# trigger detect usb
 
-    pip install qdrant-client streamlit transformers sentence-transformers torch langchain openai==0.28 python-dotenv jieba jionlp qianfantiktoken xlrd
+    pip install qdrant-client streamlit transformers sentence-transformers torch langchain openai==0.28 python-dotenv jieba jionlp qianfantiktoken xlrd beautifulsoup4
 
     # input method
     yay -Syu fcitx fcitx-googlepinyin fcitx-im fcitx-configtool 
