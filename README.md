@@ -4515,6 +4515,9 @@ pacman - list unused
 	pacman -Qei | awk '/^Name/ { name=$3 } /^Groups/ { if ( $3 != "base" && $3 != "base-devel" ) { print name } }'
 
 pacman - remove unused
+    pacman -Qqd | pacman -Rsu -
+    pacman -Qtdq | pacman -Rns -
+    pacman -Qtdq | sudo pacman -Rns -
 	sudo pacman -Rsn $(sudo pacman -Qdtq)
 	sudo pacman -Rscnd <PACKAGE_NAME>
 
