@@ -4511,8 +4511,12 @@ pacman performance optimizer perf
 pacman - list unused
 	pacman -Qdttq
 
-	list installed but not from base and base-devel
+    # list unused
+    pacman -Qqe | grep -v "$(awk '{print $1}' /desktopfs-pkgs.txt)"
+
+	# list installed but not from base and base-devel
 	pacman -Qei | awk '/^Name/ { name=$3 } /^Groups/ { if ( $3 != "base" && $3 != "base-devel" ) { print name } }'
+
 
 pacman - remove unused
     pacman -Qqd | pacman -Rsu -
