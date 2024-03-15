@@ -4264,6 +4264,14 @@ sshuttle by port macports
 # image viewer
   brew install qview
 
+# reinstall recovery https://support.apple.com/en-us/HT204904
+Command-R: When you press and hold these two keys at startup, macOS Recovery will offer the current version of the most recently installed macOS.
+
+Option-Command-R: When you press and hold these three keys at startup, macOS Recovery might offer the latest macOS that is compatible with your Mac.
+
+Shift-Option-Command-R: When you press and hold these four keys at startup, macOS Recovery might offer the macOS that came with your Mac, or the closest version still available. 
+
+macmacmacmac
 macmacmacmac
 
 
