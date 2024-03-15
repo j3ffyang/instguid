@@ -556,6 +556,10 @@ command line browser
 Zip/zip/unzip	jar -x -> to unzip
 		jar -t -> to list the content.
 		unzip file.zip
+
+# unzip multiple zip file, zip, z01, z02, ...
+    zip -s- file.zip -O file_full.zip   # -s- will collect *.zip/ z01/ z02
+
 bz2		tar xjf *.tar.bz2	or bunzip2 *.bz2
 
 rar		unrar x file.rar	# extract rar file
