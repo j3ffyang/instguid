@@ -3140,9 +3140,8 @@ vimrc	~/.vimrc
 vimvimvim	# get rid of inotify error
 	echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
-vim vi color
-  colo desert
-  colo delek
+vim, in a search, \s finds whitespace (a space or a tab), and \+ finds one or more occurrences.
+    :%s/\s\+$//e
 
 ImageMagick
   # save output of cmd into an image img by imagemagick
