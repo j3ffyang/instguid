@@ -4274,6 +4274,17 @@ Option-Command-R: When you press and hold these three keys at startup, macOS Rec
 
 Shift-Option-Command-R: When you press and hold these four keys at startup, macOS Recovery might offer the macOS that came with your Mac, or the closest version still available. 
 
+
+docker desktop on macos
+    error message: another application changed your desktop configurations
+    check out whether these files are in /usr/local/bin:
+    com.docker.cli docker-index
+    docker docker-compose
+    docker-credential-desktop kubectl
+    docker-credential-ecr-login kubectl.docker
+    docker-credential-osxkeychain
+    use ln -sf /Applications/Docker.app/Contents/Resources/bin/xxx /usr/local/bin/xxx command to create a symbolic link for the missing file, xxx is the file not in /usr/local/bin/
+
 macmacmacmac
 macmacmacmac
 
