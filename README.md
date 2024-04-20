@@ -4559,9 +4559,24 @@ pacman - list installed from official repo
 	figure out a file being owned by which package
 	pacman -Qo /usr/lib/libappindicator3.so.1.0.0
 
+pacman - find the specific package installed
+    pacman -Qi wireless-regdb | grep "Version"
+
+pacman - install specific version package
+    pacman -S package=1.2.3-1
+
 pkgbuild install package from pkgbuild
 	git clone [package].git
 	makepkg -si
+
+
+inxi - command line system info
+    inxi -Fza | grep -i network
+    inxi -Nazy                                                        
+Network:
+  Device-1: MEDIATEK MT7922 802.11ax PCI Express Wireless Network Adapter
+    vendor: Foxconn driver: mt7921e v: kernel pcie: gen: 2 speed: 5 GT/s lanes: 1
+    bus-ID: 02:00.0 chip-ID: 14c3:0616 class-ID: 0280
 
 
 install from aur git
