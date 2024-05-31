@@ -3594,18 +3594,6 @@ terminator window size
   tput cols; tput lines
   stty size
 
-chinese input method / im-config / im-choose
-  fcitx fcitx-table-wbpy fcitx-googlepinyin
-
-input method/ im-config im-switch
-  im-config -l        # list
-  im-config -m        # show the default
-  im-config -n fcitx  # switch to fcitx
-
-im-config / ibus
-  ibus-pinyin ibus-libpinyin ibus-rime
-  https://lists.debian.org/debian-user/2015/05/msg00837.html
-
 # virt, network, encryption, cryptography
   bridge-utils pidgin qemu-system-x86 libvirt-bin ubuntu-vm-builder virt-manager virt-viewer openconnect network-manager-vpnc lvm2 cryptsetup
 
@@ -4474,17 +4462,20 @@ install	https://wiki.archlinux.org/index.php/Beginners'_guide
 
   ## pinyin im
 
+  > https://christopher.sg/posts/manjaro-chinese-input-fcitx
+
   pacman -S fcitx-im fcitx-googlepinyin fcitx-configtool
+  pacman -S adobe-source-han-sans-otc-fonts adobe-source-han-serif-otc-fonts 
 
-  # run fcitx configuration, add google-pinyin edit /etc/profile
+  # edit /etc/profile
 
-  export GTK_IM_MODULE=fcitx
-  export QT_IM_MODULE=fcitx
-  export XMODIFIERS=@im=fcitx
+ 	export GTK_IM_MODULE=fcitx
+ 	export QT_IM_MODULE=fcitx
+ 	export XMODIFIERS=@im=fcitx
 
-  source ~/.xprofile
+  # add google-pinyin
+  	fcitx-configtool
 
-  edit ~/.bashrc, add source ~/.xprofile at the bottom
 
   ## browser
   pacman -S firefox chromium
@@ -4586,12 +4577,6 @@ font setfont terminal font size
 	setfont iso02-12x22
 	setfont sun12x22
 
-font configure fcitx font
-	cat ~/.xprofile
-	export GTK_IM_MODULE=fcitx
-	export QT_IM_MODULE=fcitx
-	export XMODIFIERS="@im=fcitx"
-
 font ubuntu fonts
 	pacman -U ttf-ubuntu-font-family-0.83-1-any.pkg.tar.xz
 
@@ -4659,36 +4644,10 @@ temperature
 journal
 	journalctl -b -1 -n 100
 
-archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
-archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
-
-manjaromanjaromanjaromanjaro
-manjaromanjaromanjaromanjaro
-
-    pamac install visual-studio-code-bin jdk-openjdk geeqie chromium firewalld npm
-neofetch docker vlc vim miniconda
-    sudo udevadm trigger	# trigger detect usb
-
-    pip install qdrant-client streamlit transformers sentence-transformers torch langchain openai==0.28 python-dotenv jieba jionlp qianfantiktoken xlrd beautifulsoup4
-
-    # input method
-    yay -Syu fcitx fcitx-googlepinyin fcitx-im fcitx-configtool 
-    # edit /etc/profile. then add "Google Pinyin" in fcitx
-    export GTK_IM_MODULE=fcitx
-    export QT_IM_MODULE=fcitx
-    export XMODIFIERS=@im=fcitx
-
-manjaromanjaromanjaromanjaro
-manjaromanjaromanjaromanjaro
+archarcharcharcharcharcharcharcharcharcharcharcharcharch
+archarcharcharcharcharcharcharcharcharcharcharcharcharch
 
 nodejsnodejsnodejsnodejsnodejsnodejsnodejs
-
-# install nodejs ppa
-  sudo apt-get install python-software-properties
-  curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-
-# install nodejs
-  sudo apt-get install nodejs
 
 # npm behind proxy
   npm config set proxy http://10.10.10.1:3128
