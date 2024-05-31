@@ -4476,7 +4476,7 @@ install	https://wiki.archlinux.org/index.php/Beginners'_guide
 
   pacman -S fcitx-im fcitx-googlepinyin fcitx-configtool
 
-  # run fcitx configuration, add google-pinyin edit ~/.xprofile
+  # run fcitx configuration, add google-pinyin edit /etc/profile
 
   export GTK_IM_MODULE=fcitx
   export QT_IM_MODULE=fcitx
