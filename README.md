@@ -3698,6 +3698,9 @@ touchpad > enable 3rd button copy & paste
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
+debian remove games game gnome-games
+    aisleriot gnome-sudoku ace-of-penguins  gbrainy gnome-mines gnome-nibbles quadrapassel four-in-a-row gnome-mahjongg
+
 debian bash shell customization
     PS1='\e[32;1m\u@\h: \e[34m\W\e[0m\$ '
 
@@ -4450,59 +4453,55 @@ install	https://wiki.archlinux.org/index.php/Beginners'_guide
 	useradd -m -g MY_GROUP -G wheel -s /bin/bash ME
 install	https://wiki.archlinux.org/index.php/Beginners'_guide
 
-  # post-install
-  ## gnome + gdm
-  pacman -S gdm gnome-shell gnome-desktop gnome-extra gnome-tweak-tool \
-      gnome-backgrounds gnome-disk-utility gnome-control-center
+# post-install
+## gnome + gdm
+pacman -S gdm gnome-shell gnome-desktop gnome-extra gnome-tweak-tool \
+    gnome-backgrounds gnome-disk-utility gnome-control-center
 
-  ## fonts (run in text mode, without gdm, as rendering might hang the system)
-  pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts \
-      ttf-arphic-ukai ttf-arphic-uming opendesktop-fonts \
-      wqy-microhei wqy-zenhei wqy-bitmapfont  
-
-  ## pinyin im
-
-  > https://christopher.sg/posts/manjaro-chinese-input-fcitx
-
-  pacman -S fcitx-im fcitx-googlepinyin fcitx-configtool
-  pacman -S adobe-source-han-sans-otc-fonts adobe-source-han-serif-otc-fonts 
-
-  # edit /etc/profile
-
- 	export GTK_IM_MODULE=fcitx
- 	export QT_IM_MODULE=fcitx
- 	export XMODIFIERS=@im=fcitx
-
-  # add google-pinyin
-  	fcitx-configtool
+## fonts (run in text mode, without gdm, as rendering might hang the system)
+pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts \
+    ttf-arphic-ukai ttf-arphic-uming opendesktop-fonts \
+    wqy-microhei wqy-zenhei wqy-bitmapfont  
 
 
-  ## browser
-  pacman -S firefox chromium
+## pinyin im input method
+	> https://christopher.sg/posts/manjaro-chinese-input-fcitx
 
-  ## util
-  pacman -S gnupg openssh openvpn terminator gimp nautilus wget git vim vlc \
-    rsync cryptsetup
+	pacman -S fcitx-im fcitx-googlepinyin fcitx-configtool
+	pacman -S adobe-source-han-sans-otc-fonts adobe-source-han-serif-otc-fonts 
 
-  ## office
-  pacman -S libreoffice-fresh libreoffice-fresh-zh-CN libreoffice-fresh-zh-TW
+# edit /etc/profile
+	export GTK_IM_MODULE=fcitx
+	export QT_IM_MODULE=fcitx
+	export XMODIFIERS=@im=fcitx
 
-  ## others
-  pacman -S geeqie flashplugin java-runtime-common jre7-openjdk ebtables dnsmasq
+# add google-pinyin
+	fcitx-configtool
 
-  #flash
-	chromium-pepper-flash
 
-  # bluetooth
-  install for bluetooth, then restart "pulseaudio --kill; pulseaudio --start"
+## browser
+pacman -S firefox chromium
 
-  pacman -S pulseaudio pulseaudio-bluetooth bluez blueman pavucontrol rfkill
-  sudo rfkill unblock bluetooth
+## util
+pacman -S gnupg openssh openvpn terminator gimp nautilus wget git vim vlc \
+  rsync cryptsetup
 
-  # refer to https://wiki.archlinux.org/index.php/bluetooth#Bluetoothctl
-  # http://sarveshseri.blogspot.hk/2014/07/archlinux-bluetooth.html
-  sudo systemctl start bluetooth; bluetoothctl
-  [bluetooth]# power on | scan on  
+## office
+pacman -S libreoffice-fresh libreoffice-fresh-zh-CN libreoffice-fresh-zh-TW
+
+## others
+pacman -S geeqie flashplugin java-runtime-common jre7-openjdk ebtables dnsmasq
+
+# bluetooth
+install for bluetooth, then restart "pulseaudio --kill; pulseaudio --start"
+
+pacman -S pulseaudio pulseaudio-bluetooth bluez blueman pavucontrol rfkill
+sudo rfkill unblock bluetooth
+
+# refer to https://wiki.archlinux.org/index.php/bluetooth#Bluetoothctl
+# http://sarveshseri.blogspot.hk/2014/07/archlinux-bluetooth.html
+sudo systemctl start bluetooth; bluetoothctl
+[bluetooth]# power on | scan on  
 
 
 key refresh
