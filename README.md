@@ -3704,34 +3704,22 @@ debian post-install
 debian remove games game gnome-games
     aisleriot gnome-sudoku ace-of-penguins  gbrainy gnome-mines gnome-nibbles quadrapassel four-in-a-row gnome-mahjongg five-or-more hitori gnome-klotski gnome-games gnome-robots tali gnome-taquin gnome-chess gnome-2048 swell-foop gnome-taquin gnome-tetravex lightsoff iagno
 
+debian ibus with gnome desktop
+    apt install ibus ibus-pinyin
+    gnome-tweak > Keyboard & Mouse > turn on Show Extended Input Sources
+    ibus-setup > Input Method > add Chinese - Pinyin
+
 debian bash shell customization
     PS1='\e[32;1m\u@\h: \e[34m\W\e[0m\$ '
 
 debian shell auto-correction | autocorrect
 	shopt -s cdspell
 
-debian install on xps 9360
-  firmware-atheros rsync sudo python3-pip ssh ufw python3-tk ffmpeg mkvtoolnix dirmngr
-
 python3 feature
 uninstall vim.tiny then install vim-gtk3 (with python support)
 
 debian check avail package - chinese font
 	apt-cache search chinese font
-
-debian touchpad xfce
-	apt purge xserver-xorg-input-synaptics
-	apt install xserver-xorg-input-libinput
-	su -
-	echo 'Section "InputClass"
-        	Identifier "libinput touchpad catchall"
-        	MatchIsTouchpad "on"
-        	MatchDevicePath "/dev/input/event*"
-        	Driver "libinput"
-        	Option "Tapping" "on"
-	EndSection' > /etc/X11/xorg.conf.d/40-libinput.conf
-
-	systemctl restart lightdm
 
 debian font
   cp -var ./ubuntu-font-family-0.83/* /usr/share/fonts/local/
@@ -3757,56 +3745,9 @@ debian screencast
     # reduce size
     ffmpeg -i input_video.mp4 -vf "fps=30" output_video.mp4
 
-debian  # bluetooth, guide for debian
-  apt install pulseaudio bluez pavucontrol rfkill pulseaudio-bluetooth blueman
-
-  cat /etc/bluetooth/audio.conf
-  [General]
-  Disable=Socket
-  Enable=Media,Source,Sink,Gateway
-
-debian bluetoothd
-  mod
-	/lib/systemd/system/bluetooth.service
-  to have
-	ExecStart=/usr/lib/bluetooth/bluetoothd -E
-  instead of
-	ExecStart=/usr/lib/bluetooth/bluetoothd
-  then
-	sudo systemctl daemon-reload; sudo systemctl restart bluetooth.service
-
-  sudo systemctl restart bluetooth
-  sudo pactl load-module module-bluetooth-discover
-  sudo pactl load-module module-switch-on-connect
-
-
-debian bluetooth speaker connected, but not shown in sounds setting
-  ref > https://askubuntu.com/questions/689281/pulseaudio-can-not-load-bluetooth-module
-  edit
-	/etc/pulse/default.pa
-
-  comment out
-	#load-module module-bluetooth-discover
-
-  edit
-	/usr/bin/start-pulseaudio-x11
-
-  after the lines
-	 if [ x”$SESSION_MANAGER” != x ] ; then
-        /usr/bin/pactl load-module module-x11-xsmp “display=$DISPLAY session_manager=$SESSION_MANAGER” > /dev/null
-    fi
-
-  add the following
-	/usr/bin/pactl load-module module-bluetooth-discover
-
-debian screencast
-	sudo apt-get install ffmpeg mkvtoolnix
 
 debian wireless network manager
   nmtui; nmcli
-
-debian bluetooth output switch
-  pavucontrol
 
 debian audio vol control in xfce4
   panel > add new item > search "pulseaudio"
@@ -3839,33 +3780,10 @@ dell hardware
   to `/etc/NetworkManager/conf.d`
 vvv
 
-install steam on debian
-  https://unix.stackexchange.com/questions/264004/installing-steam-on-debian
-  # add i386
-  sudo dpkg --add-architecture i386
-
-  # add contrib and non-free repo in /etc/apt/sources.list
-  deb http://ftp.fr.debian.org/debian stretch main contrib non-free
-
-  # update then install steam
-  sudo apt update; sudo apt install steam:i386
-
-  # install the appropriate 3D libraries
-  libgl1-mesa-glx:i386 for Mesa,
-  libgl1-fglrx-glx:i386 for fglrx on AMD GPUs, or
-  libgl1-nvidia-glx:i386 for the NVIDIA binary driver
 
 doing nothing after lid closed
   modify /etc/systemd/logind.conf > HandleLidSwitch=ignore
   systemctl restart systemd-logind.service
-
-adobe-flash / adobe flash
-  sudo add-apt-repository "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
-  sudo apt-get update
-  sudo apt-get install adobe-flashplugin
-
-  sudo apt-get install chromium-browser
-  sudo apt-get upgrade
 
 debian disable auto-sleep
   vi /etc/gdm3/greeter.dconf-defaults
@@ -3884,46 +3802,6 @@ reduce pdf in size | resize pdf | compress
 	-dPDFSETTINGS=/prepress (high quality, color preserving, 300 dpi imgs)
 	-dPDFSETTINGS=/default  (almost identical to /screen)
 
-nvidia rtx3070 on debian buster 10.7  # gamebox #gamer
-  download driver from https://www.nvidia.com/en-us/drivers/results/170804/ up to 20210318
-  apt search linux-headers-$(uname -r); sudo apt install linux-headers-5.10.0 # kernel source
-
-  ## https://www.linuxcapable.com/install-nvidia-drivers-on-debian/
-  ## Tested on Debian 11
-  add-apt-repository contrib; add-apt-repository non-free	# add repo
-  lscpu | grep CPU	# check CPU
-  apt install linux-headers-amd64 nvidia-detect
-  nvidia-detect
-  apt install nvidia-driver linux-image-amd64	# reboot required
-  nvidia-smi	# show the installed driver
-
-intel ax201 wifi wireless # gamebox gamer backport back-port
-  update kernel to 5.10 through back-port repo (personal experience)
-  update linux-firmware
-    jeff@gamer:~$ dpkg -l | grep firmware | awk '{print $2,$3}'
-    amd64-microcode 3.20181128.1
-    firmware-amd-graphics 20200918-1~bpo10+1
-    firmware-iwlwifi 20200918-1~bpo10+1
-    firmware-linux 20200918-1~bpo10+1
-    firmware-linux-free 3.4
-    firmware-linux-nonfree 20200918-1~bpo10+1
-    firmware-misc-nonfree 20200918-1~bpo10+1
-    fwupd-amd64-signed 1.2.13+2
-    intel-microcode 3.20201118.1~bpo10+1
-  download driver from https://www.intel.com/content/www/us/en/support/articles/000005511/wireless.html
-  unzip and cp code into /lib/firmware
-
-  install latest backport iwlwifi
-    > https://askubuntu.com/questions/1156167/unable-to-get-wifi-adapter-working-clean-19-04-install-network-unclaimed/
-    sudo apt update
-    sudo apt install git build-essential
-    git clone https://git.kernel.org/pub/scm/linux/kernel/git/iwlwifi/backport-iwlwifi.git
-    cd backport-iwlwifi/
-    make defconfig-iwlwifi-public
-    sed -i 's/CPTCFG_IWLMVM_VENDOR_CMDS=y/# CPTCFG_IWLMVM_VENDOR_CMDS is not set/' .config
-    make -j4
-    sudo make install
-    sudo modprobe iwlwifi
 
 debian gnome super key | win key
     gnome-tweak > Keyboard & Mouse > Alt/Win key behavior > Alt is swapped with Win
