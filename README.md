@@ -3698,8 +3698,11 @@ touchpad > enable 3rd button copy & paste
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
+debian post-install
+    neofetch vlc terminator geeqie vim nvidia-detect gnome-screenshot chromium gimp darktable curl wget rsync
+
 debian remove games game gnome-games
-    aisleriot gnome-sudoku ace-of-penguins  gbrainy gnome-mines gnome-nibbles quadrapassel four-in-a-row gnome-mahjongg
+    aisleriot gnome-sudoku ace-of-penguins  gbrainy gnome-mines gnome-nibbles quadrapassel four-in-a-row gnome-mahjongg five-or-more hitori gnome-klotski gnome-games gnome-robots tali gnome-taquin gnome-chess gnome-2048 swell-foop gnome-taquin gnome-tetravex lightsoff iagno
 
 debian bash shell customization
     PS1='\e[32;1m\u@\h: \e[34m\W\e[0m\$ '
