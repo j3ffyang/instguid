@@ -4213,6 +4213,9 @@ show date @ menu panel dconf-editor
 	Enable/Tick/Check the "show-date".
 
 multimedia driver gstreamer
+    # trim video 241204
+    ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4
+
 	ffmpeg -i demo.ogv -f mp4 demo.mp4
 	ffmpeg convert > ffmpeg -vcodec copy -i orig.ogv outfile.avi
 	ffmpeg cut     > ffmpeg -ss 00:00:00 -i orig.ogv -vcodec copy -t 00:02:54 output.ogv
@@ -4342,7 +4345,7 @@ pacman -S gdm gnome-shell gnome-desktop gnome-extra gnome-tweak-tool \
 ## fonts (run in text mode, without gdm, as rendering might hang the system)
 pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts \
     ttf-arphic-ukai ttf-arphic-uming opendesktop-fonts \
-    wqy-microhei wqy-zenhei wqy-bitmapfont  
+    wqy-microhei wqy-zenhei wqy-bitmapfont
 
 
 ## pinyin im input method
@@ -4359,30 +4362,16 @@ pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts \
 # add google-pinyin
 	fcitx-configtool
 
-
 ## browser
-pacman -S firefox chromium
+    pacman -S firefox chromium
 
 ## util
-pacman -S gnupg openssh openvpn terminator gimp nautilus wget git vim vlc \
-  rsync cryptsetup
+    pacman -S gnupg openssh openvpn terminator gimp nautilus wget git vim vlc \
+    rsync cryptsetup jdk11-openjdk graphviz firewalld neofetch docker geeqie \
+    gnome-screenshot fcitx-googlepinyin fcitx-im base-devel fcitx-configtool gnome-tweaks
 
 ## office
 pacman -S libreoffice-fresh libreoffice-fresh-zh-CN libreoffice-fresh-zh-TW
-
-## others
-pacman -S geeqie flashplugin java-runtime-common jre7-openjdk ebtables dnsmasq
-
-# bluetooth
-install for bluetooth, then restart "pulseaudio --kill; pulseaudio --start"
-
-pacman -S pulseaudio pulseaudio-bluetooth bluez blueman pavucontrol rfkill
-sudo rfkill unblock bluetooth
-
-# refer to https://wiki.archlinux.org/index.php/bluetooth#Bluetoothctl
-# http://sarveshseri.blogspot.hk/2014/07/archlinux-bluetooth.html
-sudo systemctl start bluetooth; bluetoothctl
-[bluetooth]# power on | scan on  
 
 
 key refresh
