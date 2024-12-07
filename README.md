@@ -4359,9 +4359,6 @@ pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts \
 	export QT_IM_MODULE=fcitx
 	export XMODIFIERS=@im=fcitx
 
-# add google-pinyin
-	fcitx-configtool
-
 ## browser
     pacman -S firefox chromium
 
@@ -4373,6 +4370,8 @@ pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts \
 ## office
 pacman -S libreoffice-fresh libreoffice-fresh-zh-CN libreoffice-fresh-zh-TW
 
+## update mirrors
+sudo pacman-mirrors -i -c [country] -m rank
 
 key refresh
 	sudo pacman-key --init
@@ -4390,7 +4389,7 @@ key refresh
 pacman performance optimizer perf
 	sudo packman -Sc && sudo pacman-optimize && sudo pacman -Syu
 
-pacman - list unused
+pacman - list unused - package management
 	pacman -Qdttq
 
     # list unused
@@ -4399,13 +4398,11 @@ pacman - list unused
 	# list installed but not from base and base-devel
 	pacman -Qei | awk '/^Name/ { name=$3 } /^Groups/ { if ( $3 != "base" && $3 != "base-devel" ) { print name } }'
 
-
 pacman - remove unused
+    yay -Yc `pacman -Qdt`   # remove dependencies as well
     pacman -Qqd | pacman -Rsu -
     pacman -Qtdq | pacman -Rns -
     pacman -Qtdq | sudo pacman -Rns -
-	sudo pacman -Rsn $(sudo pacman -Qdtq)
-	sudo pacman -Rscnd <PACKAGE_NAME>
 
 pacman - remove /var/cache/pacman/pkg
 	pacman -Sc
@@ -4416,7 +4413,7 @@ pacman - list installed from official repo
        - list installed from unofficial repo
 	sudo pacman -Qem
 
-	figure out a file being owned by which package
+    # figure out a file being owned by which package
 	pacman -Qo /usr/lib/libappindicator3.so.1.0.0
 
 pacman - find the specific package installed
