@@ -4180,11 +4180,6 @@ chrome browser w/ proxy-server behind proxy
   chromium-browser --proxy-server=http://ip:port
   chromium-browser --proxy-server=socks://ip:port
 
-adobe flash >
-	rpm -ivh http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm
-	rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux
-	yum install flash-plugin nspluginwrapper alsa-plugins-pulseaudio libcurl
-
 repo fast repo
 	yum install yum-plugin-fastestmirror
 
