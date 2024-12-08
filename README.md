@@ -4340,7 +4340,8 @@ pacman -S gdm gnome-shell gnome-desktop gnome-extra gnome-tweak-tool \
 ## fonts (run in text mode, without gdm, as rendering might hang the system)
 pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts \
     ttf-arphic-ukai ttf-arphic-uming opendesktop-fonts \
-    wqy-microhei wqy-zenhei wqy-bitmapfont
+    wqy-microhei wqy-zenhei wqy-bitmapfont \
+    noto-fonts-extra    # noto font
 
 
 ## pinyin im input method
