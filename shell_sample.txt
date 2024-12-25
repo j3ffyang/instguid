@@ -316,6 +316,8 @@ for	for i in *;do j=`echo $i | tr A-Z a-z`;mv $i $j; done
 
 
 FINDFIND FINDFIND FINDFIND FINDFIND
+find duplicated files, compared with md5sum
+  find . ! -empty -type f -exec md5sum {} + | sort | uniq -w32 -dD
 
 find	find multi garbage files then rm
 	find -type f \( -name pattern1 -o -name pattern2 \) -exec rm -fr {} \;

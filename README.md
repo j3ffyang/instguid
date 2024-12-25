@@ -4361,7 +4361,12 @@ pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts \
 ## util
     pacman -S gnupg openssh openvpn terminator gimp nautilus wget git vim vlc \
     rsync cryptsetup jdk11-openjdk graphviz firewalld neofetch docker geeqie \
+    ldns xorg-xhost \
     gnome-screenshot fcitx-googlepinyin fcitx-im base-devel fcitx-configtool gnome-tweaks
+
+## xauth XAuthority
+    xauth add :0 . `mcookie`; xauth list 
+    export DISPLAY=:0
 
 ## office
 pacman -S libreoffice-fresh libreoffice-fresh-zh-CN libreoffice-fresh-zh-TW
