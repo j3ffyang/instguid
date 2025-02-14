@@ -4332,6 +4332,25 @@ install	https://wiki.archlinux.org/index.php/Beginners'_guide
 	useradd -m -g MY_GROUP -G wheel -s /bin/bash ME
 install	https://wiki.archlinux.org/index.php/Beginners'_guide
 
+
+## `grub-rescue`
+
+1. Rescue mode
+> https://forum.manjaro.org/t/manjaro-wont-boot-after-windows-update/31109
+
+ls (hd0,6)/boot
+set root=(hd0,6)
+set prefix=(hd0,6)/boot/grub
+insmod normal
+normal
+
+2. Update grub permanently
+> https://wiki.manjaro.org/index.php/GRUB/Restore_the_GRUB_Bootloader#Reinstall_GRUB
+
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=manjaro --recheck
+grub-mkconfig -o /boot/grub/grub.cfg
+
+
 # post-install
 ## gnome + gdm
 pacman -S gdm gnome-shell gnome-desktop gnome-extra gnome-tweak-tool \
