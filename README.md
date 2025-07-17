@@ -3704,6 +3704,10 @@ debian post-install
 debian remove games game gnome-games
     aisleriot gnome-sudoku ace-of-penguins  gbrainy gnome-mines gnome-nibbles quadrapassel four-in-a-row gnome-mahjongg five-or-more hitori gnome-klotski gnome-games gnome-robots tali gnome-taquin gnome-chess gnome-2048 swell-foop gnome-taquin gnome-tetravex lightsoff iagno
 
+	# gnome up to 250706 in Manjaro
+	pacman -Rns gnome-chess gnome-mines quadrapassel iagno 
+
+
 debian ibus with gnome desktop
     apt install ibus ibus-pinyin
     gnome-tweak > Keyboard & Mouse > turn on Show Extended Input Sources
@@ -3744,7 +3748,7 @@ debian screencast
 
     # reduce size
     ffmpeg -i input_video.mp4 -vf "fps=30" output_video.mp4
-
+    ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4  # https://unix.stackexchange.com/questions/28803/how-can-i-reduce-a-videos-size-with-ffmpeg
 
 debian wireless network manager
   nmtui; nmcli
@@ -4373,6 +4377,14 @@ pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts \
 	export GTK_IM_MODULE=fcitx
 	export QT_IM_MODULE=fcitx
 	export XMODIFIERS=@im=fcitx
+
+# ibus > edit /etc/porfile
+	GTK_IM_MODULE=ibus
+	QT_IM_MODULE=ibus
+	XMODIFIERS=@im=ibus
+
+	pacman -Syu ibus-libpinyin	# reboot
+	ibus-daemon -rxRd           # autostart daemon
 
 ## browser
     pacman -S firefox chromium
