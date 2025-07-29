@@ -1073,6 +1073,10 @@ netstat interface	$netstat -in -t
 	# Search for open UDP network ports
 	netstat -apNlu
 
+	# ss to show opened 
+	ss -tuln
+	ss -lunp
+
 Linux NFS mount config		
 	exportfs -ra	# apply the /etc/exports change
 	vi /etc/exports, add ->		/mnt/cdrom	192.168.1.1(ro,no_root_squash)
@@ -4058,19 +4062,11 @@ turn on firewall
 
 mac:~ jeff$ brew list
     ==> Formulae
-    bash			gdk-pixbuf		icu4c			libtiff			lz4			pango			tcl-tk
-    bash-completion		gettext			iproute2mac		libtool			lzo			pcre			v2ray
-    cairo			glib			jasper			libx11			mpdecimal		pixman			watch
-    fontconfig		gobject-introspection	jpeg			libxau			ncurses			pkcs11-helper		webp
-    freetype		graphite2		libffi			libxcb			netpbm			pkg-config		wireguard-go
-    fribidi			graphviz		libpng			libxdmcp		openjdk			python@3.9		wireguard-tools
-    gd			gts			libpthread-stubs	libxext			openssl@1.1		readline		xorgproto
-    gdbm			harfbuzz		librsvg			libxrender		openvpn			sqlite			xz
+	bash bash-completion iproute2mac v2ray graphviz	libpng	libxdmcp openjdk python@3.9
+	wireguard-tools gdbm openvpn sqlite xz
 
     ==> Casks
-    atom              chromium          firefox           google-chrome     iterm2            macfuse           microsoft-teams   tunnelblick       veracrypt         vlc
-
-other install > iterm2 python
+	chromium firefox google-chrome iterm2 macfuse tunnelblick veracrypt vlc
 
 python pip3 install list
   scikit-learn tflearn tensorflow pandas numpy opencv-python Keras jedi pep8
