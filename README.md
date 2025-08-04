@@ -4362,6 +4362,9 @@ pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts \
     wqy-microhei wqy-zenhei wqy-bitmapfont \
     noto-fonts-extra    # noto font
 
+## manjaro/ arch noto-fonts-cjk/ noto fonts
+    https://wiki.archlinux.org/title/Localization/Simplified_Chinese
+
 
 ## pinyin im input method
 	> https://christopher.sg/posts/manjaro-chinese-input-fcitx
