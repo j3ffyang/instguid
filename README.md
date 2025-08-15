@@ -587,11 +587,6 @@ max ram / max memory
 
 logging > strace -ff -F -tt -v -o /tmp/passwd-trace.log -s 102400 passwd "user" # increase tracing level upon passwd command
 
-hostname set in RedHat
-	edit /etc/sysconfig/network
-	hostname -s	-> short host
-	hostname -d	-> list domain
-
 Linux control center	gnomecc-> gnome		kontrol-panel-> kde
 
 Linux desktop switch	exec gnome-session
@@ -610,12 +605,6 @@ Linux cpu/ mem check & partition setting
 
 Linux mem memory by pid
 	ps -o pmem <pid>
-
-Linux Memory (mem)
-	$memprof	#in gui
-
-	add below in /etc/lilo.conf to recognize the added mem
-	append="mem=???MB"
 
 hard drive / hard disk / hdd performance
 	# Get the current status of hard drive
@@ -651,34 +640,6 @@ SuSE/ suse mouse configuration in cmnline/ command line
 
 Linux xwindow mouse setting
 	xset mouse 8 2	# mouse pointer acceleration
-
-Linux swap file
-	#dd if=/dev/zero of=/swapfile bs=1024 count=65536
-	mkswap /swapfile 65536
-	sync
-	swapon /swapfile
-
-	swap should be equal to twice your computer's RAM, or 32MB, whichever
-	amount is larger, but no larger than 2GB.
-
-	# To create a swap partition
-	mkswap /dev/hdb2
-	swapon /dev/hdb2
-	add the following in /etc/fstab
-		/dev/hdb2	swap	swap	defaults	0 0
-	# to verify -> cat /proc/swaps
-
-	# To create a swap file
-	dd if=/dev/zero of=/swapfile bs=1024 count=65536
-	mkswap /swapfile
-	swapon /swapfile
-	add the following in /etc/fstab
-		/swapfile	swap	swap	defaults	0 0
-
-	# to remove a swap space
-	swapoff /dev/hdb2
-	remove its entry in /etc/fstab
-	then umount, remove the filesystem or file
 
 linux disk quota
 	create a partition, such /dev/hda7 = /home
@@ -924,19 +885,6 @@ yum -d10 check-update
 Inittab change		/etc/inittab-> id:x:initdefault:  
 			(x=kde w/ network multi users w/o graphic)
 	/sbin/init q
-
-Linux chkconfig-> change runlevel.
-	#chkconfig --list -> list all on- services. ie. chkconfig --level 2345 ssh on -> start ssh in runlevel 2,3,4,5
-	#chkconfig telnet on -> to enable telnet service
-
-	chkconfig --add <service_name> 	# add to check service
-	cp <service_name> /etc/rc.d/init.d/ -> cd /etc/rc.d/init.d/
-	chmod u+x <service_name>
-	<service_name> must contains following 2 lines
-		#!/bin/bash
-		# chkconfig: 3 56 50
-		# description: nothing
-	chkconfig --del <service_name> 	# delete checked service
 
 Linux at / AT
 	$ at 14:00	-> man at. schedule a cmd by at.
