@@ -1440,35 +1440,6 @@ Linux sendmail server setup procedure.
 	221 noao.edu delivering mail
 --------------------------------------------------------------------------------
 
-gd	http://www.boutell.com/gd/
-	install libpng-*+dev, libjpeg*+dev, freetype*+dev
-	./configure --with-png=/usr/lib \
-		--with-freetype=/usr/lib \
-		--with-jpeg=/usr/lib
-
-jpeg	ftp://ftp.uu.net/graphics/jpeg/
-	or install from rpm of both libjpeg and libjpeg-devel
-	default install ./configure -> install in /usr/lib
-	ldconfig -> load lib
-
-gallery
-	tar -xzvf -> mv gallery $web -> cd $web/gallery/ -> touch config.php .htaccess
-	-> chmod 0777 config.php .htaccess -> chmod 0755 setup -> mkdir albums
-	-> chmod 0777 albums -> http://hostname/setup/index.php -> ... -> ./secure.sh
-
-gallery upgrade
-- split source by date
-- backup
-- erase duplicated
-- remove backup, recreate newer but smaller backup
-- sort for upload and keep less than 36 items in each folder
-- find . -type f -name "*.jpg" -exec mogrify -resize 800 {} \;
-- tar -czvf foo.tar.gz bar
-- upload tarball
-- remove resized folder and backup
-- clean up compact flash
-
-
 Linux linuxconf	http://www.solucorp.qc.ca/
 	linuxconf --text	force to launch linuxconf in text mode
 
@@ -3760,13 +3731,6 @@ debian wireless network manager
 debian audio vol control in xfce4
   panel > add new item > search "pulseaudio"
 
-debian skype
-  su -
-  echo "deb [arch=amd64] https://repo.skype.com/deb stable main" |  tee /etc/apt/sources.list.d/skype-stable.list
-  wget https://repo.skype.com/data/SKYPE-GPG-KEY
-  apt-key add SKYPE-GPG-KEY
-  apt install apt-transport-https; apt update
-  apt install skypeforlinux
 
 dell hardware
   sudo dmidecode | grep "Product Name"
@@ -4166,13 +4130,6 @@ FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 
 Fedora fedora
 
-create livecd from ubuntu
-	apt-get install syslinux isomd5sum extlinux
-	extract iso and copy LiveOS/livecd-iso-to-disk
-	livecd-iso-to-disk --overlay-size-mb 512 /path/iso /path/usb
-	dd if=/path/livecd.iso of=/dev/sdX bs=8M status=progress && sync
-    dd bs=4M if=./debian.iso of=/dev/sdX status=progress oflag=sync
-
 repo setting > http://rpmfusion.org/Configuration/
 	su -c 'yum localinstall --nogpgcheck http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-stable.noarch.rpm http://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-stable.noarch.rpm'
 
@@ -4183,10 +4140,6 @@ chrome browser w/ proxy-server behind proxy
 repo fast repo
 	yum install yum-plugin-fastestmirror
 
-
-skype
-  dnf config-manager --add-repo https://repo.skype.com/rpm/stable/skype-stable.repo
-  curl -o /etc/yum.repos.d/skype-stable.repo https://repo.skype.com/rpm/stable/skype-stable.repo
 
 package to install
 	kvm virt-manager libvirt p7zip gimp ImageMagick lvm2 xterm dconf-editor scim scim-pinyin ibus-pinyin chromium pidgin rdesktop vim rubygem-boxgrinder-build gnome-tweak-tool wget telnet spice-client anyconnect openssh terminator icedtea-web pv xorg-x11-drv-intel gpg powertop
