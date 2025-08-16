@@ -3622,7 +3622,7 @@ debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
 debian post-install
-    nvidia-detect gimp wget fastfetch vlc terminator geeqie vim gnome-screenshot chromium darktable rsync python3 python3-pip ibus-libpinyin fonts-noto-core fonts-noto-cjk fonts-ubuntu fonts-ubuntu-console fonts-ubuntu-title
+    nvidia-detect gimp wget fastfetch vlc terminator geeqie vim gnome-screenshot chromium darktable rsync python3 python3-pip ibus-libpinyin fonts-noto-core fonts-noto-cjk fonts-ubuntu fonts-ubuntu-console fonts-ubuntu-title firewalld
 
 debian remove games game gnome-games
     aisleriot gnome-sudoku ace-of-penguins  gbrainy gnome-mines gnome-nibbles quadrapassel four-in-a-row gnome-mahjongg five-or-more hitori gnome-klotski gnome-games gnome-robots tali gnome-taquin gnome-chess gnome-2048 swell-foop gnome-taquin gnome-tetravex lightsoff iagno
