@@ -3622,7 +3622,7 @@ debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
 debian post-install
-    neofetch vlc terminator geeqie vim nvidia-detect gnome-screenshot chromium gimp darktable curl wget rsync
+    nvidia-detect gimp wget fastfetch vlc terminator geeqie vim gnome-screenshot chromium darktable rsync python3 python3-pip ibus-libpinyin fonts-noto-core fonts-noto-cjk fonts-ubuntu fonts-ubuntu-console fonts-ubuntu-title
 
 debian remove games game gnome-games
     aisleriot gnome-sudoku ace-of-penguins  gbrainy gnome-mines gnome-nibbles quadrapassel four-in-a-row gnome-mahjongg five-or-more hitori gnome-klotski gnome-games gnome-robots tali gnome-taquin gnome-chess gnome-2048 swell-foop gnome-taquin gnome-tetravex lightsoff iagno
@@ -3631,10 +3631,40 @@ debian remove games game gnome-games
 	pacman -Rns gnome-chess gnome-mines quadrapassel iagno 
 
 
-debian ibus with gnome desktop
-    apt install ibus ibus-pinyin
-    gnome-tweak > Keyboard & Mouse > turn on Show Extended Input Sources
-    ibus-setup > Input Method > add Chinese - Pinyin
+debian ibus with gnome desktop #ibus-libpinyin
+    apt install ibus-libpinyin
+
+
+debian fonts-noto-cjk config /etc/fonts/local.conf
+    ```xml
+    <?xml version="1.0"?>
+    <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+    <fontconfig>
+      <alias>
+        <family>serif</family>
+        <prefer>
+          <family>Noto Serif</family>
+        </prefer>
+      </alias>
+      <alias>
+        <family>sans-serif</family>
+        <prefer>
+          <family>Noto Sans</family>
+        </prefer>
+      </alias>
+      <alias>
+        <family>monospace</family>
+        <prefer>
+          <family>Noto Mono</family>
+        </prefer>
+      </alias>
+    </fontconfig>
+    ```
+    fc-match sans-serif
+    fc-match serif
+    fc-match monospace
+    fc-cache -f -v
+
 
 debian bash shell customization
     PS1='\e[32;1m\u@\h: \e[34m\W\e[0m\$ '
