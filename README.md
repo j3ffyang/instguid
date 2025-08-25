@@ -2062,12 +2062,21 @@ encrypted file system / encrypt
         sync
 
 encrypt file system / cryptsetup
-  cryptsetup --verify-passphrase luksFormat /dev/sdb -c aes -s 256 -h sha256
-  cryptsetup luksOpen /dev/sdb 64g_encrypted
-  pv -tpreb /dev/zero | sudo dd of=/dev/mapper/64g_encrypted bs=128M
-  mkfs.ext4 /dev/mapper/64g_encrypted -m 1 -O dir_index,filetype,sparse_super
+    cryptsetup --verify-passphrase luksFormat /dev/sdb -c aes -s 256 -h sha256
+    cryptsetup luksOpen /dev/sdb 64g_encrypted
+    pv -tpreb /dev/zero | sudo dd of=/dev/mapper/64g_encrypted bs=128M
+    mkfs.ext4 /dev/mapper/64g_encrypted -m 1 -O dir_index,filetype,sparse_super
+    
+    dmsetup remove /dev/mapper/nebula
 
-	dmsetup remove /dev/mapper/nebula
+
+encrypt folder encryption
+    dd if=/dev/zero of=encrypted.img bs=1M count=1024
+    cryptsetup luksFormat encrypted.img
+    cryptsetup luksOpen encrypted.img decrypted
+    mkfs.ext4 /dev/mapper/decrypted
+    mount /dev/mapper/decrypted /home/encrypted
+
 
 mount encrypt / crypt disk / luks
 	mounted disk
@@ -2081,6 +2090,7 @@ mount encrypt / crypt disk / luks
 cryfs  https://www.cryfs.org/tutorial
 	cryfs basedir mountdir	# eg. cryfs basedir Downloads
 	cryfs-unmount mountdir	# fusermount -u mountdir on cryfs 0.9
+
 
 PAM control / pam control
 	login time control	/etc/pam.d/login -> add 'auth required /lib/security/pam_time.so
