@@ -4518,7 +4518,7 @@ hyprlandhyprlandhyprlandhyprland
 hyprlandhyprlandhyprlandhyprland
 
 # critical packages to install during init installation
-    iwd dhcpcd systemd-networkd systemd-resolved
+    iwd dhcpcd systemd-networkd systemd-resolved vim gvim wl-clipboard
 
 # fonts
     ttf-liberation noto-fonts noto-fonts-cjk ttf-noto-nerd
@@ -4540,10 +4540,11 @@ hyprlandhyprlandhyprlandhyprland
     hyprctl keyword monitor "eDP-1,disable"     # while "eDP-1"= laptop monitor id
 
 # screenshot with corsair k65 keyboard
-    sudo pacman -S grim slurp hyprshot 
+    sudo pacman -S grim slurp hyprshot  # hyprshot depends on the former 2
 # add the following into ~/.conf/hypr/hyprland.conf
-    bind = , Print, exec, grim -g "$(slurp -d)" - | wl-copy # fn+ n
-    bind = $mainMod, S, exec, hyprshot -m window 
+    bind = $mainMod, S, exec, hyprshot -m window		# select a window
+    bind = $SUPER_SHIFT, S, exec, hyprshot -m region	# select a region
+    bind = , Print, exec, hyprshot -m output		    # active monitor
 
 # fcitx5
     sudo pacman -S fcitx5 fcitx5-configtool fcitx5-chinese-addons fcitx5-gtk fcitx5-qt
