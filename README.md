@@ -2034,7 +2034,35 @@ gnupg / gpg / pgp
 	gpg --keyserver keyserver --revc-keys key_id
 	gpg --keyserver keyserver --search-keys string_to_match
 
-----
+---
+
+# gnupg gpg 250904
+
+	# gen
+	gpg --expert --full-generate-key
+
+	# list
+	gpg --list-secret-keys
+
+	# encrypt by using an existing imported secret key
+	gpg --encrypt --recipient "userName <user@mail.com>" secret.file
+
+	# decrypt 
+	gpg --output decrypted.file --decrypt secret.file.gpg
+
+	# export a secret key
+	gpg --export-secret-keys --armor "userName <user@mail.com>" > secretKey.asc
+
+	# export public key
+	gpg --export --armor "userName <user@mail.com>" > publicKey.asc
+
+	# encrypt a backup key
+	gpg --symmetric --cipher-algo AES256 secretKey.asc
+
+	# examine a secret key
+	gpg --list-packets secretKey.asc
+
+---
 
 # keybase.io
 
@@ -4484,6 +4512,56 @@ journal
 
 archarcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharch
+
+
+hyprlandhyprlandhyprlandhyprland
+hyprlandhyprlandhyprlandhyprland
+
+# critical packages to install during init installation
+    iwd dhcpcd systemd-networkd systemd-resolved
+
+# fonts
+    ttf-liberation noto-fonts noto-fonts-cjk ttf-noto-nerd
+
+
+# enable dark mode
+    gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
+# add the following into ~/.conf/hypr/hyprland.conf. require 'xdg-desktop-portal-gtk' package
+    exec-once = gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
+    exec-once = gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+# cat ~/.config/gtk-3.0/settings.ini
+    [Settings]
+    gtk-application-prefer-dark-theme=true
+    gtk-theme-name=Adwaita-dark
+
+
+# disable laptop display with extend monitor attached
+    hyprctl monitors all    # list all avail monitors
+    hyprctl keyword monitor "eDP-1,disable"     # while "eDP-1"= laptop monitor id
+
+# screenshot with corsair k65 keyboard
+    sudo pacman -S grim slurp hyprshot 
+# add the following into ~/.conf/hypr/hyprland.conf
+    bind = , Print, exec, grim -g "$(slurp -d)" - | wl-copy # fn+ n
+    bind = $mainMod, S, exec, hyprshot -m window 
+
+# fcitx5
+    sudo pacman -S fcitx5 fcitx5-configtool fcitx5-chinese-addons fcitx5-gtk fcitx5-qt
+# edit ~/.config/hypr/hyprland.conf
+    # Fcitx5 for input method support
+    env = XMODIFIERS,@im=fcitx
+    env = QT_IM_MODULE,fcitx
+    env = GTK_IM_MODULE,fcitx
+    # Autostart the Fcitx5 daemon
+    exec-once = fcitx5 -d
+# steps
+    fcitx5-configtool > add an input method > "onlyShow Current Language" off > search "pinyin" > 
+    select Pinyin under Simplified Chinese
+    
+
+hyprlandhyprlandhyprlandhyprland
+hyprlandhyprlandhyprlandhyprland
+
 
 nodejsnodejsnodejsnodejsnodejsnodejsnodejs
 
