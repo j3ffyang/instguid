@@ -48,17 +48,17 @@
   "memory": {
     "format": "{}% 󰍛",
     "tooltip": true,
-    "tooltip-format": "RAM en uso: {used} / {total} ({percentage}%)"
+    "tooltip-format": "ram: {used} / {total} ({percentage}%)"
   },
   "disk": {
     "format": "{percentage_free}% ",
     "tooltip": true,
-    "tooltip-format": "Espacio libre: {free} / {total} ({percentage_free}%)"
+    "tooltip-format": "diskUsage: {free} / {total} ({percentage_free}%)"
   },
   "temperature": {
     "format": "{temperatureC}°C {icon}",
     "tooltip": true,
-    "tooltip-format": "Temperatura actual: {temperatureC}°C\nCrítico si > 80°C",
+    "tooltip-format": "temperature: {temperatureC}°C\nCrítico si > 80°C",
     "format-icons": [
       ""
     ]
@@ -121,9 +121,9 @@
     "max-length": 50
   },
   "hyprland/language": {
-    "format": "{} ",
-    "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next",
-/*    "format-es": "ESP", */
-    "format-en": "US"
-  }
+    "format": "{}",
+    "format-en": "US", // Displays 'us' for the English layout
+    "keyboard-name": "at-translated-set-2-keyboard", // Check 'hyprctl devices' for your keyboard name 
+    "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next" 
+  },
 }

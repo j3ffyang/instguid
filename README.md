@@ -4520,6 +4520,10 @@ hyprlandhyprlandhyprlandhyprland
 # critical packages to install during init installation
     iwd dhcpcd systemd-networkd systemd-resolved vim gvim wl-clipboard
 
+# nvidia and vulkan drivers
+    pacman -S --needed vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader
+    pacman -S nvidia-dkms lib32-nvidia-utils egl-wayland libva-nvidia-driver
+
 # fonts
     ttf-liberation noto-fonts noto-fonts-cjk ttf-noto-nerd
 
@@ -4558,7 +4562,11 @@ hyprlandhyprlandhyprlandhyprland
 # steps
     fcitx5-configtool > add an input method > "onlyShow Current Language" off > search "pinyin" > 
     select Pinyin under Simplified Chinese
-    
+
+# find out product info 
+    cat /sys/devices/virtual/dmi/id/sys_vendor
+    cat /sys/devices/virtual/dmi/id/product_name
+
 
 hyprlandhyprlandhyprlandhyprland
 hyprlandhyprlandhyprlandhyprland
