@@ -3673,37 +3673,6 @@ debian ibus with gnome desktop #ibus-libpinyin
     apt install ibus-libpinyin
 
 
-debian fonts-noto-cjk config /etc/fonts/local.conf
-    ```xml
-    <?xml version="1.0"?>
-    <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
-    <fontconfig>
-      <alias>
-        <family>serif</family>
-        <prefer>
-          <family>Noto Serif</family>
-        </prefer>
-      </alias>
-      <alias>
-        <family>sans-serif</family>
-        <prefer>
-          <family>Noto Sans</family>
-        </prefer>
-      </alias>
-      <alias>
-        <family>monospace</family>
-        <prefer>
-          <family>Noto Mono</family>
-        </prefer>
-      </alias>
-    </fontconfig>
-    ```
-    fc-match sans-serif
-    fc-match serif
-    fc-match monospace
-    fc-cache -f -v
-
-
 debian bash shell customization
     PS1='\e[32;1m\u@\h: \e[34m\W\e[0m\$ '
 
@@ -4334,29 +4303,6 @@ pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts \
 ## manjaro/ arch noto-fonts-cjk/ noto fonts
     https://wiki.archlinux.org/title/Localization/Simplified_Chinese
 
-
-## pinyin im input method
-	> https://christopher.sg/posts/manjaro-chinese-input-fcitx
-
-	pacman -S fcitx-im fcitx-googlepinyin fcitx-configtool
-	pacman -S adobe-source-han-sans-otc-fonts adobe-source-han-serif-otc-fonts 
-
-# edit /etc/profile
-	export GTK_IM_MODULE=fcitx
-	export QT_IM_MODULE=fcitx
-	export XMODIFIERS=@im=fcitx
-
-# ibus > edit /etc/porfile
-	GTK_IM_MODULE=ibus
-	QT_IM_MODULE=ibus
-	XMODIFIERS=@im=ibus
-
-	pacman -Syu ibus-libpinyin	# reboot
-	ibus-daemon -rxRd           # autostart daemon
-
-## browser
-    pacman -S firefox chromium
-
 ## util
     pacman -S gnupg openssh openvpn terminator gimp nautilus wget git vim vlc \
     rsync cryptsetup jdk11-openjdk graphviz firewalld neofetch docker geeqie \
@@ -4524,8 +4470,37 @@ hyprlandhyprlandhyprlandhyprland
     pacman -S --needed vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader
     pacman -S nvidia-dkms lib32-nvidia-utils egl-wayland libva-nvidia-driver
 
+
 # fonts
-    ttf-liberation noto-fonts noto-fonts-cjk ttf-noto-nerd
+    pacman -S ttf-liberation noto-fonts noto-fonts-cjk ttf-noto-nerd
+    fc-cache -fv
+
+    cat /etc/fonts/conf.d/64-language-selector-prefer.conf 
+    <?xml version="1.0"?>
+    <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+    <fontconfig>
+      <alias>
+        <family>sans-serif</family>
+        <prefer>
+          <family>Noto Sans CJK SC</family>
+          <family>Noto Sans CJK TC</family>
+          <family>Noto Sans CJK JP</family>
+          <family>Noto Sans CJK KR</family>
+          <!-- Add other fonts here for non-CJK text, e.g., your primary Latin font -->
+        </prefer>
+      </alias>
+      <alias>
+        <family>monospace</family>
+        <prefer>
+          <family>Noto Sans Mono CJK SC</family>
+          <family>Noto Sans Mono CJK TC</family>
+          <family>Noto Sans Mono CJK JP</family>
+          <family>Noto Sans Mono CJK KR</family>
+          <!-- Add other fonts here for non-CJK text, e.g., your primary terminal font -->
+        </prefer>
+      </alias>
+    </fontconfig>
+# fonts
 
 
 # enable dark mode
