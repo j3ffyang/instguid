@@ -4471,7 +4471,8 @@ hyprlandhyprlandhyprlandhyprland
     pacman -S nvidia-dkms lib32-nvidia-utils egl-wayland libva-nvidia-driver
 
 
-# fonts
+# fonts > https://wiki.archlinux.org/title/Localization/Simplified_Chinese  # 64-language-selector-prefer.conf
+
     pacman -S ttf-liberation noto-fonts noto-fonts-cjk ttf-noto-nerd
     fc-cache -fv
 
