@@ -21,7 +21,7 @@
   "modules-right": [
     "wlr/taskbar",
     "idle_inhibitor",
-    "pulseaudio/slider",
+    /* "pulseaudio/slider", */
     "pulseaudio",
     "network",
     "hyprland/language"
