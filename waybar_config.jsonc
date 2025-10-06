@@ -25,7 +25,8 @@
     "pulseaudio",
     "battery",
     "network",
-    "hyprland/language"
+    "hyprland/language",
+    "tray"
   ],
   /* === Modules Left === */
   "custom/archicon": {

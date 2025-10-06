@@ -36,26 +36,6 @@ window#waybar.hidden {
 }
 
 /* Separation to the left */
-#custom-archicon,
-#cpu,
-#idle_inhibitor {
-  margin-left: 5px;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-
-/* Separation to the rigth */
-#clock,
-#temperature,
-#language {
-  margin-right: 5px;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-/* -- Specific styles -- */
-
-/* Modules left */
 #custom-archicon {
   font-size: 20px;
   color: #89B4FA;
@@ -81,7 +61,56 @@ window#waybar.hidden {
 
 #temperature {
   background: #F8BD96;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
+
+/* Separation to the rigth */
+#idle_inhibitor {
+  margin-left: 5px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background: #B5E8E0;
+  padding-right: 15px;
+}
+
+#pulseaudio {
+  color: #1A1826;
+  background: #F5E0DC;
+}
+
+#pulseaudio_slider {
+  color: #1A1826;
+  background: #E8A2AF;
+}
+
+#battery {
+  background: #96CDFB;
+}
+
+#network {
+  background: #CBA6F7;
+  padding-right: 13px;
+}
+
+#language {
+  color: #161320;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
+  transition: none;
+  background: #A6E3A1;
+  padding-right: 15px;
+}
+
+#tray {
+  margin-right: 5px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* -- Specific styles -- */
 
 /* Modules center */
 #workspaces {
@@ -134,35 +163,6 @@ window#waybar.hidden {
 
 #taskbar button:hover {
   background: rgba(34, 36, 54, 0.5);
-}
-
-#idle_inhibitor {
-  background: #B5E8E0;
-  padding-right: 15px;
-}
-
-#pulseaudio {
-  color: #1A1826;
-  background: #F5E0DC;
-}
-
-#pulseaudio_slider {
-  color: #1A1826;
-  background: #E8A2AF;
-}
-
-#battery {
-  background: #96CDFB;
-}
-
-#network {
-  background: #CBA6F7;
-  padding-right: 13px;
-}
-
-#language {
-  background: #A6E3A1;
-  padding-right: 15px;
 }
 
 /* === Optional animation === */
