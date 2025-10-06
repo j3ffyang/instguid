@@ -23,6 +23,7 @@
     "idle_inhibitor",
     /* "pulseaudio/slider", */
     "pulseaudio",
+    "battery",
     "network",
     "hyprland/language"
   ],
@@ -109,6 +110,18 @@
         "",
         ""
       ]
+    }
+  },
+  "battery": {
+  "format": "{capacity}% {icon}",
+  "format-charging": " {capacity}%",
+  "format-plugged": " {capacity}%",
+  "format-alt": "{time} {icon}",
+  "format-icons": ["", "", "", "", ""],
+  "states": {
+    "good": 90,
+    "warning": 30,
+    "critical": 15
     }
   },
   "network": {

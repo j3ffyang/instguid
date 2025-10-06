@@ -24,6 +24,7 @@ window#waybar.hidden {
 #idle_inhibitor,
 #pulseaudio,
 #pulseaudio_slider,
+#battery,
 #network,
 #language {
   color: #161320;
@@ -148,6 +149,10 @@ window#waybar.hidden {
 #pulseaudio_slider {
   color: #1A1826;
   background: #E8A2AF;
+}
+
+#battery {
+  background: #96CDFB;
 }
 
 #network {
