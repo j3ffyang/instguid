@@ -1,0 +1,76 @@
+configuration {
+    modi: "window,run,ssh,drun"; // Enabled modes for Rofi
+    font: "Fira Code Retina 12"; // Font used by Rofi
+    show-icons: true; // Display icons next to entries
+    icon-theme: "Papirus"; // Icon theme to use
+    display-window: "Window:"; // Text displayed for window mode
+    display-run: "Run:"; // Text displayed for run mode
+    display-ssh: "SSH:"; // Text displayed for SSH mode
+    display-drun: "Apps:"; // Text displayed for drun mode
+
+    // Keybindings
+    kb-cancel: "Escape,Control+g";
+    kb-row-down: "Down,Control+n";
+    kb-row-up: "Up,Control+p";
+    kb-alt-paste: "Alt+v";
+
+    // Appearance settings
+    width: 30; // Width of the Rofi window as a percentage of screen width
+    lines: 10; // Number of lines to display
+    columns: 1; // Number of columns to display
+    padding: 10; // Padding around entries
+    line-margin: 2; // Margin between lines
+    line-padding: 5; // Padding within each line
+    separator-style: "none"; // Style of separator between entries
+
+    // Theme integration (optional, if you have a separate theme file)
+    // @theme "my_custom_theme"; 
+}
+
+// Example of theme customization within config.rasi
+// This overrides parts of the default theme or a loaded custom theme
+* {
+    background-color: #282c34;
+    foreground-color: #abb2bf;
+    border-color: #61afef;
+}
+
+window {
+    border: 2px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+inputbar {
+    children: [ prompt, entry ];
+    background-color: #3e4452;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+prompt {
+    padding: 0px 5px;
+    text-color: #61afef;
+}
+
+listview {
+    background-color: #282c34;
+    lines: 10;
+    columns: 1;
+}
+
+element {
+    padding: 5px;
+    border-radius: 3px;
+}
+
+element-text {
+    text-color: inherit;
+}
+
+element selected {
+    background-color: #61afef;
+    text-color: #282c34;
+}
+
+@theme "/usr/share/rofi/themes/gruvbox-dark-soft.rasi"

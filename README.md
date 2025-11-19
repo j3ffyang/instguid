@@ -4456,6 +4456,13 @@ temperature
 journal
 	journalctl -b -1 -n 100
 
+ipad - mount ipad
+	sudo pacman -S usbmuxd libimobiledevice ifuse
+	idevicepair pair; idevicepair validate
+	systemctl status usbmuxd.service
+	ifuse ~/iPad	# mount
+	fusermount -u ~/iPad	#umount
+
 archarcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharch
 
