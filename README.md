@@ -4354,6 +4354,12 @@ pacman - remove /var/cache/pacman/pkg
 	pacman -Sc
 	pacman -Scc
 
+yay - remove clean cleanup
+    yay -Sc
+    yay -Scc    # clear cache
+    sudo pacman -Rsu $(pacman -Qdtq)    # rm orphaned dependencies
+    rm ~/.cache/yay/<package_name>
+
 pacman - list installed from official repo
 	sudo pacman -Qen
        - list installed from unofficial repo
