@@ -1,7 +1,7 @@
 /* -- Global rules -- */
 * {
   border: none;
-  font-family: "JetbrainsMono Nerd Font";
+  font-family: "Ubuntu Nerd Font";
   font-size: 15px;
   min-height: 10px;
 }
@@ -105,7 +105,7 @@ window#waybar.hidden {
 }
 
 #tray {
-  margin-right: 5px;
+  margin-right: 6px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
