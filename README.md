@@ -4317,7 +4317,10 @@ pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts \
 pacman -S libreoffice-fresh libreoffice-fresh-zh-CN libreoffice-fresh-zh-TW
 
 ## update mirrors
-sudo pacman-mirrors -i -c [country] -m rank
+    sudo pacman-mirrors -i -c [country] -m rank
+    
+    sudo pacman -S reflector
+    sudo reflector -c JP -l 10 -p https --save /etc/pacman.d/mirrorlist
 
 key refresh
 	sudo pacman-key --init
