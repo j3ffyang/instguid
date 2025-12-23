@@ -4305,8 +4305,7 @@ pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts \
 
 ## util
     pacman -S gnupg openssh openvpn terminator gimp nautilus wget git vim vlc \
-    rsync cryptsetup jdk11-openjdk graphviz firewalld neofetch docker geeqie \
-    ldns xorg-xhost \
+    rsync cryptsetup jdk11-openjdk graphviz firewalld  docker geeqie \
     gnome-screenshot fcitx-googlepinyin fcitx-im base-devel fcitx-configtool gnome-tweaks
 
 ## xauth XAuthority
@@ -4314,12 +4313,10 @@ pacman -S adobe-source-han-sans-cn-fonts adobe-source-han-sans-tw-fonts \
     export DISPLAY=:0
 
 ## office
-pacman -S libreoffice-fresh libreoffice-fresh-zh-CN libreoffice-fresh-zh-TW
+pacman -S libreoffice-still libreoffice-still-zh-CN libreoffice-still-zh-TW
 
 ## update mirrors
     sudo pacman-mirrors -i -c [country] -m rank
-    
-    sudo pacman -S reflector
     sudo reflector -c JP -l 10 -p https --save /etc/pacman.d/mirrorlist
 
 key refresh
