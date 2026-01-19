@@ -4469,6 +4469,9 @@ ipad - mount ipad
 	ifuse ~/iPad	# mount
 	fusermount -u ~/iPad	#umount
 
+audio/ sound output set default, sink
+    wpctl status; wpctl set-default [id]
+
 archarcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharch
 
