@@ -35,7 +35,7 @@
     "tooltip": false
   },
   "clock": {
-    "timezone": "Canada/Eastern",
+    "timezone": "Asia/Chongqing
     "format": "{:%I:%M %a %m/%d}",
     "tooltip-format": "{calendar}",
     "calendar": {
@@ -136,7 +136,7 @@
   },
   "hyprland/language": {
     "format": "{}",
-    "format-en": "US", // Displays 'us' for the English layout
+    "format-en": "Canada", // Displays 'us' for the English layout
     "keyboard-name": "at-translated-set-2-keyboard", // Check 'hyprctl devices' for your keyboard name 
     "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next" 
   },
