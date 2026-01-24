@@ -30,12 +30,12 @@
   ],
   /* === Modules Left === */
   "custom/archicon": {
-    "format": "",
+    "format": "",
     "on-click": "wofi --show drun",
     "tooltip": false
   },
   "clock": {
-    "timezone": "Asia/Chongqing
+    "timezone": "Asia/Chongqing",
     "format": "{:%I:%M %a %m/%d}",
     "tooltip-format": "{calendar}",
     "calendar": {

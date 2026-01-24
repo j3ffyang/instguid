@@ -1,7 +1,7 @@
 /* -- Global rules -- */
 * {
   border: none;
-  font-family: "Ubuntu Nerd Font";
+  font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free";
   font-size: 15px;
   min-height: 10px;
 }
