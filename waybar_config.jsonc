@@ -111,15 +111,10 @@
   },
   "battery": {
     "format": "{capacity}% {icon}",
-    "format-charging": "Charging {capacity}%",
-    "format-plugged": "Plugged {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
     "format-alt": "{time} {icon}",
-    "format-icons": ["", "", "", "", ""],
-    "states": {
-      "good": 85,
-      "warning": 20,
-      "critical": 10
-    }
+    "format-icons": ["", "", "", "", ""]
   },
   "network": {
     "format": "{ifname}",
