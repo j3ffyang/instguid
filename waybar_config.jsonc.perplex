@@ -20,6 +20,7 @@
   ],
   "modules-right": [
     "wlr/taskbar",
+    "idle_inhibitor",
     /* "pulseaudio/slider", */
     "pulseaudio",
     "battery",
@@ -54,9 +55,10 @@
     "interval": 5
   },
   "disk": {
-    "format": "{percentage_used}% ",
-    "path": "/",
-    "interval": 10,
+    "format": "{percentage_free}% ",
+    "tooltip": true,
+    "tooltip-format": "Disk usage: {free} / {total} ({percentage_free}%)",
+    "interval": 10
   },
   "temperature": {
     "format": "{temperatureC}°C {icon}",
@@ -93,6 +95,13 @@
       "rofi"
     ],
     "max-length": 20
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
   },
   "pulseaudio_slider": {
     "format": "{volume}%",

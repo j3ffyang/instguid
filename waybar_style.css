@@ -1,3 +1,14 @@
+/* --- Dracula palette (as plain hex values) --- */
+/* background: #282a36    */
+/* bg-darker: #191919   */
+/* foreground: #f8f8f2   */
+/* purple: #bd93f9      */
+/* pink: #ff79c6        */
+/* green: #50fa7b       */
+/* cyan: #8be9fd        */
+/* orange: #ffb86c      */
+/* red: #ff5555         */
+
 /* -- Global rules -- */
 * {
   border: none;
@@ -7,14 +18,15 @@
 }
 
 window#waybar {
-  background: rgba(34, 36, 54, 0.6);
+  background: #282a36;
+  color: #f8f8f2;
 }
 
 window#waybar.hidden {
   opacity: 0.2;
 }
 
-/* - Genera rules for visible modules -- */
+/* --- Base module style (left, right, language, etc.) --- */
 #custom-archicon,
 #clock,
 #cpu,
@@ -27,122 +39,136 @@ window#waybar.hidden {
 #battery,
 #network,
 #language {
-  color: #161320;
-  margin-top: 6px;
-  margin-bottom: 6px;
+  color: #f8f8f2;
+  margin-top: 4px;
+  margin-bottom: 4px;
   padding-left: 10px;
   padding-right: 10px;
-  transition: none;
 }
 
-/* Separation to the left */
+
+/* --- Left side: system / time / status --- */
+
+/* Arch logo / launcher */
 #custom-archicon {
   font-size: 20px;
-  color: #89B4FA;
-  background: #161320;
+  color: #f8f8f2;
+  background: #314058;   /* dark blue‑purple, same hue band as clock/cpu/ram/disk */
   padding-right: 17px;
 }
 
+/* Time (date / info) */
 #clock {
-  background: #ABE9B3;
+  background: #4C5D82;    /* soft blue‑purple, “info” role */
 }
 
+/* CPU (core system) */
 #cpu {
-  background: #96CDFB;
+  background: #404F6A;    /* darker blue‑purple, “core” feel */
 }
 
+/* Memory (working memory) */
 #memory {
-  background: #DDB6F2;
+  background: #4A6384;    /* middle‑light blue‑purple, “RAM” feel */
 }
 
+/* Disk (storage) */
 #disk {
-  background: #F5C2E7;
+  background: #577297;    /* light blue‑purple, “storage” feel */
 }
 
+/* Temperature (warm‑hue, but muted) */
 #temperature {
-  background: #F8BD96;
+  background: #c98b5d;    /* muted orange‑brown, warm/alert */
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
 
-/* Separation to the rigth */
+
+/* --- Right side: audio, battery, network, layout, tray --- */
+
+/* Idle inhibitor */
 #idle_inhibitor {
   margin-left: 5px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  background: #B5E8E0;
+  background: #50fa7b;    /* green (on / active) */
   padding-right: 15px;
 }
 
+/* Pulseaudio (volume) */
 #pulseaudio {
-  color: #1A1826;
-  background: #F5E0DC;
+  background: #6C88B5;    /* soft blue‑purple, matching battery/network/language */
 }
 
+/* Pulseaudio slider (if you use it) */
 #pulseaudio_slider {
-  color: #1A1826;
-  background: #E8A2AF;
+  background: #6C88B5;    /* soft blue‑purple, matching battery/network/language */
 }
 
+
+/* Battery – soft teal‑blue (more “energy”) */
 #battery {
-  background: #96CDFB;
+  background: #41A5B5;    /* muted teal‑blue */
 }
 
+/* Network – soft blue‑cyan (more “network”) */
 #network {
-  background: #CBA6F7;
+  background: #3A8AB8;    /* muted blue‑cyan */
   padding-right: 13px;
 }
 
+/* Language – soft light‑blue described as "lilac" */
+
 #language {
-  color: #161320;
-  margin-top: 6px;
-  margin-bottom: 6px;
+  color: #f8f8f2;
+  margin-top: 4px;
+  margin-bottom: 4px;
   padding-left: 10px;
   padding-right: 10px;
-  transition: none;
-  background: #A6E3A1;
+  background: #5D83B5;    /* soft light‑blue‑purple (info‑style) */
   padding-right: 15px;
 }
 
+
+/* Tray */
 #tray {
   margin-right: 6px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
 
-/* -- Specific styles -- */
+/* --- Modules center: workspaces --- */
 
-/* Modules center */
 #workspaces {
-  background: rgba(0, 0, 0, 0.5);
+  background: #191919;
   border-radius: 10px;
   margin: 6px 5px;
   padding: 0px 6px;
 }
 
 #workspaces button {
-  color: #B5E8E0;
+  color: #f8f8f2;
   background: transparent;
   padding: 4px 4px;
   transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
 }
 
 #workspaces button.occupied {
-  color: #A6E3A1;
+  color: #50fa7b;         /* green (occupied) */
 }
 
 #workspaces button.active {
-  color: #89B4FA;
-  text-shadow: 0 0 4px #ABE9B3;
+  color: #8be9fd;         /* cyan (active) */
+  text-shadow: 0 0 4px #8be9fd;
 }
 
 #workspaces button:hover {
-  color: #89B4FA;
+  color: #8be9fd;
 }
 
-#workspaces button.active:hover {}
+/* --- Modules right: taskbar --- */
 
-/* Modules right */
 #taskbar {
   background: transparent;
   border-radius: 10px;
@@ -158,17 +184,20 @@ window#waybar.hidden {
 }
 
 #taskbar button.active {
-  background: rgba(34, 36, 54, 0.5);
+  background: #191919;
+  color: #f8f8f2;
 }
 
 #taskbar button:hover {
-  background: rgba(34, 36, 54, 0.5);
+  background: #191919;
+  color: #f8f8f2;
 }
 
-/* === Optional animation === */
+/* --- Optional animation --- */
+
 @keyframes blink {
   to {
-    background-color: #BF616A;
-    color: #B5E8E0;
+    background-color: #ff5555;
+    color: #f8f8f2;
   }
 }
