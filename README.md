@@ -3105,6 +3105,9 @@ vim, in a search, \s finds whitespace (a space or a tab), and \+ finds one or mo
     :%s/\s\+$//e
 
 ImageMagick
+  # linkedin banner img
+  magick input.png -resize 1584x396 -background black -gravity center -extent 1584x396 output.png 
+
   # save output of cmd into an image img by imagemagick
   ip a | convert label:@- myipaddress.png
 
