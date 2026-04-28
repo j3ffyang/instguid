@@ -403,7 +403,7 @@ exec-once = fcitx5 -d -r
 exec-once = waybar
 exec-once = hyprpaper
 exec-once = swaync
-# exec-once = hyprsunset
+exec-once = hypridle
 
 # Theming (last)
 exec-once = gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
