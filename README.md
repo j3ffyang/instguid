@@ -4356,6 +4356,12 @@ pacman - remove unused
 pacman - remove /var/cache/pacman/pkg
 	pacman -Sc
 	pacman -Scc
+  yay -Scc 
+
+# list explicitly installed packages not required by others 
+  pacman -Qet 
+# include foreign packages 
+  pacman -Qmet
 
 yay - remove clean cleanup
     yay -Sc
