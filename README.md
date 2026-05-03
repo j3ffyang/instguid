@@ -4569,6 +4569,9 @@ hyprlandhyprlandhyprlandhyprland
     cat /sys/devices/virtual/dmi/id/sys_vendor
     cat /sys/devices/virtual/dmi/id/product_name
 
+# hyprsunset 
+    alias sunset='pkill hyprsunset; hyprsunset > /dev/null 2>&1 &'
+
 
 hyprlandhyprlandhyprlandhyprland
 hyprlandhyprlandhyprlandhyprland
