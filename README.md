@@ -4480,6 +4480,7 @@ ipad - mount ipad
 
 audio/ sound output set default, sink
     wpctl status; wpctl set-default [id]
+    pactl get-default-sink; pactl set-default-sink <ID>
 
 archarcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharch
