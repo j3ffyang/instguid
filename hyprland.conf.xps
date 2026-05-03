@@ -57,6 +57,12 @@ env = XDG_SESSION_TYPE,wayland
 env = XDG_CURRENT_DESKTOP,Hyprland
 env = XDG_SESSION_DESKTOP,Hyprland
 
+# Input method (fcitx5)
+env = XMODIFIERS,@im=fcitx
+# env = GTK_IM_MODULE,fcitx
+env = QT_IM_MODULE,fcitx
+env = QT_QPA_PLATFORMTHEME,qt6ct
+
 
 ###################
 ### PERMISSIONS ###
@@ -196,7 +202,7 @@ master {
 
 # https://wiki.hypr.land/Configuring/Variables/#misc
 misc {
-    force_default_wallpaper = -1 # Set to 0 or 1 to disable the anime mascot wallpapers
+    force_default_wallpaper = 0 # Set to 0 or 1 to disable the anime mascot wallpapers
     disable_hyprland_logo = false # If true disables the random hyprland logo / anime girl background. :(
     vfr = true
 }
@@ -371,28 +377,21 @@ windowrule {
 ### PERSONAL  ###
 #################
 
-# https://wiki.hypr.land/Hypr-Ecosystem/hyprpolkitagent
-exec-once = systemctl --user start hyprpolkitagent
-
-# fcitx5 config
-env = XMODIFIERS,@im=fcitx
-# env = GTK_IM_MODULE,fcitx
-env = QT_IM_MODULE,fcitx
+# Core services first                                                                                                 
+exec-once = systemctl --user start hyprpolkitagent                                                                    
+exec-once = xdg-desktop-portal-hyprland                                                                               
 exec-once = fcitx5 -d -r
 
-# enable waybar and hyprpaper
+# UI services
 exec-once = waybar
-# exec-once = pipewire
-exec-once = xdg-desktop-portal-hyprland
 exec-once = hyprpaper
-
 # enable notif daemon
 exec-once = swaync
+exec-once = hypridle
 
-# dark mode
+# Theming (last)
 exec-once = gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 exec-once = gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
-env = QT_QPA_PLATFORMTHEME,qt6ct
 
 # audio set default sink
 # exec-once = pactl set-default-sink alsa_output.pci-0000_00_1f.3.analog-stereo
