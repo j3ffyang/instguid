@@ -4572,6 +4572,9 @@ hyprlandhyprlandhyprlandhyprland
 # hyprsunset 
     alias sunset='pkill hyprsunset; hyprsunset > /dev/null 2>&1 &'
 
+# copy/ paste screenshot with slurp 
+    grim -g "$(slurp)" - | wl-copy -t image/png
+
 
 hyprlandhyprlandhyprlandhyprland
 hyprlandhyprlandhyprlandhyprland
