@@ -325,7 +325,9 @@ exec-once = wl-clip-persist --clipboard regular
 
 # Color-temperature and Sunset
 # exec-once = wlsunset -t 3000:6500 -S 18:00 -s 07:00
-exec-once = hyprsunset
+# exec-once = hyprsunset
+exec-once = pkill hyprsunset || true; hyprsunset &
+# exec-once = sleep 2 && (pkill hyprsunset || true; hyprsunset -c ~/.config/hypr/hyprsunset.conf &)
 bind = $mainMod, H, exec, hyprctl hyprsunset temperature +500
 bind = $mainMod, B, exec, hyprctl hyprsunset temperature -500
 

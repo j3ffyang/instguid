@@ -4551,6 +4551,11 @@ hyprlandhyprlandhyprlandhyprland
     bind = $mainMod, S, exec, hyprshot -m window		# select a window
     bind = $SUPER_SHIFT, S, exec, hyprshot -m region	# select a region
     bind = , Print, exec, hyprshot -m output		    # active monitor
+# copy/ paste screenshot with slurp 
+    grim -g "$(slurp)" - | wl-copy -t image/png
+# copy qr code and read img 
+    grim -g "$(slurp)" - | zbarimg -q --raw -
+
 
 # fcitx5
     sudo pacman -S fcitx5 fcitx5-configtool fcitx5-chinese-addons fcitx5-gtk fcitx5-qt
@@ -4571,9 +4576,6 @@ hyprlandhyprlandhyprlandhyprland
 
 # hyprsunset 
     alias sunset='pkill hyprsunset; hyprsunset > /dev/null 2>&1 &'
-
-# copy/ paste screenshot with slurp 
-    grim -g "$(slurp)" - | wl-copy -t image/png
 
 
 hyprlandhyprlandhyprlandhyprland
