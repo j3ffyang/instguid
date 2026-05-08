@@ -2473,6 +2473,10 @@ convert dvd into wav
 ###############################################################################
 ###############################################################################
 
+
+vimvimvimvimvimvimvimvimvimvimvim
+vimvimvimvimvimvimvimvimvimvimvim
+
 vimrc	git clone https://github.com/altercation/vim-colors-solarized
 	mv solarized.vim ~/.vim/colors/
 
@@ -2490,6 +2494,18 @@ vim, in a search, \s finds whitespace (a space or a tab), and \+ finds one or mo
 nvim > ~/.config/nvim/lua/config/options.lua
   vim.opt.mouse = "a"
   vim.opt.clipboard = "unnamed,unnamedplus"
+
+cat ~/.config/nvim/lua/config/autocmds.lua  # copy selected using mouse on button release
+vim.api.nvim_create_autocmd("ModeChanged", {
+  group = vim.api.nvim_create_augroup("MouseYank", { clear = true }),
+  pattern = "[vV\x16]:n", -- From any Visual mode to Normal mode
+  callback = function()
+    vim.cmd("normal! gvy") -- Reselect the last area and yank it
+  end,
+})
+
+vimvimvimvimvimvimvimvimvimvimvim
+vimvimvimvimvimvimvimvimvimvimvim
 
 ImageMagick
   # linkedin banner img
