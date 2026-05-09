@@ -3221,6 +3221,8 @@ hyprlandhyprlandhyprlandhyprland
     bind = , Print, exec, hyprshot -m output		    # active monitor
 # copy/ paste screenshot with slurp 
     grim -g "$(slurp)" - | wl-copy -t image/png
+    grim -g "$(slurp)" - | wl-copy
+
 # copy qr code and read img 
     grim -g "$(slurp)" - | zbarimg -q --raw -
 
