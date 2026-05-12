@@ -2937,8 +2937,9 @@ FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 
-	# wireless enablement
-	wifi-menu -o
+# wireless enablement
+wifi-menu -o
+iwctl station list
 
 ## `grub-rescue`
 
@@ -2958,27 +2959,49 @@ grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=manja
 grub-mkconfig -o /boot/grub/grub.cfg
 
 
-# post-install
-## general packages for hyprland
-    firewalld fastfetch tlp firefox thunar chromium rsync nwg-look adw-gtk-theme ttf-jetbrains-mono-nerd nerd-fonts noto-fonts noto-fonts-cjk noto-fonts-emoji ethtool ttf-font-awesome veracrypt vlc vlc-plugins-all waybar rofi darktable bash-completion powertop thermald dmidecode base-devel git qt6ct fcitx5-im fcitx5-chinese-addons xdg-desktop-portal xdg-desktop-portal-gtk base-devel git ripgrep fd neovim python-pynvim python-lsp-server python-black python-isort ruff hyprlock hyprsunset hyprshot hypridle wf-recorder wl-clipboard grim slurp nodejs npm geeqie less android-tools android-udev unzip sshuttle qbittorrent
+# post-install general packages for hyprland
 
-## packages for nvidia / gpu
-    nvidia-utils nvidia-dkms nvidia-utils nvidia-settings linux-headers libva-nvidia-driver
+## Util / util
+  firefox chromium thunar base-devel git linux-headers bash-completion firewalld fastfetch \
+  dmidecode thermal ethtool unzip rsync less powertop qbittorrent 
+
+## encryption
+  veracrypt cryptsetup gnupg sshuttle
+
+## fonts
+  ttf-jetbrains-mono-nerd nerd-fonts noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-font-awesome 
+
+## theme
+  nwg-look adw-gtk-theme 
+
+## multi media
+  vlc vlc-plugins-all 
+
+## graphic proc
+  gimp geeqie dartable
+
+## dev
+  nvim python-pynvim python-lsp-server python-black python-isort ruff jdk11-openjdk graphviz
+
+## env 
+  nodejs npm android-tools android-udev 
+
+## chn input 
+  fcitx5-im fcitx5-chinese-addons qt6ct
+
+## nvidia / gpu
+  nvidia-utils nvidia-dkms nvidia-utils nvidia-settings linux-headers libva-nvidia-driver
+
+## hyprland related
+  xdg-desktop-portal xdg-desktop-portal-gtk ripgrep fd hyprlock hyprsunset hyprshot hypridle wf-recorder wl-clipboard grim slurp waybar rofi
+
 
 ## gnome + gdm
-pacman -S gdm gnome-shell gnome-desktop gnome-extra gnome-tweak-tool \
-    gnome-backgrounds gnome-disk-utility gnome-control-center
-
-## fonts (run in text mode, without gdm, as rendering might hang the system)
-    ttf-jetbrains-mono-nerd nerd-fonts noto-fonts noto-fonts-cjk noto-fonts-emoji ethtool ttf-font-awesome    
+  gdm gnome-shell gnome-desktop gnome-extra gnome-tweak-tool \
+  gnome-backgrounds gnome-disk-utility gnome-control-center gnome-screenshot 
 
 ## manjaro/ arch noto-fonts-cjk/ noto fonts
     https://wiki.archlinux.org/title/Localization/Simplified_Chinese
-
-## util
-    pacman -S gnupg openssh openvpn terminator gimp nautilus wget git vim vlc \
-    rsync cryptsetup jdk11-openjdk graphviz firewalld  docker geeqie \
-    gnome-screenshot base-devel gnome-tweaks
 
 ## xauth XAuthority
     xauth add :0 . `mcookie`; xauth list 
@@ -2986,6 +3009,21 @@ pacman -S gdm gnome-shell gnome-desktop gnome-extra gnome-tweak-tool \
 
 ## office
 pacman -S libreoffice-still libreoffice-still-zh-CN libreoffice-still-zh-TW
+
+journal
+	journalctl -b -1 -n 100
+
+ipad - mount ipad
+	sudo pacman -S usbmuxd libimobiledevice ifuse
+	idevicepair pair; idevicepair validate
+	systemctl status usbmuxd.service
+	ifuse ~/iPad	# mount
+	fusermount -u ~/iPad	#umount
+
+audio/ sound output set default, sink
+    wpctl status; wpctl set-default [id]
+    pactl get-default-sink; pactl set-default-sink <ID>
+
 
 ## update mirrors
     sudo pacman-mirrors -i -c [country] -m rank
@@ -2997,23 +3035,18 @@ key refresh
 	sudo pacman-key --populate
 	sudo pacman -Syu	# fresh package
 
-	edit /etc/pacman.conf	# https://github.com/archlinuxcn/repo
-	[archlinuxcn]
-	SigLevel = Optional TrustedOnly
-	Server = http://repo.archlinuxcn.org/$arch
 
-	sudo pacman -Syy && sudo pacman -S archlinuxcn-keyring archlinux-keyring
+## pacman pacman
+# pacman performance optimizer perf
+  sudo packman -Sc && sudo pacman-optimize && sudo pacman -Syu
+  
+# pacman - list unused - package management
+  pacman -Qdttq
+  
+# list unused
+  pacman -Qqe | grep -v "$(awk '{print $1}' /desktopfs-pkgs.txt)"
 
-pacman performance optimizer perf
-	sudo packman -Sc && sudo pacman-optimize && sudo pacman -Syu
-
-pacman - list unused - package management
-	pacman -Qdttq
-
-    # list unused
-    pacman -Qqe | grep -v "$(awk '{print $1}' /desktopfs-pkgs.txt)"
-
-	# list installed but not from base and base-devel
+ list installed but not from base and base-devel
 	pacman -Qei | awk '/^Name/ { name=$3 } /^Groups/ { if ( $3 != "base" && $3 != "base-devel" ) { print name } }'
 
 pacman - remove unused
@@ -3030,12 +3063,6 @@ pacman - remove /var/cache/pacman/pkg
   pacman -Qet 
 # include foreign packages 
   pacman -Qmet
-
-yay - remove clean cleanup
-    yay -Sc
-    yay -Scc    # clear cache
-    sudo pacman -Rsu $(pacman -Qdtq)    # rm orphaned dependencies
-    rm ~/.cache/yay/<package_name>
 
 pacman - list installed from official repo
 	sudo pacman -Qen
@@ -3055,6 +3082,12 @@ pkgbuild install package from pkgbuild
 	git clone [package].git
 	makepkg -si
 
+yay - remove clean cleanup
+    yay -Sc
+    yay -Scc    # clear cache
+    sudo pacman -Rsu $(pacman -Qdtq)    # rm orphaned dependencies
+    rm ~/.cache/yay/<package_name>
+
 
 inxi - command line system info
     inxi -Fza | grep -i network
@@ -3067,6 +3100,8 @@ Network:
 
 install from aur git
 	broadcom-wl-dkms lantern.arch_git thermald gnome-shell-extension-kimpanel-git mbpfan-git
+  wireless	git clone from https://aur.archlinux.org/packages/broadcom-wl/
+
 
 font setfont terminal font size | terminal font
 	setfont iso02-12x22
@@ -3088,29 +3123,6 @@ start gdm
 
 getlantern	network autoproxy http://127.0.0.1:16823/proxy_on.pac
 
-wireless	git clone from https://aur.archlinux.org/packages/broadcom-wl/
-
-temperature
-	grep . -r /sys/firmware/acpi/interrupts			# find the highest gpe value
-	echo "disable" > /sys/firmware/acpi/interrupts/gpe4E	# 4E is an example
-	cat /sys/firmware/acpi/interrupts/gpe4E
-
-	# Create the following script
-	[root@arch system]# pwd
-	/etc/systemd/system
-	[root@arch system]# cat suppress-gpe4E.service
-	# /etc/systemd/system/suppress-gpe4E.service
-
-	[Unit]
-	Description=Disables GPE 0D
-
-	[Service]
-	ExecStart=/bin/bash -c 'echo "disable" > /sys/firmware/acpi/interrupts/gpe4E'
-
-	[Install]
-	WantedBy=multi-user.target
-
-	# sudo systemctl enable suppress-gpe4E.service
 
 temperature
 	git clone https://aur.archlinux.org/mbpfan-git.git
@@ -3136,20 +3148,6 @@ temperature
 	cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 	sudo cat /sys/devices/system/cpu/cpu{0..3}/cpufreq/cpuinfo_cur_freq
 
-journal
-	journalctl -b -1 -n 100
-
-ipad - mount ipad
-	sudo pacman -S usbmuxd libimobiledevice ifuse
-	idevicepair pair; idevicepair validate
-	systemctl status usbmuxd.service
-	ifuse ~/iPad	# mount
-	fusermount -u ~/iPad	#umount
-
-audio/ sound output set default, sink
-    wpctl status; wpctl set-default [id]
-    pactl get-default-sink; pactl set-default-sink <ID>
-
 archarcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharch
 
@@ -3164,6 +3162,20 @@ hyprlandhyprlandhyprlandhyprland
     pacman -S --needed vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader
     pacman -S nvidia-dkms lib32-nvidia-utils egl-wayland libva-nvidia-driver
 
+# fcitx5
+    sudo pacman -S fcitx5 fcitx5-configtool fcitx5-chinese-addons fcitx5-gtk fcitx5-qt
+
+# edit ~/.config/hypr/hyprland.conf
+    # Fcitx5 for input method support
+    env = XMODIFIERS,@im=fcitx
+    env = QT_IM_MODULE,fcitx
+    env = GTK_IM_MODULE,fcitx
+    # Autostart the Fcitx5 daemon
+    exec-once = fcitx5 -d
+
+# steps
+    fcitx5-configtool > add an input method > "only Show Current Language" off > search "pinyin" > 
+    select Pinyin under Simplified Chinese
 
 # fonts > https://wiki.archlinux.org/title/Localization/Simplified_Chinese  # 64-language-selector-prefer.conf
 
@@ -3200,9 +3212,11 @@ hyprlandhyprlandhyprlandhyprland
 
 # enable dark mode
     gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
+
 # add the following into ~/.conf/hypr/hyprland.conf. require 'xdg-desktop-portal-gtk' package
     exec-once = gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
     exec-once = gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+
 # cat ~/.config/gtk-3.0/settings.ini
     [Settings]
     gtk-application-prefer-dark-theme=true
@@ -3215,10 +3229,12 @@ hyprlandhyprlandhyprlandhyprland
 
 # screenshot with corsair k65 keyboard
     sudo pacman -S grim slurp hyprshot  # hyprshot depends on the former 2
+
 # add the following into ~/.conf/hypr/hyprland.conf
-    bind = $mainMod, S, exec, hyprshot -m window		# select a window
+    bind = $mainMod, S, exec, hyprshot -m window		  # select a window
     bind = $SUPER_SHIFT, S, exec, hyprshot -m region	# select a region
-    bind = , Print, exec, hyprshot -m output		    # active monitor
+    bind = , Print, exec, hyprshot -m output		      # active monitor
+
 # copy/ paste screenshot with slurp 
     grim -g "$(slurp)" - | wl-copy -t image/png
     grim -g "$(slurp)" - | wl-copy
@@ -3226,27 +3242,13 @@ hyprlandhyprlandhyprlandhyprland
 # copy qr code and read img 
     grim -g "$(slurp)" - | zbarimg -q --raw -
 
+# hyprsunset 
+    alias sunset='pkill hyprsunset; hyprsunset > /dev/null 2>&1 &'
 
-# fcitx5
-    sudo pacman -S fcitx5 fcitx5-configtool fcitx5-chinese-addons fcitx5-gtk fcitx5-qt
-# edit ~/.config/hypr/hyprland.conf
-    # Fcitx5 for input method support
-    env = XMODIFIERS,@im=fcitx
-    env = QT_IM_MODULE,fcitx
-    env = GTK_IM_MODULE,fcitx
-    # Autostart the Fcitx5 daemon
-    exec-once = fcitx5 -d
-# steps
-    fcitx5-configtool > add an input method > "only Show Current Language" off > search "pinyin" > 
-    select Pinyin under Simplified Chinese
 
 # find out product info 
     cat /sys/devices/virtual/dmi/id/sys_vendor
     cat /sys/devices/virtual/dmi/id/product_name
-
-# hyprsunset 
-    alias sunset='pkill hyprsunset; hyprsunset > /dev/null 2>&1 &'
-
 
 hyprlandhyprlandhyprlandhyprland
 hyprlandhyprlandhyprlandhyprland
