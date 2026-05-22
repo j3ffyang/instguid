@@ -19,6 +19,7 @@
     "hyprland/workspaces"
   ],
   "modules-right": [
+    "idle_inhibitor",
     "wlr/taskbar",
     /* "pulseaudio/slider", */
     "pulseaudio",
@@ -94,6 +95,18 @@
     ],
     "max-length": 20
   },
+
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+        "activated": "ON",
+        "deactivated": "OFF"
+    },
+    "tooltip": true,
+    "tooltip-format-activated": "Idle Inhibited (Screen stays on)",
+    "tooltip-format-deactivated": "Idle Enabled"
+  },
+
   "pulseaudio_slider": {
     "format": "{volume}%",
     "tooltip": false,

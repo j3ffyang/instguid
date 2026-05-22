@@ -1,0 +1,266 @@
+################
+### MONITORS ###
+################
+
+# See https://wiki.hypr.land/Configuring/Monitors/
+monitor=,preferred,auto,auto
+
+
+###################
+### MY PROGRAMS ###
+###################
+
+# Set programs that you use
+$terminal = kitty
+$fileManager = thunar
+$menu = rofi -show drun
+
+
+#################
+### AUTOSTART ###
+#################
+
+# Core services first
+exec-once = systemctl --user start hyprpolkitagent
+exec-once = xdg-desktop-portal-hyprland
+exec-once = fcitx5 -d -r
+
+# Clipboard persistent management (Consolidated cleanly here)
+exec-once = wl-clip-persist --clipboard primary
+exec-once = wl-clip-persist --clipboard regular
+
+# UI services
+exec-once = waybar
+exec-once = hyprpaper
+exec-once = swaync
+exec-once = hypridle
+exec-once = hyprsunset
+
+# Theming (last)
+exec-once = gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+exec-once = gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
+
+
+#############################
+### ENVIRONMENT VARIABLES ###
+#############################
+
+env = XCURSOR_SIZE,24
+env = HYPRCURSOR_SIZE,24
+
+# Screenshot directory
+env = HYPRSHOT_DIR,/home/jeff/Pictures
+
+# Essential Wayland session vars
+env = XDG_SESSION_TYPE,wayland
+env = XDG_CURRENT_DESKTOP,Hyprland
+env = XDG_SESSION_DESKTOP,Hyprland
+
+# Force Native Wayland for Firefox & Electron Apps (VS Code, Discord, Chromium)
+env = MOZ_ENABLE_WAYLAND,1
+env = ELECTRON_OZONE_PLATFORM_HINT,auto
+
+
+# Input method (fcitx5)
+env = XMODIFIERS,@im=fcitx
+env = QT_IM_MODULE,fcitx
+env = QT_QPA_PLATFORMTHEME,qt6ct
+
+
+#####################
+### LOOK AND FEEL ###
+#####################
+
+general {
+    gaps_in = 6
+    gaps_out = 8
+    border_size = 2
+
+    col.active_border = rgba(33ccffee) rgba(00ff99ee) 45deg
+    col.inactive_border = rgba(595959aa)
+
+    resize_on_border = false
+    allow_tearing = false
+    layout = dwindle
+}
+
+decoration {
+    # Kept exactly to your preference
+    rounding = 10
+    rounding_power = 2
+
+    active_opacity = 1.0
+    inactive_opacity = 1.0
+
+    shadow {
+        enabled = false
+    }
+
+    blur {
+        enabled = false     # Kept disabled to preserve Intel HD Graphics performance
+    }
+}
+
+animations {
+    enabled = true
+
+    # Performance-optimized bezier curves
+    bezier = easeOutQuint,   0.23, 1,    0.32, 1
+    bezier = almostLinear,   0.5,  0.5,  0.75, 1
+    bezier = quick,          0.15, 0,    0.1,  1
+
+    # Snappy animations ensure the iGPU cuts off processing quickly to save battery
+    animation = global,        1,     3,      default
+    animation = border,        1,     3,      easeOutQuint
+    animation = windows,       1,     3,      easeOutQuint
+    animation = windowsIn,     1,     3,      easeOutQuint, popin 87%
+    animation = windowsOut,    1,     1.5,    almostLinear, popin 87%
+    animation = fadeIn,        1,     1.5,    almostLinear
+    animation = fadeOut,       1,     1.5,    almostLinear
+    animation = workspaces,    1,     2.5,    almostLinear, slide
+}
+
+dwindle {
+    preserve_split = true 
+}
+
+master {
+    new_status = master
+}
+
+misc {
+    force_default_wallpaper = 0 
+    disable_hyprland_logo = true   # Disables background rendering loops
+#   vfr = true                     # Explicitly forced true to stop rendering static frames
+    middle_click_paste = true
+}
+
+
+#############
+### INPUT ###
+#############
+
+input {
+    kb_layout = us
+    follow_mouse = 1
+    sensitivity = 0 
+
+    touchpad {
+        natural_scroll = false     # Kept exactly to your traditional preference
+    }
+}
+
+
+###################
+### KEYBINDINGS ###
+###################
+
+$mainMod = SUPER
+
+# Core actions
+bind = $mainMod, Q, exec, $terminal
+bind = $mainMod, C, killactive
+bind = $mainMod, M, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit
+bind = $mainMod, E, exec, $fileManager
+bind = $mainMod, V, togglefloating
+bind = $mainMod, R, exec, $menu
+bind = $mainMod, P, pseudo 
+bind = $mainMod, J, layoutmsg, togglesplit 
+
+# Move focus with mainMod + arrow keys
+bind = $mainMod, left, movefocus, l
+bind = $mainMod, right, movefocus, r
+bind = $mainMod, up, movefocus, u
+bind = $mainMod, down, movefocus, d
+
+# Switch workspaces with mainMod + [0-9]
+bind = $mainMod, 1, workspace, 1
+bind = $mainMod, 2, workspace, 2
+bind = $mainMod, 3, workspace, 3
+bind = $mainMod, 4, workspace, 4
+bind = $mainMod, 5, workspace, 5
+bind = $mainMod, 6, workspace, 6
+bind = $mainMod, 7, workspace, 7
+bind = $mainMod, 8, workspace, 8
+bind = $mainMod, 9, workspace, 9
+bind = $mainMod, 0, workspace, 10
+
+# Move active window to a workspace with mainMod + SHIFT + [0-9]
+bind = $mainMod SHIFT, 1, movetoworkspace, 1
+bind = $mainMod SHIFT, 2, movetoworkspace, 2
+bind = $mainMod SHIFT, 3, movetoworkspace, 3
+bind = $mainMod SHIFT, 4, movetoworkspace, 4
+bind = $mainMod SHIFT, 5, movetoworkspace, 5
+bind = $mainMod SHIFT, 6, movetoworkspace, 6
+bind = $mainMod SHIFT, 7, movetoworkspace, 7
+bind = $mainMod SHIFT, 8, movetoworkspace, 8
+bind = $mainMod SHIFT, 9, movetoworkspace, 9
+bind = $mainMod SHIFT, 0, movetoworkspace, 10
+
+# Example special workspace (scratchpad)
+bind = $mainMod, S, togglespecialworkspace, magic
+bind = $mainMod SHIFT, S, movetoworkspace, special:magic
+
+# Scroll through existing workspaces with mainMod + scroll
+bind = $mainMod, mouse_down, workspace, e+1
+bind = $mainMod, mouse_up, workspace, e-1
+
+# Move/resize windows with mainMod + LMB/RMB and dragging
+bindm = $mainMod, mouse:272, movewindow
+bindm = $mainMod, mouse:273, resizewindow
+
+# Laptop multimedia keys for volume and LCD brightness
+binde = , XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+
+binde = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+binde = , XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+binde = , XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+binde = , XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+
+binde = , XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-
+
+# Media controls (Requires playerctl)
+bindl = , XF86AudioNext, exec, playerctl next
+bindl = , XF86AudioPause, exec, playerctl play-pause
+bindl = , XF86AudioPlay, exec, playerctl play-pause
+bindl = , XF86AudioPrev, exec, playerctl previous
+
+# Screenshot Utilities
+bind = $mainMod, PRINT, exec, hyprshot -m window         
+bind = $mainMod_SHIFT, PRINT, exec, hyprshot -m region    
+bind = , Print, exec, hyprshot -m output                  
+bind = $mainMod SHIFT, P, exec, grim -g "$(slurp)" - | wl-copy -t image/png
+
+# Color-temperature and Sunset Binds
+bind = $mainMod, H, exec, hyprctl hyprsunset temperature +500
+bind = $mainMod, B, exec, hyprctl hyprsunset temperature -500
+
+# Alternative Menu Trigger
+bind = $mainMod, SPACE, exec, rofi -show drun
+
+
+##############################
+### WINDOWS AND WORKSPACES ###
+##############################
+
+windowrule {
+    name = suppress-maximize-events
+    match:class = .*
+    suppress_event = maximize
+}
+
+windowrule {
+    name = fix-xwayland-drags
+    match:class = ^$
+    match:title = ^$
+    match:xwayland = true
+    match:float = true
+    match:fullscreen = false
+    match:pin = false
+    no_focus = true
+}
+
+windowrule {
+    name = move-hyprland-run
+    match:class = hyprland-run
+    move = 20 monitor_h-120
+    float = yes
+}
