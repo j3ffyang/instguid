@@ -2984,7 +2984,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
   vlc vlc-plugins-all obs-studio
 
 ## graphic proc
-  gimp geeqie darktable
+  gimp geeqie darktable imagemagick
 
 ## env 
   nodejs npm android-tools android-udev 
