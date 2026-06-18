@@ -2962,26 +2962,29 @@ grub-mkconfig -o /boot/grub/grub.cfg
 # post-install general packages for hyprland
 
 ## Util / util
-  firefox chromium thunar base-devel git linux-headers bash-completion firewalld fastfetch \
-  dmidecode thermal ethtool unzip rsync less powertop qbittorrent 
+  fastfetch firefox chromium base-devel git linux-headers \
+  bash-completion firewalld thunar unzip rsync less qbittorrent \
+  dmidecode powertop
+
+## dev
+  nvim python-pynvim python-lsp-server python-black python-isort ruff \
+  jdk11-openjdk graphviz
 
 ## encryption
   veracrypt cryptsetup gnupg sshuttle
 
 ## fonts
-  ttf-jetbrains-mono-nerd nerd-fonts noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-font-awesome 
+  ttf-jetbrains-mono-nerd nerd-fonts noto-fonts noto-fonts-cjk \
+  noto-fonts-emoji ttf-font-awesome 
 
 ## theme
-  nwg-look adw-gtk-theme 
+  nwg-look adw-gtk-theme kvantum # optional
 
 ## multi media
-  vlc vlc-plugins-all 
+  vlc vlc-plugins-all obs-studio
 
 ## graphic proc
-  gimp geeqie dartable
-
-## dev
-  nvim python-pynvim python-lsp-server python-black python-isort ruff jdk11-openjdk graphviz
+  gimp geeqie darktable
 
 ## env 
   nodejs npm android-tools android-udev 
@@ -2993,7 +2996,9 @@ grub-mkconfig -o /boot/grub/grub.cfg
   nvidia-utils nvidia-dkms nvidia-utils nvidia-settings linux-headers libva-nvidia-driver
 
 ## hyprland related
-  xdg-desktop-portal xdg-desktop-portal-gtk ripgrep fd hyprlock hyprsunset hyprshot hypridle wf-recorder wl-clipboard grim slurp waybar rofi
+  xdg-desktop-portal xdg-desktop-portal-gtk ripgrep fd hyprlock \
+  hyprsunset hyprshot hypridle hyprpaper wf-recorder wl-clipboard \
+  grim slurp waybar rofi
 
 
 ## gnome + gdm
