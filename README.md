@@ -3103,11 +3103,6 @@ Network:
     bus-ID: 02:00.0 chip-ID: 14c3:0616 class-ID: 0280
 
 
-install from aur git
-	broadcom-wl-dkms lantern.arch_git thermald gnome-shell-extension-kimpanel-git mbpfan-git
-  wireless	git clone from https://aur.archlinux.org/packages/broadcom-wl/
-
-
 font setfont terminal font size | terminal font
 	setfont iso02-12x22
 	setfont sun12x22
@@ -3120,11 +3115,6 @@ virtualization virtualisation virt-manager
 	systemctl start virtlogd.service; systemctl start libvirtd.service
 	virt-manager
 
-printer
-	systemctl status org.cups.cupsd.service
-
-start gdm
-	sudo systemctl enable gdm.services
 
 getlantern	network autoproxy http://127.0.0.1:16823/proxy_on.pac
 
@@ -3159,16 +3149,6 @@ archarcharcharcharcharcharcharcharcharcharcharcharcharch
 
 hyprlandhyprlandhyprlandhyprland
 hyprlandhyprlandhyprlandhyprland
-
-# critical packages to install during init installation
-    iwd dhcpcd systemd-networkd systemd-resolved vim gvim wl-clipboard
-
-# nvidia and vulkan drivers
-    pacman -S --needed vulkan-radeon lib32-vulkan-radeon vulkan-icd-loader lib32-vulkan-icd-loader
-    pacman -S nvidia-dkms lib32-nvidia-utils egl-wayland libva-nvidia-driver
-
-# fcitx5
-    sudo pacman -S fcitx5 fcitx5-configtool fcitx5-chinese-addons fcitx5-gtk fcitx5-qt
 
 # edit ~/.config/hypr/hyprland.conf
     # Fcitx5 for input method support
@@ -3215,18 +3195,7 @@ hyprlandhyprlandhyprlandhyprland
 # fonts
 
 
-# enable dark mode
-    gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
-
-# add the following into ~/.conf/hypr/hyprland.conf. require 'xdg-desktop-portal-gtk' package
-    exec-once = gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita'
-    exec-once = gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
-
-# cat ~/.config/gtk-3.0/settings.ini
-    [Settings]
-    gtk-application-prefer-dark-theme=true
-    gtk-theme-name=Adwaita-dark
-
+# enable dark mode > nwg-look
 
 # disable laptop display with extend monitor attached
     hyprctl monitors all    # list all avail monitors
@@ -3234,11 +3203,6 @@ hyprlandhyprlandhyprlandhyprland
 
 # screenshot with corsair k65 keyboard
     sudo pacman -S grim slurp hyprshot  # hyprshot depends on the former 2
-
-# add the following into ~/.conf/hypr/hyprland.conf
-    bind = $mainMod, S, exec, hyprshot -m window		  # select a window
-    bind = $SUPER_SHIFT, S, exec, hyprshot -m region	# select a region
-    bind = , Print, exec, hyprshot -m output		      # active monitor
 
 # copy/ paste screenshot with slurp 
     grim -g "$(slurp)" - | wl-copy -t image/png
