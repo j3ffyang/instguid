@@ -3146,6 +3146,18 @@ temperature
 archarcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharch
 
+cachyoscachyoscachyoscachyos
+cachyoscachyoscachyoscachyos
+
+    pacman -Syu --needed veracrypt cryptsetup gnupg sshuttle base-devel git bash-completion firewalld thunar unzip \
+        rsync less qbittorrent gimp geeqie darktable imagemagick obs-studio fcitx5-im fcitx5-chinese-addons qt6ct steam \
+        inputplumber thunar nodejs npm android-tools android-udev nvim graphviz jre-openjdk vlc vlc-plugins-all hyprsunset
+    
+    pacman -Rns micro cachyos-micro-settings shelly gnome-text-editor
+
+cachyoscachyoscachyoscachyos
+cachyoscachyoscachyoscachyos
+
 
 hyprlandhyprlandhyprlandhyprland
 hyprlandhyprlandhyprlandhyprland
