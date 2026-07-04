@@ -1,0 +1,31 @@
+{
+  "layer": "top",
+  "position": "top",
+
+  "modules-left": [
+    "custom/archicon",
+    "clock",
+    "cpu",
+    "memory",
+    "temperature"
+  ],
+
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+
+  "modules-right": [
+    "idle_inhibitor",
+    "pulseaudio",
+    "battery",
+    "network",
+    "hyprland/language",
+    "tray"
+  ],
+
+  "custom/archicon": {
+    "format": "",
+    "on-click": "wofi --show drun",
+    "tooltip": false
+  }
+}
