@@ -61,10 +61,6 @@ end)
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
--- AMD / Wayland good defaults
-hl.env("AQ_DRM_DEVICES", "")
-hl.env("WLR_NO_HARDWARE_CURSORS", "0")
-
 
 -----------------------
 ----- PERMISSIONS -----
@@ -127,7 +123,7 @@ hl.config({
         },
 
         blur = {
-            enabled   = false,
+            enabled   = true,
             size      = 3,
             passes    = 1,
             vibrancy  = 0.1696,
@@ -264,12 +260,17 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
 local closeWindowBind = hl.bind(mainMod .. " + C", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
-hl.bind(mainMod .. " + M", hl.dsp.exit())
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
+
+hl.bind(mainMod .. " + H", hl.dsp.exec_cmd("hyprctl hyprsunset temperature +500"))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("hyprctl hyprsunset temperature -500"))
+
+hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("wofi --show drun"))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
