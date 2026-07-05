@@ -3212,6 +3212,7 @@ hyprlandhyprlandhyprlandhyprland
 # disable laptop display with extend monitor attached
     hyprctl monitors all    # list all avail monitors
     hyprctl keyword monitor "eDP-1,disable"     # while "eDP-1"= laptop monitor id
+    hyprctl eval 'hl.monitor({ output = "eDP-1", disabled = true })'
 
 # screenshot with corsair k65 keyboard
     sudo pacman -S grim slurp hyprshot  # hyprshot depends on the former 2
