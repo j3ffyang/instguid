@@ -387,3 +387,12 @@ hl.bind("SUPER + Print",
     hl.dsp.exec_cmd([[grim -g "$(slurp)" - | wl-copy]])
 )
 
+-- Window → file
+hl.bind("SHIFT + CTRL + Print",
+    hl.dsp.exec_cmd("hyprshot -m window -o ~/Pictures")
+)
+
+-- Window -> clipboard only
+hl.bind("CTRL + Print",
+    hl.dsp.exec_cmd("hyprshot -m window --clipboard-only")
+)
