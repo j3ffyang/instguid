@@ -2964,11 +2964,11 @@ grub-mkconfig -o /boot/grub/grub.cfg
 ## Util / util
   fastfetch firefox chromium base-devel git linux-headers \
   bash-completion firewalld thunar unzip rsync less qbittorrent \
-  dmidecode powertop
+  nvtop reflector
 
 ## dev
   nvim python-pynvim python-lsp-server python-black python-isort ruff \
-  jdk11-openjdk graphviz
+  jre-openjdk graphviz
 
 ## encryption
   veracrypt cryptsetup gnupg sshuttle
@@ -2979,9 +2979,11 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 ## theme
   nwg-look adw-gtk-theme kvantum # optional
+  tumbler gvfs
 
 ## multi media
-  vlc vlc-plugins-all obs-studio
+  vlc vlc-plugins-all obs-studio \
+  pavucontrol alsa-utils pipewire-alsa  # audio util
 
 ## graphic proc
   gimp geeqie darktable imagemagick
@@ -2992,13 +2994,13 @@ grub-mkconfig -o /boot/grub/grub.cfg
 ## chn input 
   fcitx5-im fcitx5-chinese-addons qt6ct
 
+## hyprland de
+  xdg-desktop-portal xdg-desktop-portal-gtk ripgrep fd \
+  hyprlock hyprsunset hyprshot hypridle hyprcursor hyprutils hyprgraphics \
+  wf-recorder wl-clipboard grim slurp waybar wofi
+
 ## nvidia / gpu
   nvidia-utils nvidia-dkms nvidia-utils nvidia-settings linux-headers libva-nvidia-driver
-
-## hyprland related
-  xdg-desktop-portal xdg-desktop-portal-gtk ripgrep fd hyprlock \
-  hyprsunset hyprshot hypridle hyprpaper wf-recorder wl-clipboard \
-  grim slurp waybar rofi
 
 
 ## gnome + gdm
