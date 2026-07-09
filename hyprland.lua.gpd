@@ -42,15 +42,14 @@ local menu        = "wofi --show drun"
 -- Autostart necessary processes (like notifications daemons, status bars, etc.)
 -- Or execute your favorite apps at launch like this:
 --
-hl.on("hyprland.start", function () 
-  hl.exec_cmd("fcitx5 -d")
-  hl.exec_cmd("waybar")
-  hl.exec_cmd("hypridle")
-  hl.exec_cmd("hyprsunset")
---  hl.exec_cmd("nm-applet")
---  hl.exec_cmd("waybar & hyprpaper & firefox")
+hl.on("hyprland.start", function()
+	hl.exec_cmd("fcitx5 -d")
+	hl.exec_cmd("waybar")
+	hl.exec_cmd("hypridle")
+	hl.exec_cmd("hyprsunset")
+	--  hl.exec_cmd("nm-applet")
+	--  hl.exec_cmd("waybar & hyprpaper & firefox")
 end)
-
 
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
@@ -60,7 +59,8 @@ end)
 
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
-
+hl.env("XCURSOR_THEME", "Adwaita")
+hl.env("HYPRCURSOR_THEME", "Adwaita")
 
 -----------------------
 ----- PERMISSIONS -----
@@ -90,42 +90,42 @@ hl.config({
     general = {
         gaps_in  = 5,
         gaps_out = 20,
-
+        
         border_size = 2,
-
+        
         col = {
             active_border   = { colors = {"rgba(33ccffee)", "rgba(00ff99ee)"}, angle = 45 },
             inactive_border = "rgba(595959aa)",
         },
-
+        
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
         resize_on_border = false,
-
+        
         -- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before you turn this on
         allow_tearing = false,
-
+        
         layout = "dwindle",
     },
-
+        
     cursor = {
         no_hardware_cursors = 2,
     },
-
+    
     decoration = {
         rounding       = 10,
         rounding_power = 2,
-
+        
         -- Change transparency of focused and unfocused windows
         active_opacity   = 1.0,
         inactive_opacity = 1.0,
-
+    
         shadow = {
             enabled      = true,
             range        = 4,
             render_power = 3,
             color        = 0xee1a1a1a,
         },
-
+        
         blur = {
             enabled   = true,
             size      = 3,
@@ -133,7 +133,7 @@ hl.config({
             vibrancy  = 0.1696,
         },
     },
-
+    
     animations = {
         enabled = true,
     },
@@ -217,7 +217,6 @@ hl.config({
     },
 })
 
-
 ---------------
 ---- INPUT ----
 ---------------
@@ -229,11 +228,11 @@ hl.config({
         kb_model   = "",
         kb_options = "",
         kb_rules   = "",
-
+        
         follow_mouse = 1,
-
+        
         sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
-
+        
         touchpad = {
             natural_scroll = false,
         },
@@ -252,7 +251,6 @@ hl.device({
     name        = "epic-mouse-v1",
     sensitivity = -0.5,
 })
-
 
 ---------------------
 ---- KEYBINDINGS ----
@@ -316,7 +314,6 @@ hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tr
 hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = true })
 
-
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------
@@ -367,32 +364,21 @@ hl.window_rule({
     float = true,
 })
 
-
 ---------------------
 ---- SCREENSHOTS ----
 ---------------------
 
 -- Full screen → file
-hl.bind("Print",
-    hl.dsp.exec_cmd([[grim ~/Pictures/$(date +'%Y%m%d_%H%M%S').png]])
-)
+hl.bind("Print", hl.dsp.exec_cmd([[grim ~/Pictures/$(date +'%Y%m%d_%H%M%S').png]]))
 
 -- Region → file
-hl.bind("SHIFT + Print",
-    hl.dsp.exec_cmd([[grim -g "$(slurp)" ~/Pictures/$(date +'%Y%m%d_%H%M%S').png]])
-)
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd([[grim -g "$(slurp)" ~/Pictures/$(date +'%Y%m%d_%H%M%S').png]]))
 
 -- Region → clipboard only (no file)
-hl.bind("SUPER + Print",
-    hl.dsp.exec_cmd([[grim -g "$(slurp)" - | wl-copy]])
-)
+hl.bind("SUPER + Print", hl.dsp.exec_cmd([[grim -g "$(slurp)" - | wl-copy]]))
 
 -- Window → file
-hl.bind("SHIFT + CTRL + Print",
-    hl.dsp.exec_cmd("hyprshot -m window -o ~/Pictures")
-)
+hl.bind("SHIFT + CTRL + Print", hl.dsp.exec_cmd("hyprshot -m window -o ~/Pictures"))
 
 -- Window -> clipboard only
-hl.bind("CTRL + Print",
-    hl.dsp.exec_cmd("hyprshot -m window --clipboard-only")
-)
+hl.bind("CTRL + Print", hl.dsp.exec_cmd("hyprshot -m window --clipboard-only"))

@@ -1,0 +1,28 @@
+" Indentation
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set autoindent
+set smartindent
+
+" Display
+syntax on
+set number
+set relativenumber
+
+" Search
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+
+" Colors
+set background=dark
+" colorscheme default
+" colorscheme habamax
+" colorscheme industry
+" colorscheme murphy
+" colorscheme evening
+" colorscheme desert
+colorscheme elflord
