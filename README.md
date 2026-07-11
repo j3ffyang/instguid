@@ -3148,6 +3148,12 @@ temperature
 archarcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharch
 
+
+steam / dcs 
+    # custom mission location
+    ~/.local/share/Steam/steamapps/compatdata/223750/pfx/drive_c/users/steamuser/Saved Games/DCS/Missions
+
+
 cachyoscachyoscachyoscachyos
 cachyoscachyoscachyoscachyos
 
