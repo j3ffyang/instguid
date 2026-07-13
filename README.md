@@ -3454,6 +3454,10 @@ pythonpythonpython
   # list packages installed by pip3
   pip3 list
 
+  # pip repo in local
+  pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
+
   A little bit of theory:
   Objects are a representation of real world objects like cars, dogs, or bikes. The objects share two main characteristics: data and behavior.
 
