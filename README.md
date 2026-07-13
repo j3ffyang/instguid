@@ -2688,6 +2688,9 @@ reduce pdf in size | resize pdf | compress
 	-dPDFSETTINGS=/prepress (high quality, color preserving, 300 dpi imgs)
 	-dPDFSETTINGS=/default  (almost identical to /screen)
 
+merge 2 pdf files with specific pages
+    qpdf --empty --pages file1.pdf 1-$((N-1)) file2.pdf 2-$M -- merged.pdf
+
 
 debian gnome super key | win key
     gnome-tweak > Keyboard & Mouse > Alt/Win key behavior > Alt is swapped with Win
