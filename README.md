@@ -2940,41 +2940,26 @@ FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
 
-# wireless enablement
+## wireless enablement
 wifi-menu -o
 iwctl station list
 
-## `grub-rescue`
-
-1. Rescue mode
-> https://forum.manjaro.org/t/manjaro-wont-boot-after-windows-update/31109
-
-ls (hd0,6)/boot
-set root=(hd0,6)
-set prefix=(hd0,6)/boot/grub
-insmod normal
-normal
-
-2. Update grub permanently
-> https://wiki.manjaro.org/index.php/GRUB/Restore_the_GRUB_Bootloader#Reinstall_GRUB
-
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=manjaro --recheck
-grub-mkconfig -o /boot/grub/grub.cfg
-
-
-# post-install general packages for hyprland
+## post-install general packages for hyprland
 
 ## Util / util
   fastfetch firefox chromium base-devel git linux-headers \
-  bash-completion firewalld thunar unzip rsync less qbittorrent \
-  nvtop reflector
-
-## dev
-  nvim python-pynvim python-lsp-server python-black python-isort ruff \
-  jre-openjdk graphviz
+  reflector bash-completion firewalld unzip rsync less qbittorrent \
+  nvtop thunar tumbler gvfs
 
 ## encryption
   veracrypt cryptsetup gnupg sshuttle
+
+## dev
+  nvim meld python-pynvim python-lsp-server python-black python-isort ruff \
+  jre-openjdk graphviz nodejs npm 
+
+## android 
+  android-tools android-udev scrcpy
 
 ## fonts
   ttf-jetbrains-mono-nerd nerd-fonts noto-fonts noto-fonts-cjk \
@@ -2991,9 +2976,6 @@ grub-mkconfig -o /boot/grub/grub.cfg
 ## graphic proc
   gimp geeqie darktable imagemagick
 
-## env 
-  nodejs npm android-tools android-udev 
-
 ## chn input 
   fcitx5-im fcitx5-chinese-addons qt6ct
 
@@ -3001,6 +2983,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
   xdg-desktop-portal xdg-desktop-portal-gtk ripgrep fd \
   hyprlock hyprsunset hyprshot hypridle hyprcursor hyprutils hyprgraphics \
   wf-recorder wl-clipboard grim slurp waybar wofi
+
 
 ## nvidia / gpu
   nvidia-utils nvidia-dkms nvidia-utils nvidia-settings linux-headers libva-nvidia-driver
@@ -3018,7 +3001,9 @@ grub-mkconfig -o /boot/grub/grub.cfg
     export DISPLAY=:0
 
 ## office
-pacman -S libreoffice-still libreoffice-still-zh-CN libreoffice-still-zh-TW
+  qpdf 
+  masterpdfeditor-free  # yay
+  libreoffice-still libreoffice-still-zh-CN libreoffice-still-zh-TW
 
 journal
 	journalctl -b -1 -n 100
@@ -3160,10 +3145,6 @@ steam / dcs
 cachyoscachyoscachyoscachyos
 cachyoscachyoscachyoscachyos
 
-    pacman -Syu --needed veracrypt cryptsetup gnupg sshuttle base-devel git bash-completion firewalld thunar unzip \
-        rsync less qbittorrent gimp geeqie darktable imagemagick obs-studio fcitx5-im fcitx5-chinese-addons qt6ct steam \
-        inputplumber thunar nodejs npm android-tools android-udev nvim graphviz jre-openjdk vlc vlc-plugins-all hyprsunset
-    
     pacman -Rns micro cachyos-micro-settings shelly gnome-text-editor
 
 cachyoscachyoscachyoscachyos
