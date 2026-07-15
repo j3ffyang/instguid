@@ -24,5 +24,14 @@ set background=dark
 " colorscheme industry
 " colorscheme murphy
 " colorscheme evening
-" colorscheme desert
-colorscheme elflord
+colorscheme desert
+" colorscheme elflord
+
+" Mouse & Clipboard Sync (Requires wl-clipboard on Hyprland)
+set mouse=a
+set clipboard=unnamedplus,autoselect
+
+" Map middle-click to paste smoothly in both Normal and Insert modes
+nnoremap <MiddleMouse> "+p
+inoremap <MiddleMouse> <C-r>+
+
