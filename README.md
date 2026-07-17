@@ -2688,6 +2688,10 @@ reduce pdf in size | resize pdf | compress
 	-dPDFSETTINGS=/prepress (high quality, color preserving, 300 dpi imgs)
 	-dPDFSETTINGS=/default  (almost identical to /screen)
 
+  # for all pages to have the exact same width
+  gs -o unified_width.pdf -sDEVICE=pdfwrite -sPAPERSIZE=a4 -dPDFFitPage input.pdf
+
+
 merge 2 pdf files with specific pages
     qpdf --empty --pages file1.pdf 1-$((N-1)) file2.pdf 2-$M -- merged.pdf
 
@@ -3140,6 +3144,10 @@ archarcharcharcharcharcharcharcharcharcharcharcharcharch
 steam / dcs 
     # custom mission location
     ~/.local/share/Steam/steamapps/compatdata/223750/pfx/drive_c/users/steamuser/Saved Games/DCS/Missions
+
+    # clickable setting 
+    ./DCSWorld/Mods/aircraft/TF-51D/Cockpit/Scripts/clickabledata.lua
+    ./DCSWorld/Mods/aircraft/Yak-52/Cockpit/Scripts/clickabledata.lua
 
 
 cachyoscachyoscachyoscachyos
