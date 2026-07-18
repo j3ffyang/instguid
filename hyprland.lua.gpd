@@ -369,22 +369,19 @@ hl.window_rule({
 })
 
 
----------------------
----- SCREENSHOTS ----
----------------------
+-- =========================================================================
+-- SCREENSHOTS (Pattern: [Print] -> File | [SUPER + Print] -> Clipboard)
+-- =========================================================================
 
--- Full screen → file
-hl.bind("Print", hl.dsp.exec_cmd([[grim ~/Pictures/$(date +%y%m%d_%H%M).png]]))
+-- 1. Full Screen
+hl.bind("Print", function() hl.exec_cmd([[grim ~/Pictures/$(date +%y%m%d_%H%M).png]]) end)
+hl.bind("SUPER + Print", function() hl.exec_cmd([[grim - | wl-copy]]) end)
 
--- Region → file
-hl.bind("SHIFT + Print", hl.dsp.exec_cmd([[grim -g "$(slurp)" ~/Pictures/$(date +%y%m%d_%H%M).png]]))
+-- 2. Region / Selection Area
+hl.bind("SHIFT + Print", function() hl.exec_cmd([[grim -g "$(slurp)" ~/Pictures/$(date +%y%m%d_%H%M).png]]) end)
+hl.bind("SUPER + SHIFT + Print", function() hl.exec_cmd([[grim -g "$(slurp)" - | wl-copy]]) end)
 
--- Region → clipboard only (no file)
-hl.bind("SUPER + Print", hl.dsp.exec_cmd([[grim -g "$(slurp)" - | wl-copy]]))
-
--- Window → file
-hl.bind("SHIFT + CTRL + Print", hl.dsp.exec_cmd([[hyprshot -m window -o ~/Pictures -f "$(date +%y%m%d_%H%M).png"]]))
-
--- Window -> clipboard only
-hl.bind("CTRL + Print", hl.dsp.exec_cmd("hyprshot -m window --clipboard-only"))
+-- 3. Active Window
+hl.bind("CTRL + Print", function() hl.exec_cmd([[hyprshot -m window -o ~/Pictures -f "$(date +%y%m%d_%H%M).png"]]) end)
+hl.bind("SUPER + CTRL + Print", function() hl.exec_cmd([[hyprshot -m window --clipboard-only]]) end)
 
