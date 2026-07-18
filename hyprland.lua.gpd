@@ -368,21 +368,23 @@ hl.window_rule({
     float = true,
 })
 
+
 ---------------------
 ---- SCREENSHOTS ----
 ---------------------
 
 -- Full screen → file
-hl.bind("Print", hl.dsp.exec_cmd([[grim ~/Pictures/$(date +'%Y%m%d_%H%M%S').png]]))
+hl.bind("Print", hl.dsp.exec_cmd([[grim ~/Pictures/$(date +%y%m%d_%H%M).png]]))
 
 -- Region → file
-hl.bind("SHIFT + Print", hl.dsp.exec_cmd([[grim -g "$(slurp)" ~/Pictures/$(date +'%Y%m%d_%H%M%S').png]]))
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd([[grim -g "$(slurp)" ~/Pictures/$(date +%y%m%d_%H%M).png]]))
 
 -- Region → clipboard only (no file)
 hl.bind("SUPER + Print", hl.dsp.exec_cmd([[grim -g "$(slurp)" - | wl-copy]]))
 
 -- Window → file
-hl.bind("SHIFT + CTRL + Print", hl.dsp.exec_cmd("hyprshot -m window -o ~/Pictures"))
+hl.bind("SHIFT + CTRL + Print", hl.dsp.exec_cmd([[hyprshot -m window -o ~/Pictures -f "$(date +%y%m%d_%H%M).png"]]))
 
 -- Window -> clipboard only
 hl.bind("CTRL + Print", hl.dsp.exec_cmd("hyprshot -m window --clipboard-only"))
+
