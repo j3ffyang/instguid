@@ -2975,7 +2975,8 @@ iwctl station list
 
 ## multi media
   vlc vlc-plugins-all obs-studio \
-  pavucontrol alsa-utils pipewire-alsa  # audio util
+  pavucontrol alsa-utils pipewire-alsa      # audio util
+  mesa-utils    # glxinfo
 
 ## graphic proc
   gimp geeqie darktable imagemagick
@@ -2991,6 +2992,9 @@ iwctl station list
 
 ## nvidia / gpu
   nvidia-utils nvidia-dkms nvidia-utils nvidia-settings linux-headers libva-nvidia-driver
+
+## amd gpu / amdgpu
+  rocminfo
 
 
 ## gnome + gdm
