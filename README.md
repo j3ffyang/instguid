@@ -3092,6 +3092,25 @@ yay - remove clean cleanup
     rm ~/.cache/yay/<package_name>
 
 
+
+# check log by yay installation
+  [jeff@gpd ~/ ]$ grep -E "installed" /var/log/pacman.log | tail -n 30
+  [2026-07-17T20:57:46+0800] [ALPM] installed hipblas (7.2.4-1)
+  [2026-07-17T20:57:54+0800] [ALPM] installed ollama-rocm (0.32.1-1)
+  [2026-07-18T16:19:24+0800] [ALPM] installed radeontop (1.4-3)
+  [2026-07-18T16:30:03+0800] [ALPM] installed mesa-utils (9.0.0-7)
+  [2026-07-24T09:54:44+0800] [ALPM] installed patchelf (0.19.1-1)
+  [2026-07-24T09:57:48+0800] [ALPM] installed patchelf (0.19.1-1)
+  [2026-07-24T09:58:12+0800] [ALPM] installed wemeet-bin (3.26.10.401-2)
+  
+# check dependencies
+  [jeff@gpd ~/ ]$ pacman -Qi wemeet-bin | grep -E "Depends On|Required By"
+  Depends On      : bash  qt5-x11extras  libxinerama  libpulse  gcc-libs  qt5-declarative  libglvnd  libxfixes  alsa-lib  openssl  libxrandr  libxext  libx11  hicolor-icon-theme  glibc  zlib  libxcomposite  qt5-base  systemd-libs  libxdamage  qt5-svg  libyuv
+  Required By     : None
+  [jeff@gpd ~/ ]$ 
+
+
+
 inxi - command line system info
     inxi -Fza | grep -i network
     inxi -Nazy                                                        
