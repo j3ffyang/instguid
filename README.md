@@ -2966,8 +2966,7 @@ iwctl station list
   android-tools android-udev scrcpy
 
 ## fonts
-  ttf-jetbrains-mono-nerd nerd-fonts noto-fonts noto-fonts-cjk \
-  noto-fonts-emoji 
+  ttf-jetbrains-mono-nerd noto-fonts-cjk noto-fonts-emoji 
 
 ## theme
   nwg-look adw-gtk-theme kvantum # optional
