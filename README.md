@@ -2950,7 +2950,7 @@ iwctl station list
 
 ## post-install general packages for hyprland
 
-## Util / util
+## util / util
   fastfetch firefox chromium base-devel git linux-headers \
   reflector bash-completion firewalld unzip rsync less qbittorrent \
   nvtop thunar tumbler gvfs
@@ -2967,7 +2967,7 @@ iwctl station list
 
 ## fonts
   ttf-jetbrains-mono-nerd nerd-fonts noto-fonts noto-fonts-cjk \
-  noto-fonts-emoji ttf-font-awesome 
+  noto-fonts-emoji 
 
 ## theme
   nwg-look adw-gtk-theme kvantum # optional
@@ -2988,6 +2988,22 @@ iwctl station list
   xdg-desktop-portal xdg-desktop-portal-gtk ripgrep fd \
   hyprlock hyprsunset hyprshot hypridle hyprcursor hyprutils hyprgraphics \
   wf-recorder wl-clipboard grim slurp waybar wofi
+
+
+## kde packages to remove
+  File Manager: dolphin
+
+  KDE Core Frameworks: kio, kio-extras, karchive, kbookmarks, kcmutils, kcodecs, kcolorscheme, kcompletion, kconfigwidgets, kservice, ktextwidgets, kxmlgui, kparts, kpackage, kjobwidgets, kiconthemes, kguiaddons, kglobalaccel, kfilemetadata, kidletime, kdnssd, knewstuff, kuserfeedback
+
+  KDE System Services: baloo (file indexing), baloo-widgets, kwallet (secret storage), plasma-activities
+
+  Qt6 Supporting Libraries: qt6-5compat, qt6-multimedia, qt6-multimedia-ffmpeg, qt6-shadertools, qt6-speech, poppler-qt6, qca-qt6Helper 
+
+  Tools & Utilities: attica, breeze-icons, convertlit, ebook-tools, kdsoap, kdsoap-ws-discovery-client, libkexiv2, media-player-info, ripgrep-all, solid, sonnet, syndication, polkit-kde-agent
+
+## legacy ati driver to remove
+  xf86-video-ati
+  
 
 
 ## nvidia / gpu
