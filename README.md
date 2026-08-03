@@ -2951,7 +2951,7 @@ iwctl station list
 ## post-install general packages for hyprland
 
 ## util / util
-  fastfetch firefox chromium base-devel git linux-headers \
+  fastfetch firefox chromium base-devel git github-cli linux-headers \
   reflector bash-completion firewalld unzip rsync less qbittorrent \
   nvtop thunar tumbler gvfs
 
