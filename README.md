@@ -3010,7 +3010,10 @@ iwctl station list
     # add into ~/.bash_profile
     export AQ_DRM_DEVICES="$HOME/.config/hypr/cards/egpu:$HOME/.config/hypr/cards/igpu"
 
-
+    # verify
+    $ glxinfo | grep -E "OpenGL vendor|OpenGL renderer"
+    OpenGL vendor string: AMD
+    OpenGL renderer string: AMD Radeon RX 7600M XT (radeonsi, navi33, ACO, DRM 3.64, 7.1.5-arch1-2)
 
 
 
