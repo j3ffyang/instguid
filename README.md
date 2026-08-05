@@ -2953,7 +2953,7 @@ iwctl station list
 ## util / util
   fastfetch firefox chromium base-devel git github-cli linux-headers \
   reflector bash-completion firewalld unzip rsync less qbittorrent \
-  nvtop thunar tumbler gvfs
+  thunar tumbler gvfs
 
 ## encryption
   veracrypt cryptsetup gnupg sshuttle
@@ -2988,8 +2988,14 @@ iwctl station list
   hyprlock hyprsunset hyprshot hypridle hyprcursor hyprutils hyprgraphics \
   wf-recorder wl-clipboard grim slurp waybar wofi
 
+## nvidia / gpu
+  nvidia-utils nvidia-dkms nvidia-utils nvidia-settings libva-nvidia-driver nvtop
 
-## kde packages to remove
+## amd gpu / amdgpu
+  rocminfo amdgpu_top
+
+
+## kde packages to remove | REMOVE | Remove
   File Manager: dolphin
 
   KDE Core Frameworks: kio, kio-extras, karchive, kbookmarks, kcmutils, kcodecs, kcolorscheme, kcompletion, kconfigwidgets, kservice, ktextwidgets, kxmlgui, kparts, kpackage, kjobwidgets, kiconthemes, kguiaddons, kglobalaccel, kfilemetadata, kidletime, kdnssd, knewstuff, kuserfeedback
@@ -3003,13 +3009,6 @@ iwctl station list
 ## legacy ati driver to remove
   xf86-video-ati
   
-
-
-## nvidia / gpu
-  nvidia-utils nvidia-dkms nvidia-utils nvidia-settings linux-headers libva-nvidia-driver
-
-## amd gpu / amdgpu
-  rocminfo
 
 
 ## gnome + gdm
