@@ -2995,6 +2995,25 @@ iwctl station list
   rocminfo amdgpu_top
 
 
+
+## prioritize workload on egpu for amdgpu on gpd gamepad win4, when egpu attached
+
+    # Create a dedicated directory for your GPU aliases
+    mkdir -p ~/.config/hypr/cards
+    
+    # Link the External eGPU (Navi 33) to a clean path
+    ln -s /dev/dri/by-path/pci-0000:03:00.0-card ~/.config/hypr/cards/egpu
+    
+    # Link the Internal iGPU (Phoenix1) to a clean path
+    ln -s /dev/dri/by-path/pci-0000:66:00.0-card ~/.config/hypr/cards/igpu
+
+    # add into ~/.bash_profile
+    export AQ_DRM_DEVICES="$HOME/.config/hypr/cards/egpu:$HOME/.config/hypr/cards/igpu"
+
+
+
+
+
 ## kde packages to remove | REMOVE | Remove
   File Manager: dolphin
 
