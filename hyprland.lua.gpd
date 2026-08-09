@@ -61,7 +61,6 @@ end)
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("XCURSOR_THEME", "Adwaita")
-hl.env("HYPRCURSOR_THEME", "Adwaita")
 
 
 -----------------------
@@ -109,10 +108,6 @@ hl.config({
         layout = "dwindle",
     },
 
-    cursor = {
-        no_hardware_cursors = 2,
-    },
-
     decoration = {
         rounding       = 10,
         rounding_power = 2,
@@ -149,7 +144,7 @@ hl.curve("almostLinear",   { type = "bezier", points = { {0.5, 0.5},   {0.75, 1}
 hl.curve("quick",          { type = "bezier", points = { {0.15, 0},    {0.1, 1}     } })
 
 -- Default springs
-hl.curve("easy",           { type = "spring", mass = 1, stiffness = 71.2633, dampening = 15.8273644 })
+hl.curve("easy",           { type = "spring", mass = 1, stiffness = 238.1191, dampening = 24.21279333 })
 
 hl.animation({ leaf = "global",        enabled = true,  speed = 10,   bezier = "default" })
 hl.animation({ leaf = "border",        enabled = true,  speed = 5.39, bezier = "easeOutQuint" })
@@ -275,7 +270,6 @@ hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))    -- dwindle only
 
 hl.bind(mainMod .. " + H", hl.dsp.exec_cmd("hyprctl hyprsunset temperature +500"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("hyprctl hyprsunset temperature -500"))
-hl.bind("SUPER + SPACE", hl.dsp.exec_cmd("wofi --show drun"))
 
 -- Move focus with mainMod + arrow keys
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
@@ -374,14 +368,14 @@ hl.window_rule({
 -- =========================================================================
 
 -- 1. Full Screen
-hl.bind("Print", function() hl.exec_cmd([[grim ~/Pictures/$(date +%y%m%d_%H%M).png]]) end)
-hl.bind("SUPER + Print", function() hl.exec_cmd([[grim - | wl-copy]]) end)
+hl.bind("Print", function() hl.exec_cmd([[hyprshot -m output -m active -o ~/Pictures -f "$(date +%y%m%d-%H%M).png"]]) end)
+hl.bind("SUPER + Print", function() hl.exec_cmd([[hyprshot -m output -m active --clipboard-only]]) end)
 
 -- 2. Region / Selection Area
-hl.bind("SHIFT + Print", function() hl.exec_cmd([[grim -g "$(slurp)" ~/Pictures/$(date +%y%m%d_%H%M).png]]) end)
-hl.bind("SUPER + SHIFT + Print", function() hl.exec_cmd([[grim -g "$(slurp)" - | wl-copy]]) end)
+hl.bind("SHIFT + Print", function() hl.exec_cmd([[hyprshot -m region -o ~/Pictures -f "$(date +%y%m%d-%H%M).png"]]) end)
+hl.bind("SUPER + SHIFT + Print", function() hl.exec_cmd([[hyprshot -m region --clipboard-only]]) end)
 
 -- 3. Active Window
-hl.bind("CTRL + Print", function() hl.exec_cmd([[hyprshot -m window -o ~/Pictures -f "$(date +%y%m%d_%H%M).png"]]) end)
+hl.bind("CTRL + Print", function() hl.exec_cmd([[hyprshot -m window -o ~/Pictures -f "$(date +%y%m%d-%H%M).png"]]) end)
 hl.bind("SUPER + CTRL + Print", function() hl.exec_cmd([[hyprshot -m window --clipboard-only]]) end)
 
