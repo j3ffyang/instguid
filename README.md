@@ -5,22 +5,22 @@ Unix, AIX and Linux
  / /__/ / _ \/ // /\ \/ /
 /____/_/_//_/\_,_/ /_/\_\
 
-###############################################################################
+############################################################
 
 AIX System Admin
 
 AIX Tools and Util (iostat and vmstat filesed, etc.
 
-$bootlist -m normal -o cd0 hdisk0       #change the boot order from hdisk0 to cd0.
+	$bootlist -m normal -o cd0 hdisk0       #change the boot order from hdisk0 to cd0.
 
-lslpp -w /usr/bin/man	#find out its fileset.
-lslpp -l bos.rte.libc	#AIX version check
+	lslpp -w /usr/bin/man	#find out its fileset.
+	lslpp -l bos.rte.libc	#AIX version check
 
-lslpp -l bos.rte	# Runtime level
+	lslpp -l bos.rte	# Runtime level
 
 AIX install
 	inutoc /path/inst.images	# to create toc for install
-        installp -aX -d device_path X11.adt.lib X11.adt.motif bos.adt.base
+	installp -aX -d device_path X11.adt.lib X11.adt.motif bos.adt.base
 
 	# Install fixes
 	# download into /usr/sys/inst.images
@@ -32,24 +32,24 @@ AIX install
 	oslevel -r	# check the maintenance level
 
 AIX security mode install TCB (trusted computer base)
-        ls -le	#list if there is a plus '+' at the end of file, indicating TCB installed
+	ls -le	#list if there is a plus '+' at the end of file, indicating TCB installed
 
 manpage	man install - man page install manpage fileset
-        bos.html.en_US
-        bos.html.en_US.cmds
-        # bos.html.en_US.nav
-        bos.html.en_US.topnav
+	bos.html.en_US
+	bos.html.en_US.cmds
+	# bos.html.en_US.nav
+	bos.html.en_US.topnav
 
 vmstat and iostat filesets      bos.acct
 AIX debug fileset               bos.adt.debug
 
-lssrc -a | grep dhcp
+	lssrc -a | grep dhcp
 	install bos.net.tcpip
 
-lsattr -El mem0		#aix mem memory checking.
-lsattr -E -l sys0	# You can check the current setting of maxuproc with the command:  
+	lsattr -El mem0		#aix mem memory checking.
+	lsattr -E -l sys0	# You can check the current setting of maxuproc with the command:  
 
-chdev -l sys0 -a maxuproc='nn'	To change maxuproc, use the command: where nn is the new integer value of maxuproc.  
+	chdev -l sys0 -a maxuproc='nn'	To change maxuproc, use the command: where nn is the new integer value of maxuproc.  
 
 	# mkdev for ethernet
 	mkdev -l en0
@@ -60,7 +60,7 @@ chdev -l sys0 -a maxuproc='nn'	To change maxuproc, use the command: where nn is 
 	# cfgmgr -> Check the missing fileset/ driver
 	cfgmgr
 	cfgmgr: 0514-621 WARNING: The following device packages are required for
-       		device support but are not currently installed.
+		device support but are not currently installed.
 		devices.pci.ethernet:devices.pci.1410ff01:devices.pci.86802912:
 		devices.pci.pciclass.020000
 
@@ -93,8 +93,8 @@ Debug / trouble shooting
 	dd if=/path/file.iso of=/dev/cdlv
 	mount -v cdrfs /dev/cdlv /mnt/point
 
-................................................................................
-###############################################################################
+............................................................
+############################################################
 
 AIX Monitor (data collected/ selected in System Assessment service in 2000)
 	- lslpp -l output
@@ -110,14 +110,14 @@ AIX Monitor (data collected/ selected in System Assessment service in 2000)
 	/usr/bin/vmstat 10 90 >> /tmp/vmstat.out 	#interval 10 sec for 90 secs
 	/usr/bin/iostat 10 90 >> /tmp/iostat.out	#interval 10 sec for 90 secs
 
-$vmstat <time interval> <iteration> > <filename>	 
-$iostat <time interval> <iterations> > <filename>
-................................................................................
+	$vmstat <time interval> <iteration> > <filename>	 
+	$iostat <time interval> <iterations> > <filename>
+............................................................
 
 Unix System Performance Tuning and Monitoring
 
 CPU-> Mem-> Disk/ IO-> Network
-................................................................................
+............................................................
 	System Performance Tuning and Monitoring Flowchart
 
                        /^\
@@ -149,8 +149,8 @@ CPU-> Mem-> Disk/ IO-> Network
                    | add mem    |     \     /      
                    | reschedule |       \ /
                    +------------+
-................................................................................
-###############################################################################
+............................................................
+############################################################
 
 Memory Performance Tuning and Monitoring (Mem Perf)
 sar	(ref: AIX Certification Guide: Perf Tuning and Monitor. Page 52)
@@ -245,7 +245,7 @@ ps to check memory usage
 
 SMP	symmetrical multiprocessor
 
-................................................................................
+............................................................
 
 Disk Performance Tuning and Monitoring (Disk Perf)
 	if large background job interfering with interactive response time, activate I/O pacing.
@@ -259,7 +259,7 @@ Disk- Physical volume level report
 	#filemon -o /tmp/filemonLF.out -O pv
 Disk- Virtual mem level report
 	#filemon -o /tmp/filemonLF.out -O vm
-................................................................................
+............................................................
 
 General Recommendations on Disk, I/O performance. (IO)
 Logical volume org for highest perf.
@@ -305,7 +305,7 @@ fileplace usage scenario:
 Paging space related disk perf issue
 	never add more than one paging space on the same physical vol.
 	reorg or add paging space on the same physical vol.
-................................................................................
+............................................................
 
 Network Performance Tuning and Monitoring (NW Perf)
 
@@ -325,29 +325,26 @@ Adapter transmit and receive queue tuning
 	# of outgoing packets that have overflowed the sw xansmit que. A value
 	  other than zero indicates that the same actions
 	# needed if the Max Packets on S/W Xansmit Que reaches the tx_que_size
-  	  should be taken. The xansmit queue size has to be increased.
+	  should be taken. The xansmit queue size has to be increased.
 
-###############################################################################
+############################################################
 
 AIX/ aix/ tcpip tuning
- You must be root to change the values. Use the "no -a" command to list all
-settings and the command below to set the values:
+You must be root to change the values. Use the "no -a" command to list all settings and the command below to set the values:
 
-no -o sack=1
-no -o rfc1323=1
-no -o tcp_sendspace=524176
-no -o tcp_recvspace=524176
-no -o sb_max=1048352
-no -o tcp_mssdflt=1448
-- or -
-no -o tcp_pmtu_discover=1
+	no -o sack=1
+	no -o rfc1323=1
+	no -o tcp_sendspace=524176
+	no -o tcp_recvspace=524176
+	no -o sb_max=1048352
+	no -o tcp_mssdflt=1448
+	- or -
+	no -o tcp_pmtu_discover=1
 
-Be aware that the changes are lost after a reboot. Add the command to an init
-script like tcp.local or use the -p option of the no command on AIX 5.2
-systems (if you did not migrate from AIX 5.1).
+Be aware that the changes are lost after a reboot. Add the command to an init script like tcp.local or use the -p option of the no command on AIX 5.2 systems (if you did not migrate from AIX 5.1).
 
-###############################################################################
-###############################################################################
+############################################################
+############################################################
 
 ENV env environment
 
@@ -413,8 +410,8 @@ Linux Shell Change/ Selection
 	$chsh		#change shell
 	$echo $SHELL	#check current used shell.
 
-###############################################################################
-###############################################################################
+############################################################
+############################################################
 
 Linux command/ cmd usage / linux command
 
@@ -424,11 +421,11 @@ script	# record scripting in shell	# recording replay
 	script -t 2> tutorial.timing -a tutorial.session # record w/ timing
 	scriptreplay tutorial.timing tutorial.session	 # replay
 
-    # record
-    script -a my_terminal_activities -t=time.log
+	# record
+	script -a my_terminal_activities -t=time.log
 
-    # replay
-    scriptreplay -t=time.log my_terminal_activities
+	# replay
+	scriptreplay -t=time.log my_terminal_activities
 
 
 cvs / CVS
@@ -547,14 +544,14 @@ Command line internet
 			$links
 
 command line browser
-    links2 -socks-proxy localhost:1080 google.com
+	links2 -socks-proxy localhost:1080 google.com
 
 Zip/zip/unzip	jar -x -> to unzip
 		jar -t -> to list the content.
 		unzip file.zip
 
 # unzip multiple zip file, zip, z01, z02, ...
-    zip -s- file.zip -O file_full.zip   # -s- will collect *.zip/ z01/ z02
+	zip -s- file.zip -O file_full.zip   # -s- will collect *.zip/ z01/ z02
 
 bz2		tar xjf *.tar.bz2	or bunzip2 *.bz2
 
@@ -563,23 +560,23 @@ rar		unrar x file.rar	# extract rar file
 iso		mkisofs -o $IMAGE.iso $ORIG_FILE
 
 
-###############################################################################
-###############################################################################
+############################################################
+############################################################
 
 
 Linux system management/ system mgmt
 
 cpu temperature / thermal
-       cat /proc/acpi/thermal_zone/THMO/
-       <setting not supported>
-       cooling mode:   critical
-       <polling disabled>
-       state:                   ok
-       temperature:             60 C
-       critical (S5):           255 C
+	cat /proc/acpi/thermal_zone/THMO/
+	<setting not supported>
+	cooling mode:   critical
+	<polling disabled>
+	state:                   ok
+	temperature:             60 C
+	critical (S5):           255 C
 
 max ram / max memory
-    sudo dmidecode -t 16
+	sudo dmidecode -t 16
 
 logging > strace -ff -F -tt -v -o /tmp/passwd-trace.log -s 102400 passwd "user" # increase tracing level upon passwd command
 
@@ -769,14 +766,14 @@ uuid UUID > 	blkid
 
 Linux system management/ system mgmt
 
-###############################################################################
-###############################################################################
+############################################################
+############################################################
 
 Linux network management / network mgmt / nw mgmt
 
 TCP/IP layer / tcpip reference model
 
- 	Application layer		-> web
+	Application layer		-> web
 	client and server programs
 
 	Transport layer			-> program-program msg delivery
@@ -788,13 +785,13 @@ TCP/IP layer / tcpip reference model
 	subnet layer
 	cable, wire, microwave, radio
 
-  IP vs UDP vs TCP (ip vs udp vs tcp)
+IP vs UDP vs TCP (ip vs udp vs tcp)
 	IP -> datagram, data forward
 	UDP -> parallel w/ TCP, on top of IP, packed in IP. No connection.
 	TCP -> same as UDP. Connection required. Verify connection always. Busy traffic. ie. Telnet. Photo call.
 
-  # nc udp
-  nc -z -v -u 172.18.10.253 9116
+	# nc udp
+	nc -z -v -u 172.18.10.253 9116
 
 ip
 	show
@@ -836,21 +833,21 @@ add/ delete routing table
 	ip route add 172.16.0.0/16 via 172.16.27.1 dev br0
 
 find ip addr from cmdline commandline/ dnsutils
-  dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed 's/"//g'
+	dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | sed 's/"//g'
 
 netstat interface	$netstat -in -t
 			#netstat -a | grep pts
 			#netstat -tap -> tell you who owns the processes.
 
-    * LISTEN?The socket is listening for incoming connection.
-    * ESTABLISHED?The socket has an established connection.
-    * SYN_SENT?The socket is actively attempting to establish a connection.
-    * SYN_RECV?A connection request has been received from the network.
-    * TIME_WAIT?The socket is waiting after close to handle packets still in the network.
-    * FIN_WAIT1?The socket is closed, and the connection is shutting down.
-    * FIN_WAIT2?The connection is closed and the socket is waiting for a shutdown from the remote end.
-    * CLOSE_WAIT?The remote end has shut down, and it is waiting for the socket to close.
-    * CLOSED?The socket is not being used.
+	* LISTEN?The socket is listening for incoming connection.
+	* ESTABLISHED?The socket has an established connection.
+	* SYN_SENT?The socket is actively attempting to establish a connection.
+	* SYN_RECV?A connection request has been received from the network.
+	* TIME_WAIT?The socket is waiting after close to handle packets still in the network.
+	* FIN_WAIT1?The socket is closed, and the connection is shutting down.
+	* FIN_WAIT2?The connection is closed and the socket is waiting for a shutdown from the remote end.
+	* CLOSE_WAIT?The remote end has shut down, and it is waiting for the socket to close.
+	* CLOSED?The socket is not being used.
 
 	netstat -an -> the output is
 	Active Internet connections (servers and established)
@@ -973,8 +970,8 @@ add bridge
 	ifconfig br0 10.0.3.120 up
 	Then modify /etc/sysconfig/network-scripts/ifcfg-eth0 & br0
 
-###############################################################################
-###############################################################################
+############################################################
+############################################################
 
 network debug
 	symptom:
@@ -986,7 +983,7 @@ network debug
 	eth0+ eth2 = bond0
 	eth1+ eth3 = bond1 -> br0
 
---------
+------------------------------------------------------------
 [root@storage-2 ~]# brctl show all
 bridge name	bridge id		STP enabled	interfaces
 br0		8000.5cf3fce203da	no		bond1
@@ -996,9 +993,9 @@ br0		8000.5cf3fce203da	no		bond1
 							vnet3
 							vnet4
 							vnet5
---------
+------------------------------------------------------------
 
---------
+------------------------------------------------------------
 	eth3 (in bond1) is active
 
 [root@storage-2 ~]# cat /proc/net/bonding/bond1
@@ -1027,9 +1024,9 @@ Duplex: full
 Link Failure Count: 0
 Permanent HW addr: 5c:f3:fc:3b:5b:7a
 Slave queue ID: 0
---------
+------------------------------------------------------------
 
---------
+------------------------------------------------------------
 assign an IP to br0 then use br0 to ping target VM on storage-2
 [root@storage-2 ~]# ifconfig br0
 br0       Link encap:Ethernet  HWaddr 5C:F3:FC:E2:03:DA  
@@ -1039,9 +1036,9 @@ br0       Link encap:Ethernet  HWaddr 5C:F3:FC:E2:03:DA
 [root@storage-2 ~]# ping -I br0 zookeeper-2
 PING zookeeper-2 (172.30.11.21) from 172.30.11.100 br0: 56(84) bytes of data.
 ^C
---------
+------------------------------------------------------------
 
---------
+------------------------------------------------------------
 	check eth3 connectivity
 [root@storage-2 ~]# ethtool eth3
 Settings for eth3:
@@ -1065,9 +1062,9 @@ Settings for eth3:
 	Supports Wake-on: g
 	Wake-on: g
 	Link detected: yes
---------
+------------------------------------------------------------
 
---------
+------------------------------------------------------------
 	activate eth1 in bond1		ifenslave -c bond1 eth1
 	dettach eth3 in bond1		ifenslave -d bond1 eth3
 	bind eth1/ eth3 in bond1	ifenslave bond1 eth1 eth3
@@ -1090,7 +1087,7 @@ Duplex: full
 Link Failure Count: 1
 Permanent HW addr: 5c:f3:fc:e2:03:da
 Slave queue ID: 0
---------
+------------------------------------------------------------
 
 conclusion: eth3 doesn't have correct link even it's connected
 
@@ -1103,10 +1100,10 @@ ethtool
 
 
 # socat
-  sudo socat TCP4-LISTEN:2222 TCP4:10.165.73.144:22
+	sudo socat TCP4-LISTEN:2222 TCP4:10.165.73.144:22
 
-###############################################################################
-###############################################################################
+############################################################
+############################################################
 
 Linux daemon management/ service management/ server management
 
@@ -1159,8 +1156,8 @@ ddclient	http://www.aei.ca/~pmatulis/pub/dyndns.html
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
-###############################################################################
-###############################################################################
+############################################################
+############################################################
 
 Linux Security/ linux security
 
@@ -1183,8 +1180,8 @@ openssl
 
 	openssl rsa -in privkey.pem -out server.key
 
-  # create a self- signed ssl cert
-    openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
+	# create a self- signed ssl cert
+	openssl req -newkey rsa:2048 -new -nodes -x509 -days 3650 -keyout key.pem -out cert.pem
 
 	# set up a CA / ca
 	ssl/misc/CA.pl -newca
@@ -1194,36 +1191,36 @@ openssl
 	# convert ssl cert from der to pem format
 	openssl x509 -inform der -in filename -out filename.pem
 
-        # create digests of a file, which can be used to verify that a file
-        # hasnot been tampered with:
-        $ echo "test file" > foo.txt
-        $ openssl dgst -md5 foo.txt
-        MD5(foo.txt)= b05403212c66bdc8ccc597fedf6cd5fe
+	# create digests of a file, which can be used to verify that a file
+	# hasnot been tampered with:
+	$ echo "test file" > foo.txt
+	$ openssl dgst -md5 foo.txt
+	MD5(foo.txt)= b05403212c66bdc8ccc597fedf6cd5fe
 
-        $ openssl dgst -sha1 foo.txt
-        SHA1(foo.txt)= 0181d93fee60b818e3f92e470ea97a2aff4ca56a
+	$ openssl dgst -sha1 foo.txt
+	SHA1(foo.txt)= 0181d93fee60b818e3f92e470ea97a2aff4ca56a
 
-        =-=-
-        # encrypt
-        $ openssl enc -aes-256-cbc -salt -in foo.txt -out foo.enc
+	=-=-
+	# encrypt
+	$ openssl enc -aes-256-cbc -salt -in foo.txt -out foo.enc
 
-        enter aes-256-cbc encryption password:
+	enter aes-256-cbc encryption password:
 
-        Verifying - enter aes-256-cbc encryption password:
+	Verifying - enter aes-256-cbc encryption password:
 
-        $ file foo.enc
+	$ file foo.enc
 
-        foo.enc: data
+	foo.enc: data
 
-        $ cat foo.enc
+	$ cat foo.enc
 
-        Salted__yvi{!e????i"Yt?;(Ѱ e%
-        $ openssl enc -d -aes-256-cbc -in foo.enc
+	Salted__yvi{!e????i"Yt?;(Ѱ e%
+	$ openssl enc -d -aes-256-cbc -in foo.enc
 
-        enter aes-256-cbc decryption password:
+	enter aes-256-cbc decryption password:
 
-        test file
-        =-=-
+	test file
+	=-=-
 
 openssl / gnutls trust untrusted key
 	dpkg-reconfigure ca-certificates
@@ -1234,14 +1231,14 @@ openssl	# test connection through specific port w/ ver of tls
 	gnutls-cli -p 636 localhost
 
 openssl # encrypt entire dir
-  tar -czf - * | openssl enc -e -aes256 -out secured.tar.gz
-  # -e = an enc cmd option to encrypt the input file, which in above is the output of tar
+	tar -czf - * | openssl enc -e -aes256 -out secured.tar.gz
+	# -e = an enc cmd option to encrypt the input file, which in above is the output of tar
 
 openssl # decrypt a dir
-  openssl enc -d -aes256 -in secured.tar.gz | tar xz -C test
-  # -d = decrypt, -c = extract in subdir named test
+	openssl enc -d -aes256 -in secured.tar.gz | tar xz -C test
+	# -d = decrypt, -c = extract in subdir named test
 
------------------------------------------------------------------------------------------
+------------------------------------------------------------
 openssl openssl openssl openssl openssl openssl sslsslsslsslsslssl
 http://shib.kuleuven.be/docs/ssl_commands.shtml
 
@@ -1370,7 +1367,7 @@ certutil
 Add a PKCS12 to a windows certificate store
 	certutil -p secret -importpfx KEYSTORE.p12
 
------------------------------------------------------------------------------------------
+------------------------------------------------------------
 
 bcrypt https://stackoverflow.com/questions/6832445/how-can-bcrypt-have-built-in-salts
 Stored in the database, a bcrypt "hash" might look something like this:
@@ -1387,7 +1384,7 @@ This is actually three fields, delimited by "$":
    16-byte value for the salt. The remaining characters are cipher text to be compared \
    for authentication.
 
------------------------------------------------------------------------------------------
+------------------------------------------------------------
 
 chkrootkit -> make sense -> ./chkrootkit
 
@@ -1417,9 +1414,9 @@ gnupg / gpg / pgp
 
 	gpg --import --allow-secret-key-import keyfile	# if sec key in keyfile
 
-        # encrypt by AES256 to override the default CAST5
-        gpg --cipher-algo AES256 -o output.gpg -c output.orig
-        gpg --cipher-algo AES256 --output output.gpg --symmetric output.orig
+	# encrypt by AES256 to override the default CAST5
+	gpg --cipher-algo AES256 -o output.gpg -c output.orig
+	gpg --cipher-algo AES256 --output output.gpg --symmetric output.orig
 
 	# encrypt by using recipient's public key
 	gpg --output doc.gpg --encrypt --recipient blake@domain.org doc
@@ -1470,7 +1467,7 @@ gnupg / gpg / pgp
 	gpg --keyserver keyserver --revc-keys key_id
 	gpg --keyserver keyserver --search-keys string_to_match
 
----
+------------------------------------------------------------
 
 # gnupg gpg 250904
 
@@ -1498,48 +1495,48 @@ gnupg / gpg / pgp
 	# examine a secret key
 	gpg --list-packets secretKey.asc
 
----
+------------------------------------------------------------
 
 # keybase.io
 
-  # list fingerprint
-  gpg -K --keyid-format long --with-colons --with-fingerprint
+	# list fingerprint
+	gpg -K --keyid-format long --with-colons --with-fingerprint
 
-  # export public key
-  gpg --export -a xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	# export public key
+	gpg --export -a xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-  # export private key
-  gpg --export-secret-keys -a xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	# export private key
+	gpg --export-secret-keys -a xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-----
+------------------------------------------------------------
 
 encrypted file system / encrypt
-        /sbin/modprobe cryptoloop
-        /sbin/modprobe blowfish
-        dd if=/dev/zero of=secure bs=1k count=665600
-        losetup -e blowfish /dev/loop0 secure
-        Password:
-        mkfs -t ext2 /dev/loop0 665600
-        mount -t ext2 /dev/loop0 /mnt/loop
-        umount /dev/loop0
-        losetup -d /dev/loop0
-        sync
+	/sbin/modprobe cryptoloop
+	/sbin/modprobe blowfish
+	dd if=/dev/zero of=secure bs=1k count=665600
+	losetup -e blowfish /dev/loop0 secure
+	Password:
+	mkfs -t ext2 /dev/loop0 665600
+	mount -t ext2 /dev/loop0 /mnt/loop
+	umount /dev/loop0
+	losetup -d /dev/loop0
+	sync
 
 encrypt file system / cryptsetup
-    cryptsetup --verify-passphrase luksFormat /dev/sdb -c aes -s 256 -h sha256
-    cryptsetup luksOpen /dev/sdb 64g_encrypted
-    pv -tpreb /dev/zero | sudo dd of=/dev/mapper/64g_encrypted bs=128M
-    mkfs.ext4 /dev/mapper/64g_encrypted -m 1 -O dir_index,filetype,sparse_super
-    
-    dmsetup remove /dev/mapper/nebula
+	cryptsetup --verify-passphrase luksFormat /dev/sdb -c aes -s 256 -h sha256
+	cryptsetup luksOpen /dev/sdb 64g_encrypted
+	pv -tpreb /dev/zero | sudo dd of=/dev/mapper/64g_encrypted bs=128M
+	mkfs.ext4 /dev/mapper/64g_encrypted -m 1 -O dir_index,filetype,sparse_super
+	
+	dmsetup remove /dev/mapper/nebula
 
 
 encrypt folder encryption
-    dd if=/dev/zero of=encrypted.img bs=1M count=1024
-    cryptsetup luksFormat encrypted.img
-    cryptsetup luksOpen encrypted.img decrypted
-    mkfs.ext4 /dev/mapper/decrypted
-    mount /dev/mapper/decrypted /home/encrypted
+	dd if=/dev/zero of=encrypted.img bs=1M count=1024
+	cryptsetup luksFormat encrypted.img
+	cryptsetup luksOpen encrypted.img decrypted
+	mkfs.ext4 /dev/mapper/decrypted
+	mount /dev/mapper/decrypted /home/encrypted
 
 
 mount encrypt / crypt disk / luks
@@ -1586,7 +1583,7 @@ limit login session	# limits some user telnet login
 			param "minlen" /lib/security/pam_cracklib.so
 
 	/etc/default/
-  	GROUP	default group
+				GROUP	default group
 				HOME	default user home location
 				INACTIVE	max # of days after a passwd
 						expired that a yser can change
@@ -1691,11 +1688,11 @@ Linux Ethereal/ ethereal
 Linux tcpdump (AIX uses iptrace)
 	tcpdump -i eth0 -lnx -> n=no DNS
 	tcpdump output:
-    Hexadecimal  Binary				        Meaning
-    ---- ----    -------- -------- -------- --------    ---------------------------------------------------
-    4500 0054    01000101 00000000 00000000 01010100    VERS=4, HLEN=5, Service=00, Total length=0054 (Hex)
-    0172 0000    00000001 01110010 00000000 00000000    ID=0172, FLG=0, FO=0
-    .... ....
+	Hexadecimal  Binary				        Meaning
+	---- ----    -------- -------- -------- --------    ---------------------------------------------------
+	4500 0054    01000101 00000000 00000000 01010100    VERS=4, HLEN=5, Service=00, Total length=0054 (Hex)
+	0172 0000    00000001 01110010 00000000 00000000    ID=0172, FLG=0, FO=0
+	.... ....
 
 	# capture all UDP, but NOT DNS.
 	tcpdump -i eth1 'proto UDP and (port not 53)'
@@ -1704,12 +1701,12 @@ capture vlan / VLAN / vLAN tagged traffic
 	tcpdump -Uw - | tcpdump -i eth0 -en -r - vlan 20
 
 windump (install winPcap as prerequisite)
-        windump -D      # list all available captured NIC. Wireless doesn't seemto be supported.
+	windump -D      # list all available captured NIC. Wireless doesn't seemto be supported.
 
 windump sample
-        windump -i 3 -lnx host 60.191.123.155   # n= no DNS & on specific IPwith NIC 3
-        windump host bamse and host cartman and udp     # capture udp between 2 hosts
-        windump -v -n "icmp[0]=8 or icmp[0]=0"  # capture icmp echo req and echo reply msg. n= don't resolve ip to names
+	windump -i 3 -lnx host 60.191.123.155   # n= no DNS & on specific IPwith NIC 3
+	windump host bamse and host cartman and udp     # capture udp between 2 hosts
+	windump -v -n "icmp[0]=8 or icmp[0]=0"  # capture icmp echo req and echo reply msg. n= don't resolve ip to names
 
 xauth | xauthority | to avoid Xlib: connection to ":0.0" refused by server > Xlib: No protocol specified > Error: Can't open display: :0.0
 	xauth -f ~source_user/.Xauthority extract - :0 | xauth merge -
@@ -1721,7 +1718,7 @@ Use TUN if you just use the VPN to connect to the internet.
 Use TAP if you want to connect to the actual remote network (printers, remote desktops, etc.)
 
 
-sshsshsshssh
+sshsshsshsshsshsshsshsshsshsshsshsshsshsshsshsshsshsshsshssh
 ssh / SSH / sshd performance
 	@ /etc/ssh/sshd_config
 	GSSAPIAuthentication no
@@ -1751,7 +1748,7 @@ ssh-keygen
 	for key in ~/.ssh/id_*; do ssh-keygen -l -f "${key}"; done | uniq
 
 ssh-keygen # convert the ssh2-format key to openssh
-    ssh-keygen -i -f ssh2.pub
+	ssh-keygen -i -f ssh2.pub
 
 ssh + rsync
 	rsync -avz -e ssh --delete /file/ user@remote:/path/
@@ -1762,8 +1759,8 @@ ssh + rsync
 	rsync --compress --sparse --progress -e ssh source.file user@ipaddr:/path --address=SOURCE_IP
 	rsync --archive -v -z -r --inplace --progress -e ssh source target
 
-  rsync SOURCE TARGET --progress --archive --recursive --delete --exclude=".DS_Store" --iconv=utf-8,utf-8-mac --rsync-path=/opt/local/bin/rsync --dry-run
-  # --rsync-path > force to use rsync from such path on macOS
+	rsync SOURCE TARGET --progress --archive --recursive --delete --exclude=".DS_Store" --iconv=utf-8,utf-8-mac --rsync-path=/opt/local/bin/rsync --dry-run
+	# --rsync-path > force to use rsync from such path on macOS
 
 ssh to run cmd on remote srv
 	ssh remote_server "cmd 1; cmd 2"
@@ -1782,10 +1779,10 @@ ssh encrypted channel port forwarding
 	ssh -L 8888:ssh_host:80 -L 110:ssh_host:110 25:ssh_host:25 user@computer -N
 
 ssh proxy
-    ssh -N -p 22 -D 1080 user@ip
-    ssh -C2qTnN -D 8080 usr@domain.net
+	ssh -N -p 22 -D 1080 user@ip
+	ssh -C2qTnN -D 8080 usr@domain.net
 
-    for i in 50070 8080 8088 2222 2223; do ssh -N -f -L 192.168.200.2:$i:127.0.0.1:$i localhost;
+	for i in 50070 8080 8088 2222 2223; do ssh -N -f -L 192.168.200.2:$i:127.0.0.1:$i localhost;
 
 openssh / ssh install
 	./configure --prefix=PATH --with-ssl-dir=PATH
@@ -1873,7 +1870,7 @@ ssh autocomplete | auto complete | autocompletion | auto completion > edit ~/.ba
 
 sslh ssl/ ssh share the same port >
 https://www.ostechnix.com/sslh-share-port-https-ssh/
-  sudo apt-get install sslh
+	sudo apt-get install sslh
 
 ssh tunnel script
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -1893,7 +1890,7 @@ ssh tunnel script
 
 	if [ ! -s /tmp/pid.SSHTunnel ]
 		then
-	  		echo "SSH Tunnel not running - restarting"
+			echo "SSH Tunnel not running - restarting"
 			ssh -N -f -R 192.168.200.2:20081:192.168.1.101:22 bryan@121.201.13.44
 	fi
 
@@ -1905,21 +1902,21 @@ ssh tunnel script
 ## On hostA; connect A --> B on which MySQL is running
 ## This script will attempt to SSH to localhost port 19922 and run the ‘ls’ command. If that fails, it will attempt to create the SSH tunnel. The command to create the SSH tunnel will tunnel local port 13306 to port 3306 on hostb. You should modify that as necessary for your configuration. It will also create a tunnel for local port 19922 to port 22 on hostb which the script uses for testing the connection.
 
-createTunnel() {
-    /usr/bin/ssh -f -N -L13306:hostb:3306 -L19922:hostb:22 tunnel@hostb
-    if [[ $? -eq 0 ]]; then
-        echo Tunnel to hostb created successfully
-    else
-        echo An error occurred creating a tunnel to hostb RC was $?
-    fi
-}
+	createTunnel() {
+	    /usr/bin/ssh -f -N -L13306:hostb:3306 -L19922:hostb:22 tunnel@hostb
+	    if [[ $? -eq 0 ]]; then
+	        echo Tunnel to hostb created successfully
+	    else
+	        echo An error occurred creating a tunnel to hostb RC was $?
+	    fi
+	}
 
-## Run the 'ls' command remotely.  If it returns non-zero, then create a new connection
-/usr/bin/ssh -p 19922 tunnel@localhost ls
-if [[ $? -ne 0 ]]; then
-    echo Creating new tunnel connection
-    createTunnel
-fi
+	## Run the 'ls' command remotely.  If it returns non-zero, then create a new connection
+	/usr/bin/ssh -p 19922 tunnel@localhost ls
+	if [[ $? -ne 0 ]]; then
+	    echo Creating new tunnel connection
+	    createTunnel
+	fi
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -1929,50 +1926,50 @@ ssh tunnel crontab
 */1     *       *       *       *       /root/createtunnel.sh
 
 icmp tunneling ping tunnel
-  https://github.com/j3ffyang/docker/blob/master/docs/20170808_icmptunnel.md
+	https://github.com/j3ffyang/docker/blob/master/docs/20170808_icmptunnel.md
 
-  tar -xzvf hans-version.tar.gz
-  cd hans-version
-  make
+	tar -xzvf hans-version.tar.gz
+	cd hans-version
+	make
 
-  # Run as server by root (blue one)
-  sudo ./hans -s 10.10.10.0 -p password
+	# Run as server by root (blue one)
+	sudo ./hans -s 10.10.10.0 -p password
 
-  # Run as client by root (green one)
-  sudo ./hans -c SERVER_IP -p password
+	# Run as client by root (green one)
+	sudo ./hans -c SERVER_IP -p password
 
 ssh openssh hardening and auditing
-  https://linux-audit.com/audit-and-harden-your-ssh-configuration/
+	https://linux-audit.com/audit-and-harden-your-ssh-configuration/
 
-  # check active connection
-  ss -n -o state established '( dport = :22 or sport = :22 )'
+	# check active connection
+	ss -n -o state established '( dport = :22 or sport = :22 )'
 
-  X11Forwarding no
-  MaxAuthTries 3
+	X11Forwarding no
+	MaxAuthTries 3
 
-  PermitEmptyPasswords no
-  PubkeyAuthentication yes
-  PasswordAuthentication no
-  PermitRootLogin none
+	PermitEmptyPasswords no
+	PubkeyAuthentication yes
+	PasswordAuthentication no
+	PermitRootLogin none
 
 
 sslh    # share a same port for https, ssh and openvpn with openssl
 
 sshuttle ssh tunnel tunneling ssh_vpn ssh vpn
-  sshuttle -r user@remote-ip 0/0 --dns -vv			# dns from remote
-  sshuttle -r user@remote-ip 0/0 --dns -x=10.163.73.0/24	# execlude such subnet
-  sshuttle -r user@remote-ip 0/0 --dns --exclude=remote_subnet
-  # avoid loop
+	sshuttle -r user@remote-ip 0/0 --dns -vv			# dns from remote
+	sshuttle -r user@remote-ip 0/0 --dns -x=10.163.73.0/24	# execlude such subnet
+	sshuttle -r user@remote-ip 0/0 --dns --exclude=remote_subnet
+	# avoid loop
 
-  # checking public ip
-  curl -s http://ifconfig.me
-  wget -O - -q http://whatismyip.org/
+	# checking public ip
+	curl -s http://ifconfig.me
+	wget -O - -q http://whatismyip.org/
 
 ssh jump    # https://askubuntu.com/questions/311447/how-do-i-ssh-to-machine-a-via-b-in-one-command
-    ssh -t user@machineA ssh user@machineB
-    ssh -J user@machineA user@machineB
+	ssh -t user@machineA ssh user@machineB
+	ssh -J user@machineA user@machineB
 
-openvpnopenvpnopenvpn
+openvpnopenvpnopenvpnopenvpnopenvpnopenvpnopenvpnopenvpnopen
 
 openvpn	# create tls-auth key, then copy to /etc/openvpn and update /etc/openvpn/server.conf to reflect the change
 	openvpn --genkey --secret static.key
@@ -1991,7 +1988,7 @@ openvpn force all traffic from the client to get directed to the VPN server > ed
 	iptables -t nat -A POSTROUTING -j MASQUERADE
 
 openvpn mtu
-  https://openvpn.net/archive/openvpn-users/2004-11/msg00649.html
+	https://openvpn.net/archive/openvpn-users/2004-11/msg00649.html
 
   It varies depending on options.  With a TUN-style tunnel over UDP using
   the default TLS options, the per-packet overhead is:
@@ -2004,14 +2001,14 @@ openvpn mtu
   If your data stream is compressible, you can potentially gain back all of
   this overhead.
 
-  # determine mtu
+	# determine mtu
   ping -M do -s 1500 -c 1 www.example.com
 
   MSS = MTU  - (28+ 41+ 4)  # 4= vpn options
   IP size : 20 bytes, UPD size : 8 bytes, VPN overhead : 41 bytes, VPN "options" : 4 bytes
 
-  # OpenVPN requires a value called the MSS to be set. The MSS is the value for the MTU minus 40
-  # add the following at the end of *.ovpn
+	# OpenVPN requires a value called the MSS to be set. The MSS is the value for the MTU minus 40
+	# add the following at the end of *.ovpn
   mssfix 1427
 
 Linux Password Lost/ Control / passwd / password lost
@@ -2092,7 +2089,7 @@ iptables/ IPTables load modules for passive ftp / iptables faq
 		 -m iplimit --iplimit-above 4 -j REJECT
 
 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 	# transparent proxy
 	# Outgoing LAN webclient traffic is redirected to Squid.
 	iptables -t nat -A PREROUTING -i $LAN_IFACE -p tcp \
@@ -2118,7 +2115,7 @@ iptables/ IPTables load modules for passive ftp / iptables faq
 	         -s $LAN_IP --sport 80 --dport 1024:65535 \
 	         -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 # iptables for ftp/ ftp
 	In general, in ftp scenario, this is the diagram of packet flow.
@@ -2138,13 +2135,13 @@ vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 	# Port Mode data channel
 	iptables -A OUTPUT -o $INTERNET_INTERFACE -p tcp \
-    	    -s $INTERNET_IP --sport 20 \
-    	    --dport 1024:65535 -m state --state NEW -j ACCEPT
+	    -s $INTERNET_IP --sport 20 \
+	    --dport 1024:65535 -m state --state NEW -j ACCEPT
 
 	# Passive Mode data channel
 	iptables -A INPUT -i $INTERNET_INTERFACE -p tcp \
-    	    --sport 1024:65535 -d $INTERNET_IP --dport 1024:65535 \
-    	    -m state --state NEW -j ACCEPT
+	    --sport 1024:65535 -d $INTERNET_IP --dport 1024:65535 \
+	    -m state --state NEW -j ACCEPT
 
 iptables/ denial-of-service attacks
 	tcp syn flooding -> echo 1 > /proc/sys/net/ipv4/tcp_syncookies
@@ -2257,8 +2254,8 @@ firewalld firewall-cmd
 	firewall-cmd --zone=external --add-forward-port=port=22:proto=tcp:toport=22:toaddr=192.168.0.31
 
 
-###############################################################################
-###############################################################################
+############################################################
+############################################################
 
 Linux Performance / linux performance / linux perf
 
@@ -2327,11 +2324,11 @@ from the sysctl command:
 	net.ipv4.tcp_window_scaling = 1
 
 network performance tuning perf tune perftune for V2Ray/ v2ray
-    net.core.default_qdisc=fq
-    net.ipv4.tcp_congestion_control=bbr
+	net.core.default_qdisc=fq
+	net.ipv4.tcp_congestion_control=bbr
 
-    # check
-    sysctl net.ipv4.tcp_available_congestion_control
+	# check
+	sysctl net.ipv4.tcp_available_congestion_control
 
     # Google developed a TCP Congestion Control Algorithm (CCA) called TCP \
     Bottleneck Bandwidth and RRT (BBR) that overcomes many of the issues \
@@ -2339,47 +2336,47 @@ network performance tuning perf tune perftune for V2Ray/ v2ray
 
 https://www.techrepublic.com/article/how-to-enable-tcp-bbr-to-improve-network-speed-on-linux/
 
-###############################################################################
+############################################################
 script to capture all perf performance param tuning
 
-#!/bin/bash
-    date;
-    echo "uptime:"
-    uptime
-    echo "Currently connected:"
-    w
-    echo "--------------------"
-    echo "Last logins:"
-    last -a |head -3
-    echo "--------------------"
-    echo "Disk and memory usage:"
-    df -h | xargs | awk '{print "Free/total disk: " $11 " / " $9}'
-    free -m | xargs | awk '{print "Free/total memory: " $17 " / " $8 " MB"}'
-    echo "--------------------"
-    start_log=`head -1 /var/log/messages |cut -c 1-12`
-    oom=`grep -ci kill /var/log/messages`
-    echo -n "OOM errors since $start_log :" $oom
-    echo ""
-    echo "--------------------"
-    echo "Utilization and most expensive processes:"
-    top -b |head -3
-    echo
+	#!/bin/bash
+	date;
+	echo "uptime:"
+	uptime
+	echo "Currently connected:"
+	w
+	echo "--------------------"
+	echo "Last logins:"
+	last -a |head -3
+	echo "--------------------"
+	echo "Disk and memory usage:"
+	df -h | xargs | awk '{print "Free/total disk: " $11 " / " $9}'
+	free -m | xargs | awk '{print "Free/total memory: " $17 " / " $8 " MB"}'
+	echo "--------------------"
+	start_log=`head -1 /var/log/messages |cut -c 1-12`
+	oom=`grep -ci kill /var/log/messages`
+	echo -n "OOM errors since $start_log :" $oom
+	echo ""
+	echo "--------------------"
+	echo "Utilization and most expensive processes:"
+	top -b |head -3
+	echo
 	top -b |head -10 |tail -4
-    echo "--------------------"
-    echo "Open TCP ports:"
-    nmap -p- -T4 127.0.0.1
-    echo "--------------------"
-    echo "Current connections:"
-    ss -s
-    echo "--------------------"
-    echo "processes:"
-    ps auxf --width=200
-    echo "--------------------"
-    echo "vmstat:"
-    vmstat 1 5
+	echo "--------------------"
+	echo "Open TCP ports:"
+	nmap -p- -T4 127.0.0.1
+	echo "--------------------"
+	echo "Current connections:"
+	ss -s
+	echo "--------------------"
+	echo "processes:"
+	ps auxf --width=200
+	echo "--------------------"
+	echo "vmstat:"
+	vmstat 1 5
 
-###############################################################################
-###############################################################################
+############################################################
+############################################################
 
 Linux multimedia
 
@@ -2393,17 +2390,17 @@ picture resize
 	mogrify -resize 320x240! *.jpg	# resize to a fixed size
 
 png in base64
-  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" />
+	<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==" alt="Red dot" />
 
 copy long text file into clipboard
-  xclip -sel c < /tmp/arch.b64
+	xclip -sel c < /tmp/arch.b64
 
 convert png in base64
-  openssl enc -base64 -in rose.png -out rose.txt
+	openssl enc -base64 -in rose.png -out rose.txt
 
-  ref > https://stackoverflow.com/questions/32698451/how-do-i-convert-a-base64-image
-  { echo "data:image/png;base64,"; cat rose.txt; } | convert inline:- out.jpg
-  cat rose.txt | tr -d "\r\n" | convert inline:data:- out.jpg
+	ref > https://stackoverflow.com/questions/32698451/how-do-i-convert-a-base64-image
+	{ echo "data:image/png;base64,"; cat rose.txt; } | convert inline:- out.jpg
+	cat rose.txt | tr -d "\r\n" | convert inline:data:- out.jpg
 
 picture blur
 	convert orig.jpg -blur 0x4 blurred.jpg
@@ -2425,24 +2422,24 @@ linux grip / rip cd / multimedia pre- req:
 	gcc-c++, libstdc++-devel, curl-devel, vte-devel, libgnomeui, ncurses-devel
 
 gnome gnome-shell disable animation
-    gsettings set org.gnome.settings-daemon.plugins.remote-display active false
-    gsettings set org.gnome.desktop.interface enable-animations false
+	gsettings set org.gnome.settings-daemon.plugins.remote-display active false
+	gsettings set org.gnome.desktop.interface enable-animations false
 
 gnome gnome-shell icon missing
-    cd /usr/share/applications/; cat tusk.desktop
-    find /usr -type f -name "tusk.png"
-    sudo cp /usr/share/icons/hicolor/0x0/apps/tusk.png /usr/share/pixmaps/
+	cd /usr/share/applications/; cat tusk.desktop
+	find /usr -type f -name "tusk.png"
+	sudo cp /usr/share/icons/hicolor/0x0/apps/tusk.png /usr/share/pixmaps/
 
 debian screencast
 	sudo apt-get install ffmpeg mkvtoolnix
 
 termtosvg   # terminal screencast
-    pip3 install --user termtosvg   # dependency: pyte python-xlib svgwrite
+	pip3 install --user termtosvg   # dependency: pyte python-xlib svgwrite
 
 
 multimedia driver gstreamer
-    # trim video 241204
-    ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4
+	# trim video 241204
+	ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4
 
 	ffmpeg -i demo.ogv -f mp4 demo.mp4
 	ffmpeg convert > ffmpeg -vcodec copy -i orig.ogv outfile.avi
@@ -2456,11 +2453,11 @@ multimedia driver gstreamer
 	Then
 		ffmpeg -f concat -safe 0 -i multiVideos.lst -c copy finallyMerged.wmv
 
-  mov file to mp4
-    ffmpeg -i Cindy5.mov -vcodec h264 -acodec mp2 Cindy5.mp4
-    
-  compress
-    ffmpeg -i 20220612_Cindy5.mp4 -vcodec libx265 -crf 28 20220612_Cindy5_compressed.mp4
+	mov file to mp4
+	ffmpeg -i Cindy5.mov -vcodec h264 -acodec mp2 Cindy5.mp4
+	
+	compress
+	ffmpeg -i 20220612_Cindy5.mp4 -vcodec libx265 -crf 28 20220612_Cindy5_compressed.mp4
 
 	mencoder file.rmvb -oac mp3lame -lameopts preset=128 -ovc lavc -lavcopts vcodec=mpeg4:vbitrate=1200 -ofps 25 -of avi -o file.avi
 
@@ -2470,12 +2467,12 @@ convert dvd into wav
 	mplayer dvd://1 -aid 128 -vo null -ao pcm:file='filename.wav'
 
 
-###############################################################################
-###############################################################################
+############################################################
+############################################################
 
 
-vimvimvimvimvimvimvimvimvimvimvim
-vimvimvimvimvimvimvimvimvimvimvim
+vimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvim
+vimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvim
 
 vimrc	git clone https://github.com/altercation/vim-colors-solarized
 	mv solarized.vim ~/.vim/colors/
@@ -2489,7 +2486,7 @@ vimvimvim	# get rid of inotify error
 	echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
 vim, in a search, \s finds whitespace (a space or a tab), and \+ finds one or more occurrences.
-    :%s/\s\+$//e
+	:%s/\s\+$//e
 
 nvim > ~/.config/nvim/lua/config/options.lua
   vim.opt.mouse = "a"
@@ -2504,15 +2501,15 @@ vim.api.nvim_create_autocmd("ModeChanged", {
   end,
 })
 
-vimvimvimvimvimvimvimvimvimvimvim
-vimvimvimvimvimvimvimvimvimvimvim
+vimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvim
+vimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvimvim
 
 ImageMagick
-  # linkedin banner img
-  magick input.png -resize 1584x396 -background black -gravity center -extent 1584x396 output.png 
+	# linkedin banner img
+	magick input.png -resize 1584x396 -background black -gravity center -extent 1584x396 output.png 
 
-  # save output of cmd into an image img by imagemagick
-  ip a | convert label:@- myipaddress.png
+	# save output of cmd into an image img by imagemagick
+	ip a | convert label:@- myipaddress.png
 
 	/usr/local/bin/magick/display -window root filename
 	display -window root /usr/share/wallpapers/No-Ones-Laughing-3.jpg
@@ -2542,11 +2539,11 @@ Linux screen screenshare screen sharing
 	6. student $screen -x username/SessionName
 
 linux screen 
-    screen -dmS demo bash -c 'while ! read -t 1; do echo $((i++)); done'
-    screen -x demo
+	screen -dmS demo bash -c 'while ! read -t 1; do echo $((i++)); done'
+	screen -x demo
 
 nohup
-    nohup git-lfs clone https://user:credential@huggingface.co/meta-llama > output.log 2>&1 &
+	nohup git-lfs clone https://user:credential@huggingface.co/meta-llama > output.log 2>&1 &
 
 text mode terminal screensaver
 	setterm -blank [0-60]
@@ -2582,8 +2579,8 @@ set primary monitor / screen
 	xrandr --output LVDS1 --primary
 	/usr/bin/xrandr --output eDP1 --mode 1920x1200
 
-###############################################################################
-###############################################################################
+############################################################
+############################################################
 
 Java / JAVA / java
 	unzip -l *.jar	# list all contents in jar
@@ -2595,29 +2592,29 @@ java thread dump
 	# get a tree view of the threads
 	ps -e f
 
-UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
-UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
+UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
+UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
 
 flush dns cache
 	sudo systemd-resolve --flush-caches
 
 useradd / adduser
-    adduser USER_ID
-    usermod -aG sudo USER_ID
+	adduser USER_ID
+	usermod -aG sudo USER_ID
 
 change default editor
 	sudo update-alternatives --config editor
 
 burn iso to usb		dd bs=4M if=/path/any.iso of=/dev/sdx status=progress && sync	# not sdxx
 
-debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
-debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
+debiandebiandebiandebiandebiandebiandebiandebiandebiandebian
+debiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
 debian post-install
-    nvidia-detect gimp wget fastfetch vlc terminator geeqie vim gnome-screenshot chromium darktable rsync python3 python3-pip ibus-libpinyin fonts-noto-core fonts-noto-cjk fonts-ubuntu fonts-ubuntu-console fonts-ubuntu-title firewalld gnome-themes-extra
+	nvidia-detect gimp wget fastfetch vlc terminator geeqie vim gnome-screenshot chromium darktable rsync python3 python3-pip ibus-libpinyin fonts-noto-core fonts-noto-cjk fonts-ubuntu fonts-ubuntu-console fonts-ubuntu-title firewalld gnome-themes-extra
 
 debian remove games game gnome-games
-    aisleriot gnome-sudoku ace-of-penguins  gbrainy gnome-mines gnome-nibbles quadrapassel four-in-a-row gnome-mahjongg five-or-more hitori gnome-klotski gnome-games gnome-robots tali gnome-taquin gnome-chess gnome-2048 swell-foop gnome-taquin gnome-tetravex lightsoff iagno
+	aisleriot gnome-sudoku ace-of-penguins  gbrainy gnome-mines gnome-nibbles quadrapassel four-in-a-row gnome-mahjongg five-or-more hitori gnome-klotski gnome-games gnome-robots tali gnome-taquin gnome-chess gnome-2048 swell-foop gnome-taquin gnome-tetravex lightsoff iagno
 
 	# gnome up to 250706 in Manjaro
 	pacman -Rns gnome-chess gnome-mines quadrapassel iagno 
@@ -2632,11 +2629,11 @@ debian check avail package - chinese font
 	apt-cache search chinese font
 
 debian font
-  cp -var ./ubuntu-font-family-0.83/* /usr/share/fonts/local/
-  fc-list
-  sudo dpkg-reconfigure fontconfig-config
-  sudo dpkg-reconfigure fontconfig
-  sudo fc-cache -fv
+	cp -var ./ubuntu-font-family-0.83/* /usr/share/fonts/local/
+	fc-list
+	sudo dpkg-reconfigure fontconfig-config
+	sudo dpkg-reconfigure fontconfig
+	sudo fc-cache -fv
 
 debian screencast
 	sudo apt-get install ffmpeg mkvtoolnix
@@ -2652,34 +2649,34 @@ debian screencast
 	# start display the webcam
 	ffplay -f video4linux2 -i /dev/video0 -video_size 320x240
 
-    # reduce size
-    ffmpeg -i input_video.mp4 -vf "fps=30" output_video.mp4
+	# reduce size
+	ffmpeg -i input_video.mp4 -vf "fps=30" output_video.mp4
     ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4  # https://unix.stackexchange.com/questions/28803/how-can-i-reduce-a-videos-size-with-ffmpeg
 
 debian wireless network manager
-  nmtui; nmcli
+	nmtui; nmcli
 
 debian audio vol control in xfce4
   panel > add new item > search "pulseaudio"
 
 dell xps hardware | generic
-  sudo dmidecode | grep "Product Name"
+	sudo dmidecode | grep "Product Name"
 
-  for d in system-manufacturer system-product-name bios-release-date bios-version; do echo "${d^}: " $(sudo dmidecode -s ${d}); done
+	for d in system-manufacturer system-product-name bios-release-date bios-version; do echo "${d^}: " $(sudo dmidecode -s ${d}); done
 
 doing nothing after lid closed | hang | suspend
   modify /etc/systemd/logind.conf > HandleLidSwitch=ignore
-  systemctl restart systemd-logind.service
+	systemctl restart systemd-logind.service
 
 debian disable auto-sleep
-  vi /etc/gdm3/greeter.dconf-defaults
-  systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
-  systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+	vi /etc/gdm3/greeter.dconf-defaults
+	systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+	systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
 
 reduce pdf in size | resize pdf | compress
-  ps2pdf input.pdf output.pdf
+	ps2pdf input.pdf output.pdf
 
-  gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen \
+	gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen \
 	-dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf input.pdf
 
 	-dPDFSETTINGS=/screen   (screen-view-only quality, 72 dpi images)
@@ -2688,25 +2685,25 @@ reduce pdf in size | resize pdf | compress
 	-dPDFSETTINGS=/prepress (high quality, color preserving, 300 dpi imgs)
 	-dPDFSETTINGS=/default  (almost identical to /screen)
 
-  # for all pages to have the exact same width
-  gs -o unified_width.pdf -sDEVICE=pdfwrite -sPAPERSIZE=a4 -dPDFFitPage input.pdf
+	# for all pages to have the exact same width
+	gs -o unified_width.pdf -sDEVICE=pdfwrite -sPAPERSIZE=a4 -dPDFFitPage input.pdf
 
 
 merge 2 pdf files with specific pages
-    qpdf --empty --pages file1.pdf 1-$((N-1)) file2.pdf 2-$M -- merged.pdf
+	qpdf --empty --pages file1.pdf 1-$((N-1)) file2.pdf 2-$M -- merged.pdf
 
 
 debian gnome super key | win key
     gnome-tweak > Keyboard & Mouse > Alt/Win key behavior > Alt is swapped with Win
 
-debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
-debiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebiandebian
+debiandebiandebiandebiandebiandebiandebiandebiandebiandebian
+debiandebiandebiandebiandebiandebiandebiandebiandebiandebian
 
-proxyproxyproxyproxy
-proxyproxyproxyproxy  
+proxyproxyproxyproxyproxyproxyproxyproxyproxyproxyproxyproxy
+proxyproxyproxyproxyproxyproxyproxyproxyproxyproxyproxyproxy
 
 command line brownser
-    links2 -socks-proxy localhost:1080 google.com
+	links2 -socks-proxy localhost:1080 google.com
 
 apt-get using ipv4 IPv4
 	apt-get -o Acquire::ForceIPv4=true update
@@ -2715,39 +2712,39 @@ apt-get proxy
 	apt-get install [PACKAGE] -o acquire::http::proxy="http://[IP]:[8085]"
 
 curl with proxy behind proxy
-    curl -x 'http://10.10.10.1:3128' -O https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz
+	curl -x 'http://10.10.10.1:3128' -O https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz
 
 wget behind proxy (use https_proxy if target is https)
-    wget -e use_proxy=yes -e https_proxy=http://[proxy_srv]:3128 https://target_file
+	wget -e use_proxy=yes -e https_proxy=http://[proxy_srv]:3128 https://target_file
 
 chrome browser w/ proxy-server behind proxy
-  chromium-browser --proxy-server=http://ip:port
-  chromium-browser --proxy-server=socks://ip:port
-  chrome://flags/#enable-force-dark   # dark mode
+	chromium-browser --proxy-server=http://ip:port
+	chromium-browser --proxy-server=socks://ip:port
+	chrome://flags/#enable-force-dark   # dark mode
 
 youtube-dl  # youtube download
-    sudo pip3 install youtube-dl
-    youtube-dl --proxy http://10.10.10.1:3128 URL
+	sudo pip3 install youtube-dl
+	youtube-dl --proxy http://10.10.10.1:3128 URL
 
-    > https://stackoverflow.com/questions/75495800/error-unable-to-extract-uploader-id-youtube-discord-py
+	> https://stackoverflow.com/questions/75495800/error-unable-to-extract-uploader-id-youtube-discord-py
 
     alternative >
 	python3 -m pip install --force-reinstall https://github.com/yt-dlp/yt-dlp/archive/master.tar.gz
 	yt-dlp URL
 
 npm behind proxy
-    npm config set proxy http://10.10.10.1:3128
+	npm config set proxy http://10.10.10.1:3128
 
 apm behind proxy
-    apm config set https-proxy=https://proxy:3128
+	apm config set https-proxy=https://proxy:3128
 
 pip behind proxy
-    pip3 --proxy http://10.10.10.1:3128 install tensor
+	pip3 --proxy http://10.10.10.1:3128 install tensor
 
-proxyproxyproxyproxy
-proxyproxyproxyproxy
+proxyproxyproxyproxyproxyproxyproxyproxyproxyproxyproxyproxy
+proxyproxyproxyproxyproxyproxyproxyproxyproxyproxyproxyproxy
 
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 Android device adb sdk
 
@@ -2776,7 +2773,7 @@ reboot then adb device
 android sametime ewg1.artour.ibm.com:15001
 
 
-macmacmacmac
+macmacmacmacmacmacmacmacmacmacmacmacmacmacmacmacmacmacmacmac
 query hardware info
     mbp:~ jeff$ ioreg -r -n ARPT | grep IOName
       |   "IOName" = "pci14e4,4464"
@@ -2786,99 +2783,99 @@ query hardware info
         "RequestedFiles" = ({"Firmware"="C-4364__s-B3/trinidad.trx","TxCap"="C-4364__s-B3/trinidad-X3.txcb","Regulatory"="C-4364__s-B3/trinidad-X3.clmb","NVRAM"="C-4364__s-B3/P-trinidad-X3_M-HRPN_V-u__m-7.7.txt"})
 
 query hardware info
-    sudo dmidecode -s system-product-name
+	sudo dmidecode -s system-product-name
 
 install brew.sh
-    # install a homebrew formula without updating homebrew
-    HOMEBREW_NO_AUTO_UPDATE=1 brew install <formula>
+	# install a homebrew formula without updating homebrew
+	HOMEBREW_NO_AUTO_UPDATE=1 brew install <formula>
 
 change hostname
-    sudo scutil --set HostName <new_name>
+	sudo scutil --set HostName <new_name>
 
 turn on remotelogin
-    sudo systemsetup -setremotelogin on
+	sudo systemsetup -setremotelogin on
 
 turn on firewall
     system pref > security & privacy
 
 mac:~ jeff$ brew list
-    ==> Formulae
+	==> Formulae
 	bash bash-completion iproute2mac v2ray graphviz	libpng	libxdmcp openjdk python@3.9
 	wireguard-tools gdbm openvpn sqlite xz
 
-    ==> Casks
+	==> Casks
 	chromium firefox google-chrome iterm2 macfuse tunnelblick veracrypt vlc
 
 python pip3 install list
-  scikit-learn tflearn tensorflow pandas numpy opencv-python Keras jedi pep8
-  scipy PyYaml pygame nltk Markdown seaborn pyflakes
+	scikit-learn tflearn tensorflow pandas numpy opencv-python Keras jedi pep8
+	scipy PyYaml pygame nltk Markdown seaborn pyflakes
 
 uninstall checkpoint cp
   remove checkpoint from application
-  sudo rm -fr /private/var/db/receipts/com.checkpoint.pkg.epc.plist
-  sudo rm -fr /private/var/db/receipts/com.checkpoint.pkg.epc.bom
+	sudo rm -fr /private/var/db/receipts/com.checkpoint.pkg.epc.plist
+	sudo rm -fr /private/var/db/receipts/com.checkpoint.pkg.epc.bom
 
 delete all .DS_Store
-  find . -type f -name ".DS_Store"
-  sudo find / -name ".DS_Store" -depth -exec rm {} \;
+	find . -type f -name ".DS_Store"
+	sudo find / -name ".DS_Store" -depth -exec rm {} \;
 
 docker-completion docker completion     # https://blog.alexellis.io/docker-mac-bash-completion/
-    cat >> ~/.bashrc <<EOL
-    if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    . $(brew --prefix)/etc/bash_completion
-    fi
-    EOL
+	cat >> ~/.bashrc <<EOL
+	if [ -f $(brew --prefix)/etc/bash_completion ]; then
+	. $(brew --prefix)/etc/bash_completion
+	fi
+	EOL
 
-    cd /usr/local/etc/bash_completion.d
-    ln -s /Applications/Docker.app/Contents/Resources/etc/docker.bash-completion
-    ln -s /Applications/Docker.app/Contents/Resources/etc/docker-machine.bash-completion
-    ln -s /Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion
+	cd /usr/local/etc/bash_completion.d
+	ln -s /Applications/Docker.app/Contents/Resources/etc/docker.bash-completion
+	ln -s /Applications/Docker.app/Contents/Resources/etc/docker-machine.bash-completion
+	ln -s /Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion
 
-macmacmacmac
-  change default shell
-  echo $SHELL $BASH_VERSION
-  brew install bash
-  sudo vi /etc/shells # add /usr/local/bin/bash
-  chsh -s /usr/local/bin/bash
+macmacmacmacmacmacmacmacmacmacmacmacmacmacmacmacmacmacmacmac
+	change default shell
+	echo $SHELL $BASH_VERSION
+	brew install bash
+	sudo vi /etc/shells # add /usr/local/bin/bash
+	chsh -s /usr/local/bin/bash
 
 bash & ssh auto-completion. place the following into ~/.bash_profile
 
-_complete_ssh_hosts ()
-{
-        COMPREPLY=()
-        cur="${COMP_WORDS[COMP_CWORD]}"
-        comp_ssh_hosts=`cat ~/.ssh/known_hosts | \
-                        cut -f 1 -d ' ' | \
-                        sed -e s/,.*//g | \
-                        grep -v ^# | \
-                        uniq | \
-                        grep -v "\[" ;
-                cat ~/.ssh/config | \
-                        grep "^Host " | \
-                        awk '{print $2}'
-                `
-        COMPREPLY=( $(compgen -W "${comp_ssh_hosts}" -- $cur))
-        return 0
-}
-complete -F _complete_ssh_hosts ssh
+	_complete_ssh_hosts ()
+	{
+	    COMPREPLY=()
+	    cur="${COMP_WORDS[COMP_CWORD]}"
+	    comp_ssh_hosts=`cat ~/.ssh/known_hosts | \
+	                    cut -f 1 -d ' ' | \
+	                    sed -e s/,.*//g | \
+	                    grep -v ^# | \
+	                    uniq | \
+	                    grep -v "\[" ;
+	            cat ~/.ssh/config | \
+	                    grep "^Host " | \
+	                    awk '{print $2}'
+	            `
+	    COMPREPLY=( $(compgen -W "${comp_ssh_hosts}" -- $cur))
+	    return 0
+	}
+	complete -F _complete_ssh_hosts ssh
 
----
+------------------------------------------------------------
 
 dock with stuck progress bar
-    defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
+	defaults write com.apple.dock ResetLaunchPad -bool true; killall Dock
 
 restart sshd
-  sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist
-  sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
+	sudo launchctl unload /System/Library/LaunchDaemons/ssh.plist
+	sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
 
 macports install
-  download pkg > https://www.macports.org/install.php
+	download pkg > https://www.macports.org/install.php
 
 sshuttle by port macports
-  port install sshuttle
+	port install sshuttle
 
 # image viewer
-  brew install qview
+	brew install qview
 
 # reinstall recovery https://support.apple.com/en-us/HT204904
 Command-R: When you press and hold these two keys at startup, macOS Recovery will offer the current version of the most recently installed macOS.
@@ -2898,12 +2895,12 @@ docker desktop on macos
     docker-credential-osxkeychain
     use ln -sf /Applications/Docker.app/Contents/Resources/bin/xxx /usr/local/bin/xxx command to create a symbolic link for the missing file, xxx is the file not in /usr/local/bin/
 
-macmacmacmac
-macmacmacmac
+macmacmacmacmacmacmacmacmacmacmacmacmacmacmacmacmacmacmacmac
+macmacmacmacmacmacmacmacmacmacmacmacmacmacmacmacmacmacmacmac
 
 
-FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 
 Fedora fedora
 
@@ -2924,130 +2921,130 @@ show date @ menu panel dconf-editor
 	Enable/Tick/Check the "show-date".
 
 systemctl systemd
-    systemctl list-unit-files --type=service
-    systemctl list-unit-files --type=service --state=enabled --all
-    systemctl -at service 
-        ls /lib/systemd/system/*.service; ls /etc/systemd/system/*.service
+	systemctl list-unit-files --type=service
+	systemctl list-unit-files --type=service --state=enabled --all
+	systemctl -at service 
+	    ls /lib/systemd/system/*.service; ls /etc/systemd/system/*.service
 
-    systemctl list-unit-files | grep enabled
-    systemctl | grep running
-    systemctl -t service --state=active
+	systemctl list-unit-files | grep enabled
+	systemctl | grep running
+	systemctl -t service --state=active
 
 check system boot
 	systemd-analyze
 	systemd-analyze blame
 
 
-FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
 
-archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
-archarcharcharcharcharcharcharcharcharcharcharcharcharcharcharch
+archarcharcharcharcharcharcharcharcharcharcharcharcharcharch
+archarcharcharcharcharcharcharcharcharcharcharcharcharcharch
 
 ## wireless enablement
-wifi-menu -o
-iwctl station list
+	wifi-menu -o
+	iwctl station list
 
 ## post-install general packages for hyprland
 
 ## util / util
-  fastfetch firefox chromium base-devel git github-cli linux-headers \
-  reflector bash-completion firewalld unzip rsync less qbittorrent \
-  thunar tumbler gvfs
+	fastfetch firefox chromium base-devel git github-cli linux-headers \
+	reflector bash-completion firewalld unzip rsync less qbittorrent \
+	thunar tumbler gvfs
 
 ## encryption
-  veracrypt cryptsetup gnupg sshuttle
+	veracrypt cryptsetup gnupg sshuttle
 
 ## dev
-  nvim meld python-pynvim python-lsp-server python-black python-isort ruff \
-  jre-openjdk graphviz nodejs npm 
+	nvim meld python-pynvim python-lsp-server python-black python-isort ruff \
+	jre-openjdk graphviz nodejs npm 
 
 ## android 
-  android-tools android-udev scrcpy
+	android-tools android-udev scrcpy
 
 ## fonts
-  ttf-jetbrains-mono-nerd noto-fonts-cjk noto-fonts-emoji 
+	ttf-jetbrains-mono-nerd noto-fonts-cjk noto-fonts-emoji 
 
 ## theme
-  nwg-look adw-gtk-theme kvantum # optional
-  tumbler gvfs
+	nwg-look adw-gtk-theme kvantum # optional
+	tumbler gvfs
 
 ## multi media
-  vlc vlc-plugins-all obs-studio \
-  pavucontrol alsa-utils pipewire-alsa      # audio util
-  mesa-utils    # glxinfo
+	vlc vlc-plugins-all obs-studio \
+	pavucontrol alsa-utils pipewire-alsa      # audio util
+	mesa-utils    # glxinfo
 
 ## graphic proc
-  gimp geeqie darktable imagemagick
+	gimp geeqie darktable imagemagick
 
 ## chn input 
-  fcitx5-im fcitx5-chinese-addons qt6ct
+	fcitx5-im fcitx5-chinese-addons qt6ct
 
 ## hyprland de
-  xdg-desktop-portal xdg-desktop-portal-gtk ripgrep fd \
-  hyprlock hyprsunset hyprshot hypridle hyprcursor hyprutils hyprgraphics \
-  wf-recorder wl-clipboard grim slurp waybar wofi
+	xdg-desktop-portal xdg-desktop-portal-gtk ripgrep fd \
+	hyprlock hyprsunset hyprshot hypridle hyprcursor hyprutils hyprgraphics \
+	wf-recorder wl-clipboard grim slurp waybar wofi
 
 ## nvidia / gpu
-  nvidia-utils nvidia-dkms nvidia-utils nvidia-settings libva-nvidia-driver nvtop
+	nvidia-utils nvidia-dkms nvidia-utils nvidia-settings libva-nvidia-driver nvtop
 
 ## amd gpu / amdgpu
-  rocminfo amdgpu_top
+	rocminfo amdgpu_top
 
 
 
 ## prioritize workload on egpu for amdgpu on gpd gamepad win4, when egpu attached
 
-    # Create a dedicated directory for your GPU aliases
-    mkdir -p ~/.config/hypr/cards
-    
-    # Link the External eGPU (Navi 33) to a clean path
-    ln -s /dev/dri/by-path/pci-0000:03:00.0-card ~/.config/hypr/cards/egpu
-    
-    # Link the Internal iGPU (Phoenix1) to a clean path
-    ln -s /dev/dri/by-path/pci-0000:66:00.0-card ~/.config/hypr/cards/igpu
+	# Create a dedicated directory for your GPU aliases
+	mkdir -p ~/.config/hypr/cards
+	
+	# Link the External eGPU (Navi 33) to a clean path
+	ln -s /dev/dri/by-path/pci-0000:03:00.0-card ~/.config/hypr/cards/egpu
+	
+	# Link the Internal iGPU (Phoenix1) to a clean path
+	ln -s /dev/dri/by-path/pci-0000:66:00.0-card ~/.config/hypr/cards/igpu
 
-    # add into ~/.bash_profile
-    export AQ_DRM_DEVICES="$HOME/.config/hypr/cards/egpu:$HOME/.config/hypr/cards/igpu"
+	# add into ~/.bash_profile
+	export AQ_DRM_DEVICES="$HOME/.config/hypr/cards/egpu:$HOME/.config/hypr/cards/igpu"
 
-    # verify
-    $ glxinfo | grep -E "OpenGL vendor|OpenGL renderer"
-    OpenGL vendor string: AMD
-    OpenGL renderer string: AMD Radeon RX 7600M XT (radeonsi, navi33, ACO, DRM 3.64, 7.1.5-arch1-2)
+	# verify
+	$ glxinfo | grep -E "OpenGL vendor|OpenGL renderer"
+	OpenGL vendor string: AMD
+	OpenGL renderer string: AMD Radeon RX 7600M XT (radeonsi, navi33, ACO, DRM 3.64, 7.1.5-arch1-2)
 
 
 
 ## kde packages to remove | REMOVE | Remove
-  File Manager: dolphin
+	File Manager: dolphin
 
-  KDE Core Frameworks: kio, kio-extras, karchive, kbookmarks, kcmutils, kcodecs, kcolorscheme, kcompletion, kconfigwidgets, kservice, ktextwidgets, kxmlgui, kparts, kpackage, kjobwidgets, kiconthemes, kguiaddons, kglobalaccel, kfilemetadata, kidletime, kdnssd, knewstuff, kuserfeedback
+	KDE Core Frameworks: kio, kio-extras, karchive, kbookmarks, kcmutils, kcodecs, kcolorscheme, kcompletion, kconfigwidgets, kservice, ktextwidgets, kxmlgui, kparts, kpackage, kjobwidgets, kiconthemes, kguiaddons, kglobalaccel, kfilemetadata, kidletime, kdnssd, knewstuff, kuserfeedback
 
-  KDE System Services: baloo (file indexing), baloo-widgets, kwallet (secret storage), plasma-activities
+	KDE System Services: baloo (file indexing), baloo-widgets, kwallet (secret storage), plasma-activities
 
-  Qt6 Supporting Libraries: qt6-5compat, qt6-multimedia, qt6-multimedia-ffmpeg, qt6-shadertools, qt6-speech, poppler-qt6, qca-qt6Helper 
+	Qt6 Supporting Libraries: qt6-5compat, qt6-multimedia, qt6-multimedia-ffmpeg, qt6-shadertools, qt6-speech, poppler-qt6, qca-qt6Helper 
 
-  Tools & Utilities: attica, breeze-icons, convertlit, ebook-tools, kdsoap, kdsoap-ws-discovery-client, libkexiv2, media-player-info, ripgrep-all, solid, sonnet, syndication, polkit-kde-agent
+	Tools & Utilities: attica, breeze-icons, convertlit, ebook-tools, kdsoap, kdsoap-ws-discovery-client, libkexiv2, media-player-info, ripgrep-all, solid, sonnet, syndication, polkit-kde-agent
 
 ## legacy ati driver to remove
-  xf86-video-ati
-  
+	xf86-video-ati
+	
 
 
 ## gnome + gdm
-  gdm gnome-shell gnome-desktop gnome-extra gnome-tweak-tool \
-  gnome-backgrounds gnome-disk-utility gnome-control-center gnome-screenshot 
+	gdm gnome-shell gnome-desktop gnome-extra gnome-tweak-tool \
+	gnome-backgrounds gnome-disk-utility gnome-control-center gnome-screenshot 
 
 ## manjaro/ arch noto-fonts-cjk/ noto fonts
-    https://wiki.archlinux.org/title/Localization/Simplified_Chinese
+	https://wiki.archlinux.org/title/Localization/Simplified_Chinese
 
 ## xauth XAuthority
-    xauth add :0 . `mcookie`; xauth list 
-    export DISPLAY=:0
+	xauth add :0 . `mcookie`; xauth list 
+	export DISPLAY=:0
 
 ## office
-  qpdf 
-  masterpdfeditor-free  # yay
-  libreoffice-still libreoffice-still-zh-CN libreoffice-still-zh-TW
+	qpdf 
+	masterpdfeditor-free  # yay
+	libreoffice-still libreoffice-still-zh-CN libreoffice-still-zh-TW
 
 journal
 	journalctl -b -1 -n 100
@@ -3060,13 +3057,13 @@ ipad - mount ipad
 	fusermount -u ~/iPad	#umount
 
 audio/ sound output set default, sink
-    wpctl status; wpctl set-default [id]
-    pactl get-default-sink; pactl set-default-sink <ID>
+	wpctl status; wpctl set-default [id]
+	pactl get-default-sink; pactl set-default-sink <ID>
 
 
 ## update mirrors
-    sudo pacman-mirrors -i -c [country] -m rank
-    sudo reflector -c JP -l 10 -p https --save /etc/pacman.d/mirrorlist
+	sudo pacman-mirrors -i -c [country] -m rank
+	sudo reflector -c JP -l 10 -p https --save /etc/pacman.d/mirrorlist
 
 key refresh
 	sudo pacman-key --init
@@ -3077,83 +3074,83 @@ key refresh
 
 ## pacman pacman
 # pacman performance optimizer perf
-  sudo packman -Sc && sudo pacman-optimize && sudo pacman -Syu
-  
+	sudo packman -Sc && sudo pacman-optimize && sudo pacman -Syu
+	
 # pacman - list unused - package management
-  pacman -Qdttq
-  
+	pacman -Qdttq
+	
 # list unused
-  pacman -Qqe | grep -v "$(awk '{print $1}' /desktopfs-pkgs.txt)"
+	pacman -Qqe | grep -v "$(awk '{print $1}' /desktopfs-pkgs.txt)"
 
- list installed but not from base and base-devel
+	list installed but not from base and base-devel
 	pacman -Qei | awk '/^Name/ { name=$3 } /^Groups/ { if ( $3 != "base" && $3 != "base-devel" ) { print name } }'
 
 pacman - remove unused
-    yay -Yc `pacman -Qdt`   # remove dependencies as well
-    pacman -Qqd | pacman -Rsu -
-    pacman -Qtdq | pacman -Rns -
-    pacman -Qtdq | sudo pacman -Rns -
+	yay -Yc `pacman -Qdt`   # remove dependencies as well
+	pacman -Qqd | pacman -Rsu -
+	pacman -Qtdq | pacman -Rns -
+	pacman -Qtdq | sudo pacman -Rns -
 
 pacman - remove /var/cache/pacman/pkg
 	pacman -Sc
 	pacman -Scc
 
 # list explicitly installed packages not required by others 
-  pacman -Qet 
+	pacman -Qet 
 # include foreign packages 
-  pacman -Qmet
+	pacman -Qmet
 
 pacman - list installed from official repo
 	sudo pacman -Qen
-       - list installed from unofficial repo
+	- list installed from unofficial repo
 	sudo pacman -Qem
 
-    # figure out a file being owned by which package
+	# figure out a file being owned by which package
 	pacman -Qo /usr/lib/libappindicator3.so.1.0.0
 
 pacman - find the specific package installed
-    pacman -Qi wireless-regdb | grep "Version"
+	pacman -Qi wireless-regdb | grep "Version"
 
 pacman - install specific version package
-    pacman -S package=1.2.3-1
+	pacman -S package=1.2.3-1
 
 pkgbuild install package from pkgbuild
 	git clone [package].git
 	makepkg -si
 
 yay - remove clean cleanup
-    yay -Sc
-    yay -Scc    # clear cache
-    sudo pacman -Rsu $(pacman -Qdtq)    # rm orphaned dependencies
-    rm ~/.cache/yay/<package_name>
+	yay -Sc
+	yay -Scc    # clear cache
+	sudo pacman -Rsu $(pacman -Qdtq)    # rm orphaned dependencies
+	rm ~/.cache/yay/<package_name>
 
 
 
 # check log by yay installation
-  [jeff@gpd ~/ ]$ grep -E "installed" /var/log/pacman.log | tail -n 30
-  [2026-07-17T20:57:46+0800] [ALPM] installed hipblas (7.2.4-1)
-  [2026-07-17T20:57:54+0800] [ALPM] installed ollama-rocm (0.32.1-1)
-  [2026-07-18T16:19:24+0800] [ALPM] installed radeontop (1.4-3)
-  [2026-07-18T16:30:03+0800] [ALPM] installed mesa-utils (9.0.0-7)
-  [2026-07-24T09:54:44+0800] [ALPM] installed patchelf (0.19.1-1)
-  [2026-07-24T09:57:48+0800] [ALPM] installed patchelf (0.19.1-1)
-  [2026-07-24T09:58:12+0800] [ALPM] installed wemeet-bin (3.26.10.401-2)
-  
+	[jeff@gpd ~/ ]$ grep -E "installed" /var/log/pacman.log | tail -n 30
+	[2026-07-17T20:57:46+0800] [ALPM] installed hipblas (7.2.4-1)
+	[2026-07-17T20:57:54+0800] [ALPM] installed ollama-rocm (0.32.1-1)
+	[2026-07-18T16:19:24+0800] [ALPM] installed radeontop (1.4-3)
+	[2026-07-18T16:30:03+0800] [ALPM] installed mesa-utils (9.0.0-7)
+	[2026-07-24T09:54:44+0800] [ALPM] installed patchelf (0.19.1-1)
+	[2026-07-24T09:57:48+0800] [ALPM] installed patchelf (0.19.1-1)
+	[2026-07-24T09:58:12+0800] [ALPM] installed wemeet-bin (3.26.10.401-2)
+	
 # check dependencies
-  [jeff@gpd ~/ ]$ pacman -Qi wemeet-bin | grep -E "Depends On|Required By"
-  Depends On      : bash  qt5-x11extras  libxinerama  libpulse  gcc-libs  qt5-declarative  libglvnd  libxfixes  alsa-lib  openssl  libxrandr  libxext  libx11  hicolor-icon-theme  glibc  zlib  libxcomposite  qt5-base  systemd-libs  libxdamage  qt5-svg  libyuv
-  Required By     : None
-  [jeff@gpd ~/ ]$ 
+	[jeff@gpd ~/ ]$ pacman -Qi wemeet-bin | grep -E "Depends On|Required By"
+	Depends On      : bash  qt5-x11extras  libxinerama  libpulse  gcc-libs  qt5-declarative  libglvnd  libxfixes  alsa-lib  openssl  libxrandr  libxext  libx11  hicolor-icon-theme  glibc  zlib  libxcomposite  qt5-base  systemd-libs  libxdamage  qt5-svg  libyuv
+	Required By     : None
+	[jeff@gpd ~/ ]$ 
 
 
 
 inxi - command line system info
-    inxi -Fza | grep -i network
-    inxi -Nazy                                                        
+	inxi -Fza | grep -i network
+	inxi -Nazy                                                        
 Network:
-  Device-1: MEDIATEK MT7922 802.11ax PCI Express Wireless Network Adapter
-    vendor: Foxconn driver: mt7921e v: kernel pcie: gen: 2 speed: 5 GT/s lanes: 1
-    bus-ID: 02:00.0 chip-ID: 14c3:0616 class-ID: 0280
+	Device-1: MEDIATEK MT7922 802.11ax PCI Express Wireless Network Adapter
+	vendor: Foxconn driver: mt7921e v: kernel pcie: gen: 2 speed: 5 GT/s lanes: 1
+	bus-ID: 02:00.0 chip-ID: 14c3:0616 class-ID: 0280
 
 
 font setfont terminal font size | terminal font
@@ -3196,117 +3193,117 @@ temperature
 	cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
 	sudo cat /sys/devices/system/cpu/cpu{0..3}/cpufreq/cpuinfo_cur_freq
 
-archarcharcharcharcharcharcharcharcharcharcharcharcharch
-archarcharcharcharcharcharcharcharcharcharcharcharcharch
+archarcharcharcharcharcharcharcharcharcharcharcharcharcharch
+archarcharcharcharcharcharcharcharcharcharcharcharcharcharch
 
 
 steam / dcs 
-    # custom mission location
-    ~/.local/share/Steam/steamapps/compatdata/223750/pfx/drive_c/users/steamuser/Saved Games/DCS/Missions
+	# custom mission location
+	~/.local/share/Steam/steamapps/compatdata/223750/pfx/drive_c/users/steamuser/Saved Games/DCS/Missions
 
-    # clickable setting 
-    ./DCSWorld/Mods/aircraft/TF-51D/Cockpit/Scripts/clickabledata.lua
-    ./DCSWorld/Mods/aircraft/Yak-52/Cockpit/Scripts/clickabledata.lua
-
-
-cachyoscachyoscachyoscachyos
-cachyoscachyoscachyoscachyos
-
-    pacman -Rns micro cachyos-micro-settings shelly gnome-text-editor
-
-cachyoscachyoscachyoscachyos
-cachyoscachyoscachyoscachyos
+	# clickable setting 
+	./DCSWorld/Mods/aircraft/TF-51D/Cockpit/Scripts/clickabledata.lua
+	./DCSWorld/Mods/aircraft/Yak-52/Cockpit/Scripts/clickabledata.lua
 
 
-hyprlandhyprlandhyprlandhyprland
-hyprlandhyprlandhyprlandhyprland
+cachyoscachyoscachyoscachyoscachyoscachyoscachyoscachyoscach
+cachyoscachyoscachyoscachyoscachyoscachyoscachyoscachyoscach
+
+	pacman -Rns micro cachyos-micro-settings shelly gnome-text-editor
+
+cachyoscachyoscachyoscachyoscachyoscachyoscachyoscachyoscach
+cachyoscachyoscachyoscachyoscachyoscachyoscachyoscachyoscach
+
+
+hyprlandhyprlandhyprlandhyprlandhyprlandhyprlandhyprlandhypr
+hyprlandhyprlandhyprlandhyprlandhyprlandhyprlandhyprlandhypr
 
 # edit ~/.config/hypr/hyprland.conf
-    # Fcitx5 for input method support
-    env = XMODIFIERS,@im=fcitx
-    env = QT_IM_MODULE,fcitx
-    env = GTK_IM_MODULE,fcitx
-    # Autostart the Fcitx5 daemon
-    exec-once = fcitx5 -d
+	# Fcitx5 for input method support
+	env = XMODIFIERS,@im=fcitx
+	env = QT_IM_MODULE,fcitx
+	env = GTK_IM_MODULE,fcitx
+	# Autostart the Fcitx5 daemon
+	exec-once = fcitx5 -d
 
 # steps
-    fcitx5-configtool > add an input method > "only Show Current Language" off > search "pinyin" > 
-    select Pinyin under Simplified Chinese
+	fcitx5-configtool > add an input method > "only Show Current Language" off > search "pinyin" > 
+	select Pinyin under Simplified Chinese
 
 # fonts > https://wiki.archlinux.org/title/Localization/Simplified_Chinese  # 64-language-selector-prefer.conf
 
-    pacman -S ttf-liberation noto-fonts noto-fonts-cjk ttf-noto-nerd
-    fc-cache -fv
+	pacman -S ttf-liberation noto-fonts noto-fonts-cjk ttf-noto-nerd
+	fc-cache -fv
 
-    cat /etc/fonts/conf.d/64-language-selector-prefer.conf 
-    <?xml version="1.0"?>
-    <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
-    <fontconfig>
-      <alias>
-        <family>sans-serif</family>
-        <prefer>
-          <family>Noto Sans CJK SC</family>
-          <family>Noto Sans CJK TC</family>
-          <family>Noto Sans CJK JP</family>
-          <family>Noto Sans CJK KR</family>
-          <!-- Add other fonts here for non-CJK text, e.g., your primary Latin font -->
-        </prefer>
-      </alias>
-      <alias>
-        <family>monospace</family>
-        <prefer>
-          <family>Noto Sans Mono CJK SC</family>
-          <family>Noto Sans Mono CJK TC</family>
-          <family>Noto Sans Mono CJK JP</family>
-          <family>Noto Sans Mono CJK KR</family>
-          <!-- Add other fonts here for non-CJK text, e.g., your primary terminal font -->
-        </prefer>
-      </alias>
-    </fontconfig>
+	cat /etc/fonts/conf.d/64-language-selector-prefer.conf 
+	<?xml version="1.0"?>
+	<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+	<fontconfig>
+	  <alias>
+	    <family>sans-serif</family>
+	    <prefer>
+	      <family>Noto Sans CJK SC</family>
+	      <family>Noto Sans CJK TC</family>
+	      <family>Noto Sans CJK JP</family>
+	      <family>Noto Sans CJK KR</family>
+	      <!-- Add other fonts here for non-CJK text, e.g., your primary Latin font -->
+	    </prefer>
+	  </alias>
+	  <alias>
+	    <family>monospace</family>
+	    <prefer>
+	      <family>Noto Sans Mono CJK SC</family>
+	      <family>Noto Sans Mono CJK TC</family>
+	      <family>Noto Sans Mono CJK JP</family>
+	      <family>Noto Sans Mono CJK KR</family>
+	      <!-- Add other fonts here for non-CJK text, e.g., your primary terminal font -->
+	    </prefer>
+	  </alias>
+	</fontconfig>
 # fonts
 
 
 # enable dark mode > nwg-look
 
 # disable laptop display with extend monitor attached
-    hyprctl monitors all    # list all avail monitors
-    hyprctl keyword monitor "eDP-1,disable"     # while "eDP-1"= laptop monitor id
-    hyprctl eval 'hl.monitor({ output = "eDP-1", disabled = true })'
+	hyprctl monitors all    # list all avail monitors
+	hyprctl keyword monitor "eDP-1,disable"     # while "eDP-1"= laptop monitor id
+	hyprctl eval 'hl.monitor({ output = "eDP-1", disabled = true })'
 
 # screenshot with corsair k65 keyboard
-    sudo pacman -S grim slurp hyprshot  # hyprshot depends on the former 2
+	sudo pacman -S grim slurp hyprshot  # hyprshot depends on the former 2
 
 # copy/ paste screenshot with slurp 
-    grim -g "$(slurp)" - | wl-copy -t image/png
-    grim -g "$(slurp)" - | wl-copy
+	grim -g "$(slurp)" - | wl-copy -t image/png
+	grim -g "$(slurp)" - | wl-copy
 
 # copy qr code and read img 
-    grim -g "$(slurp)" - | zbarimg -q --raw -
+	grim -g "$(slurp)" - | zbarimg -q --raw -
 
 # hyprsunset 
-    alias sunset='pkill hyprsunset; hyprsunset > /dev/null 2>&1 &'
+	alias sunset='pkill hyprsunset; hyprsunset > /dev/null 2>&1 &'
 
 
 # find out product info 
-    cat /sys/devices/virtual/dmi/id/sys_vendor
-    cat /sys/devices/virtual/dmi/id/product_name
+	cat /sys/devices/virtual/dmi/id/sys_vendor
+	cat /sys/devices/virtual/dmi/id/product_name
 
-hyprlandhyprlandhyprlandhyprland
-hyprlandhyprlandhyprlandhyprland
+hyprlandhyprlandhyprlandhyprlandhyprlandhyprlandhyprlandhypr
+hyprlandhyprlandhyprlandhyprlandhyprlandhyprlandhyprlandhypr
 
 
-nodejsnodejsnodejsnodejsnodejsnodejsnodejs
+nodejsnodejsnodejsnodejsnodejsnodejsnodejsnodejsnodejsnodejs
 
 # npm behind proxy
-  npm config set proxy http://10.10.10.1:3128
+	npm config set proxy http://10.10.10.1:3128
 
 # set registry
-  sudo npm install cnpm -g --registry=https://registry.npm.SOMEWHERE.org
-  npm config set registry http://r.cnpmjs.org
-  npm config list
+	sudo npm install cnpm -g --registry=https://registry.npm.SOMEWHERE.org
+	npm config set registry http://r.cnpmjs.org
+	npm config list
 
 # install npm component for atom
-  npm install phantomjs
+	npm install phantomjs
 
 	sudo npm install -g gitbook-cli gitbook-pdf svgexport markdown-toc
 	gitbook serve; gitbook pdf <DIR>
@@ -3322,67 +3319,67 @@ sudo -v && wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/mas
 	npm install apidoc -g
 	# apidoc ~/
 
-  # apm behind proxt
-  apm config set https-proxy=https://proxy:3128
-  apm config list
+	# apm behind proxt
+	apm config set https-proxy=https://proxy:3128
+	apm config list
 
-nodejsnodejsnodejsnodejsnodejsnodejsnodejs
+nodejsnodejsnodejsnodejsnodejsnodejsnodejsnodejsnodejsnodejs
 
-markdownmarkdown
+markdownmarkdownmarkdownmarkdownmarkdownmarkdownmarkdownmark
 	# pandoc converter from markdown to word (https://mrjoe.uk/convert-markdown-to-word-document/)
-  	pandoc -o output.docx -f markdown -t docx filename.md
+	pandoc -o output.docx -f markdown -t docx filename.md
 
-  	# r = read format, w = write format
-  	pandoc -r markdown -w html -o *yourfilename*.html *yourfilename*.md
-    pandoc -r markdown -w odt -o pandoctemplate.odt *yourfilename*.md
-    pandoc -r markdown -o *yourfilename*.pdf *yourfilename*.MODE="0666"
+	# r = read format, w = write format
+	pandoc -r markdown -w html -o *yourfilename*.html *yourfilename*.md
+	pandoc -r markdown -w odt -o pandoctemplate.odt *yourfilename*.md
+	pandoc -r markdown -o *yourfilename*.pdf *yourfilename*.MODE="0666"
 
-    # pre-req on Debian
-    apt install pandoc texlive texlive-plain-generic texlive-latex-recommended texlive-latex-extra
+	# pre-req on Debian
+	apt install pandoc texlive texlive-plain-generic texlive-latex-recommended texlive-latex-extra
 
-gitgitgitgit
+gitgitgitgitgitgitgitgitgitgitgitgitgitgitgitgitgitgitgitgit
 
-^^^
-    # clean/ remove "Untracked files"
-    mac:k8sdeploy_clusters_apac jeff$ git status
-    On branch tdg
-    Your branch is up to date with 'origin/tdg'.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	# clean/ remove "Untracked files"
+	mac:k8sdeploy_clusters_apac jeff$ git status
+	On branch tdg
+	Your branch is up to date with 'origin/tdg'.
 
-    Untracked files:
-    (use "git add <file>..." to include in what will be committed)
-    stp/
+	Untracked files:
+	(use "git add <file>..." to include in what will be committed)
+	stp/
 
-    nothing added to commit but untracked files present (use "git add" to track)
-    mac:k8sdeploy_clusters_apac jeff$ git clean -d -f -f  # double force-delete a subdir which contains another branch
+	nothing added to commit but untracked files present (use "git add" to track)
+	mac:k8sdeploy_clusters_apac jeff$ git clean -d -f -f  # double force-delete a subdir which contains another branch
 
-    Removing stp/
-    mac:k8sdeploy_clusters_apac jeff$ git status
-    On branch tdg
-    Your branch is up to date with 'origin/tdg'.
+	Removing stp/
+	mac:k8sdeploy_clusters_apac jeff$ git status
+	On branch tdg
+	Your branch is up to date with 'origin/tdg'.
 
-    nothing to commit, working tree clean
-vvv
+	nothing to commit, working tree clean
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
-^^^
-    # clone a specific subdir in a repo
-    git init <repo>
-    cd <repo>; git remote -v
-    git remote add -f origin <url>
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	# clone a specific subdir in a repo
+	git init <repo>
+	cd <repo>; git remote -v
+	git remote add -f origin <url>
 
-    git config core.sparseCheckout true
+	git config core.sparseCheckout true
 
-    echo "some/dir/" >> .git/info/sparse-checkout
-    echo "another/sub/tree" >> .git/info/sparse-checkout
+	echo "some/dir/" >> .git/info/sparse-checkout
+	echo "another/sub/tree" >> .git/info/sparse-checkout
 
-    git pull origin master
-    # ref > https://askubuntu.com/questions/460885/how-to-clone-only-some-directories-from-a-git-repository
-vvv
+	git pull origin master
+	# ref > https://askubuntu.com/questions/460885/how-to-clone-only-some-directories-from-a-git-repository
+vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
-    # autocomplete auto-complete
-    # eval $(curl -s  https://raw.github.com/git/git/master/contrib/completion/git-completion.bash)
-    curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
-    chmod u+x ~/.git-completion.bash
-    edit ~/.bash_profile > add
+	# autocomplete auto-complete
+	# eval $(curl -s  https://raw.github.com/git/git/master/contrib/completion/git-completion.bash)
+	curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+	chmod u+x ~/.git-completion.bash
+	edit ~/.bash_profile > add
 	if [ -f ~/.git-completion.bash ]; then
 	. ~/.git-completion.bash
 	fi
@@ -3480,45 +3477,45 @@ vvv
 	> ref > https://stackoverflow.com/questions/11542687/git-how-to-ignore-all-present-untracked-files
 
 
-pythonpythonpython
+pythonpythonpythonpythonpythonpythonpythonpythonpythonpython
 
-  # install pip3
-  wget https://bootstrap.pypa.io/get-pip.py
-  sudo python3 get-pip.py
+	# install pip3
+	wget https://bootstrap.pypa.io/get-pip.py
+	sudo python3 get-pip.py
 
-  # pip behind proxy
-  pip3 --proxy http://10.10.10.1:3128 install tensor
+	# pip behind proxy
+	pip3 --proxy http://10.10.10.1:3128 install tensor
 
-  # pip3 install
-  torch tensor tensorflow tensorboard keras matplotlib pandas xlrd
+	# pip3 install
+	torch tensor tensorflow tensorboard keras matplotlib pandas xlrd
 
-  # detect errors
-  pip3 install flake8 flake8-docstrings
-  apm install linter-flake8
+	# detect errors
+	pip3 install flake8 flake8-docstrings
+	apm install linter-flake8
 
-  # install tkinter
-  apt install python3-tk
+	# install tkinter
+	apt install python3-tk
 
-  # check site-packages
-  python3 -c "import site; print(site.getsitepackages())"
+	# check site-packages
+	python3 -c "import site; print(site.getsitepackages())"
 
-  # list packages installed by pip3
-  pip3 list
+	# list packages installed by pip3
+	pip3 list
 
-  # pip repo in local
-  pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+	# pip repo in local
+	pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
 
-  A little bit of theory:
-  Objects are a representation of real world objects like cars, dogs, or bikes. The objects share two main characteristics: data and behavior.
+A little bit of theory:
+Objects are a representation of real world objects like cars, dogs, or bikes. The objects share two main characteristics: data and behavior.
 
-  Cars have data, like number of wheels, number of doors, and seating capacity They also exhibit behavior: they can accelerate, stop, show how much fuel is left, and so many other things.
+Cars have data, like number of wheels, number of doors, and seating capacity They also exhibit behavior: they can accelerate, stop, show how much fuel is left, and so many other things.
 
-  We identify data as attributes and behavior as methods in object-oriented programming. Again:
+We identify data as attributes and behavior as methods in object-oriented programming. Again:
 
-  Data → Attributes and Behavior → Methods
+Data → Attributes and Behavior → Methods
 
-  And a Class is the blueprint from which individual objects are created. In the real world, we often find many objects with the same type. Like cars. All the same make and model (and all have an engine, wheels, doors, and so on). Each car was built from the same set of blueprints and has the same components.
+And a Class is the blueprint from which individual objects are created. In the real world, we often find many objects with the same type. Like cars. All the same make and model (and all have an engine, wheels, doors, and so on). Each car was built from the same set of blueprints and has the same components.
 
 # random string
 
@@ -3537,13 +3534,13 @@ pythonpythonpython
 
 
 conda miniconda
-    # auto-complete autocompletion
-    conda install -c conda-forge conda-bash-completion
+	# auto-complete autocompletion
+	conda install -c conda-forge conda-bash-completion
 
-pythonpythonpython
+pythonpythonpythonpythonpythonpythonpythonpythonpythonpython
 
 
-HSLTHSLTHSLTHSLT
+HSLTHSLTHSLTHSLTHSLTHSLTHSLTHSLTHSLTHSLTHSLTHSLTHSLTHSLTHSLT
 	scp -r -p o StrictHostKeyChecking=no jeffyang@bejgsa.ibm.com:/gsa/bejgsa/projects/h/hslt/build/image/HSLT_dev/$BUILDNAME /home/jeff/Downloads/scratch/hslt/build/latest/
 
 	ssh -L 9.123.127.201:33090:10.10.3.38:33090 10.10.3.38
@@ -3567,20 +3564,20 @@ HSLTHSLTHSLTHSLT
 	#Restart ruby on Storage-1/2
 	/iaas/storage_bots/rubybots/re-run.sh
 
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 home appliance setting
 
 Philips bluray region free setting
 	no disc in tray > Press Home > Scroll to settings > 13893108520
 
-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Tenda router configuration
 192.168.2.1 / admin:admin
 
-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 tp-link wr703n hack
 	power down > power up > hit "Reset" pin when seeing indicator blinks immediately >
@@ -3631,7 +3628,7 @@ tp-link wr703n hack
 	    option encryption wep+shared
 	    option key 'WEP PASSWORD FOR OUR EXISTING WIFI NETWORK'
 
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 virtualbox sun VirtualBox bluescreen
 
@@ -3639,20 +3636,20 @@ virtualbox sun VirtualBox bluescreen
 	And changing the Start value to 4
 
 install on debian # https://www.linuxbabe.com/debian/install-virtualbox-debian-9-stretch
-  # add source into /etc/apt/sources.list
-  deb http://ftp.debian.org/debian stretch-backports main contrib
+	# add source into /etc/apt/sources.list
+	deb http://ftp.debian.org/debian stretch-backports main contrib
 
-  # then install
-  apt install -t stretch-backports virtualbox
+	# then install
+	apt install -t stretch-backports virtualbox
 
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 android termux
 
-    termux-setup-storage    # create storage PATH:
+	termux-setup-storage    # create storage PATH:
 
-    # login
-    ssh u0@ip:8022
+	# login
+	ssh u0@ip:8022
 
 .　　　　 ＿＿＿
 　　　  ／＞ 　フ
