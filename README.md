@@ -3283,6 +3283,18 @@ hyprlandhyprlandhyprlandhyprlandhyprlandhyprlandhyprlandhypr
 # hyprsunset 
 	alias sunset='pkill hyprsunset; hyprsunset > /dev/null 2>&1 &'
 
+# cursor missing from screen share (Google Meet / wemeet)
+	# Hyprland draws the cursor itself instead of leaving it to the DRM plane, so the shared surface contains it
+	hl.config({ cursor = { no_hardware_cursors = true } })
+	hyprctl getoption cursor:no_hardware_cursors    # int: 1, set: true
+
+# dark mode is not cursor theme
+	# dark mode = color-scheme + widget theme; the cursor theme is only the pointer bitmap
+	gsettings get org.gnome.desktop.interface color-scheme     # 'prefer-dark'
+	gsettings get org.gnome.desktop.interface cursor-theme     # 'Adwaita'
+	cat /usr/share/icons/default/index.theme                   # default-cursors -> Inherits=Adwaita
+	# Adwaita ships no dark cursor variant; a dark pointer needs another theme package
+
 
 # find out product info 
 	cat /sys/devices/virtual/dmi/id/sys_vendor
