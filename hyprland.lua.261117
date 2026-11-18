@@ -42,7 +42,7 @@ local menu        = "hyprlauncher"
 -- Autostart necessary processes (like notifications daemons, status bars, etc.)
 -- Or execute your favorite apps at launch like this:
 --
--- hl.on("hyprland.start", function () 
+-- hl.on("hyprland.start", function ()
 --   hl.exec_cmd(terminal)
 --   hl.exec_cmd("nm-applet")
 --   hl.exec_cmd("waybar & hyprpaper & firefox")
@@ -196,6 +196,9 @@ hl.config({
 hl.config({
     scrolling = {
         fullscreen_on_one_column = true,
+
+        -- When moving focus away from a fullscreen window, Hyprland by default focuses the next monitor. To move the tape instead,
+        -- like niri, see https://wiki.hypr.land/configuring/layouts/scrolling-layout/#layout-handled-fullscreen
     },
 })
 
@@ -207,6 +210,17 @@ hl.config({
     misc = {
         force_default_wallpaper = -1,    -- Set to 0 or 1 to disable the anime mascot wallpapers
         disable_hyprland_logo   = false, -- If true disables the random hyprland logo / anime girl background. :(
+    },
+})
+
+
+----------------
+---- LAYERS ----
+----------------
+
+hl.config({
+    layers = {
+        allow_new_top_layers_over_existing_fullscreen = true, -- Set to false to make newly mapped top layers render below existing covering fullscreen window
     },
 })
 
